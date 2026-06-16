@@ -1,0 +1,155 @@
+#pragma require "openrobots2-idl >= 2.0"
+
+#include "bayes_struct.idl"
+
+/* ---------- COMPONENT DECLARATIONS ---------- */
+
+component bayes_opt {
+  version "0.8";
+  lang "c";
+  require "genom3 >= 2.99.26";
+
+  exception e_sys { short code; string<128> what; };
+
+  exception INVALID_BOUNDS;
+  exception INVALID_PARAMETER;
+  exception OPTIMIZATION_FAILED;
+  exception EVALUATION_FAILED;
+  exception NO_SCORE_AVAILABLE;
+
+  /* ---------------- IDS STATE ---------------- */
+
+  ids {
+    bayes_opt::state state;
+  };
+
+
+  /* ---------------- PORTS ---------------- */
+
+  port in bayes_opt::result_t result;
+  port in bayes_opt::allow_t allow;
+
+  port out bayes_opt::param_array params;
+  port out bayes_opt::best_param_array best_params;
+  port out bayes_opt::best_value_t best_value;
+  port out bayes_opt::status_array status;
+
+
+  /* ---------------- TASK ---------------- */
+
+  task optimize {
+
+    doc "Bayesian optimization loop";
+
+    codel<start> init(inout state)
+      yield wait_result;
+
+    codel<wait_result> wait_result(in result, in allow, inout state)
+      yield compute, wait_result, failed;
+
+    codel<compute> compute(in result, in allow, inout state, out params)
+      yield publish, wait_result;
+
+    codel<publish> publish(inout state, out params, out best_value, out best_params, out status)
+      yield wait_result;
+
+    codel<failed> failed(inout state)
+      yield ether;
+
+    throw e_sys;
+  };
+
+  /* ---------- SERVICES DECLARATIONS ---------- */
+  /* --------------- ATTRIBUTES --------------- */
+  // These are get and set functions
+
+  /* ---------------- FUNCTIONS ---------------- */
+  function initialize_optimizer();
+
+  function propose_parameters(
+      out bayes_opt::param_array params
+  );
+
+  function submit_result(
+      in double score
+  );
+
+  function get_best_parameters(
+      out bayes_opt::best_param_array best
+  );
+
+  function reset_optimizer();
+
+  /* ---------------- ACTIVITY ---------------- */
+
+  activity Init(in double lower_bounds[5], in double upper_bounds[5], in long max_iterations)
+  {
+    doc "Initialise everything, supposingly";
+
+    /// Place holder
+    codel<start> fake_start()
+      yield ether;
+
+    /// Place holder
+    codel<stop> fake_stop()
+      yield ether;
+
+    task optimize;
+
+    throw e_sys;
+  };
+
+
+  activity AskNext(out bayes_opt::param_array params_out)
+  {
+    doc "Generate next parameter vector";
+
+    validate checkInitialized(in state);
+
+    codel <start> boProposeParams(inout state, out params)
+      yield end, ether;
+
+    codel <end> fake_end()
+      yield ether;
+
+    task optimize;
+
+    throw OPTIMIZATION_FAILED;
+  };
+
+  activity SubmitResult(in double score)
+  {
+    doc "Submit experiment score";
+
+    validate checkInitialized(in state);
+
+    codel <start> boUpdateOptimizer(in score, inout state)
+      yield end, ether;
+
+    codel <end> fake_end()
+      yield ether;
+
+    task optimize;
+
+    throw INVALID_PARAMETER,
+          EVALUATION_FAILED;
+  };
+
+  activity GetBest(
+    out bayes_opt::best_param_array best
+  )
+  {
+    /// Place holder
+    codel<start> fake_start()
+      yield ether;
+
+    /// Place holder
+    codel<stop> fake_stop()
+      yield ether;
+  };
+
+  task optimize;
+
+  throw e_sys;
+
+};

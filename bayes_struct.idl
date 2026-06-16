@@ -1,0 +1,52 @@
+
+#ifndef IDL_BAYES_STRUCT
+#define IDL_BAYES_STRUCT
+
+module bayes_opt {
+
+  /* ---------- Constants ---------- */
+
+  const unsigned long MAX_PARAMS = 32;
+  const unsigned long STATUS_LENGTH = 128;
+
+
+  /* ---------- Typedefs ---------- */
+
+  typedef double result_t;
+  typedef boolean allow_t;
+
+  typedef double param_array[MAX_PARAMS];
+  typedef double best_param_array[MAX_PARAMS];
+  typedef double best_value_t;
+  typedef char status_array[STATUS_LENGTH];
+
+
+  /* ---------- Component state ---------- */
+
+  struct state {
+
+    /* optimization status */
+    boolean running;
+    boolean initialized;
+
+    /* optimization progress */
+    long current_iteration;
+    long max_iterations;
+
+    /* current returned score */
+    double current_score;
+
+    /* best result found */
+    double best_value;
+
+    /* parameter vectors */
+    param_array current_params;
+    best_param_array best_params;
+
+    double lower_bounds[5];
+    double upper_bounds[5];
+  };
+
+};
+
+#endif /* IDL_BAYES_STRUCT */
