@@ -146,10 +146,12 @@ component bayes_opt {
     /// Place holder
     codel<stop> fake_stop()
       yield ether;
+
+    task optimize;
+
+    throw e_sys;
   };
 
-  task optimize;
 
-  throw e_sys;
 
 };
