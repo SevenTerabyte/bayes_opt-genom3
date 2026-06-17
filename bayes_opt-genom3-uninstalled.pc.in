@@ -1,0 +1,12 @@
+# pkg-config file for uninstalled bayes_opt interface and codels library
+#
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+
+Name: bayes_opt-genom3
+Description: bayes_opt interface and codels library
+Version: @PACKAGE_VERSION@
+Requires: @requires_SPEC@
+Libs: -L@abs_top_builddir@/codels/.libs -lbayes_opt_codels
+Libs.private: @codels_requires_LIBS@

@@ -1,0 +1,294 @@
+
+// This file was generated from bayes_opt.gen by the skeleton
+// template. Manual changes should be preserved, although they should
+// rather be added to the "doc" attributes of the genom objects defined in
+// bayes_opt.gen.
+
+= bayes_opt component
+
+0.8
+:toc: left
+
+// fix default asciidoctor stylesheet issue #2407 and add hr clear rule
+ifdef::backend-html5[]
+[pass]
+++++
+<link rel="stylesheet" href="data:text/css,p{font-size: inherit !important}" >
+<link rel="stylesheet" href="data:text/css,hr{clear: both}" >
+++++
+endif::[]
+
+
+
+== Ports
+
+
+[[result]]
+=== result (in)
+
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Data structure
+[disc]
+ * `double` `result`
+
+|===
+
+'''
+
+[[allow]]
+=== allow (in)
+
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Data structure
+[disc]
+ * `boolean` `allow`
+
+|===
+
+'''
+
+[[params]]
+=== params (out)
+
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Data structure
+[disc]
+ * `double` `params[32]`
+
+|===
+
+'''
+
+[[best_params]]
+=== best_params (out)
+
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Data structure
+[disc]
+ * `double` `best_params[32]`
+
+|===
+
+'''
+
+[[best_value]]
+=== best_value (out)
+
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Data structure
+[disc]
+ * `double` `best_value`
+
+|===
+
+'''
+
+[[status]]
+=== status (out)
+
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Data structure
+[disc]
+ * `char` `status[128]`
+
+|===
+
+'''
+
+== Services
+
+[[initialize_optimizer]]
+=== initialize_optimizer (function)
+
+
+'''
+
+[[propose_parameters]]
+=== propose_parameters (function)
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Outputs
+[disc]
+ * `double` `params[32]`
+
+|===
+
+'''
+
+[[submit_result]]
+=== submit_result (function)
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Inputs
+[disc]
+ * `double` `score`
+
+|===
+
+'''
+
+[[get_best_parameters]]
+=== get_best_parameters (function)
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Outputs
+[disc]
+ * `double` `best[32]`
+
+|===
+
+'''
+
+[[reset_optimizer]]
+=== reset_optimizer (function)
+
+
+'''
+
+[[Init]]
+=== Init (activity)
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Inputs
+[disc]
+ * `double` `lower_bounds[5]`
+
+ * `double` `upper_bounds[5]`
+
+ * `long` `max_iterations`
+
+a|.Throws
+[disc]
+ * `exception ::bayes_opt::e_sys`
+ ** `short` `code`
+ ** `string<128>` `what`
+
+a|.Context
+[disc]
+  * In task `<<optimize>>`
+|===
+
+Initialise everything, supposingly
+
+'''
+
+[[AskNext]]
+=== AskNext (activity)
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Outputs
+[disc]
+ * `double` `params_out[32]`
+
+a|.Throws
+[disc]
+ * `exception ::bayes_opt::e_sys`
+ ** `short` `code`
+ ** `string<128>` `what`
+
+ * `exception ::bayes_opt::OPTIMIZATION_FAILED`
+
+a|.Context
+[disc]
+  * In task `<<optimize>>`
+  * Updates port `<<params>>`
+|===
+
+Generate next parameter vector
+
+'''
+
+[[SubmitResult]]
+=== SubmitResult (activity)
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Inputs
+[disc]
+ * `double` `score`
+
+a|.Throws
+[disc]
+ * `exception ::bayes_opt::e_sys`
+ ** `short` `code`
+ ** `string<128>` `what`
+
+ * `exception ::bayes_opt::INVALID_PARAMETER`
+
+ * `exception ::bayes_opt::EVALUATION_FAILED`
+
+a|.Context
+[disc]
+  * In task `<<optimize>>`
+|===
+
+Submit experiment score
+
+'''
+
+[[GetBest]]
+=== GetBest (activity)
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Outputs
+[disc]
+ * `double` `best[32]`
+
+a|.Throws
+[disc]
+ * `exception ::bayes_opt::e_sys`
+ ** `short` `code`
+ ** `string<128>` `what`
+
+a|.Context
+[disc]
+  * In task `<<optimize>>`
+|===
+
+'''
+
+== Tasks
+
+[[optimize]]
+=== optimize
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Context
+[disc]
+  * Free running
+* Reads port `<<result>>`
+* Reads port `<<allow>>`
+* Updates port `<<params>>`
+* Updates port `<<best_params>>`
+* Updates port `<<best_value>>`
+* Updates port `<<status>>`
+a|.Throws
+[disc]
+ * `exception ::bayes_opt::e_sys`
+ ** `short` `code`
+ ** `string<128>` `what`
+
+|===
+
+Bayesian optimization loop
+
+'''
