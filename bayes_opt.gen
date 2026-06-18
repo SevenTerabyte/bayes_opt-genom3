@@ -26,13 +26,12 @@ component bayes_opt {
 
   /* ---------------- PORTS ---------------- */
 
-  port in bayes_opt::result_t result;
-  port in bayes_opt::allow_t allow;
+  port in bayes_opt::result result;
+  port in bayes_opt::control allow;
 
-  port out bayes_opt::param_array params;
-  port out bayes_opt::best_param_array best_params;
-  port out bayes_opt::best_value_t best_value;
-  port out bayes_opt::status_array status;
+  port out bayes_opt::suggestion params;
+  port out bayes_opt::best best;
+  port out bayes_opt::status status;
 
 
   /* ---------------- TASK ---------------- */
@@ -50,7 +49,7 @@ component bayes_opt {
     codel<compute> compute(in result, in allow, inout state, out params)
       yield publish, wait_result;
 
-    codel<publish> publish(inout state, out params, out best_value, out best_params, out status)
+    codel<publish> publish(inout state, out params, out best, out status)
       yield wait_result;
 
     codel<failed> failed(inout state)

@@ -1,0 +1,13 @@
+# pkg-config file for bayes_opt c client
+#
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@/genom/pocolibs
+includedir=@includedir@/genom/pocolibs
+
+Name: bayes_opt-c-client
+Description: bayes_opt C client (pocolibs)
+Version: @PACKAGE_VERSION@
+Requires: genom3-c-client = @GENOM_CLIENT_PROTOCOL@
+Cflags: -I${includedir}
+Libs: -L${libdir} -lbayes_opt-c-client

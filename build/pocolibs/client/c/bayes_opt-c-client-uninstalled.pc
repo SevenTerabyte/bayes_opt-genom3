@@ -1,0 +1,12 @@
+# pkg-config file for uninstalled bayes_opt c client
+#
+prefix=/home/lichenjiang/src/bayes_opt-genom3/build/pocolibs/client/c
+libdir=${prefix}
+includedir=${prefix}/src
+
+Name: bayes_opt-c-client
+Description: bayes_opt C client (pocolibs)
+Version: 0.8
+Requires: genom3-c-client = 20250116
+Cflags: -I${includedir}
+Libs: ${libdir}/libbayes_opt-c-client.la

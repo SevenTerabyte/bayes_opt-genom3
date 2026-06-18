@@ -12,13 +12,30 @@ module bayes_opt {
 
   /* ---------- Typedefs ---------- */
 
-  typedef double result_t;
-  typedef boolean allow_t;
+  struct result {
+    double value;
+    boolean valid;
+  };
 
-  typedef double param_array[MAX_PARAMS];
-  typedef double best_param_array[MAX_PARAMS];
-  typedef double best_value_t;
-  typedef char status_array[STATUS_LENGTH];
+  struct control {
+    boolean allow;
+  };
+
+  struct suggestion {
+    double params[MAX_PARAMS];
+    long iteration;
+  };
+
+  struct best {
+    double params[MAX_PARAMS];
+    double value;
+  };
+
+  struct status {
+    char text[STATUS_LENGTH];
+    long iteration;
+    boolean running;
+  };
 
 
   /* ---------- Component state ---------- */

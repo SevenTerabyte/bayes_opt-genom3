@@ -1,7 +1,8 @@
 #include "acbayes_opt.h"
 
 #include "bayes_opt_c_types.h"
-
+#include <stdio.h>
+#include <stdlib.h>
 
 /* --- Activity AskNext ------------------------------------------------- */
 
@@ -14,8 +15,11 @@ genom_event
 checkInitialized(const bayes_opt_state *state,
                  const genom_context self)
 {
-  /* skeleton sample: insert your code */
-  /* skeleton sample */ return genom_ok;
+  if (!state->initialized || !state->running) {
+    return bayes_opt_OPTIMIZATION_FAILED;
+  }
+
+  return genom_ok;
 }
 
 

@@ -1,0 +1,69 @@
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/templates/common/genom.gen
+/home/lichenjiang/openrobots/share/genom/templates/common/genom.gen:
+
+$(srcdir)/depend.am: /home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen
+/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen:
+
+$(srcdir)/depend.am: /home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl
+/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/docutil.tcl
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/docutil.tcl:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/templates/common/client.h
+/home/lichenjiang/openrobots/share/genom/templates/common/client.h:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/templates/common/json-types.h
+/home/lichenjiang/openrobots/share/genom/templates/common/json-types.h:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/common/msglib.h
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/common/msglib.h:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/init.c
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/init.c:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/client.c
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/client.c:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/msglib.c
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/msglib.c:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/portlib.h
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/portlib.h:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/portlib.c
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/portlib.c:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/json.c
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/json.c:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/plugin.c
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/plugin.c:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/private.h
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/private.h:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/common/serialize.h
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/common/serialize.h:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/common/typecopy.h
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/common/typecopy.h:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/client.Makefile.am
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/client.Makefile.am:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/client.configure.ac
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/client.configure.ac:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/common/autoconf/ax_pthread.m4
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/common/autoconf/ax_pthread.m4:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/templates/common/c-client.pc.in
+/home/lichenjiang/openrobots/share/genom/templates/common/c-client.pc.in:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/templates/common/c-client-uninstalled.pc.in
+/home/lichenjiang/openrobots/share/genom/templates/common/c-client-uninstalled.pc.in:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/template.tcl
+/home/lichenjiang/openrobots/share/genom/site-templates/pocolibs/client/c/template.tcl:
+
