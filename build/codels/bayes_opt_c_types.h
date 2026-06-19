@@ -17,71 +17,117 @@ static const uint32_t bayes_opt_MAX_PARAMS = 32;
 static const uint32_t bayes_opt_STATUS_LENGTH = 128;
 #endif /* _bayes_opt_STATUS_LENGTH_c_type */
 
-#ifndef _bayes_opt_result_t_c_type
-# define _bayes_opt_result_t_c_type
+#ifndef _bayes_opt_score_c_type
+# define _bayes_opt_score_c_type
+#line 14 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+typedef struct bayes_opt_score bayes_opt_score;
+#endif /* _bayes_opt_score_c_type */
+
+#ifndef _bayes_opt_score_definition_c_type
+# define _bayes_opt_score_definition_c_type
+struct bayes_opt_score {
 #line 15 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
-typedef double bayes_opt_result_t;
-#endif /* _bayes_opt_result_t_c_type */
-
-#ifndef _bayes_opt_allow_t_c_type
-# define _bayes_opt_allow_t_c_type
+ double value;
 #line 16 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
-typedef bool bayes_opt_allow_t;
-#endif /* _bayes_opt_allow_t_c_type */
+ bool valid;
+};
+#endif /* _bayes_opt_score_definition_c_type */
 
-#ifndef _bayes_opt_param_array_c_type
-# define _bayes_opt_param_array_c_type
-#line 18 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
-typedef double bayes_opt_param_array[32];
-#endif /* _bayes_opt_param_array_c_type */
-
-#ifndef _bayes_opt_best_param_array_c_type
-# define _bayes_opt_best_param_array_c_type
+#ifndef _bayes_opt_control_c_type
+# define _bayes_opt_control_c_type
 #line 19 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
-typedef double bayes_opt_best_param_array[32];
-#endif /* _bayes_opt_best_param_array_c_type */
+typedef struct bayes_opt_control bayes_opt_control;
+#endif /* _bayes_opt_control_c_type */
 
-#ifndef _bayes_opt_best_value_t_c_type
-# define _bayes_opt_best_value_t_c_type
+#ifndef _bayes_opt_control_definition_c_type
+# define _bayes_opt_control_definition_c_type
+struct bayes_opt_control {
 #line 20 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
-typedef double bayes_opt_best_value_t;
-#endif /* _bayes_opt_best_value_t_c_type */
+ bool allow;
+};
+#endif /* _bayes_opt_control_definition_c_type */
 
-#ifndef _bayes_opt_status_array_c_type
-# define _bayes_opt_status_array_c_type
-#line 21 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
-typedef int8_t bayes_opt_status_array[128];
-#endif /* _bayes_opt_status_array_c_type */
+#ifndef _bayes_opt_suggestion_c_type
+# define _bayes_opt_suggestion_c_type
+#line 23 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+typedef struct bayes_opt_suggestion bayes_opt_suggestion;
+#endif /* _bayes_opt_suggestion_c_type */
+
+#ifndef _bayes_opt_suggestion_definition_c_type
+# define _bayes_opt_suggestion_definition_c_type
+struct bayes_opt_suggestion {
+#line 24 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ double params[32];
+#line 25 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ int32_t iteration;
+};
+#endif /* _bayes_opt_suggestion_definition_c_type */
+
+#ifndef _bayes_opt_best_c_type
+# define _bayes_opt_best_c_type
+#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+typedef struct bayes_opt_best bayes_opt_best;
+#endif /* _bayes_opt_best_c_type */
+
+#ifndef _bayes_opt_best_definition_c_type
+# define _bayes_opt_best_definition_c_type
+struct bayes_opt_best {
+#line 29 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ double params[32];
+#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ double value;
+};
+#endif /* _bayes_opt_best_definition_c_type */
+
+#ifndef _bayes_opt_status_struct_c_type
+# define _bayes_opt_status_struct_c_type
+#line 33 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+typedef struct bayes_opt_status_struct bayes_opt_status_struct;
+#endif /* _bayes_opt_status_struct_c_type */
+
+#ifndef _bayes_opt_status_struct_definition_c_type
+# define _bayes_opt_status_struct_definition_c_type
+struct bayes_opt_status_struct {
+#line 34 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ int8_t text[128];
+#line 35 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ int32_t iteration;
+#line 36 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ bool running;
+};
+#endif /* _bayes_opt_status_struct_definition_c_type */
 
 #ifndef _bayes_opt_state_c_type
 # define _bayes_opt_state_c_type
-#line 26 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+#line 42 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
 typedef struct bayes_opt_state bayes_opt_state;
 #endif /* _bayes_opt_state_c_type */
 
 #ifndef _bayes_opt_state_definition_c_type
 # define _bayes_opt_state_definition_c_type
 struct bayes_opt_state {
-#line 29 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+#line 45 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
  bool running;
-#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
- bool initialized;
-#line 33 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
- int32_t current_iteration;
-#line 34 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
- int32_t max_iterations;
-#line 37 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
- double current_score;
-#line 40 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
- double best_value;
-#line 43 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
- bayes_opt_param_array current_params;
-#line 44 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
- bayes_opt_best_param_array best_params;
 #line 46 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
- double lower_bounds[5];
-#line 47 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
- double upper_bounds[5];
+ bool initialized;
+#line 49 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ int32_t current_iteration;
+#line 50 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ int32_t max_iterations;
+#line 53 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ double current_score;
+#line 56 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ double best_value;
+#line 59 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ bayes_opt_suggestion current_params;
+#line 60 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ bayes_opt_best best_params;
+#line 62 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ double lower_bounds[32];
+#line 63 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ double upper_bounds[32];
+#line 64 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
+ int32_t n_params;
 };
 #endif /* _bayes_opt_state_definition_c_type */
 
@@ -233,7 +279,7 @@ struct bayes_opt_ids {
 #include "genom3/c/exception.h"
 #line 29 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef struct bayes_opt_result {
-  bayes_opt_result_t * (*data)(genom_context self);
+  bayes_opt_score * (*data)(genom_context self);
   genom_event (*read)(genom_context self);
 } bayes_opt_result;
 #endif /* _bayes_opt_result_c_type */
@@ -243,7 +289,7 @@ typedef struct bayes_opt_result {
 #include "genom3/c/exception.h"
 #line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef struct bayes_opt_allow {
-  bayes_opt_allow_t * (*data)(genom_context self);
+  bayes_opt_control * (*data)(genom_context self);
   genom_event (*read)(genom_context self);
 } bayes_opt_allow;
 #endif /* _bayes_opt_allow_c_type */
@@ -253,82 +299,39 @@ typedef struct bayes_opt_allow {
 #include "genom3/c/exception.h"
 #line 32 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef struct bayes_opt_params {
-  double * (*data)(genom_context self);
+  bayes_opt_suggestion * (*data)(genom_context self);
   genom_event (*write)(genom_context self);
 } bayes_opt_params;
 #endif /* _bayes_opt_params_c_type */
 
-#ifndef _bayes_opt_best_params_c_type
-# define _bayes_opt_best_params_c_type
+#ifndef _bayes_opt_best_result_c_type
+# define _bayes_opt_best_result_c_type
 #include "genom3/c/exception.h"
 #line 33 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-typedef struct bayes_opt_best_params {
-  double * (*data)(genom_context self);
+typedef struct bayes_opt_best_result {
+  bayes_opt_best * (*data)(genom_context self);
   genom_event (*write)(genom_context self);
-} bayes_opt_best_params;
-#endif /* _bayes_opt_best_params_c_type */
-
-#ifndef _bayes_opt_best_value_c_type
-# define _bayes_opt_best_value_c_type
-#include "genom3/c/exception.h"
-#line 34 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-typedef struct bayes_opt_best_value {
-  bayes_opt_best_value_t * (*data)(genom_context self);
-  genom_event (*write)(genom_context self);
-} bayes_opt_best_value;
-#endif /* _bayes_opt_best_value_c_type */
+} bayes_opt_best_result;
+#endif /* _bayes_opt_best_result_c_type */
 
 #ifndef _bayes_opt_status_c_type
 # define _bayes_opt_status_c_type
 #include "genom3/c/exception.h"
-#line 35 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 34 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef struct bayes_opt_status {
-  int8_t * (*data)(genom_context self);
+  bayes_opt_status_struct * (*data)(genom_context self);
   genom_event (*write)(genom_context self);
 } bayes_opt_status;
 #endif /* _bayes_opt_status_c_type */
 
-#ifndef _bayes_opt_wait_result_c_type
-# define _bayes_opt_wait_result_c_type
-#include "genom3/c/exception.h"
-#line 45 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-const char genom_extern_weak bayes_opt_wait_result[] = "::bayes_opt::wait_result";
-#endif /* _bayes_opt_wait_result_c_type */
-
-#ifndef _bayes_opt_compute_c_type
-# define _bayes_opt_compute_c_type
-#include "genom3/c/exception.h"
-#line 48 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-const char genom_extern_weak bayes_opt_compute[] = "::bayes_opt::compute";
-#endif /* _bayes_opt_compute_c_type */
-
-#ifndef _bayes_opt_failed_c_type
-# define _bayes_opt_failed_c_type
-#include "genom3/c/exception.h"
-#line 48 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-const char genom_extern_weak bayes_opt_failed[] = "::bayes_opt::failed";
-#endif /* _bayes_opt_failed_c_type */
-
-#ifndef _bayes_opt_publish_c_type
-# define _bayes_opt_publish_c_type
-#include "genom3/c/exception.h"
-#line 51 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-const char genom_extern_weak bayes_opt_publish[] = "::bayes_opt::publish";
-#endif /* _bayes_opt_publish_c_type */
-
-#ifndef _bayes_opt_end_c_type
-# define _bayes_opt_end_c_type
-#include "genom3/c/exception.h"
-#line 110 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-const char genom_extern_weak bayes_opt_end[] = "::bayes_opt::end";
-#endif /* _bayes_opt_end_c_type */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#line 44 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-genom_event init(bayes_opt_state *state, const genom_context self);
+#line 70 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+genom_event boInit(const double lower_bounds[5], const double upper_bounds[5],
+       int32_t max_iterations, bayes_opt_state *state,
+       const genom_context self);
 #ifdef __cplusplus
 }
 #endif
@@ -336,68 +339,7 @@ genom_event init(bayes_opt_state *state, const genom_context self);
 extern "C" {
 #endif
 
-#line 47 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-genom_event wait_result(const bayes_opt_result *result,
-            const bayes_opt_allow *allow, bayes_opt_state *state,
-            const genom_context self);
-#ifdef __cplusplus
-}
-#endif
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#line 50 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-genom_event compute(const bayes_opt_result *result, const bayes_opt_allow *allow,
-        bayes_opt_state *state, const bayes_opt_params *params,
-        const genom_context self);
-#ifdef __cplusplus
-}
-#endif
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#line 53 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-genom_event publish(bayes_opt_state *state, const bayes_opt_params *params,
-        const bayes_opt_best_value *best_value,
-        const bayes_opt_best_params *best_params,
-        const bayes_opt_status *status, const genom_context self);
-#ifdef __cplusplus
-}
-#endif
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#line 56 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-genom_event failed(bayes_opt_state *state, const genom_context self);
-#ifdef __cplusplus
-}
-#endif
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#line 90 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-genom_event fake_start(const genom_context self);
-#ifdef __cplusplus
-}
-#endif
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#line 94 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-genom_event fake_stop(const genom_context self);
-#ifdef __cplusplus
-}
-#endif
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#line 107 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 86 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event checkInitialized(const bayes_opt_state *state,
                  const genom_context self);
 #ifdef __cplusplus
@@ -407,8 +349,9 @@ genom_event checkInitialized(const bayes_opt_state *state,
 extern "C" {
 #endif
 
-#line 109 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-genom_event boProposeParams(bayes_opt_state *state, const bayes_opt_params *params,
+#line 88 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+genom_event boProposeParams(bayes_opt_state *state,
+                bayes_opt_suggestion *params_out,
                 const genom_context self);
 #ifdef __cplusplus
 }
@@ -417,16 +360,7 @@ genom_event boProposeParams(bayes_opt_state *state, const bayes_opt_params *para
 extern "C" {
 #endif
 
-#line 112 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-genom_event fake_end(const genom_context self);
-#ifdef __cplusplus
-}
-#endif
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#line 124 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 99 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event checkInitialized(const bayes_opt_state *state,
                  const genom_context self);
 #ifdef __cplusplus
@@ -436,7 +370,7 @@ genom_event checkInitialized(const bayes_opt_state *state,
 extern "C" {
 #endif
 
-#line 126 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 101 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event boUpdateOptimizer(double score, bayes_opt_state *state,
                   const genom_context self);
 #ifdef __cplusplus
@@ -446,8 +380,9 @@ genom_event boUpdateOptimizer(double score, bayes_opt_state *state,
 extern "C" {
 #endif
 
-#line 129 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-genom_event fake_end(const genom_context self);
+#line 112 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+genom_event checkInitialized(const bayes_opt_state *state,
+                 const genom_context self);
 #ifdef __cplusplus
 }
 #endif
@@ -455,17 +390,9 @@ genom_event fake_end(const genom_context self);
 extern "C" {
 #endif
 
-#line 143 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-genom_event fake_start(const genom_context self);
-#ifdef __cplusplus
-}
-#endif
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#line 147 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-genom_event fake_stop(const genom_context self);
+#line 114 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+genom_event boGetBest(const bayes_opt_state *state,
+          bayes_opt_best *best_result_out, const genom_context self);
 #ifdef __cplusplus
 }
 #endif

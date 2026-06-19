@@ -71,13 +71,11 @@ int	genom_bayes_opt_GetBest_decode(char *buffer, int size,
 int	genom_bayes_opt_genom_state_decode(char *buffer,
 		genom_state_component *dst);
 int	genom_bayes_opt_params_decode(char *buffer,
-		bayes_opt_param_array dst);
-int	genom_bayes_opt_best_params_decode(char *buffer,
-		bayes_opt_best_param_array dst);
-int	genom_bayes_opt_best_value_decode(char *buffer,
-		bayes_opt_best_value_t *dst);
+		bayes_opt_suggestion *dst);
+int	genom_bayes_opt_best_result_decode(char *buffer,
+		bayes_opt_best *dst);
 int	genom_bayes_opt_status_decode(char *buffer,
-		bayes_opt_status_array dst);
+		bayes_opt_status_struct *dst);
 
 
 /* --- bayes_opt_abort -------------------------------------------------- */
@@ -852,18 +850,18 @@ genom_bayes_opt_client_genom_state_port(
 
 /* --- bayes_opt_params reader ------------------------------------------ */
 
-bayes_opt_param_array
+bayes_opt_suggestion *
 genom_bayes_opt_client_params_data(
     genom_client h
 )
 {
-  return h->ports->params.data;
+  return &(h->ports->params.data);
 }
 
 genom_event
 genom_bayes_opt_client_params_read(
   genom_client h,
-  bayes_opt_param_array data)
+  bayes_opt_suggestion *data)
 {
   POSTER_ID *id;
   int searched = 0;
@@ -873,7 +871,7 @@ genom_bayes_opt_client_params_read(
   /* cached id */
   id = &h->ports->params.id;
   if (!data)
-    data = h->ports->params.data;
+    data = &(h->ports->params.data);
 
   do {
     if (!*id) {
@@ -926,24 +924,24 @@ genom_bayes_opt_client_params_read(
 genom_event
 genom_bayes_opt_client_params_port(
   genom_client h,
-  bayes_opt_param_array data)
+  bayes_opt_suggestion *data)
   __attribute((alias("genom_bayes_opt_client_params_read")));
 
 
-/* --- bayes_opt_best_params reader ------------------------------------- */
+/* --- bayes_opt_best_result reader ------------------------------------- */
 
-bayes_opt_best_param_array
-genom_bayes_opt_client_best_params_data(
+bayes_opt_best *
+genom_bayes_opt_client_best_result_data(
     genom_client h
 )
 {
-  return h->ports->best_params.data;
+  return &(h->ports->best_result.data);
 }
 
 genom_event
-genom_bayes_opt_client_best_params_read(
+genom_bayes_opt_client_best_result_read(
   genom_client h,
-  bayes_opt_best_param_array data)
+  bayes_opt_best *data)
 {
   POSTER_ID *id;
   int searched = 0;
@@ -951,15 +949,15 @@ genom_bayes_opt_client_best_params_read(
   int s;
 
   /* cached id */
-  id = &h->ports->best_params.id;
+  id = &h->ports->best_result.id;
   if (!data)
-    data = h->ports->best_params.data;
+    data = &(h->ports->best_result.data);
 
   do {
     if (!*id) {
       char name[H2_DEV_MAX_NAME];
       int n;
-      n = snprintf(name, sizeof(name), "%s/best_params", h->instance);
+      n = snprintf(name, sizeof(name), "%s/best_result", h->instance);
       if (n <= 0 || n >= (signed)sizeof(name)) {
         return genom_syserr(
           &(genom_syserr_detail){.code = ENAMETOOLONG}, &h->context);
@@ -986,7 +984,7 @@ genom_bayes_opt_client_best_params_read(
 
       h2getErrMsg(code, msg, sizeof(msg));
       if (snprintf(d.what, sizeof(d.what),
-                   "%s/best_params port: %s", h->instance, msg) < 0)
+                   "%s/best_result port: %s", h->instance, msg) < 0)
         strncpy(d.what, "internal error", sizeof(d.what));
       return genom_mwerr(&d, &h->context);
     }
@@ -995,7 +993,7 @@ genom_bayes_opt_client_best_params_read(
   } while(1);
 
   addr = posterAddr(*id);
-  s = genom_bayes_opt_best_params_decode(addr, data);
+  s = genom_bayes_opt_best_result_decode(addr, data);
   posterGive(*id);
 
   if (s)
@@ -1004,106 +1002,26 @@ genom_bayes_opt_client_best_params_read(
 }
 
 genom_event
-genom_bayes_opt_client_best_params_port(
+genom_bayes_opt_client_best_result_port(
   genom_client h,
-  bayes_opt_best_param_array data)
-  __attribute((alias("genom_bayes_opt_client_best_params_read")));
-
-
-/* --- bayes_opt_best_value reader -------------------------------------- */
-
-bayes_opt_best_value_t *
-genom_bayes_opt_client_best_value_data(
-    genom_client h
-)
-{
-  return &(h->ports->best_value.data);
-}
-
-genom_event
-genom_bayes_opt_client_best_value_read(
-  genom_client h,
-  bayes_opt_best_value_t *data)
-{
-  POSTER_ID *id;
-  int searched = 0;
-  char *addr;
-  int s;
-
-  /* cached id */
-  id = &h->ports->best_value.id;
-  if (!data)
-    data = &(h->ports->best_value.data);
-
-  do {
-    if (!*id) {
-      char name[H2_DEV_MAX_NAME];
-      int n;
-      n = snprintf(name, sizeof(name), "%s/best_value", h->instance);
-      if (n <= 0 || n >= (signed)sizeof(name)) {
-        return genom_syserr(
-          &(genom_syserr_detail){.code = ENAMETOOLONG}, &h->context);
-      }
-
-      if (posterFind(name, id) != OK) {
-        genom_mwerr_detail d;
-        char msg[sizeof(d.what)];
-        h2getErrMsg(errnoGet(), msg, sizeof(msg));
-        if (snprintf(d.what, sizeof(d.what), "%s port: %s", name, msg) < 0)
-          strncpy(d.what, "internal error", sizeof(d.what));
-        return genom_mwerr(&d, &h->context);
-      }
-      searched = 1;
-    }
-
-    if (posterTake(*id, POSTER_READ) != OK) {
-      genom_mwerr_detail d;
-      char msg[sizeof(d.what)];
-      int code = errnoGet();
-      if (!searched && code == S_posterLib_POSTER_CLOSED) {
-        *id = NULL; continue /* try to refetch poster id */;
-      }
-
-      h2getErrMsg(code, msg, sizeof(msg));
-      if (snprintf(d.what, sizeof(d.what),
-                   "%s/best_value port: %s", h->instance, msg) < 0)
-        strncpy(d.what, "internal error", sizeof(d.what));
-      return genom_mwerr(&d, &h->context);
-    }
-
-    break;
-  } while(1);
-
-  addr = posterAddr(*id);
-  s = genom_bayes_opt_best_value_decode(addr, data);
-  posterGive(*id);
-
-  if (s)
-    return genom_syserr(&(genom_syserr_detail){.code = s}, &h->context);
-  return genom_ok;
-}
-
-genom_event
-genom_bayes_opt_client_best_value_port(
-  genom_client h,
-  bayes_opt_best_value_t *data)
-  __attribute((alias("genom_bayes_opt_client_best_value_read")));
+  bayes_opt_best *data)
+  __attribute((alias("genom_bayes_opt_client_best_result_read")));
 
 
 /* --- bayes_opt_status reader ------------------------------------------ */
 
-bayes_opt_status_array
+bayes_opt_status_struct *
 genom_bayes_opt_client_status_data(
     genom_client h
 )
 {
-  return h->ports->status.data;
+  return &(h->ports->status.data);
 }
 
 genom_event
 genom_bayes_opt_client_status_read(
   genom_client h,
-  bayes_opt_status_array data)
+  bayes_opt_status_struct *data)
 {
   POSTER_ID *id;
   int searched = 0;
@@ -1113,7 +1031,7 @@ genom_bayes_opt_client_status_read(
   /* cached id */
   id = &h->ports->status.id;
   if (!data)
-    data = h->ports->status.data;
+    data = &(h->ports->status.data);
 
   do {
     if (!*id) {
@@ -1166,7 +1084,7 @@ genom_bayes_opt_client_status_read(
 genom_event
 genom_bayes_opt_client_status_port(
   genom_client h,
-  bayes_opt_status_array data)
+  bayes_opt_status_struct *data)
   __attribute((alias("genom_bayes_opt_client_status_read")));
 
 
@@ -1217,7 +1135,7 @@ genom_bayes_opt_client_result_open(
   }
 
   /* create */
-  l = genom_maxserialen_t_bayes_opt_result_t();
+  l = genom_maxserialen_t_bayes_opt_score();
   if (posterCreate(*name, (int)l, &h->ports->result.h[i].id) != OK) {
     genom_mwerr_detail d;
     char msg[sizeof(d.what)];
@@ -1279,7 +1197,7 @@ genom_bayes_opt_client_result_close(
   return genom_ok;
 }
 
-bayes_opt_result_t *
+bayes_opt_score *
 genom_bayes_opt_client_result_data(
   genom_client h, const char *name)
 {
@@ -1304,7 +1222,7 @@ genom_bayes_opt_client_result_data(
 genom_event
 genom_bayes_opt_client_result_write(
   genom_client h, const char *name,
-  const bayes_opt_result_t *data)
+  const bayes_opt_score *data)
 {
   POSTER_ID *p;
   char *addr;
@@ -1325,8 +1243,8 @@ genom_bayes_opt_client_result_write(
     return genom_syserr(&(genom_syserr_detail){.code = ENOENT}, &h->context);
 
   /* resize if needed */
-  l = genom_serialen_t_bayes_opt_result_t(
-    h->ports->result.h[i].data);
+  l = genom_serialen_t_bayes_opt_score(
+    &(h->ports->result.h[i].data));
   if (l > h->ports->result.h[i].size ||
       l + (1<<17) < h->ports->result.h[i].size) {
     if (posterIoctl(*p, FIO_RESIZE, &l) == OK) {
@@ -1361,13 +1279,13 @@ lock:
 locked:
   addr = posterAddr(*p);
   if (data)
-    genom_serialize_t_bayes_opt_result_t(
+    genom_serialize_t_bayes_opt_score(
       &addr,
-      *(data));
+      &(*(data)));
   else
-    genom_serialize_t_bayes_opt_result_t(
+    genom_serialize_t_bayes_opt_score(
       &addr,
-      h->ports->result.h[i].data);
+      &(h->ports->result.h[i].data));
   posterGive(*p);
   return genom_ok;
 
@@ -1430,7 +1348,7 @@ genom_bayes_opt_client_allow_open(
   }
 
   /* create */
-  l = genom_maxserialen_t_bayes_opt_allow_t();
+  l = genom_maxserialen_t_bayes_opt_control();
   if (posterCreate(*name, (int)l, &h->ports->allow.h[i].id) != OK) {
     genom_mwerr_detail d;
     char msg[sizeof(d.what)];
@@ -1492,7 +1410,7 @@ genom_bayes_opt_client_allow_close(
   return genom_ok;
 }
 
-bayes_opt_allow_t *
+bayes_opt_control *
 genom_bayes_opt_client_allow_data(
   genom_client h, const char *name)
 {
@@ -1517,7 +1435,7 @@ genom_bayes_opt_client_allow_data(
 genom_event
 genom_bayes_opt_client_allow_write(
   genom_client h, const char *name,
-  const bayes_opt_allow_t *data)
+  const bayes_opt_control *data)
 {
   POSTER_ID *p;
   char *addr;
@@ -1538,8 +1456,8 @@ genom_bayes_opt_client_allow_write(
     return genom_syserr(&(genom_syserr_detail){.code = ENOENT}, &h->context);
 
   /* resize if needed */
-  l = genom_serialen_t_bayes_opt_allow_t(
-    h->ports->allow.h[i].data);
+  l = genom_serialen_t_bayes_opt_control(
+    &(h->ports->allow.h[i].data));
   if (l > h->ports->allow.h[i].size ||
       l + (1<<17) < h->ports->allow.h[i].size) {
     if (posterIoctl(*p, FIO_RESIZE, &l) == OK) {
@@ -1574,13 +1492,13 @@ lock:
 locked:
   addr = posterAddr(*p);
   if (data)
-    genom_serialize_t_bayes_opt_allow_t(
+    genom_serialize_t_bayes_opt_control(
       &addr,
-      *(data));
+      &(*(data)));
   else
-    genom_serialize_t_bayes_opt_allow_t(
+    genom_serialize_t_bayes_opt_control(
       &addr,
-      h->ports->allow.h[i].data);
+      &(h->ports->allow.h[i].data));
   posterGive(*p);
   return genom_ok;
 

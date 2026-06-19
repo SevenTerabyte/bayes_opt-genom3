@@ -106,13 +106,6 @@ static __inline__ void	genom_tfini_double(
 static __inline__ int	genom_tcopy_double(
 				double *,
 				double);
-static __inline__ void	genom_tinit_t_bayes_opt_result_t(
-				bayes_opt_result_t *);
-static __inline__ void	genom_tfini_t_bayes_opt_result_t(
-				bayes_opt_result_t *);
-static __inline__ int	genom_tcopy_t_bayes_opt_result_t(
-				bayes_opt_result_t *,
-				bayes_opt_result_t);
 static __inline__ void	genom_tinit_boolean(
 				bool *);
 static __inline__ void	genom_tfini_boolean(
@@ -120,13 +113,20 @@ static __inline__ void	genom_tfini_boolean(
 static __inline__ int	genom_tcopy_boolean(
 				bool *,
 				bool);
-static __inline__ void	genom_tinit_t_bayes_opt_allow_t(
-				bayes_opt_allow_t *);
-static __inline__ void	genom_tfini_t_bayes_opt_allow_t(
-				bayes_opt_allow_t *);
-static __inline__ int	genom_tcopy_t_bayes_opt_allow_t(
-				bayes_opt_allow_t *,
-				bayes_opt_allow_t);
+static __inline__ void	genom_tinit_t_bayes_opt_score(
+				bayes_opt_score *);
+static __inline__ void	genom_tfini_t_bayes_opt_score(
+				bayes_opt_score *);
+static __inline__ int	genom_tcopy_t_bayes_opt_score(
+				bayes_opt_score *,
+				const bayes_opt_score *);
+static __inline__ void	genom_tinit_t_bayes_opt_control(
+				bayes_opt_control *);
+static __inline__ void	genom_tfini_t_bayes_opt_control(
+				bayes_opt_control *);
+static __inline__ int	genom_tcopy_t_bayes_opt_control(
+				bayes_opt_control *,
+				const bayes_opt_control *);
 static __inline__ void	genom_tinit_array32_double(
 				double [32]);
 static __inline__ void	genom_tfini_array32_double(
@@ -134,27 +134,27 @@ static __inline__ void	genom_tfini_array32_double(
 static __inline__ int	genom_tcopy_array32_double(
 				double [32],
 				const double [32]);
-static __inline__ void	genom_tinit_t_bayes_opt_param_array(
-				bayes_opt_param_array);
-static __inline__ void	genom_tfini_t_bayes_opt_param_array(
-				bayes_opt_param_array);
-static __inline__ int	genom_tcopy_t_bayes_opt_param_array(
-				bayes_opt_param_array,
-				const bayes_opt_param_array);
-static __inline__ void	genom_tinit_t_bayes_opt_best_param_array(
-				bayes_opt_best_param_array);
-static __inline__ void	genom_tfini_t_bayes_opt_best_param_array(
-				bayes_opt_best_param_array);
-static __inline__ int	genom_tcopy_t_bayes_opt_best_param_array(
-				bayes_opt_best_param_array,
-				const bayes_opt_best_param_array);
-static __inline__ void	genom_tinit_t_bayes_opt_best_value_t(
-				bayes_opt_best_value_t *);
-static __inline__ void	genom_tfini_t_bayes_opt_best_value_t(
-				bayes_opt_best_value_t *);
-static __inline__ int	genom_tcopy_t_bayes_opt_best_value_t(
-				bayes_opt_best_value_t *,
-				bayes_opt_best_value_t);
+static __inline__ void	genom_tinit_long(
+				int32_t *);
+static __inline__ void	genom_tfini_long(
+				int32_t *);
+static __inline__ int	genom_tcopy_long(
+				int32_t *,
+				int32_t);
+static __inline__ void	genom_tinit_t_bayes_opt_suggestion(
+				bayes_opt_suggestion *);
+static __inline__ void	genom_tfini_t_bayes_opt_suggestion(
+				bayes_opt_suggestion *);
+static __inline__ int	genom_tcopy_t_bayes_opt_suggestion(
+				bayes_opt_suggestion *,
+				const bayes_opt_suggestion *);
+static __inline__ void	genom_tinit_t_bayes_opt_best(
+				bayes_opt_best *);
+static __inline__ void	genom_tfini_t_bayes_opt_best(
+				bayes_opt_best *);
+static __inline__ int	genom_tcopy_t_bayes_opt_best(
+				bayes_opt_best *,
+				const bayes_opt_best *);
 static __inline__ void	genom_tinit_char(
 				int8_t *);
 static __inline__ void	genom_tfini_char(
@@ -169,13 +169,13 @@ static __inline__ void	genom_tfini_array128_char(
 static __inline__ int	genom_tcopy_array128_char(
 				int8_t [128],
 				const int8_t [128]);
-static __inline__ void	genom_tinit_t_bayes_opt_status_array(
-				bayes_opt_status_array);
-static __inline__ void	genom_tfini_t_bayes_opt_status_array(
-				bayes_opt_status_array);
-static __inline__ int	genom_tcopy_t_bayes_opt_status_array(
-				bayes_opt_status_array,
-				const bayes_opt_status_array);
+static __inline__ void	genom_tinit_t_bayes_opt_status_struct(
+				bayes_opt_status_struct *);
+static __inline__ void	genom_tfini_t_bayes_opt_status_struct(
+				bayes_opt_status_struct *);
+static __inline__ int	genom_tcopy_t_bayes_opt_status_struct(
+				bayes_opt_status_struct *,
+				const bayes_opt_status_struct *);
 static __inline__ void	genom_tinit_t_genom_incompatible_digest_client_digest(
 				genom_incompatible_digest_client_digest *);
 static __inline__ void	genom_tfini_t_genom_incompatible_digest_client_digest(
@@ -309,13 +309,13 @@ static __inline__ void	genom_tfini_array5_double(
 static __inline__ int	genom_tcopy_array5_double(
 				double [5],
 				const double [5]);
-static __inline__ void	genom_tinit_long(
-				int32_t *);
-static __inline__ void	genom_tfini_long(
-				int32_t *);
-static __inline__ int	genom_tcopy_long(
-				int32_t *,
-				int32_t);
+static __inline__ void	genom_tinit_t_bayes_opt_INVALID_BOUNDS(
+				bayes_opt_INVALID_BOUNDS_detail *);
+static __inline__ void	genom_tfini_t_bayes_opt_INVALID_BOUNDS(
+				bayes_opt_INVALID_BOUNDS_detail *);
+static __inline__ int	genom_tcopy_t_bayes_opt_INVALID_BOUNDS(
+				bayes_opt_INVALID_BOUNDS_detail *,
+				const bayes_opt_INVALID_BOUNDS_detail *);
 static __inline__ void	genom_tinit_short(
 				int16_t *);
 static __inline__ void	genom_tfini_short(
@@ -351,6 +351,13 @@ static __inline__ void	genom_tfini_t_bayes_opt_EVALUATION_FAILED(
 static __inline__ int	genom_tcopy_t_bayes_opt_EVALUATION_FAILED(
 				bayes_opt_EVALUATION_FAILED_detail *,
 				const bayes_opt_EVALUATION_FAILED_detail *);
+static __inline__ void	genom_tinit_t_bayes_opt_NO_SCORE_AVAILABLE(
+				bayes_opt_NO_SCORE_AVAILABLE_detail *);
+static __inline__ void	genom_tfini_t_bayes_opt_NO_SCORE_AVAILABLE(
+				bayes_opt_NO_SCORE_AVAILABLE_detail *);
+static __inline__ int	genom_tcopy_t_bayes_opt_NO_SCORE_AVAILABLE(
+				bayes_opt_NO_SCORE_AVAILABLE_detail *,
+				const bayes_opt_NO_SCORE_AVAILABLE_detail *);
 
 
 
@@ -760,28 +767,6 @@ genom_tcopy_double(double *dst,
 }
 
 
-/* === t_bayes_opt_result_t ============================================= */
-
-static __inline__ void
-genom_tinit_t_bayes_opt_result_t(bayes_opt_result_t *data)
-{
-  genom_tinit_double(data);
-}
-
-static __inline__ void
-genom_tfini_t_bayes_opt_result_t(bayes_opt_result_t *data)
-{
-  genom_tfini_double(data);
-}
-
-static __inline__ int
-genom_tcopy_t_bayes_opt_result_t(bayes_opt_result_t *dst,
-  bayes_opt_result_t src)
-{
-  return genom_tcopy_double(dst, src);
-}
-
-
 /* === boolean ========================================================== */
 
 static __inline__ void
@@ -805,25 +790,51 @@ genom_tcopy_boolean(bool *dst,
 }
 
 
-/* === t_bayes_opt_allow_t ============================================== */
+/* === t_bayes_opt_score ================================================ */
 
 static __inline__ void
-genom_tinit_t_bayes_opt_allow_t(bayes_opt_allow_t *data)
+genom_tinit_t_bayes_opt_score(bayes_opt_score *data)
 {
-  genom_tinit_boolean(data);
+  genom_tinit_double(&(data->value));
+  genom_tinit_boolean(&(data->valid));
 }
 
 static __inline__ void
-genom_tfini_t_bayes_opt_allow_t(bayes_opt_allow_t *data)
+genom_tfini_t_bayes_opt_score(bayes_opt_score *data)
 {
-  genom_tfini_boolean(data);
+  genom_tfini_double(&(data->value));
+  genom_tfini_boolean(&(data->valid));
 }
 
 static __inline__ int
-genom_tcopy_t_bayes_opt_allow_t(bayes_opt_allow_t *dst,
-  bayes_opt_allow_t src)
+genom_tcopy_t_bayes_opt_score(bayes_opt_score *dst,
+  const bayes_opt_score *src)
 {
-  return genom_tcopy_boolean(dst, src);
+  memcpy(dst, src, sizeof(bayes_opt_score));
+  return 0;
+}
+
+
+/* === t_bayes_opt_control ============================================== */
+
+static __inline__ void
+genom_tinit_t_bayes_opt_control(bayes_opt_control *data)
+{
+  genom_tinit_boolean(&(data->allow));
+}
+
+static __inline__ void
+genom_tfini_t_bayes_opt_control(bayes_opt_control *data)
+{
+  genom_tfini_boolean(&(data->allow));
+}
+
+static __inline__ int
+genom_tcopy_t_bayes_opt_control(bayes_opt_control *dst,
+  const bayes_opt_control *src)
+{
+  memcpy(dst, src, sizeof(bayes_opt_control));
+  return 0;
 }
 
 
@@ -856,69 +867,76 @@ genom_tcopy_array32_double(double dst[32],
 }
 
 
-/* === t_bayes_opt_param_array ========================================== */
+/* === long ============================================================= */
 
 static __inline__ void
-genom_tinit_t_bayes_opt_param_array(bayes_opt_param_array data)
+genom_tinit_long(int32_t *data)
 {
-  genom_tinit_array32_double(data);
+  (void)data; /* fix -Wunused-parameter */
 }
 
 static __inline__ void
-genom_tfini_t_bayes_opt_param_array(bayes_opt_param_array data)
+genom_tfini_long(int32_t *data)
 {
-  genom_tfini_array32_double(data);
+  (void)data; /* fix -Wunused-parameter */
 }
 
 static __inline__ int
-genom_tcopy_t_bayes_opt_param_array(bayes_opt_param_array dst,
-  const bayes_opt_param_array src)
+genom_tcopy_long(int32_t *dst,
+  int32_t src)
 {
-  return genom_tcopy_array32_double(dst, src);
+  *(dst) = src;
+  return 0;
 }
 
 
-/* === t_bayes_opt_best_param_array ===================================== */
+/* === t_bayes_opt_suggestion =========================================== */
 
 static __inline__ void
-genom_tinit_t_bayes_opt_best_param_array(bayes_opt_best_param_array data)
+genom_tinit_t_bayes_opt_suggestion(bayes_opt_suggestion *data)
 {
-  genom_tinit_array32_double(data);
+  genom_tinit_array32_double(data->params);
+  genom_tinit_long(&(data->iteration));
 }
 
 static __inline__ void
-genom_tfini_t_bayes_opt_best_param_array(bayes_opt_best_param_array data)
+genom_tfini_t_bayes_opt_suggestion(bayes_opt_suggestion *data)
 {
-  genom_tfini_array32_double(data);
+  genom_tfini_array32_double(data->params);
+  genom_tfini_long(&(data->iteration));
 }
 
 static __inline__ int
-genom_tcopy_t_bayes_opt_best_param_array(bayes_opt_best_param_array dst,
-  const bayes_opt_best_param_array src)
+genom_tcopy_t_bayes_opt_suggestion(bayes_opt_suggestion *dst,
+  const bayes_opt_suggestion *src)
 {
-  return genom_tcopy_array32_double(dst, src);
+  memcpy(dst, src, sizeof(bayes_opt_suggestion));
+  return 0;
 }
 
 
-/* === t_bayes_opt_best_value_t ========================================= */
+/* === t_bayes_opt_best ================================================= */
 
 static __inline__ void
-genom_tinit_t_bayes_opt_best_value_t(bayes_opt_best_value_t *data)
+genom_tinit_t_bayes_opt_best(bayes_opt_best *data)
 {
-  genom_tinit_double(data);
+  genom_tinit_array32_double(data->params);
+  genom_tinit_double(&(data->value));
 }
 
 static __inline__ void
-genom_tfini_t_bayes_opt_best_value_t(bayes_opt_best_value_t *data)
+genom_tfini_t_bayes_opt_best(bayes_opt_best *data)
 {
-  genom_tfini_double(data);
+  genom_tfini_array32_double(data->params);
+  genom_tfini_double(&(data->value));
 }
 
 static __inline__ int
-genom_tcopy_t_bayes_opt_best_value_t(bayes_opt_best_value_t *dst,
-  bayes_opt_best_value_t src)
+genom_tcopy_t_bayes_opt_best(bayes_opt_best *dst,
+  const bayes_opt_best *src)
 {
-  return genom_tcopy_double(dst, src);
+  memcpy(dst, src, sizeof(bayes_opt_best));
+  return 0;
 }
 
 
@@ -974,25 +992,30 @@ genom_tcopy_array128_char(int8_t dst[128],
 }
 
 
-/* === t_bayes_opt_status_array ========================================= */
+/* === t_bayes_opt_status_struct ======================================== */
 
 static __inline__ void
-genom_tinit_t_bayes_opt_status_array(bayes_opt_status_array data)
+genom_tinit_t_bayes_opt_status_struct(bayes_opt_status_struct *data)
 {
-  genom_tinit_array128_char(data);
+  genom_tinit_array128_char(data->text);
+  genom_tinit_long(&(data->iteration));
+  genom_tinit_boolean(&(data->running));
 }
 
 static __inline__ void
-genom_tfini_t_bayes_opt_status_array(bayes_opt_status_array data)
+genom_tfini_t_bayes_opt_status_struct(bayes_opt_status_struct *data)
 {
-  genom_tfini_array128_char(data);
+  genom_tfini_array128_char(data->text);
+  genom_tfini_long(&(data->iteration));
+  genom_tfini_boolean(&(data->running));
 }
 
 static __inline__ int
-genom_tcopy_t_bayes_opt_status_array(bayes_opt_status_array dst,
-  const bayes_opt_status_array src)
+genom_tcopy_t_bayes_opt_status_struct(bayes_opt_status_struct *dst,
+  const bayes_opt_status_struct *src)
 {
-  return genom_tcopy_array128_char(dst, src);
+  memcpy(dst, src, sizeof(bayes_opt_status_struct));
+  return 0;
 }
 
 
@@ -1447,25 +1470,25 @@ genom_tcopy_array5_double(double dst[5],
 }
 
 
-/* === long ============================================================= */
+/* === t_bayes_opt_INVALID_BOUNDS ======================================= */
 
 static __inline__ void
-genom_tinit_long(int32_t *data)
+genom_tinit_t_bayes_opt_INVALID_BOUNDS(bayes_opt_INVALID_BOUNDS_detail *data)
 {
   (void)data; /* fix -Wunused-parameter */
 }
 
 static __inline__ void
-genom_tfini_long(int32_t *data)
+genom_tfini_t_bayes_opt_INVALID_BOUNDS(bayes_opt_INVALID_BOUNDS_detail *data)
 {
   (void)data; /* fix -Wunused-parameter */
 }
 
 static __inline__ int
-genom_tcopy_long(int32_t *dst,
-  int32_t src)
+genom_tcopy_t_bayes_opt_INVALID_BOUNDS(bayes_opt_INVALID_BOUNDS_detail *dst,
+  const bayes_opt_INVALID_BOUNDS_detail *src)
 {
-  *(dst) = src;
+  (void)dst; (void)src; /* fix -Wunused-parameter */
   return 0;
 }
 
@@ -1581,6 +1604,29 @@ genom_tfini_t_bayes_opt_EVALUATION_FAILED(bayes_opt_EVALUATION_FAILED_detail *da
 static __inline__ int
 genom_tcopy_t_bayes_opt_EVALUATION_FAILED(bayes_opt_EVALUATION_FAILED_detail *dst,
   const bayes_opt_EVALUATION_FAILED_detail *src)
+{
+  (void)dst; (void)src; /* fix -Wunused-parameter */
+  return 0;
+}
+
+
+/* === t_bayes_opt_NO_SCORE_AVAILABLE =================================== */
+
+static __inline__ void
+genom_tinit_t_bayes_opt_NO_SCORE_AVAILABLE(bayes_opt_NO_SCORE_AVAILABLE_detail *data)
+{
+  (void)data; /* fix -Wunused-parameter */
+}
+
+static __inline__ void
+genom_tfini_t_bayes_opt_NO_SCORE_AVAILABLE(bayes_opt_NO_SCORE_AVAILABLE_detail *data)
+{
+  (void)data; /* fix -Wunused-parameter */
+}
+
+static __inline__ int
+genom_tcopy_t_bayes_opt_NO_SCORE_AVAILABLE(bayes_opt_NO_SCORE_AVAILABLE_detail *dst,
+  const bayes_opt_NO_SCORE_AVAILABLE_detail *src)
 {
   (void)dst; (void)src; /* fix -Wunused-parameter */
   return 0;

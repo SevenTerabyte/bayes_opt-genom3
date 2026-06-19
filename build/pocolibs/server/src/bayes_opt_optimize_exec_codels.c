@@ -11,289 +11,14 @@
 
 /* --- task optimize ---------------------------------------------------- */
 
-/* state start */
-static __inline__ genom_event
-bayes_opt_codel_task_optimize_start(
-  struct genom_component_data *self, struct genom_activity *activity)
-{
-  (void)activity; /* fix -Wunused-parameter */
-  genom_event s;
-
-  genom_prof_decl(event);
-  genom_prof_enter(&event);
-
-  genom_take_resource(
-    self,
-    self->resources.control == checkInitialized ||
-    self->resources.control == checkInitialized ||
-    self->resources.all,
-
-    self->resources.task_optimize = init);
-  genom_prof_start(&event);
-  s = init(&(self->ids.state), &self->tasks.optimize.context);
-  genom_give_resource(self, self->resources.task_optimize = NULL);
-  genom_prof_leave(&event);
-
-  genom_prof_collect(
-    &event, genom_instance,
-    "optimize", "optimize", "init",
-    activity->state, s);
-  return s;
-}
-
-/* state wait_result */
-static __inline__ genom_event
-bayes_opt_codel_task_optimize_wait_result(
-  struct genom_component_data *self, struct genom_activity *activity)
-{
-  (void)activity; /* fix -Wunused-parameter */
-  genom_event s;
-
-  genom_prof_decl(event);
-  genom_prof_enter(&event);
-
-  genom_take_resource(
-    self,
-    self->resources.control == checkInitialized ||
-    self->resources.control == checkInitialized ||
-    self->resources.all,
-
-    self->resources.task_optimize = wait_result);
-  genom_prof_start(&event);
-  s = wait_result(&(self->ports.result.handle), &(self->ports.allow.handle), &(self->ids.state), &self->tasks.optimize.context);
-  genom_give_resource(self, self->resources.task_optimize = NULL);
-  genom_prof_leave(&event);
-
-  genom_prof_collect(
-    &event, genom_instance,
-    "optimize", "optimize", "wait_result",
-    activity->state, s);
-  return s;
-}
-
-/* state compute */
-static __inline__ genom_event
-bayes_opt_codel_task_optimize_compute(
-  struct genom_component_data *self, struct genom_activity *activity)
-{
-  (void)activity; /* fix -Wunused-parameter */
-  genom_event s;
-
-  genom_prof_decl(event);
-  genom_prof_enter(&event);
-
-  genom_take_resource(
-    self,
-    self->resources.control == checkInitialized ||
-    self->resources.control == checkInitialized ||
-    self->resources.all,
-
-    self->resources.task_optimize = compute);
-  genom_prof_start(&event);
-  s = compute(&(self->ports.result.handle), &(self->ports.allow.handle), &(self->ids.state), &(self->ports.params.handle), &self->tasks.optimize.context);
-  genom_give_resource(self, self->resources.task_optimize = NULL);
-  genom_prof_leave(&event);
-
-  genom_prof_collect(
-    &event, genom_instance,
-    "optimize", "optimize", "compute",
-    activity->state, s);
-  return s;
-}
-
-/* state publish */
-static __inline__ genom_event
-bayes_opt_codel_task_optimize_publish(
-  struct genom_component_data *self, struct genom_activity *activity)
-{
-  (void)activity; /* fix -Wunused-parameter */
-  genom_event s;
-
-  genom_prof_decl(event);
-  genom_prof_enter(&event);
-
-  genom_take_resource(
-    self,
-    self->resources.control == checkInitialized ||
-    self->resources.control == checkInitialized ||
-    self->resources.all,
-
-    self->resources.task_optimize = publish);
-  genom_prof_start(&event);
-  s = publish(&(self->ids.state), &(self->ports.params.handle), &(self->ports.best_value.handle), &(self->ports.best_params.handle), &(self->ports.status.handle), &self->tasks.optimize.context);
-  genom_give_resource(self, self->resources.task_optimize = NULL);
-  genom_prof_leave(&event);
-
-  genom_prof_collect(
-    &event, genom_instance,
-    "optimize", "optimize", "publish",
-    activity->state, s);
-  return s;
-}
-
-/* state failed */
-static __inline__ genom_event
-bayes_opt_codel_task_optimize_failed(
-  struct genom_component_data *self, struct genom_activity *activity)
-{
-  (void)activity; /* fix -Wunused-parameter */
-  genom_event s;
-
-  genom_prof_decl(event);
-  genom_prof_enter(&event);
-
-  genom_take_resource(
-    self,
-    self->resources.control == checkInitialized ||
-    self->resources.control == checkInitialized ||
-    self->resources.all,
-
-    self->resources.task_optimize = failed);
-  genom_prof_start(&event);
-  s = failed(&(self->ids.state), &self->tasks.optimize.context);
-  genom_give_resource(self, self->resources.task_optimize = NULL);
-  genom_prof_leave(&event);
-
-  genom_prof_collect(
-    &event, genom_instance,
-    "optimize", "optimize", "failed",
-    activity->state, s);
-  return s;
-}
-
 /* invoke codels according to optimize state */
 static __inline__ enum genom_activity_status
 bayes_opt_invoke_task_optimize(
   struct genom_component_data *self, struct genom_activity *a)
 {
-  genom_event s;
 
   genom_log_debug(
     "task optimize invoking task optimize %s", a->state);
-
-  if (a->state == bayes_opt_start
-      || a->state == bayes_opt_start /* default external event */
-    ) {
-    s = bayes_opt_codel_task_optimize_start(self, a);
-    genom_log_debug("task optimize yielded %s", s);
-    if (
-      s == bayes_opt_wait_result ||
-      0) {
-      a->state = s;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = s;
-      a->pause = 1;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = bayes_opt_ether;
-      return ACT_ETHER;
-    }
-    goto ex;
-  }
-
-  if (a->state == bayes_opt_wait_result
-    ) {
-    s = bayes_opt_codel_task_optimize_wait_result(self, a);
-    genom_log_debug("task optimize yielded %s", s);
-    if (
-      s == bayes_opt_compute ||
-      s == bayes_opt_wait_result ||
-      s == bayes_opt_failed ||
-      0) {
-      a->state = s;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = s;
-      a->pause = 1;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = bayes_opt_ether;
-      return ACT_ETHER;
-    }
-    goto ex;
-  }
-
-  if (a->state == bayes_opt_compute
-    ) {
-    s = bayes_opt_codel_task_optimize_compute(self, a);
-    genom_log_debug("task optimize yielded %s", s);
-    if (
-      s == bayes_opt_publish ||
-      s == bayes_opt_wait_result ||
-      0) {
-      a->state = s;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = s;
-      a->pause = 1;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = bayes_opt_ether;
-      return ACT_ETHER;
-    }
-    goto ex;
-  }
-
-  if (a->state == bayes_opt_publish
-    ) {
-    s = bayes_opt_codel_task_optimize_publish(self, a);
-    genom_log_debug("task optimize yielded %s", s);
-    if (
-      s == bayes_opt_wait_result ||
-      0) {
-      a->state = s;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = s;
-      a->pause = 1;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = bayes_opt_ether;
-      return ACT_ETHER;
-    }
-    goto ex;
-  }
-
-  if (a->state == bayes_opt_failed
-    ) {
-    s = bayes_opt_codel_task_optimize_failed(self, a);
-    genom_log_debug("task optimize yielded %s", s);
-    if (
-      0) {
-      a->state = s;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = s;
-      a->pause = 1;
-      return ACT_RUN;
-    }
-    if (
-      s == bayes_opt_ether ||
-      0) {
-      a->state = bayes_opt_ether;
-      return ACT_ETHER;
-    }
-    goto ex;
-  }
 
   /* noop default task start and stop, if not already handled above */
   if (a->state == bayes_opt_start || a->state == bayes_opt_stop) {
@@ -307,27 +32,6 @@ bayes_opt_invoke_task_optimize(
   abort();
   /*NOTREACHED*/
 
-ex:
-  if (
-    s != genom_incompatible_digest_id &&
-    s != genom_bad_transition_id &&
-    s != genom_interrupted_id &&
-    s != genom_serialization_id &&
-    s != genom_too_many_activities_id &&
-    s != genom_disallowed_id &&
-    s != genom_mwerr_id &&
-    s != bayes_opt_e_sys_id &&
-    1) {
-    genom_bad_transition_detail d;
-    strncpy(d.from, a->state, sizeof(d.from)); d.from[sizeof(d.from)-1] = *"";
-    strncpy(d.to, s, sizeof(d.to)); d.to[sizeof(d.to)-1] = *"";
-    genom_log_warn(
-      0, "bad transition from %s to %s in task optimize",
-      a->state, s?s:"genom_ok");
-    genom_bad_transition(&d, &self->tasks.optimize.context);
-  }
-
-  a->state = NULL;
   return ACT_ETHER;
 }
 
@@ -339,7 +43,8 @@ static __inline__ genom_event
 bayes_opt_codel_service_Init_start(
   struct genom_component_data *self, struct genom_activity *activity)
 {
-  (void)activity; /* fix -Wunused-parameter */
+  struct genom_bayes_opt_Init_activity *a =
+    (struct genom_bayes_opt_Init_activity *)activity;
   genom_event s;
 
   genom_prof_decl(event);
@@ -347,45 +52,20 @@ bayes_opt_codel_service_Init_start(
 
   genom_take_resource(
     self,
+    self->resources.control == checkInitialized ||
+    self->resources.control == checkInitialized ||
+    self->resources.control == checkInitialized ||
     self->resources.all,
 
-    self->resources.task_optimize = fake_start);
+    self->resources.task_optimize = boInit);
   genom_prof_start(&event);
-  s = fake_start(&self->tasks.optimize.context);
+  s = boInit(a->in.lower_bounds, a->in.upper_bounds, a->in.max_iterations, &(self->ids.state), &self->tasks.optimize.context);
   genom_give_resource(self, self->resources.task_optimize = NULL);
   genom_prof_leave(&event);
 
   genom_prof_collect(
     &event, genom_instance,
-    "optimize", "Init", "fake_start",
-    activity->state, s);
-  return s;
-}
-
-/* state stop */
-static __inline__ genom_event
-bayes_opt_codel_service_Init_stop(
-  struct genom_component_data *self, struct genom_activity *activity)
-{
-  (void)activity; /* fix -Wunused-parameter */
-  genom_event s;
-
-  genom_prof_decl(event);
-  genom_prof_enter(&event);
-
-  genom_take_resource(
-    self,
-    self->resources.all,
-
-    self->resources.task_optimize = fake_stop);
-  genom_prof_start(&event);
-  s = fake_stop(&self->tasks.optimize.context);
-  genom_give_resource(self, self->resources.task_optimize = NULL);
-  genom_prof_leave(&event);
-
-  genom_prof_collect(
-    &event, genom_instance,
-    "optimize", "Init", "fake_stop",
+    "optimize", "Init", "boInit",
     activity->state, s);
   return s;
 }
@@ -404,31 +84,6 @@ bayes_opt_invoke_service_Init(
       || a->state == bayes_opt_start /* default external event */
     ) {
     s = bayes_opt_codel_service_Init_start(self, a);
-    genom_log_debug("service Init yielded %s", s);
-    if (
-      0) {
-      a->state = s;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = s;
-      a->pause = 1;
-      return ACT_RUN;
-    }
-    if (
-      s == bayes_opt_ether ||
-      0) {
-      a->state = bayes_opt_ether;
-      return ACT_ETHER;
-    }
-    goto ex;
-  }
-
-  if (a->state == bayes_opt_stop
-      || a->state == bayes_opt_stop /* default external event */
-    ) {
-    s = bayes_opt_codel_service_Init_stop(self, a);
     genom_log_debug("service Init yielded %s", s);
     if (
       0) {
@@ -476,6 +131,7 @@ ex:
     s != genom_too_many_activities_id &&
     s != genom_disallowed_id &&
     s != genom_mwerr_id &&
+    s != bayes_opt_INVALID_BOUNDS_id &&
     s != bayes_opt_e_sys_id &&
     1) {
     genom_bad_transition_detail d;
@@ -499,7 +155,8 @@ static __inline__ genom_event
 bayes_opt_codel_service_AskNext_start(
   struct genom_component_data *self, struct genom_activity *activity)
 {
-  (void)activity; /* fix -Wunused-parameter */
+  struct genom_bayes_opt_AskNext_activity *a =
+    (struct genom_bayes_opt_AskNext_activity *)activity;
   genom_event s;
 
   genom_prof_decl(event);
@@ -507,47 +164,20 @@ bayes_opt_codel_service_AskNext_start(
 
   genom_take_resource(
     self,
+    self->resources.control == checkInitialized ||
     self->resources.control == checkInitialized ||
     self->resources.control == checkInitialized ||
     self->resources.all,
 
     self->resources.task_optimize = boProposeParams);
   genom_prof_start(&event);
-  s = boProposeParams(&(self->ids.state), &(self->ports.params.handle), &self->tasks.optimize.context);
+  s = boProposeParams(&(self->ids.state), &(a->out.params_out), &self->tasks.optimize.context);
   genom_give_resource(self, self->resources.task_optimize = NULL);
   genom_prof_leave(&event);
 
   genom_prof_collect(
     &event, genom_instance,
     "optimize", "AskNext", "boProposeParams",
-    activity->state, s);
-  return s;
-}
-
-/* state end */
-static __inline__ genom_event
-bayes_opt_codel_service_AskNext_end(
-  struct genom_component_data *self, struct genom_activity *activity)
-{
-  (void)activity; /* fix -Wunused-parameter */
-  genom_event s;
-
-  genom_prof_decl(event);
-  genom_prof_enter(&event);
-
-  genom_take_resource(
-    self,
-    self->resources.all,
-
-    self->resources.task_optimize = fake_end);
-  genom_prof_start(&event);
-  s = fake_end(&self->tasks.optimize.context);
-  genom_give_resource(self, self->resources.task_optimize = NULL);
-  genom_prof_leave(&event);
-
-  genom_prof_collect(
-    &event, genom_instance,
-    "optimize", "AskNext", "fake_end",
     activity->state, s);
   return s;
 }
@@ -566,31 +196,6 @@ bayes_opt_invoke_service_AskNext(
       || a->state == bayes_opt_start /* default external event */
     ) {
     s = bayes_opt_codel_service_AskNext_start(self, a);
-    genom_log_debug("service AskNext yielded %s", s);
-    if (
-      s == bayes_opt_end ||
-      0) {
-      a->state = s;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = s;
-      a->pause = 1;
-      return ACT_RUN;
-    }
-    if (
-      s == bayes_opt_ether ||
-      0) {
-      a->state = bayes_opt_ether;
-      return ACT_ETHER;
-    }
-    goto ex;
-  }
-
-  if (a->state == bayes_opt_end
-    ) {
-    s = bayes_opt_codel_service_AskNext_end(self, a);
     genom_log_debug("service AskNext yielded %s", s);
     if (
       0) {
@@ -638,7 +243,6 @@ ex:
     s != genom_too_many_activities_id &&
     s != genom_disallowed_id &&
     s != genom_mwerr_id &&
-    s != bayes_opt_e_sys_id &&
     s != bayes_opt_OPTIMIZATION_FAILED_id &&
     1) {
     genom_bad_transition_detail d;
@@ -673,6 +277,7 @@ bayes_opt_codel_service_SubmitResult_start(
     self,
     self->resources.control == checkInitialized ||
     self->resources.control == checkInitialized ||
+    self->resources.control == checkInitialized ||
     self->resources.all,
 
     self->resources.task_optimize = boUpdateOptimizer);
@@ -684,34 +289,6 @@ bayes_opt_codel_service_SubmitResult_start(
   genom_prof_collect(
     &event, genom_instance,
     "optimize", "SubmitResult", "boUpdateOptimizer",
-    activity->state, s);
-  return s;
-}
-
-/* state end */
-static __inline__ genom_event
-bayes_opt_codel_service_SubmitResult_end(
-  struct genom_component_data *self, struct genom_activity *activity)
-{
-  (void)activity; /* fix -Wunused-parameter */
-  genom_event s;
-
-  genom_prof_decl(event);
-  genom_prof_enter(&event);
-
-  genom_take_resource(
-    self,
-    self->resources.all,
-
-    self->resources.task_optimize = fake_end);
-  genom_prof_start(&event);
-  s = fake_end(&self->tasks.optimize.context);
-  genom_give_resource(self, self->resources.task_optimize = NULL);
-  genom_prof_leave(&event);
-
-  genom_prof_collect(
-    &event, genom_instance,
-    "optimize", "SubmitResult", "fake_end",
     activity->state, s);
   return s;
 }
@@ -730,31 +307,6 @@ bayes_opt_invoke_service_SubmitResult(
       || a->state == bayes_opt_start /* default external event */
     ) {
     s = bayes_opt_codel_service_SubmitResult_start(self, a);
-    genom_log_debug("service SubmitResult yielded %s", s);
-    if (
-      s == bayes_opt_end ||
-      0) {
-      a->state = s;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = s;
-      a->pause = 1;
-      return ACT_RUN;
-    }
-    if (
-      s == bayes_opt_ether ||
-      0) {
-      a->state = bayes_opt_ether;
-      return ACT_ETHER;
-    }
-    goto ex;
-  }
-
-  if (a->state == bayes_opt_end
-    ) {
-    s = bayes_opt_codel_service_SubmitResult_end(self, a);
     genom_log_debug("service SubmitResult yielded %s", s);
     if (
       0) {
@@ -802,9 +354,9 @@ ex:
     s != genom_too_many_activities_id &&
     s != genom_disallowed_id &&
     s != genom_mwerr_id &&
-    s != bayes_opt_e_sys_id &&
     s != bayes_opt_INVALID_PARAMETER_id &&
     s != bayes_opt_EVALUATION_FAILED_id &&
+    s != bayes_opt_NO_SCORE_AVAILABLE_id &&
     1) {
     genom_bad_transition_detail d;
     strncpy(d.from, a->state, sizeof(d.from)); d.from[sizeof(d.from)-1] = *"";
@@ -827,7 +379,8 @@ static __inline__ genom_event
 bayes_opt_codel_service_GetBest_start(
   struct genom_component_data *self, struct genom_activity *activity)
 {
-  (void)activity; /* fix -Wunused-parameter */
+  struct genom_bayes_opt_GetBest_activity *a =
+    (struct genom_bayes_opt_GetBest_activity *)activity;
   genom_event s;
 
   genom_prof_decl(event);
@@ -837,43 +390,15 @@ bayes_opt_codel_service_GetBest_start(
     self,
     self->resources.all,
 
-    self->resources.task_optimize = fake_start);
+    self->resources.task_optimize = boGetBest);
   genom_prof_start(&event);
-  s = fake_start(&self->tasks.optimize.context);
+  s = boGetBest(&(self->ids.state), &(a->out.best_result_out), &self->tasks.optimize.context);
   genom_give_resource(self, self->resources.task_optimize = NULL);
   genom_prof_leave(&event);
 
   genom_prof_collect(
     &event, genom_instance,
-    "optimize", "GetBest", "fake_start",
-    activity->state, s);
-  return s;
-}
-
-/* state stop */
-static __inline__ genom_event
-bayes_opt_codel_service_GetBest_stop(
-  struct genom_component_data *self, struct genom_activity *activity)
-{
-  (void)activity; /* fix -Wunused-parameter */
-  genom_event s;
-
-  genom_prof_decl(event);
-  genom_prof_enter(&event);
-
-  genom_take_resource(
-    self,
-    self->resources.all,
-
-    self->resources.task_optimize = fake_stop);
-  genom_prof_start(&event);
-  s = fake_stop(&self->tasks.optimize.context);
-  genom_give_resource(self, self->resources.task_optimize = NULL);
-  genom_prof_leave(&event);
-
-  genom_prof_collect(
-    &event, genom_instance,
-    "optimize", "GetBest", "fake_stop",
+    "optimize", "GetBest", "boGetBest",
     activity->state, s);
   return s;
 }
@@ -892,31 +417,6 @@ bayes_opt_invoke_service_GetBest(
       || a->state == bayes_opt_start /* default external event */
     ) {
     s = bayes_opt_codel_service_GetBest_start(self, a);
-    genom_log_debug("service GetBest yielded %s", s);
-    if (
-      0) {
-      a->state = s;
-      return ACT_RUN;
-    }
-    if (
-      0) {
-      a->state = s;
-      a->pause = 1;
-      return ACT_RUN;
-    }
-    if (
-      s == bayes_opt_ether ||
-      0) {
-      a->state = bayes_opt_ether;
-      return ACT_ETHER;
-    }
-    goto ex;
-  }
-
-  if (a->state == bayes_opt_stop
-      || a->state == bayes_opt_stop /* default external event */
-    ) {
-    s = bayes_opt_codel_service_GetBest_stop(self, a);
     genom_log_debug("service GetBest yielded %s", s);
     if (
       0) {
@@ -964,7 +464,7 @@ ex:
     s != genom_too_many_activities_id &&
     s != genom_disallowed_id &&
     s != genom_mwerr_id &&
-    s != bayes_opt_e_sys_id &&
+    s != bayes_opt_NO_SCORE_AVAILABLE_id &&
     1) {
     genom_bad_transition_detail d;
     strncpy(d.from, a->state, sizeof(d.from)); d.from[sizeof(d.from)-1] = *"";

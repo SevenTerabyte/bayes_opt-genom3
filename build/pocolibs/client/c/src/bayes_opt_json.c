@@ -376,8 +376,8 @@ genom_bayes_opt_client_propose_parameters_json_print(char **json,
 
   if ((s = bufcat(json, &end, &len, 0, "\"params\":")))
     goto done;
-  if ((s = json_print_t_bayes_opt_param_array(json, &end, &len,
-         out->params)))
+  if ((s = json_print_t_bayes_opt_suggestion(json, &end, &len,
+         &(out->params))))
     goto done;
 
   if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
@@ -495,10 +495,10 @@ genom_bayes_opt_client_get_best_parameters_json_print(char **json,
 
   if ((s = bufcat(json, &end, &len, 0, "{"))) goto done;
 
-  if ((s = bufcat(json, &end, &len, 0, "\"best\":")))
+  if ((s = bufcat(json, &end, &len, 0, "\"best_result\":")))
     goto done;
-  if ((s = json_print_t_bayes_opt_best_param_array(json, &end, &len,
-         out->best)))
+  if ((s = json_print_t_bayes_opt_best(json, &end, &len,
+         &(out->best_result))))
     goto done;
 
   if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
@@ -689,8 +689,8 @@ genom_bayes_opt_client_AskNext_json_print(char **json,
 
   if ((s = bufcat(json, &end, &len, 0, "\"params_out\":")))
     goto done;
-  if ((s = json_print_t_bayes_opt_param_array(json, &end, &len,
-         out->params_out)))
+  if ((s = json_print_t_bayes_opt_suggestion(json, &end, &len,
+         &(out->params_out))))
     goto done;
 
   if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
@@ -808,10 +808,10 @@ genom_bayes_opt_client_GetBest_json_print(char **json,
 
   if ((s = bufcat(json, &end, &len, 0, "{"))) goto done;
 
-  if ((s = bufcat(json, &end, &len, 0, "\"best\":")))
+  if ((s = bufcat(json, &end, &len, 0, "\"best_result_out\":")))
     goto done;
-  if ((s = json_print_t_bayes_opt_best_param_array(json, &end, &len,
-         out->best)))
+  if ((s = json_print_t_bayes_opt_best(json, &end, &len,
+         &(out->best_result_out))))
     goto done;
 
   if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
@@ -865,7 +865,7 @@ done:
 
 int
 genom_bayes_opt_client_result_json_scan(
-  bayes_opt_result_t *data,
+  bayes_opt_score *data,
   const char *json, char **endptr)
 {
   int s = 0;
@@ -883,7 +883,7 @@ genom_bayes_opt_client_result_json_scan(
     json += 1+6;
     json_skip_whitespace(json);
     if (*(json++) != ':') { s = EINVAL; goto done; }
-    if ((s = json_scan_t_bayes_opt_result_t(data, &json)))
+    if ((s = json_scan_t_bayes_opt_score(data, &json)))
       goto done;
 
     json_skip_whitespace(json);
@@ -900,7 +900,7 @@ done:
 
 int
 genom_bayes_opt_client_result_json_print(char **json,
-  const bayes_opt_result_t *data)
+  const bayes_opt_score *data)
 {
   size_t len;
   char *end;
@@ -915,8 +915,8 @@ genom_bayes_opt_client_result_json_print(char **json,
   if ((s = bufcat(json, &end, &len, 0, "\"result\":")))
     goto done;
 
-  if ((s = json_print_t_bayes_opt_result_t(
-         json, &end, &len, *(data))))
+  if ((s = json_print_t_bayes_opt_score(
+         json, &end, &len, &(*(data)))))
     goto done;
 
   if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
@@ -934,7 +934,7 @@ done:
 
 int
 genom_bayes_opt_client_allow_json_scan(
-  bayes_opt_allow_t *data,
+  bayes_opt_control *data,
   const char *json, char **endptr)
 {
   int s = 0;
@@ -952,7 +952,7 @@ genom_bayes_opt_client_allow_json_scan(
     json += 1+5;
     json_skip_whitespace(json);
     if (*(json++) != ':') { s = EINVAL; goto done; }
-    if ((s = json_scan_t_bayes_opt_allow_t(data, &json)))
+    if ((s = json_scan_t_bayes_opt_control(data, &json)))
       goto done;
 
     json_skip_whitespace(json);
@@ -969,7 +969,7 @@ done:
 
 int
 genom_bayes_opt_client_allow_json_print(char **json,
-  const bayes_opt_allow_t *data)
+  const bayes_opt_control *data)
 {
   size_t len;
   char *end;
@@ -984,8 +984,8 @@ genom_bayes_opt_client_allow_json_print(char **json,
   if ((s = bufcat(json, &end, &len, 0, "\"allow\":")))
     goto done;
 
-  if ((s = json_print_t_bayes_opt_allow_t(
-         json, &end, &len, *(data))))
+  if ((s = json_print_t_bayes_opt_control(
+         json, &end, &len, &(*(data)))))
     goto done;
 
   if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
@@ -1004,7 +1004,7 @@ done:
 
 int
 genom_bayes_opt_client_params_json_print(char **json,
-  const bayes_opt_param_array data)
+  const bayes_opt_suggestion *data)
 {
   size_t len;
   char *end;
@@ -1019,8 +1019,8 @@ genom_bayes_opt_client_params_json_print(char **json,
   if ((s = bufcat(json, &end, &len, 0, "\"params\":")))
     goto done;
 
-  if ((s = json_print_t_bayes_opt_param_array(
-         json, &end, &len, data)))
+  if ((s = json_print_t_bayes_opt_suggestion(
+         json, &end, &len, &(*(data)))))
     goto done;
 
   if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
@@ -1034,12 +1034,12 @@ done:
 }
 
 
-/* --- Port best_params encoding ---------------------------------------- */
+/* --- Port best_result encoding ---------------------------------------- */
 
 
 int
-genom_bayes_opt_client_best_params_json_print(char **json,
-  const bayes_opt_best_param_array data)
+genom_bayes_opt_client_best_result_json_print(char **json,
+  const bayes_opt_best *data)
 {
   size_t len;
   char *end;
@@ -1051,46 +1051,11 @@ genom_bayes_opt_client_best_params_json_print(char **json,
 
   if ((s = bufcat(json, &end, &len, 0, "{"))) goto done;
 
-  if ((s = bufcat(json, &end, &len, 0, "\"best_params\":")))
+  if ((s = bufcat(json, &end, &len, 0, "\"best_result\":")))
     goto done;
 
-  if ((s = json_print_t_bayes_opt_best_param_array(
-         json, &end, &len, data)))
-    goto done;
-
-  if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
-
-done:
-  if (s && *json) {
-    free(*json);
-    *json = NULL;
-  }
-  return s;
-}
-
-
-/* --- Port best_value encoding ----------------------------------------- */
-
-
-int
-genom_bayes_opt_client_best_value_json_print(char **json,
-  const bayes_opt_best_value_t *data)
-{
-  size_t len;
-  char *end;
-  int s;
-
-  len = JSON_MINBUF;
-  *json = end = malloc(len);
-  if (!*json) return ENOMEM;
-
-  if ((s = bufcat(json, &end, &len, 0, "{"))) goto done;
-
-  if ((s = bufcat(json, &end, &len, 0, "\"best_value\":")))
-    goto done;
-
-  if ((s = json_print_t_bayes_opt_best_value_t(
-         json, &end, &len, *(data))))
+  if ((s = json_print_t_bayes_opt_best(
+         json, &end, &len, &(*(data)))))
     goto done;
 
   if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
@@ -1109,7 +1074,7 @@ done:
 
 int
 genom_bayes_opt_client_status_json_print(char **json,
-  const bayes_opt_status_array data)
+  const bayes_opt_status_struct *data)
 {
   size_t len;
   char *end;
@@ -1124,8 +1089,8 @@ genom_bayes_opt_client_status_json_print(char **json,
   if ((s = bufcat(json, &end, &len, 0, "\"status\":")))
     goto done;
 
-  if ((s = json_print_t_bayes_opt_status_array(
-         json, &end, &len, data)))
+  if ((s = json_print_t_bayes_opt_status_struct(
+         json, &end, &len, &(*(data)))))
     goto done;
 
   if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
@@ -1278,6 +1243,12 @@ genom_bayes_opt_client_json_error(genom_client h,
     if (bufcat(&s, &end, &len, 0, "\"}")) return NULL;
     return s;
   }
+  else if (e == bayes_opt_INVALID_BOUNDS_id) {
+    if (bufcat(&s, &end, &len, 0, "{\"ex\":\"")) return NULL;
+    if (bufcat(&s, &end, &len, 0, bayes_opt_INVALID_BOUNDS_id)) return NULL;
+    if (bufcat(&s, &end, &len, 0, "\"}")) return NULL;
+    return s;
+  }
   else if (e == bayes_opt_e_sys_id) {
     if (bufcat(&s, &end, &len, 0, "{\"ex\":\"")) return NULL;
     if (bufcat(&s, &end, &len, 0, bayes_opt_e_sys_id)) return NULL;
@@ -1303,6 +1274,12 @@ genom_bayes_opt_client_json_error(genom_client h,
   else if (e == bayes_opt_EVALUATION_FAILED_id) {
     if (bufcat(&s, &end, &len, 0, "{\"ex\":\"")) return NULL;
     if (bufcat(&s, &end, &len, 0, bayes_opt_EVALUATION_FAILED_id)) return NULL;
+    if (bufcat(&s, &end, &len, 0, "\"}")) return NULL;
+    return s;
+  }
+  else if (e == bayes_opt_NO_SCORE_AVAILABLE_id) {
+    if (bufcat(&s, &end, &len, 0, "{\"ex\":\"")) return NULL;
+    if (bufcat(&s, &end, &len, 0, bayes_opt_NO_SCORE_AVAILABLE_id)) return NULL;
     if (bufcat(&s, &end, &len, 0, "\"}")) return NULL;
     return s;
   }

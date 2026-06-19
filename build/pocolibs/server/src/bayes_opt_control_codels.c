@@ -533,11 +533,7 @@ genom_bayes_opt_AskNext_controlcb(
   genom_prof_enter(&event);
   genom_take_resource(
     self,
-    self->resources.task_optimize == init ||
-    self->resources.task_optimize == wait_result ||
-    self->resources.task_optimize == compute ||
-    self->resources.task_optimize == publish ||
-    self->resources.task_optimize == failed ||
+    self->resources.task_optimize == boInit ||
     self->resources.task_optimize == boProposeParams ||
     self->resources.task_optimize == boUpdateOptimizer ||
     self->resources.all,
@@ -581,11 +577,7 @@ genom_bayes_opt_SubmitResult_controlcb(
   genom_prof_enter(&event);
   genom_take_resource(
     self,
-    self->resources.task_optimize == init ||
-    self->resources.task_optimize == wait_result ||
-    self->resources.task_optimize == compute ||
-    self->resources.task_optimize == publish ||
-    self->resources.task_optimize == failed ||
+    self->resources.task_optimize == boInit ||
     self->resources.task_optimize == boProposeParams ||
     self->resources.task_optimize == boUpdateOptimizer ||
     self->resources.all,
@@ -619,12 +611,32 @@ genom_bayes_opt_GetBest_controlcb(
 {
   genom_event s = genom_ok;
   (void)self; (void)a; /* fix -Wunused-parameter */
+  genom_prof_decl(event);
 
   /* check allowance (before/after statements) */
 
   /* copy inout parameters to output */
 
   /* call validate codel */
+  genom_prof_enter(&event);
+  genom_take_resource(
+    self,
+    self->resources.task_optimize == boInit ||
+    self->resources.task_optimize == boProposeParams ||
+    self->resources.task_optimize == boUpdateOptimizer ||
+    self->resources.all,
+
+    self->resources.control = checkInitialized);
+  genom_prof_start(&event);
+  s = checkInitialized(&(self->ids.state), &self->control.context);
+  genom_give_resource(self, self->resources.control = NULL);
+  genom_prof_leave(&event);
+
+  genom_prof_collect(
+    &event, genom_instance,
+    "<control>", "GetBest", "checkInitialized", "validate", s);
+  genom_log_debug("service GetBest validation returned %s", s?s:"ok");
+  if (s) return s;
 
   /* copy ids parameters to ids (attributes) */
 

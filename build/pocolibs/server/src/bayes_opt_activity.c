@@ -587,9 +587,6 @@ genom_bayes_opt_activity_encodex(char *buffer, int size, char *dst, int maxsize)
   else if (a->state == genom_mwerr_id)
     return genom_bayes_opt_genom_mwerr_encodex(
       a->exdetail, size, dst, maxsize);
-  else if (a->state == bayes_opt_e_sys_id)
-    return genom_bayes_opt_bayes_opt_e_sys_encodex(
-      a->exdetail, size, dst, maxsize);
   else if (a->state == genom_no_such_activity_id)
     return genom_bayes_opt_genom_no_such_activity_encodex(
       a->exdetail, size, dst, maxsize);
@@ -611,6 +608,12 @@ genom_bayes_opt_activity_encodex(char *buffer, int size, char *dst, int maxsize)
   else if (a->state == genom_remote_io_id)
     return genom_bayes_opt_genom_remote_io_encodex(
       a->exdetail, size, dst, maxsize);
+  else if (a->state == bayes_opt_INVALID_BOUNDS_id)
+    return genom_bayes_opt_bayes_opt_INVALID_BOUNDS_encodex(
+      a->exdetail, size, dst, maxsize);
+  else if (a->state == bayes_opt_e_sys_id)
+    return genom_bayes_opt_bayes_opt_e_sys_encodex(
+      a->exdetail, size, dst, maxsize);
   else if (a->state == bayes_opt_OPTIMIZATION_FAILED_id)
     return genom_bayes_opt_bayes_opt_OPTIMIZATION_FAILED_encodex(
       a->exdetail, size, dst, maxsize);
@@ -619,6 +622,9 @@ genom_bayes_opt_activity_encodex(char *buffer, int size, char *dst, int maxsize)
       a->exdetail, size, dst, maxsize);
   else if (a->state == bayes_opt_EVALUATION_FAILED_id)
     return genom_bayes_opt_bayes_opt_EVALUATION_FAILED_encodex(
+      a->exdetail, size, dst, maxsize);
+  else if (a->state == bayes_opt_NO_SCORE_AVAILABLE_id)
+    return genom_bayes_opt_bayes_opt_NO_SCORE_AVAILABLE_encodex(
       a->exdetail, size, dst, maxsize);
 
   assert(!"unknown genom exception");

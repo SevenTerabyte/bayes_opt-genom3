@@ -83,34 +83,34 @@ static __inline__ int	json_scan_double(
   double *, const char **);
 static __inline__ int	json_print_double(char **, char **, size_t *,
   double);
-static __inline__ int	json_scan_t_bayes_opt_result_t(
-  bayes_opt_result_t *, const char **);
-static __inline__ int	json_print_t_bayes_opt_result_t(char **, char **, size_t *,
-  bayes_opt_result_t);
 static __inline__ int	json_scan_boolean(
   bool *, const char **);
 static __inline__ int	json_print_boolean(char **, char **, size_t *,
   bool);
-static __inline__ int	json_scan_t_bayes_opt_allow_t(
-  bayes_opt_allow_t *, const char **);
-static __inline__ int	json_print_t_bayes_opt_allow_t(char **, char **, size_t *,
-  bayes_opt_allow_t);
+static __inline__ int	json_scan_t_bayes_opt_score(
+  bayes_opt_score *, const char **);
+static __inline__ int	json_print_t_bayes_opt_score(char **, char **, size_t *,
+  const bayes_opt_score *);
+static __inline__ int	json_scan_t_bayes_opt_control(
+  bayes_opt_control *, const char **);
+static __inline__ int	json_print_t_bayes_opt_control(char **, char **, size_t *,
+  const bayes_opt_control *);
 static __inline__ int	json_scan_array32_double(
   double [32], const char **);
 static __inline__ int	json_print_array32_double(char **, char **, size_t *,
   const double [32]);
-static __inline__ int	json_scan_t_bayes_opt_param_array(
-  bayes_opt_param_array, const char **);
-static __inline__ int	json_print_t_bayes_opt_param_array(char **, char **, size_t *,
-  const bayes_opt_param_array);
-static __inline__ int	json_scan_t_bayes_opt_best_param_array(
-  bayes_opt_best_param_array, const char **);
-static __inline__ int	json_print_t_bayes_opt_best_param_array(char **, char **, size_t *,
-  const bayes_opt_best_param_array);
-static __inline__ int	json_scan_t_bayes_opt_best_value_t(
-  bayes_opt_best_value_t *, const char **);
-static __inline__ int	json_print_t_bayes_opt_best_value_t(char **, char **, size_t *,
-  bayes_opt_best_value_t);
+static __inline__ int	json_scan_long(
+  int32_t *, const char **);
+static __inline__ int	json_print_long(char **, char **, size_t *,
+  int32_t);
+static __inline__ int	json_scan_t_bayes_opt_suggestion(
+  bayes_opt_suggestion *, const char **);
+static __inline__ int	json_print_t_bayes_opt_suggestion(char **, char **, size_t *,
+  const bayes_opt_suggestion *);
+static __inline__ int	json_scan_t_bayes_opt_best(
+  bayes_opt_best *, const char **);
+static __inline__ int	json_print_t_bayes_opt_best(char **, char **, size_t *,
+  const bayes_opt_best *);
 static __inline__ int	json_scan_char(
   int8_t *, const char **);
 static __inline__ int	json_print_char(char **, char **, size_t *,
@@ -119,10 +119,10 @@ static __inline__ int	json_scan_array128_char(
   int8_t [128], const char **);
 static __inline__ int	json_print_array128_char(char **, char **, size_t *,
   const int8_t [128]);
-static __inline__ int	json_scan_t_bayes_opt_status_array(
-  bayes_opt_status_array, const char **);
-static __inline__ int	json_print_t_bayes_opt_status_array(char **, char **, size_t *,
-  const bayes_opt_status_array);
+static __inline__ int	json_scan_t_bayes_opt_status_struct(
+  bayes_opt_status_struct *, const char **);
+static __inline__ int	json_print_t_bayes_opt_status_struct(char **, char **, size_t *,
+  const bayes_opt_status_struct *);
 static __inline__ int	json_scan_t_genom_incompatible_digest_client_digest(
   genom_incompatible_digest_client_digest *, const char **);
 static __inline__ int	json_print_t_genom_incompatible_digest_client_digest(char **, char **, size_t *,
@@ -199,10 +199,10 @@ static __inline__ int	json_scan_array5_double(
   double [5], const char **);
 static __inline__ int	json_print_array5_double(char **, char **, size_t *,
   const double [5]);
-static __inline__ int	json_scan_long(
-  int32_t *, const char **);
-static __inline__ int	json_print_long(char **, char **, size_t *,
-  int32_t);
+static __inline__ int	json_scan_t_bayes_opt_INVALID_BOUNDS(
+  bayes_opt_INVALID_BOUNDS_detail *, const char **);
+static __inline__ int	json_print_t_bayes_opt_INVALID_BOUNDS(char **, char **, size_t *,
+  const bayes_opt_INVALID_BOUNDS_detail *);
 static __inline__ int	json_scan_short(
   int16_t *, const char **);
 static __inline__ int	json_print_short(char **, char **, size_t *,
@@ -223,6 +223,10 @@ static __inline__ int	json_scan_t_bayes_opt_EVALUATION_FAILED(
   bayes_opt_EVALUATION_FAILED_detail *, const char **);
 static __inline__ int	json_print_t_bayes_opt_EVALUATION_FAILED(char **, char **, size_t *,
   const bayes_opt_EVALUATION_FAILED_detail *);
+static __inline__ int	json_scan_t_bayes_opt_NO_SCORE_AVAILABLE(
+  bayes_opt_NO_SCORE_AVAILABLE_detail *, const char **);
+static __inline__ int	json_print_t_bayes_opt_NO_SCORE_AVAILABLE(char **, char **, size_t *,
+  const bayes_opt_NO_SCORE_AVAILABLE_detail *);
 
 #define json_skip_whitespace(json) (json) += strspn(json, " \t\n\r")
 
@@ -950,25 +954,6 @@ json_print_double(char **json, char **end, size_t *len,
   return 0;
 }
 
-/* === t_bayes_opt_result_t ============================================= */
-
-static __inline__ int
-json_scan_t_bayes_opt_result_t(bayes_opt_result_t *data, const char **json)
-{
-  int s = 0;
-  if ((s = json_scan_double(data, json))) return s;
-  return s;
-}
-
-static __inline__ int
-json_print_t_bayes_opt_result_t(char **json, char **end, size_t *len,
-  bayes_opt_result_t data)
-{
-  int s;
-  if ((s = json_print_double(json, end, len, data))) return s;
-  return 0;
-}
-
 /* === boolean ========================================================== */
 
 static __inline__ int
@@ -996,22 +981,99 @@ json_print_boolean(char **json, char **end, size_t *len,
   return 0;
 }
 
-/* === t_bayes_opt_allow_t ============================================== */
+/* === t_bayes_opt_score ================================================ */
 
 static __inline__ int
-json_scan_t_bayes_opt_allow_t(bayes_opt_allow_t *data, const char **json)
+json_scan_t_bayes_opt_score(bayes_opt_score *data, const char **json)
 {
   int s = 0;
-  if ((s = json_scan_boolean(data, json))) return s;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "value\"", 1+5)) {
+      (*json)+= 1+5;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->value), json))) return s;
+    } else
+    if (!strncmp(*json, "valid\"", 1+5)) {
+      (*json)+= 1+5;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_boolean(
+             &(data->valid), json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
   return s;
 }
 
 static __inline__ int
-json_print_t_bayes_opt_allow_t(char **json, char **end, size_t *len,
-  bayes_opt_allow_t data)
+json_print_t_bayes_opt_score(char **json, char **end, size_t *len,
+  const bayes_opt_score *data)
 {
   int s;
-  if ((s = json_print_boolean(json, end, len, data))) return s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"value\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->value))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"valid\":"))) return s;
+  if ((s = json_print_boolean(json, end, len,
+         data->valid))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === t_bayes_opt_control ============================================== */
+
+static __inline__ int
+json_scan_t_bayes_opt_control(bayes_opt_control *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "allow\"", 1+5)) {
+      (*json)+= 1+5;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_boolean(
+             &(data->allow), json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_bayes_opt_control(char **json, char **end, size_t *len,
+  const bayes_opt_control *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"allow\":"))) return s;
+  if ((s = json_print_boolean(json, end, len,
+         data->allow))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
   return 0;
 }
 
@@ -1085,60 +1147,136 @@ json_print_array32_double(char **json, char **end, size_t *len,
   return 0;
 }
 
-/* === t_bayes_opt_param_array ========================================== */
+/* === long ============================================================= */
 
 static __inline__ int
-json_scan_t_bayes_opt_param_array(bayes_opt_param_array data, const char **json)
+json_scan_long(int32_t *data, const char **json)
 {
   int s = 0;
-  if ((s = json_scan_array32_double(data, json))) return s;
+  long long v;
+  char *d;
+
+  v = strtoll(*json, &d, 0);
+  if (d == *json) return EINVAL;
+  *json = d;
+  *(data) = (int32_t)v;
   return s;
 }
 
 static __inline__ int
-json_print_t_bayes_opt_param_array(char **json, char **end, size_t *len,
-  const bayes_opt_param_array data)
+json_print_long(char **json, char **end, size_t *len,
+  int32_t data)
 {
   int s;
-  if ((s = json_print_array32_double(json, end, len, data))) return s;
+  int64_t v = data;
+  if ((s = bufcat_uint64_t(json, end, len, v<0, (uint64_t)(v<0?-v:v))))
+    return s;
   return 0;
 }
 
-/* === t_bayes_opt_best_param_array ===================================== */
+/* === t_bayes_opt_suggestion =========================================== */
 
 static __inline__ int
-json_scan_t_bayes_opt_best_param_array(bayes_opt_best_param_array data, const char **json)
+json_scan_t_bayes_opt_suggestion(bayes_opt_suggestion *data, const char **json)
 {
   int s = 0;
-  if ((s = json_scan_array32_double(data, json))) return s;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "params\"", 1+6)) {
+      (*json)+= 1+6;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_array32_double(
+             data->params, json))) return s;
+    } else
+    if (!strncmp(*json, "iteration\"", 1+9)) {
+      (*json)+= 1+9;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_long(
+             &(data->iteration), json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
   return s;
 }
 
 static __inline__ int
-json_print_t_bayes_opt_best_param_array(char **json, char **end, size_t *len,
-  const bayes_opt_best_param_array data)
+json_print_t_bayes_opt_suggestion(char **json, char **end, size_t *len,
+  const bayes_opt_suggestion *data)
 {
   int s;
-  if ((s = json_print_array32_double(json, end, len, data))) return s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"params\":"))) return s;
+  if ((s = json_print_array32_double(json, end, len,
+         data->params))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"iteration\":"))) return s;
+  if ((s = json_print_long(json, end, len,
+         data->iteration))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
   return 0;
 }
 
-/* === t_bayes_opt_best_value_t ========================================= */
+/* === t_bayes_opt_best ================================================= */
 
 static __inline__ int
-json_scan_t_bayes_opt_best_value_t(bayes_opt_best_value_t *data, const char **json)
+json_scan_t_bayes_opt_best(bayes_opt_best *data, const char **json)
 {
   int s = 0;
-  if ((s = json_scan_double(data, json))) return s;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "params\"", 1+6)) {
+      (*json)+= 1+6;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_array32_double(
+             data->params, json))) return s;
+    } else
+    if (!strncmp(*json, "value\"", 1+5)) {
+      (*json)+= 1+5;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->value), json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
   return s;
 }
 
 static __inline__ int
-json_print_t_bayes_opt_best_value_t(char **json, char **end, size_t *len,
-  bayes_opt_best_value_t data)
+json_print_t_bayes_opt_best(char **json, char **end, size_t *len,
+  const bayes_opt_best *data)
 {
   int s;
-  if ((s = json_print_double(json, end, len, data))) return s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"params\":"))) return s;
+  if ((s = json_print_array32_double(json, end, len,
+         data->params))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"value\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->value))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
   return 0;
 }
 
@@ -1239,22 +1377,66 @@ json_print_array128_char(char **json, char **end, size_t *len,
   return 0;
 }
 
-/* === t_bayes_opt_status_array ========================================= */
+/* === t_bayes_opt_status_struct ======================================== */
 
 static __inline__ int
-json_scan_t_bayes_opt_status_array(bayes_opt_status_array data, const char **json)
+json_scan_t_bayes_opt_status_struct(bayes_opt_status_struct *data, const char **json)
 {
   int s = 0;
-  if ((s = json_scan_array128_char(data, json))) return s;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "text\"", 1+4)) {
+      (*json)+= 1+4;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_array128_char(
+             data->text, json))) return s;
+    } else
+    if (!strncmp(*json, "iteration\"", 1+9)) {
+      (*json)+= 1+9;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_long(
+             &(data->iteration), json))) return s;
+    } else
+    if (!strncmp(*json, "running\"", 1+7)) {
+      (*json)+= 1+7;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_boolean(
+             &(data->running), json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
   return s;
 }
 
 static __inline__ int
-json_print_t_bayes_opt_status_array(char **json, char **end, size_t *len,
-  const bayes_opt_status_array data)
+json_print_t_bayes_opt_status_struct(char **json, char **end, size_t *len,
+  const bayes_opt_status_struct *data)
 {
   int s;
-  if ((s = json_print_array128_char(json, end, len, data))) return s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"text\":"))) return s;
+  if ((s = json_print_array128_char(json, end, len,
+         data->text))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"iteration\":"))) return s;
+  if ((s = json_print_long(json, end, len,
+         data->iteration))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"running\":"))) return s;
+  if ((s = json_print_boolean(json, end, len,
+         data->running))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
   return 0;
 }
 
@@ -2056,30 +2238,38 @@ json_print_array5_double(char **json, char **end, size_t *len,
   return 0;
 }
 
-/* === long ============================================================= */
+/* === t_bayes_opt_INVALID_BOUNDS ======================================= */
 
 static __inline__ int
-json_scan_long(int32_t *data, const char **json)
+json_scan_t_bayes_opt_INVALID_BOUNDS(bayes_opt_INVALID_BOUNDS_detail *data, const char **json)
 {
   int s = 0;
-  long long v;
-  char *d;
+  (void)data; /* fix -Wunused-parameter */
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+      return EINVAL;
 
-  v = strtoll(*json, &d, 0);
-  if (d == *json) return EINVAL;
-  *json = d;
-  *(data) = (int32_t)v;
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
   return s;
 }
 
 static __inline__ int
-json_print_long(char **json, char **end, size_t *len,
-  int32_t data)
+json_print_t_bayes_opt_INVALID_BOUNDS(char **json, char **end, size_t *len,
+  const bayes_opt_INVALID_BOUNDS_detail *data)
 {
   int s;
-  int64_t v = data;
-  if ((s = bufcat_uint64_t(json, end, len, v<0, (uint64_t)(v<0?-v:v))))
-    return s;
+  (void)data; /* fix -Wunused-parameter */
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
   return 0;
 }
 
@@ -2260,6 +2450,41 @@ json_scan_t_bayes_opt_EVALUATION_FAILED(bayes_opt_EVALUATION_FAILED_detail *data
 static __inline__ int
 json_print_t_bayes_opt_EVALUATION_FAILED(char **json, char **end, size_t *len,
   const bayes_opt_EVALUATION_FAILED_detail *data)
+{
+  int s;
+  (void)data; /* fix -Wunused-parameter */
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === t_bayes_opt_NO_SCORE_AVAILABLE =================================== */
+
+static __inline__ int
+json_scan_t_bayes_opt_NO_SCORE_AVAILABLE(bayes_opt_NO_SCORE_AVAILABLE_detail *data, const char **json)
+{
+  int s = 0;
+  (void)data; /* fix -Wunused-parameter */
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_bayes_opt_NO_SCORE_AVAILABLE(char **json, char **end, size_t *len,
+  const bayes_opt_NO_SCORE_AVAILABLE_detail *data)
 {
   int s;
   (void)data; /* fix -Wunused-parameter */

@@ -11,8 +11,7 @@ module bayes_opt {
 
 
   /* ---------- Typedefs ---------- */
-
-  struct result {
+  struct score {
     double value;
     boolean valid;
   };
@@ -31,7 +30,7 @@ module bayes_opt {
     double value;
   };
 
-  struct status {
+  struct status_struct {
     char text[STATUS_LENGTH];
     long iteration;
     boolean running;
@@ -57,11 +56,12 @@ module bayes_opt {
     double best_value;
 
     /* parameter vectors */
-    param_array current_params;
-    best_param_array best_params;
+    suggestion current_params;
+    best best_params;
 
-    double lower_bounds[5];
-    double upper_bounds[5];
+    double lower_bounds[MAX_PARAMS];
+    double upper_bounds[MAX_PARAMS];
+    long n_params;
   };
 
 };

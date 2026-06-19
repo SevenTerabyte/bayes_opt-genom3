@@ -22,8 +22,7 @@ enum {
   bayes_opt_result_INDEX,
   bayes_opt_allow_INDEX,
   bayes_opt_params_INDEX,
-  bayes_opt_best_params_INDEX,
-  bayes_opt_best_value_INDEX,
+  bayes_opt_best_result_INDEX,
   bayes_opt_status_INDEX,
   bayes_opt_PORTLIB_MAX_INDEX
 };
@@ -57,9 +56,9 @@ genom_state_bayes_opt_init(struct genom_component_data *self)
   data->task._length = 1;
 
   /* automatic versioning - nice idea borrowed from ROS */
-  strncpy(data->digest, "894d7f35aba8c3a1994e32cb8c14fb4e", sizeof(data->digest));
+  strncpy(data->digest, "8f667e32dcd0697174470755cacd7c", sizeof(data->digest));
   snprintf(data->date, sizeof(data->date), "%s",
-           "Thu Jun 18 13:09:51 BST 2026");
+           "Fri Jun 19 16:13:26 BST 2026");
   snprintf(data->version, sizeof(data->version), "%s",
            "bayes_opt-0.8");
 
@@ -157,7 +156,7 @@ genom_metadata_bayes_opt_init(struct genom_component_data *self)
   meta->services._buffer[5].rqstid = BAYES_OPT_propose_parameters_RQSTID;
   strncpy(meta->services._buffer[5].name, "propose_parameters", l);
   meta->services._buffer[5].name[l-1] = 0;
-  strncpy(meta->services._buffer[5].digest, "1383c772354de98fb3fddec2e67aaa1", m);
+  strncpy(meta->services._buffer[5].digest, "7c73e9d84a88e981bcc5d7ed98e3807e", m);
   meta->services._buffer[5].digest[m-1] = 0;
   meta->services._buffer[6].rqstid = BAYES_OPT_submit_result_RQSTID;
   strncpy(meta->services._buffer[6].name, "submit_result", l);
@@ -167,7 +166,7 @@ genom_metadata_bayes_opt_init(struct genom_component_data *self)
   meta->services._buffer[7].rqstid = BAYES_OPT_get_best_parameters_RQSTID;
   strncpy(meta->services._buffer[7].name, "get_best_parameters", l);
   meta->services._buffer[7].name[l-1] = 0;
-  strncpy(meta->services._buffer[7].digest, "1383c772354de98fb3fddec2e67aaa1", m);
+  strncpy(meta->services._buffer[7].digest, "6e443421cee171572a63c8962da51d5a", m);
   meta->services._buffer[7].digest[m-1] = 0;
   meta->services._buffer[8].rqstid = BAYES_OPT_reset_optimizer_RQSTID;
   strncpy(meta->services._buffer[8].name, "reset_optimizer", l);
@@ -177,22 +176,22 @@ genom_metadata_bayes_opt_init(struct genom_component_data *self)
   meta->services._buffer[9].rqstid = BAYES_OPT_Init_RQSTID;
   strncpy(meta->services._buffer[9].name, "Init", l);
   meta->services._buffer[9].name[l-1] = 0;
-  strncpy(meta->services._buffer[9].digest, "ee7943032c575c21a2a11296a021ff", m);
+  strncpy(meta->services._buffer[9].digest, "5db3e46c118222f88e8d92629a07b5f", m);
   meta->services._buffer[9].digest[m-1] = 0;
   meta->services._buffer[10].rqstid = BAYES_OPT_AskNext_RQSTID;
   strncpy(meta->services._buffer[10].name, "AskNext", l);
   meta->services._buffer[10].name[l-1] = 0;
-  strncpy(meta->services._buffer[10].digest, "7f60b28e688d29f6673493b25a69e1", m);
+  strncpy(meta->services._buffer[10].digest, "99ac464bd9127a80c56b5ad85f9caf5", m);
   meta->services._buffer[10].digest[m-1] = 0;
   meta->services._buffer[11].rqstid = BAYES_OPT_SubmitResult_RQSTID;
   strncpy(meta->services._buffer[11].name, "SubmitResult", l);
   meta->services._buffer[11].name[l-1] = 0;
-  strncpy(meta->services._buffer[11].digest, "e35b60a9025dfd6df42a669ecdaed", m);
+  strncpy(meta->services._buffer[11].digest, "6f6f51833f75f2d2ac7d87cc92f3f36a", m);
   meta->services._buffer[11].digest[m-1] = 0;
   meta->services._buffer[12].rqstid = BAYES_OPT_GetBest_RQSTID;
   strncpy(meta->services._buffer[12].name, "GetBest", l);
   meta->services._buffer[12].name[l-1] = 0;
-  strncpy(meta->services._buffer[12].digest, "2d647f4ff5a68f1598d5f489c6f7ef79", m);
+  strncpy(meta->services._buffer[12].digest, "b763c0179f4b3485bd42ae25df94761e", m);
   meta->services._buffer[12].digest[m-1] = 0;
   meta->services._length = 13;
 
@@ -461,7 +460,7 @@ genom_bayes_opt_result_get_ph(
 
 /* --- genom_bayes_opt_result_data -------------------------------------- */
 
-bayes_opt_result_t *
+bayes_opt_score *
 genom_bayes_opt_result_data(
   genom_context self)
 {
@@ -550,7 +549,7 @@ genom_bayes_opt_allow_get_ph(
 
 /* --- genom_bayes_opt_allow_data --------------------------------------- */
 
-bayes_opt_allow_t *
+bayes_opt_control *
 genom_bayes_opt_allow_data(
   genom_context self)
 {
@@ -639,7 +638,7 @@ genom_bayes_opt_params_get_ph(
 
 /* --- genom_bayes_opt_params_data -------------------------------------- */
 
-double *
+bayes_opt_suggestion *
 genom_bayes_opt_params_data(
   genom_context self)
 {
@@ -650,7 +649,7 @@ genom_bayes_opt_params_data(
 
   ph = genom_bayes_opt_params_get_ph(p);
   if (!ph || !ph->id) return NULL;
-  return ph->buffer;
+  return &(ph->buffer);
 }
 
 
@@ -681,7 +680,7 @@ genom_bayes_opt_params_open(
   ph->id = NULL;
   ph->status = 0;
 
-  l = genom_maxserialen_t_bayes_opt_param_array();
+  l = genom_maxserialen_t_bayes_opt_suggestion();
 
   s = posterCreate(name, (int)l, &ph->id);
   if (s == ERROR) {
@@ -728,152 +727,51 @@ genom_bayes_opt_params_delete(genom_context self)
 }
 
 
-/* --- genom_bayes_opt_best_params_get_ph ------------------------------- */
+/* --- genom_bayes_opt_best_result_get_ph ------------------------------- */
 
-static __inline__ struct genom_bayes_opt_best_params_ph *
-genom_bayes_opt_best_params_get_ph(
-  struct genom_bayes_opt_best_params_port *p)
+static __inline__ struct genom_bayes_opt_best_result_ph *
+genom_bayes_opt_best_result_get_ph(
+  struct genom_bayes_opt_best_result_port *p)
 {
   return &p->h;
 }
 
 
-/* --- genom_bayes_opt_best_params_data --------------------------------- */
+/* --- genom_bayes_opt_best_result_data --------------------------------- */
 
-double *
-genom_bayes_opt_best_params_data(
+bayes_opt_best *
+genom_bayes_opt_best_result_data(
   genom_context self)
 {
-  struct genom_bayes_opt_best_params_port *p;
-  struct genom_bayes_opt_best_params_ph *ph;
+  struct genom_bayes_opt_best_result_port *p;
+  struct genom_bayes_opt_best_result_ph *ph;
 
-  p = &self->data->self->ports.best_params;
+  p = &self->data->self->ports.best_result;
 
-  ph = genom_bayes_opt_best_params_get_ph(p);
-  if (!ph || !ph->id) return NULL;
-  return ph->buffer;
-}
-
-
-/* --- genom_bayes_opt_best_params_open --------------------------------- */
-
-genom_event
-genom_bayes_opt_best_params_open(
-  genom_context self)
-{
-  struct genom_bayes_opt_best_params_port *p;
-  struct genom_bayes_opt_best_params_ph *ph;
-  char name[H2_DEV_MAX_NAME];
-  STATUS s;
-  size_t l;
-  int n;
-
-  p = &self->data->self->ports.best_params;
-
-  n = snprintf(name, sizeof(name), "%s/best_params", genom_instance);
-  if (n <= 0 || n >= (signed)sizeof(name)) {
-    genom_log_warn(0, "port best_params name too long");
-    genom_log_warn(0, "port name length limited to %zu characters",
-                   H2_DEV_MAX_NAME - strlen(genom_instance) - 2);
-    return genom_syserr(&(genom_syserr_detail){ .code = ENAMETOOLONG }, self);
-  }
-
-  ph = &p->h;
-  ph->id = NULL;
-  ph->status = 0;
-
-  l = genom_maxserialen_t_bayes_opt_best_param_array();
-
-  s = posterCreate(name, (int)l, &ph->id);
-  if (s == ERROR) {
-    genom_log_warn(1, "cannot create outport %s", name);
-    return genom_syserr(&(genom_syserr_detail){ .code = ENOENT }, self);
-  }
-  ph->size = l;
-  genom_log_info("created outport %s", name);
-  return genom_ok;
-}
-
-
-/* --- genom_bayes_opt_best_params_close -------------------------------- */
-
-genom_event
-genom_bayes_opt_best_params_close(
-  genom_context self)
-{
-  struct genom_bayes_opt_best_params_port *p;
-  struct genom_bayes_opt_best_params_ph *ph;
-  POSTER_ID i;
-
-  p = &self->data->self->ports.best_params;
-
-  ph = &p->h;
-  if (!ph || !ph->id)
-    return genom_syserr(&(genom_syserr_detail){ .code = ENOENT }, self);
-  i = ph->id;
-  ph->id = NULL;
-
-  posterDelete(i);
-  genom_log_info("destroyed outport best_params");
-
-  return genom_ok;
-}
-
-
-/* --- genom_bayes_opt_best_params_delete ------------------------------- */
-
-void
-genom_bayes_opt_best_params_delete(genom_context self)
-{
-  genom_bayes_opt_best_params_close(self);
-}
-
-
-/* --- genom_bayes_opt_best_value_get_ph -------------------------------- */
-
-static __inline__ struct genom_bayes_opt_best_value_ph *
-genom_bayes_opt_best_value_get_ph(
-  struct genom_bayes_opt_best_value_port *p)
-{
-  return &p->h;
-}
-
-
-/* --- genom_bayes_opt_best_value_data ---------------------------------- */
-
-bayes_opt_best_value_t *
-genom_bayes_opt_best_value_data(
-  genom_context self)
-{
-  struct genom_bayes_opt_best_value_port *p;
-  struct genom_bayes_opt_best_value_ph *ph;
-
-  p = &self->data->self->ports.best_value;
-
-  ph = genom_bayes_opt_best_value_get_ph(p);
+  ph = genom_bayes_opt_best_result_get_ph(p);
   if (!ph || !ph->id) return NULL;
   return &(ph->buffer);
 }
 
 
-/* --- genom_bayes_opt_best_value_open ---------------------------------- */
+/* --- genom_bayes_opt_best_result_open --------------------------------- */
 
 genom_event
-genom_bayes_opt_best_value_open(
+genom_bayes_opt_best_result_open(
   genom_context self)
 {
-  struct genom_bayes_opt_best_value_port *p;
-  struct genom_bayes_opt_best_value_ph *ph;
+  struct genom_bayes_opt_best_result_port *p;
+  struct genom_bayes_opt_best_result_ph *ph;
   char name[H2_DEV_MAX_NAME];
   STATUS s;
   size_t l;
   int n;
 
-  p = &self->data->self->ports.best_value;
+  p = &self->data->self->ports.best_result;
 
-  n = snprintf(name, sizeof(name), "%s/best_value", genom_instance);
+  n = snprintf(name, sizeof(name), "%s/best_result", genom_instance);
   if (n <= 0 || n >= (signed)sizeof(name)) {
-    genom_log_warn(0, "port best_value name too long");
+    genom_log_warn(0, "port best_result name too long");
     genom_log_warn(0, "port name length limited to %zu characters",
                    H2_DEV_MAX_NAME - strlen(genom_instance) - 2);
     return genom_syserr(&(genom_syserr_detail){ .code = ENAMETOOLONG }, self);
@@ -883,7 +781,7 @@ genom_bayes_opt_best_value_open(
   ph->id = NULL;
   ph->status = 0;
 
-  l = genom_maxserialen_t_bayes_opt_best_value_t();
+  l = genom_maxserialen_t_bayes_opt_best();
 
   s = posterCreate(name, (int)l, &ph->id);
   if (s == ERROR) {
@@ -896,17 +794,17 @@ genom_bayes_opt_best_value_open(
 }
 
 
-/* --- genom_bayes_opt_best_value_close --------------------------------- */
+/* --- genom_bayes_opt_best_result_close -------------------------------- */
 
 genom_event
-genom_bayes_opt_best_value_close(
+genom_bayes_opt_best_result_close(
   genom_context self)
 {
-  struct genom_bayes_opt_best_value_port *p;
-  struct genom_bayes_opt_best_value_ph *ph;
+  struct genom_bayes_opt_best_result_port *p;
+  struct genom_bayes_opt_best_result_ph *ph;
   POSTER_ID i;
 
-  p = &self->data->self->ports.best_value;
+  p = &self->data->self->ports.best_result;
 
   ph = &p->h;
   if (!ph || !ph->id)
@@ -915,18 +813,18 @@ genom_bayes_opt_best_value_close(
   ph->id = NULL;
 
   posterDelete(i);
-  genom_log_info("destroyed outport best_value");
+  genom_log_info("destroyed outport best_result");
 
   return genom_ok;
 }
 
 
-/* --- genom_bayes_opt_best_value_delete -------------------------------- */
+/* --- genom_bayes_opt_best_result_delete ------------------------------- */
 
 void
-genom_bayes_opt_best_value_delete(genom_context self)
+genom_bayes_opt_best_result_delete(genom_context self)
 {
-  genom_bayes_opt_best_value_close(self);
+  genom_bayes_opt_best_result_close(self);
 }
 
 
@@ -942,7 +840,7 @@ genom_bayes_opt_status_get_ph(
 
 /* --- genom_bayes_opt_status_data -------------------------------------- */
 
-int8_t *
+bayes_opt_status_struct *
 genom_bayes_opt_status_data(
   genom_context self)
 {
@@ -953,7 +851,7 @@ genom_bayes_opt_status_data(
 
   ph = genom_bayes_opt_status_get_ph(p);
   if (!ph || !ph->id) return NULL;
-  return ph->buffer;
+  return &(ph->buffer);
 }
 
 
@@ -984,7 +882,7 @@ genom_bayes_opt_status_open(
   ph->id = NULL;
   ph->status = 0;
 
-  l = genom_maxserialen_t_bayes_opt_status_array();
+  l = genom_maxserialen_t_bayes_opt_status_struct();
 
   s = posterCreate(name, (int)l, &ph->id);
   if (s == ERROR) {
@@ -1100,8 +998,8 @@ genom_bayes_opt_result_read(
   b = posterAddr(ph->id);
   if (b) {
     max = -1;
-    s = genom_deserialize_t_bayes_opt_result_t(
-      &b, &max, ph->buffer);
+    s = genom_deserialize_t_bayes_opt_score(
+      &b, &max, &(ph->buffer));
   } else s = ERROR;
   posterGive(ph->id);
   if (s) {
@@ -1183,8 +1081,8 @@ genom_bayes_opt_allow_read(
   b = posterAddr(ph->id);
   if (b) {
     max = -1;
-    s = genom_deserialize_t_bayes_opt_allow_t(
-      &b, &max, ph->buffer);
+    s = genom_deserialize_t_bayes_opt_control(
+      &b, &max, &(ph->buffer));
   } else s = ERROR;
   posterGive(ph->id);
   if (s) {
@@ -1324,8 +1222,8 @@ genom_bayes_opt_params_write(
   ph = genom_bayes_opt_params_get_ph(p);
   if (!ph || !ph->id) return genom_no_such_outport(self);
 
-  l = genom_serialen_t_bayes_opt_param_array(
-    ph->buffer);
+  l = genom_serialen_t_bayes_opt_suggestion(
+    &(ph->buffer));
   if (l > ph->size || l + (1<<17) < ph->size) {
     s = posterIoctl(ph->id, FIO_RESIZE, &l);
     if (s != OK) {
@@ -1348,8 +1246,8 @@ genom_bayes_opt_params_write(
   }
 
   b = posterAddr(ph->id);
-  genom_serialize_t_bayes_opt_param_array(
-    &b, ph->buffer);
+  genom_serialize_t_bayes_opt_suggestion(
+    &b, &(ph->buffer));
   s = posterGive(ph->id);
   if (s != OK) {
     ph->status = ERROR;
@@ -1361,29 +1259,29 @@ genom_bayes_opt_params_write(
 }
 
 
-/* --- genom_bayes_opt_best_params_write -------------------------------- */
+/* --- genom_bayes_opt_best_result_write -------------------------------- */
 
 genom_event
-genom_bayes_opt_best_params_write(
+genom_bayes_opt_best_result_write(
   genom_context self)
 {
-  static struct genom_bayes_opt_best_params_port *p;
-  struct genom_bayes_opt_best_params_ph *ph;
+  static struct genom_bayes_opt_best_result_port *p;
+  struct genom_bayes_opt_best_result_ph *ph;
   STATUS s;
   char *b;
   size_t l;
 
-  p = &self->data->self->ports.best_params;
+  p = &self->data->self->ports.best_result;
 
-  ph = genom_bayes_opt_best_params_get_ph(p);
+  ph = genom_bayes_opt_best_result_get_ph(p);
   if (!ph || !ph->id) return genom_no_such_outport(self);
 
-  l = genom_serialen_t_bayes_opt_best_param_array(
-    ph->buffer);
+  l = genom_serialen_t_bayes_opt_best(
+    &(ph->buffer));
   if (l > ph->size || l + (1<<17) < ph->size) {
     s = posterIoctl(ph->id, FIO_RESIZE, &l);
     if (s != OK) {
-      genom_log_warn(1, "cannot resize outport best_params to %zu bytes", l);
+      genom_log_warn(1, "cannot resize outport best_result to %zu bytes", l);
       return genom_serialization(self);
     }
     ph->size = l;
@@ -1393,75 +1291,21 @@ genom_bayes_opt_best_params_write(
   if (s != OK) {
     s = errnoGet();
     if (ph->status != s) {
-      genom_log_warn(1, "cannot access outport best_params");
+      genom_log_warn(1, "cannot access outport best_result");
     } else {
-      genom_log_debug("repeated error for outport best_params");
+      genom_log_debug("repeated error for outport best_result");
     }
     ph->status = s;
     return genom_port_io(self);
   }
 
   b = posterAddr(ph->id);
-  genom_serialize_t_bayes_opt_best_param_array(
-    &b, ph->buffer);
+  genom_serialize_t_bayes_opt_best(
+    &b, &(ph->buffer));
   s = posterGive(ph->id);
   if (s != OK) {
     ph->status = ERROR;
-    genom_log_warn(1, "cannot flush outport best_params");
-    return genom_port_io(self);
-  }
-
-  return genom_ok;
-}
-
-
-/* --- genom_bayes_opt_best_value_write --------------------------------- */
-
-genom_event
-genom_bayes_opt_best_value_write(
-  genom_context self)
-{
-  static struct genom_bayes_opt_best_value_port *p;
-  struct genom_bayes_opt_best_value_ph *ph;
-  STATUS s;
-  char *b;
-  size_t l;
-
-  p = &self->data->self->ports.best_value;
-
-  ph = genom_bayes_opt_best_value_get_ph(p);
-  if (!ph || !ph->id) return genom_no_such_outport(self);
-
-  l = genom_serialen_t_bayes_opt_best_value_t(
-    ph->buffer);
-  if (l > ph->size || l + (1<<17) < ph->size) {
-    s = posterIoctl(ph->id, FIO_RESIZE, &l);
-    if (s != OK) {
-      genom_log_warn(1, "cannot resize outport best_value to %zu bytes", l);
-      return genom_serialization(self);
-    }
-    ph->size = l;
-  }
-
-  s = posterTake(ph->id, POSTER_WRITE);
-  if (s != OK) {
-    s = errnoGet();
-    if (ph->status != s) {
-      genom_log_warn(1, "cannot access outport best_value");
-    } else {
-      genom_log_debug("repeated error for outport best_value");
-    }
-    ph->status = s;
-    return genom_port_io(self);
-  }
-
-  b = posterAddr(ph->id);
-  genom_serialize_t_bayes_opt_best_value_t(
-    &b, ph->buffer);
-  s = posterGive(ph->id);
-  if (s != OK) {
-    ph->status = ERROR;
-    genom_log_warn(1, "cannot flush outport best_value");
+    genom_log_warn(1, "cannot flush outport best_result");
     return genom_port_io(self);
   }
 
@@ -1486,8 +1330,8 @@ genom_bayes_opt_status_write(
   ph = genom_bayes_opt_status_get_ph(p);
   if (!ph || !ph->id) return genom_no_such_outport(self);
 
-  l = genom_serialen_t_bayes_opt_status_array(
-    ph->buffer);
+  l = genom_serialen_t_bayes_opt_status_struct(
+    &(ph->buffer));
   if (l > ph->size || l + (1<<17) < ph->size) {
     s = posterIoctl(ph->id, FIO_RESIZE, &l);
     if (s != OK) {
@@ -1510,8 +1354,8 @@ genom_bayes_opt_status_write(
   }
 
   b = posterAddr(ph->id);
-  genom_serialize_t_bayes_opt_status_array(
-    &b, ph->buffer);
+  genom_serialize_t_bayes_opt_status_struct(
+    &b, &(ph->buffer));
   s = posterGive(ph->id);
   if (s != OK) {
     ph->status = ERROR;

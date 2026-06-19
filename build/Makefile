@@ -201,8 +201,8 @@ am__DIST_COMMON = $(srcdir)/Makefile.in \
 	$(top_srcdir)/autoconf/install-sh \
 	$(top_srcdir)/autoconf/ltmain.sh \
 	$(top_srcdir)/autoconf/missing autoconf/compile \
-	autoconf/config.guess autoconf/config.sub autoconf/install-sh \
-	autoconf/ltmain.sh autoconf/missing
+	autoconf/config.guess autoconf/config.sub autoconf/depcomp \
+	autoconf/install-sh autoconf/ltmain.sh autoconf/missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -312,7 +312,7 @@ PACKAGE_VERSION = 0.8
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PKG_CONFIG_LIBDIR = 
-PKG_CONFIG_PATH = /home/lichenjiang/openrobots/share/pkgconfig:/home/lichenjiang/openrobots/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig
+PKG_CONFIG_PATH = /home/lichenjiang/openrobots/share/pkgconfig:/home/lichenjiang/openrobots/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig:/home/lichenjiang/openrobots/lib/pkgconfig
 RANLIB = ranlib
 SED = /usr/bin/sed
 SET_MAKE = 
@@ -364,7 +364,7 @@ mandir = ${datarootdir}/man
 mkdir_p = $(MKDIR_P)
 oldincludedir = /usr/include
 pdfdir = ${docdir}
-prefix = 
+prefix = /home/lichenjiang/openrobots
 program_transform_name = s,x,x,
 psdir = ${docdir}
 requires_CFLAGS = -I/home/lichenjiang/openrobots/share/idl/openrobots2-idl -I/home/lichenjiang/openrobots/include

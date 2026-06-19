@@ -31,7 +31,9 @@ endif::[]
 |===
 a|.Data structure
 [disc]
- * `double` `result`
+ * `struct ::bayes_opt::score` `result`
+ ** `double` `value`
+ ** `boolean` `valid`
 
 |===
 
@@ -45,7 +47,8 @@ a|.Data structure
 |===
 a|.Data structure
 [disc]
- * `boolean` `allow`
+ * `struct ::bayes_opt::control` `allow`
+ ** `boolean` `allow`
 
 |===
 
@@ -59,35 +62,25 @@ a|.Data structure
 |===
 a|.Data structure
 [disc]
- * `double` `params[32]`
+ * `struct ::bayes_opt::suggestion` `params`
+ ** `double` `params[32]`
+ ** `long` `iteration`
 
 |===
 
 '''
 
-[[best_params]]
-=== best_params (out)
+[[best_result]]
+=== best_result (out)
 
 
 [role="small", width="50%", float="right", cols="1"]
 |===
 a|.Data structure
 [disc]
- * `double` `best_params[32]`
-
-|===
-
-'''
-
-[[best_value]]
-=== best_value (out)
-
-
-[role="small", width="50%", float="right", cols="1"]
-|===
-a|.Data structure
-[disc]
- * `double` `best_value`
+ * `struct ::bayes_opt::best` `best_result`
+ ** `double` `params[32]`
+ ** `double` `value`
 
 |===
 
@@ -101,7 +94,10 @@ a|.Data structure
 |===
 a|.Data structure
 [disc]
- * `char` `status[128]`
+ * `struct ::bayes_opt::status_struct` `status`
+ ** `char` `text[128]`
+ ** `long` `iteration`
+ ** `boolean` `running`
 
 |===
 
@@ -122,7 +118,9 @@ a|.Data structure
 |===
 a|.Outputs
 [disc]
- * `double` `params[32]`
+ * `struct ::bayes_opt::suggestion` `params`
+ ** `double` `params[32]`
+ ** `long` `iteration`
 
 |===
 
@@ -148,7 +146,9 @@ a|.Inputs
 |===
 a|.Outputs
 [disc]
- * `double` `best[32]`
+ * `struct ::bayes_opt::best` `best_result`
+ ** `double` `params[32]`
+ ** `double` `value`
 
 |===
 
@@ -175,6 +175,8 @@ a|.Inputs
 
 a|.Throws
 [disc]
+ * `exception ::bayes_opt::INVALID_BOUNDS`
+
  * `exception ::bayes_opt::e_sys`
  ** `short` `code`
  ** `string<128>` `what`
@@ -184,7 +186,7 @@ a|.Context
   * In task `<<optimize>>`
 |===
 
-Initialise everything, supposingly
+Initialize Bayesian optimizer bounds and iteration count
 
 '''
 
@@ -195,20 +197,17 @@ Initialise everything, supposingly
 |===
 a|.Outputs
 [disc]
- * `double` `params_out[32]`
+ * `struct ::bayes_opt::suggestion` `params_out`
+ ** `double` `params[32]`
+ ** `long` `iteration`
 
 a|.Throws
 [disc]
- * `exception ::bayes_opt::e_sys`
- ** `short` `code`
- ** `string<128>` `what`
-
  * `exception ::bayes_opt::OPTIMIZATION_FAILED`
 
 a|.Context
 [disc]
   * In task `<<optimize>>`
-  * Updates port `<<params>>`
 |===
 
 Generate next parameter vector
@@ -226,13 +225,11 @@ a|.Inputs
 
 a|.Throws
 [disc]
- * `exception ::bayes_opt::e_sys`
- ** `short` `code`
- ** `string<128>` `what`
-
  * `exception ::bayes_opt::INVALID_PARAMETER`
 
  * `exception ::bayes_opt::EVALUATION_FAILED`
+
+ * `exception ::bayes_opt::NO_SCORE_AVAILABLE`
 
 a|.Context
 [disc]
@@ -250,18 +247,20 @@ Submit experiment score
 |===
 a|.Outputs
 [disc]
- * `double` `best[32]`
+ * `struct ::bayes_opt::best` `best_result_out`
+ ** `double` `params[32]`
+ ** `double` `value`
 
 a|.Throws
 [disc]
- * `exception ::bayes_opt::e_sys`
- ** `short` `code`
- ** `string<128>` `what`
+ * `exception ::bayes_opt::NO_SCORE_AVAILABLE`
 
 a|.Context
 [disc]
   * In task `<<optimize>>`
 |===
+
+Return best parameters and score found so far
 
 '''
 
@@ -275,20 +274,8 @@ a|.Context
 a|.Context
 [disc]
   * Free running
-* Reads port `<<result>>`
-* Reads port `<<allow>>`
-* Updates port `<<params>>`
-* Updates port `<<best_params>>`
-* Updates port `<<best_value>>`
-* Updates port `<<status>>`
-a|.Throws
-[disc]
- * `exception ::bayes_opt::e_sys`
- ** `short` `code`
- ** `string<128>` `what`
-
 |===
 
-Bayesian optimization loop
+Execution task for Bayesian optimization services
 
 '''

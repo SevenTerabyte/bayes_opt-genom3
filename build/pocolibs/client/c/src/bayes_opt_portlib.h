@@ -16,22 +16,17 @@ struct genom_client_ports {
   } genom_state;
 
   struct {
-    bayes_opt_param_array data;
+    bayes_opt_suggestion data;
     POSTER_ID id;
   } params;
 
   struct {
-    bayes_opt_best_param_array data;
+    bayes_opt_best data;
     POSTER_ID id;
-  } best_params;
+  } best_result;
 
   struct {
-    bayes_opt_best_value_t data;
-    POSTER_ID id;
-  } best_value;
-
-  struct {
-    bayes_opt_status_array data;
+    bayes_opt_status_struct data;
     POSTER_ID id;
   } status;
 
@@ -39,7 +34,7 @@ struct genom_client_ports {
     struct {
       char name[H2_DEV_MAX_NAME];
       size_t size;
-      bayes_opt_result_t data;
+      bayes_opt_score data;
       POSTER_ID id;
     } *h;
     unsigned int n;
@@ -49,7 +44,7 @@ struct genom_client_ports {
     struct {
       char name[H2_DEV_MAX_NAME];
       size_t size;
-      bayes_opt_allow_t data;
+      bayes_opt_control data;
       POSTER_ID id;
     } *h;
     unsigned int n;

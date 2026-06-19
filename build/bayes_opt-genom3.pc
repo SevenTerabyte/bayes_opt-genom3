@@ -1,6 +1,6 @@
 # pkg-config file for bayes_opt interface and codels library
 #
-prefix=
+prefix=/home/lichenjiang/openrobots
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

@@ -82,16 +82,13 @@ genom_bayes_opt_client_init(int argc, char *argv[],
     &(h->ports->genom_state.data));
   h->ports->genom_state.id = NULL;
   genom_bayes_opt_client_params_init_data(
-    h->ports->params.data);
+    &(h->ports->params.data));
   h->ports->params.id = NULL;
-  genom_bayes_opt_client_best_params_init_data(
-    h->ports->best_params.data);
-  h->ports->best_params.id = NULL;
-  genom_bayes_opt_client_best_value_init_data(
-    &(h->ports->best_value.data));
-  h->ports->best_value.id = NULL;
+  genom_bayes_opt_client_best_result_init_data(
+    &(h->ports->best_result.data));
+  h->ports->best_result.id = NULL;
   genom_bayes_opt_client_status_init_data(
-    h->ports->status.data);
+    &(h->ports->status.data));
   h->ports->status.id = NULL;
   h->ports->result.h = NULL;
   h->ports->result.n = 0;
@@ -103,14 +100,14 @@ genom_bayes_opt_client_init(int argc, char *argv[],
   state = genom_bayes_opt_client_genom_state_data(h);
   if (!state) goto error;
 
-  if (strcmp(state->digest, "894d7f35aba8c3a1994e32cb8c14fb4e")) {
+  if (strcmp(state->digest, "8f667e32dcd0697174470755cacd7c")) {
     genom_incompatible_digest_detail d;
     strcpy(d.server.version, state->version);
     strcpy(d.server.date, state->date);
     snprintf(d.client.version, sizeof(d.client.version), "%s",
              "bayes_opt-0.8");
     snprintf(d.client.date, sizeof(d.client.date), "%s",
-             "Thu Jun 18 13:09:59 BST 2026");
+             "Fri Jun 19 16:13:32 BST 2026");
     genom_incompatible_digest(&d, &h->context);
     goto error;
   }
@@ -136,16 +133,13 @@ genom_bayes_opt_client_fini(genom_client h)
     &(h->ports->genom_state.data));
 
   genom_bayes_opt_client_params_fini_data(
-    h->ports->params.data);
+    &(h->ports->params.data));
 
-  genom_bayes_opt_client_best_params_fini_data(
-    h->ports->best_params.data);
-
-  genom_bayes_opt_client_best_value_fini_data(
-    &(h->ports->best_value.data));
+  genom_bayes_opt_client_best_result_fini_data(
+    &(h->ports->best_result.data));
 
   genom_bayes_opt_client_status_fini_data(
-    h->ports->status.data);
+    &(h->ports->status.data));
 
   for(int i = 0; i < h->ports->result.n; i++)
     if (*h->ports->result.h[i].name)
@@ -353,7 +347,7 @@ static const struct genom_service_info genom_service_info[] = {
   {
     .name = "propose_parameters",
     .input = "{ }",
-    .output = "{ \"params\":{ \"kind\":\"array\",\"length\":32,\"type\":{ \"kind\":\"double\" } } }",
+    .output = "{ \"params\":{ \"kind\":\"struct\",\"type\":{ \"params\":{ \"kind\":\"array\",\"length\":32,\"type\":{ \"kind\":\"double\" } },\"iteration\":{ \"kind\":\"long\" } } } }",
     .meta = "{ }",
     .init_input =
     (genom_initfn)genom_bayes_opt_client_propose_parameters_init_input,
@@ -397,7 +391,7 @@ static const struct genom_service_info genom_service_info[] = {
   {
     .name = "get_best_parameters",
     .input = "{ }",
-    .output = "{ \"best\":{ \"kind\":\"array\",\"length\":32,\"type\":{ \"kind\":\"double\" } } }",
+    .output = "{ \"best_result\":{ \"kind\":\"struct\",\"type\":{ \"params\":{ \"kind\":\"array\",\"length\":32,\"type\":{ \"kind\":\"double\" } },\"value\":{ \"kind\":\"double\" } } } }",
     .meta = "{ }",
     .init_input =
     (genom_initfn)genom_bayes_opt_client_get_best_parameters_init_input,
@@ -463,7 +457,7 @@ static const struct genom_service_info genom_service_info[] = {
   {
     .name = "AskNext",
     .input = "{ }",
-    .output = "{ \"params_out\":{ \"kind\":\"array\",\"length\":32,\"type\":{ \"kind\":\"double\" } } }",
+    .output = "{ \"params_out\":{ \"kind\":\"struct\",\"type\":{ \"params\":{ \"kind\":\"array\",\"length\":32,\"type\":{ \"kind\":\"double\" } },\"iteration\":{ \"kind\":\"long\" } } } }",
     .meta = "{ }",
     .init_input =
     (genom_initfn)genom_bayes_opt_client_AskNext_init_input,
@@ -507,7 +501,7 @@ static const struct genom_service_info genom_service_info[] = {
   {
     .name = "GetBest",
     .input = "{ }",
-    .output = "{ \"best\":{ \"kind\":\"array\",\"length\":32,\"type\":{ \"kind\":\"double\" } } }",
+    .output = "{ \"best_result_out\":{ \"kind\":\"struct\",\"type\":{ \"params\":{ \"kind\":\"array\",\"length\":32,\"type\":{ \"kind\":\"double\" } },\"value\":{ \"kind\":\"double\" } } } }",
     .meta = "{ }",
     .init_input =
     (genom_initfn)genom_bayes_opt_client_GetBest_init_input,
@@ -549,7 +543,7 @@ static const struct genom_port_info genom_port_info[] = {
   },
   {
     .name = "params",
-    .datatype = "{ \"params\":{ \"kind\":\"array\",\"length\":32,\"type\":{ \"kind\":\"double\" } } }",
+    .datatype = "{ \"params\":{ \"kind\":\"struct\",\"type\":{ \"params\":{ \"kind\":\"array\",\"length\":32,\"type\":{ \"kind\":\"double\" } },\"iteration\":{ \"kind\":\"long\" } } } }",
     .meta = "{}",
     .init_data =
     (genom_initfn)genom_bayes_opt_client_params_init_data,
@@ -562,45 +556,28 @@ static const struct genom_port_info genom_port_info[] = {
     (genom_port_datafn)genom_bayes_opt_client_params_data,
     .read.simple =
     (genom_port_readfn)genom_bayes_opt_client_params_read,
-    .data_size = sizeof(bayes_opt_param_array)
+    .data_size = sizeof(bayes_opt_suggestion)
   },
   {
-    .name = "best_params",
-    .datatype = "{ \"best_params\":{ \"kind\":\"array\",\"length\":32,\"type\":{ \"kind\":\"double\" } } }",
+    .name = "best_result",
+    .datatype = "{ \"best_result\":{ \"kind\":\"struct\",\"type\":{ \"params\":{ \"kind\":\"array\",\"length\":32,\"type\":{ \"kind\":\"double\" } },\"value\":{ \"kind\":\"double\" } } } }",
     .meta = "{}",
     .init_data =
-    (genom_initfn)genom_bayes_opt_client_best_params_init_data,
+    (genom_initfn)genom_bayes_opt_client_best_result_init_data,
     .fini_data =
-    (genom_finifn)genom_bayes_opt_client_best_params_fini_data,
+    (genom_finifn)genom_bayes_opt_client_best_result_fini_data,
     .json_print =
-    (genom_json_printfn)genom_bayes_opt_client_best_params_json_print,
+    (genom_json_printfn)genom_bayes_opt_client_best_result_json_print,
     .simple = 1,
     .data.simple =
-    (genom_port_datafn)genom_bayes_opt_client_best_params_data,
+    (genom_port_datafn)genom_bayes_opt_client_best_result_data,
     .read.simple =
-    (genom_port_readfn)genom_bayes_opt_client_best_params_read,
-    .data_size = sizeof(bayes_opt_best_param_array)
-  },
-  {
-    .name = "best_value",
-    .datatype = "{ \"best_value\":{ \"kind\":\"double\" } }",
-    .meta = "{}",
-    .init_data =
-    (genom_initfn)genom_bayes_opt_client_best_value_init_data,
-    .fini_data =
-    (genom_finifn)genom_bayes_opt_client_best_value_fini_data,
-    .json_print =
-    (genom_json_printfn)genom_bayes_opt_client_best_value_json_print,
-    .simple = 1,
-    .data.simple =
-    (genom_port_datafn)genom_bayes_opt_client_best_value_data,
-    .read.simple =
-    (genom_port_readfn)genom_bayes_opt_client_best_value_read,
-    .data_size = sizeof(bayes_opt_best_value_t)
+    (genom_port_readfn)genom_bayes_opt_client_best_result_read,
+    .data_size = sizeof(bayes_opt_best)
   },
   {
     .name = "status",
-    .datatype = "{ \"status\":{ \"kind\":\"array\",\"length\":128,\"type\":{ \"kind\":\"char\" } } }",
+    .datatype = "{ \"status\":{ \"kind\":\"struct\",\"type\":{ \"text\":{ \"kind\":\"array\",\"length\":128,\"type\":{ \"kind\":\"char\" } },\"iteration\":{ \"kind\":\"long\" },\"running\":{ \"kind\":\"boolean\" } } } }",
     .meta = "{}",
     .init_data =
     (genom_initfn)genom_bayes_opt_client_status_init_data,
@@ -613,7 +590,7 @@ static const struct genom_port_info genom_port_info[] = {
     (genom_port_datafn)genom_bayes_opt_client_status_data,
     .read.simple =
     (genom_port_readfn)genom_bayes_opt_client_status_read,
-    .data_size = sizeof(bayes_opt_status_array)
+    .data_size = sizeof(bayes_opt_status_struct)
   },
   { 0, .simple = 1 }
 };
@@ -621,7 +598,7 @@ static const struct genom_port_info genom_port_info[] = {
 static const struct genom_pub_info genom_pub_info[] = {
   {
     .name = "result",
-    .datatype = "{ \"result\":{ \"kind\":\"double\" } }",
+    .datatype = "{ \"result\":{ \"kind\":\"struct\",\"type\":{ \"value\":{ \"kind\":\"double\" },\"valid\":{ \"kind\":\"boolean\" } } } }",
     .meta = "{}",
     .init_data =
     (genom_initfn)genom_bayes_opt_client_result_init_data,
@@ -637,11 +614,11 @@ static const struct genom_pub_info genom_pub_info[] = {
     (genom_port_multiple_datafn)genom_bayes_opt_client_result_data,
     .write =
     (genom_port_multiple_writefn)genom_bayes_opt_client_result_write,
-    .data_size = sizeof(bayes_opt_result_t)
+    .data_size = sizeof(bayes_opt_score)
   },
   {
     .name = "allow",
-    .datatype = "{ \"allow\":{ \"kind\":\"boolean\" } }",
+    .datatype = "{ \"allow\":{ \"kind\":\"struct\",\"type\":{ \"allow\":{ \"kind\":\"boolean\" } } } }",
     .meta = "{}",
     .init_data =
     (genom_initfn)genom_bayes_opt_client_allow_init_data,
@@ -657,7 +634,7 @@ static const struct genom_pub_info genom_pub_info[] = {
     (genom_port_multiple_datafn)genom_bayes_opt_client_allow_data,
     .write =
     (genom_port_multiple_writefn)genom_bayes_opt_client_allow_write,
-    .data_size = sizeof(bayes_opt_allow_t)
+    .data_size = sizeof(bayes_opt_control)
   },
   { 0 }
 };
@@ -684,7 +661,7 @@ const struct genom_client_info genom_bayes_opt_client_info = {
   .nservices = 13,
   .services = genom_service_info,
 
-  .nports = 5,
+  .nports = 4,
   .ports = genom_port_info,
 
   .npubs = 2,
@@ -722,12 +699,10 @@ const struct genom_port_info *genom_bayes_opt_client_genom_state_info =
   &genom_port_info[0];
 const struct genom_port_info *genom_bayes_opt_client_params_info =
   &genom_port_info[1];
-const struct genom_port_info *genom_bayes_opt_client_best_params_info =
+const struct genom_port_info *genom_bayes_opt_client_best_result_info =
   &genom_port_info[2];
-const struct genom_port_info *genom_bayes_opt_client_best_value_info =
-  &genom_port_info[3];
 const struct genom_port_info *genom_bayes_opt_client_status_info =
-  &genom_port_info[4];
+  &genom_port_info[3];
 
 const struct genom_pub_info *genom_bayes_opt_client_result_info =
   &genom_pub_info[0];

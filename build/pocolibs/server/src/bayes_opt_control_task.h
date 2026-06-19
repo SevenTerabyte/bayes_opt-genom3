@@ -42,8 +42,7 @@ struct genom_component_data {
     struct genom_bayes_opt_result_port result;
     struct genom_bayes_opt_allow_port allow;
     struct genom_bayes_opt_params_port params;
-    struct genom_bayes_opt_best_params_port best_params;
-    struct genom_bayes_opt_best_value_port best_value;
+    struct genom_bayes_opt_best_result_port best_result;
     struct genom_bayes_opt_status_port status;
   } ports;
 

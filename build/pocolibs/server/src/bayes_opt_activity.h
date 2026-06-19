@@ -192,8 +192,8 @@ static __inline__ void
 genom_tinit_bayes_opt_propose_parameters_activity(
   struct genom_bayes_opt_propose_parameters_activity *a)
 {
-  genom_tinit_t_bayes_opt_param_array(
-    a->out.params);
+  genom_tinit_t_bayes_opt_suggestion(
+    &(a->out.params));
 }
 
 /* input/output finalizer */
@@ -201,8 +201,8 @@ static __inline__ void
 genom_tfini_bayes_opt_propose_parameters_activity(
   struct genom_bayes_opt_propose_parameters_activity *a)
 {
-  genom_tfini_t_bayes_opt_param_array(
-    a->out.params);
+  genom_tfini_t_bayes_opt_suggestion(
+    &(a->out.params));
 }
 
 
@@ -248,8 +248,8 @@ static __inline__ void
 genom_tinit_bayes_opt_get_best_parameters_activity(
   struct genom_bayes_opt_get_best_parameters_activity *a)
 {
-  genom_tinit_t_bayes_opt_best_param_array(
-    a->out.best);
+  genom_tinit_t_bayes_opt_best(
+    &(a->out.best_result));
 }
 
 /* input/output finalizer */
@@ -257,8 +257,8 @@ static __inline__ void
 genom_tfini_bayes_opt_get_best_parameters_activity(
   struct genom_bayes_opt_get_best_parameters_activity *a)
 {
-  genom_tfini_t_bayes_opt_best_param_array(
-    a->out.best);
+  genom_tfini_t_bayes_opt_best(
+    &(a->out.best_result));
 }
 
 
@@ -338,8 +338,8 @@ static __inline__ void
 genom_tinit_bayes_opt_AskNext_activity(
   struct genom_bayes_opt_AskNext_activity *a)
 {
-  genom_tinit_t_bayes_opt_param_array(
-    a->out.params_out);
+  genom_tinit_t_bayes_opt_suggestion(
+    &(a->out.params_out));
 }
 
 /* input/output finalizer */
@@ -347,8 +347,8 @@ static __inline__ void
 genom_tfini_bayes_opt_AskNext_activity(
   struct genom_bayes_opt_AskNext_activity *a)
 {
-  genom_tfini_t_bayes_opt_param_array(
-    a->out.params_out);
+  genom_tfini_t_bayes_opt_suggestion(
+    &(a->out.params_out));
 }
 
 
@@ -394,8 +394,8 @@ static __inline__ void
 genom_tinit_bayes_opt_GetBest_activity(
   struct genom_bayes_opt_GetBest_activity *a)
 {
-  genom_tinit_t_bayes_opt_best_param_array(
-    a->out.best);
+  genom_tinit_t_bayes_opt_best(
+    &(a->out.best_result_out));
 }
 
 /* input/output finalizer */
@@ -403,8 +403,8 @@ static __inline__ void
 genom_tfini_bayes_opt_GetBest_activity(
   struct genom_bayes_opt_GetBest_activity *a)
 {
-  genom_tfini_t_bayes_opt_best_param_array(
-    a->out.best);
+  genom_tfini_t_bayes_opt_best(
+    &(a->out.best_result_out));
 }
 
 

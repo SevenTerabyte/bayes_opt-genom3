@@ -1,6 +1,6 @@
 # pkg-config file for bayes_opt c client
 #
-prefix=
+prefix=/home/lichenjiang/openrobots
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib/genom/pocolibs
 includedir=${prefix}/include/genom/pocolibs

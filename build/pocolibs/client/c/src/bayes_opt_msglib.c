@@ -1014,8 +1014,8 @@ genom_bayes_opt_propose_parameters_decode(
   if (*p == *"") {
     p++; len--;
     a->report = genom_ok;
-    s = genom_deserialize_t_bayes_opt_param_array(
-      &p, &len, out->params);
+    s = genom_deserialize_t_bayes_opt_suggestion(
+      &p, &len, &(out->params));
 
   } else if (!strcmp(p, genom_incompatible_digest_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
@@ -1149,8 +1149,8 @@ void
 genom_bayes_opt_client_propose_parameters_init_output(
   struct genom_bayes_opt_propose_parameters_output *out)
 {
-  genom_tinit_t_bayes_opt_param_array(
-    out->params);
+  genom_tinit_t_bayes_opt_suggestion(
+    &(out->params));
 }
 
 void
@@ -1164,8 +1164,8 @@ void
 genom_bayes_opt_client_propose_parameters_fini_output(
   struct genom_bayes_opt_propose_parameters_output *out)
 {
-  genom_tfini_t_bayes_opt_param_array(
-    out->params);
+  genom_tfini_t_bayes_opt_suggestion(
+    &(out->params));
 }
 
 
@@ -1388,8 +1388,8 @@ genom_bayes_opt_get_best_parameters_decode(
   if (*p == *"") {
     p++; len--;
     a->report = genom_ok;
-    s = genom_deserialize_t_bayes_opt_best_param_array(
-      &p, &len, out->best);
+    s = genom_deserialize_t_bayes_opt_best(
+      &p, &len, &(out->best_result));
 
   } else if (!strcmp(p, genom_incompatible_digest_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
@@ -1523,8 +1523,8 @@ void
 genom_bayes_opt_client_get_best_parameters_init_output(
   struct genom_bayes_opt_get_best_parameters_output *out)
 {
-  genom_tinit_t_bayes_opt_best_param_array(
-    out->best);
+  genom_tinit_t_bayes_opt_best(
+    &(out->best_result));
 }
 
 void
@@ -1538,8 +1538,8 @@ void
 genom_bayes_opt_client_get_best_parameters_fini_output(
   struct genom_bayes_opt_get_best_parameters_output *out)
 {
-  genom_tfini_t_bayes_opt_best_param_array(
-    out->best);
+  genom_tfini_t_bayes_opt_best(
+    &(out->best_result));
 }
 
 
@@ -1831,6 +1831,10 @@ genom_bayes_opt_Init_decode(
     genom_tinit_t_genom_mwerr(a->exdetail);
     a->exfini = (void (*)(void *))genom_tfini_t_genom_mwerr;
     s = genom_deserialize_t_genom_mwerr(&p, &len, a->exdetail);
+  } else if (!strcmp(p, bayes_opt_INVALID_BOUNDS_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    len -= sizeof(bayes_opt_INVALID_BOUNDS_id);
+    a->report = bayes_opt_INVALID_BOUNDS_id;
   } else if (!strcmp(p, bayes_opt_e_sys_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
     len -= sizeof(bayes_opt_e_sys_id);
@@ -1968,8 +1972,8 @@ genom_bayes_opt_AskNext_decode(
   if (*p == *"") {
     p++; len--;
     a->report = genom_ok;
-    s = genom_deserialize_t_bayes_opt_param_array(
-      &p, &len, out->params_out);
+    s = genom_deserialize_t_bayes_opt_suggestion(
+      &p, &len, &(out->params_out));
 
   } else if (!strcmp(p, genom_incompatible_digest_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
@@ -2035,19 +2039,6 @@ genom_bayes_opt_AskNext_decode(
     genom_tinit_t_genom_mwerr(a->exdetail);
     a->exfini = (void (*)(void *))genom_tfini_t_genom_mwerr;
     s = genom_deserialize_t_genom_mwerr(&p, &len, a->exdetail);
-  } else if (!strcmp(p, bayes_opt_e_sys_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(bayes_opt_e_sys_id);
-    a->report = bayes_opt_e_sys_id;
-    p += sizeof(bayes_opt_e_sys_id);
-    a->exdetail = malloc(sizeof(bayes_opt_e_sys_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_bayes_opt_e_sys(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_bayes_opt_e_sys;
-    s = genom_deserialize_t_bayes_opt_e_sys(&p, &len, a->exdetail);
   } else if (!strcmp(p, bayes_opt_OPTIMIZATION_FAILED_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
     len -= sizeof(bayes_opt_OPTIMIZATION_FAILED_id);
@@ -2120,8 +2111,8 @@ void
 genom_bayes_opt_client_AskNext_init_output(
   struct genom_bayes_opt_AskNext_output *out)
 {
-  genom_tinit_t_bayes_opt_param_array(
-    out->params_out);
+  genom_tinit_t_bayes_opt_suggestion(
+    &(out->params_out));
 }
 
 void
@@ -2135,8 +2126,8 @@ void
 genom_bayes_opt_client_AskNext_fini_output(
   struct genom_bayes_opt_AskNext_output *out)
 {
-  genom_tfini_t_bayes_opt_param_array(
-    out->params_out);
+  genom_tfini_t_bayes_opt_suggestion(
+    &(out->params_out));
 }
 
 
@@ -2243,19 +2234,6 @@ genom_bayes_opt_SubmitResult_decode(
     genom_tinit_t_genom_mwerr(a->exdetail);
     a->exfini = (void (*)(void *))genom_tfini_t_genom_mwerr;
     s = genom_deserialize_t_genom_mwerr(&p, &len, a->exdetail);
-  } else if (!strcmp(p, bayes_opt_e_sys_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(bayes_opt_e_sys_id);
-    a->report = bayes_opt_e_sys_id;
-    p += sizeof(bayes_opt_e_sys_id);
-    a->exdetail = malloc(sizeof(bayes_opt_e_sys_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_bayes_opt_e_sys(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_bayes_opt_e_sys;
-    s = genom_deserialize_t_bayes_opt_e_sys(&p, &len, a->exdetail);
   } else if (!strcmp(p, bayes_opt_INVALID_PARAMETER_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
     len -= sizeof(bayes_opt_INVALID_PARAMETER_id);
@@ -2264,6 +2242,10 @@ genom_bayes_opt_SubmitResult_decode(
     assert(a->exdetail == NULL && a->exfini == NULL);
     len -= sizeof(bayes_opt_EVALUATION_FAILED_id);
     a->report = bayes_opt_EVALUATION_FAILED_id;
+  } else if (!strcmp(p, bayes_opt_NO_SCORE_AVAILABLE_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    len -= sizeof(bayes_opt_NO_SCORE_AVAILABLE_id);
+    a->report = bayes_opt_NO_SCORE_AVAILABLE_id;
   } else if (!strcmp(p, genom_syserr_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
     a->exdetail = malloc(sizeof(genom_syserr_detail));
@@ -2380,8 +2362,8 @@ genom_bayes_opt_GetBest_decode(
   if (*p == *"") {
     p++; len--;
     a->report = genom_ok;
-    s = genom_deserialize_t_bayes_opt_best_param_array(
-      &p, &len, out->best);
+    s = genom_deserialize_t_bayes_opt_best(
+      &p, &len, &(out->best_result_out));
 
   } else if (!strcmp(p, genom_incompatible_digest_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
@@ -2447,19 +2429,10 @@ genom_bayes_opt_GetBest_decode(
     genom_tinit_t_genom_mwerr(a->exdetail);
     a->exfini = (void (*)(void *))genom_tfini_t_genom_mwerr;
     s = genom_deserialize_t_genom_mwerr(&p, &len, a->exdetail);
-  } else if (!strcmp(p, bayes_opt_e_sys_id)) {
+  } else if (!strcmp(p, bayes_opt_NO_SCORE_AVAILABLE_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(bayes_opt_e_sys_id);
-    a->report = bayes_opt_e_sys_id;
-    p += sizeof(bayes_opt_e_sys_id);
-    a->exdetail = malloc(sizeof(bayes_opt_e_sys_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_bayes_opt_e_sys(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_bayes_opt_e_sys;
-    s = genom_deserialize_t_bayes_opt_e_sys(&p, &len, a->exdetail);
+    len -= sizeof(bayes_opt_NO_SCORE_AVAILABLE_id);
+    a->report = bayes_opt_NO_SCORE_AVAILABLE_id;
   } else if (!strcmp(p, genom_syserr_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
     a->exdetail = malloc(sizeof(genom_syserr_detail));
@@ -2528,8 +2501,8 @@ void
 genom_bayes_opt_client_GetBest_init_output(
   struct genom_bayes_opt_GetBest_output *out)
 {
-  genom_tinit_t_bayes_opt_best_param_array(
-    out->best);
+  genom_tinit_t_bayes_opt_best(
+    &(out->best_result_out));
 }
 
 void
@@ -2543,7 +2516,7 @@ void
 genom_bayes_opt_client_GetBest_fini_output(
   struct genom_bayes_opt_GetBest_output *out)
 {
-  genom_tfini_t_bayes_opt_best_param_array(
-    out->best);
+  genom_tfini_t_bayes_opt_best(
+    &(out->best_result_out));
 }
 

@@ -55,7 +55,7 @@ genom_event	genom_bayes_opt_genom_metadata_write(genom_context self);
 
 
 
-bayes_opt_result_t *	genom_bayes_opt_result_data(genom_context self);
+bayes_opt_score *	genom_bayes_opt_result_data(genom_context self);
 genom_event	genom_bayes_opt_result_open(genom_context self);
 genom_event	genom_bayes_opt_result_close(genom_context self);
 void		genom_bayes_opt_result_delete(genom_context self);
@@ -66,7 +66,7 @@ genom_event	genom_bayes_opt_result_read(genom_context self);
 
 
 
-bayes_opt_allow_t *	genom_bayes_opt_allow_data(genom_context self);
+bayes_opt_control *	genom_bayes_opt_allow_data(genom_context self);
 genom_event	genom_bayes_opt_allow_open(genom_context self);
 genom_event	genom_bayes_opt_allow_close(genom_context self);
 void		genom_bayes_opt_allow_delete(genom_context self);
@@ -77,7 +77,7 @@ genom_event	genom_bayes_opt_allow_read(genom_context self);
 
 
 
-double *	genom_bayes_opt_params_data(genom_context self);
+bayes_opt_suggestion *	genom_bayes_opt_params_data(genom_context self);
 genom_event	genom_bayes_opt_params_open(genom_context self);
 genom_event	genom_bayes_opt_params_close(genom_context self);
 void		genom_bayes_opt_params_delete(genom_context self);
@@ -86,25 +86,16 @@ genom_event	genom_bayes_opt_params_write(genom_context self);
 
 
 
-double *	genom_bayes_opt_best_params_data(genom_context self);
-genom_event	genom_bayes_opt_best_params_open(genom_context self);
-genom_event	genom_bayes_opt_best_params_close(genom_context self);
-void		genom_bayes_opt_best_params_delete(genom_context self);
+bayes_opt_best *	genom_bayes_opt_best_result_data(genom_context self);
+genom_event	genom_bayes_opt_best_result_open(genom_context self);
+genom_event	genom_bayes_opt_best_result_close(genom_context self);
+void		genom_bayes_opt_best_result_delete(genom_context self);
 
-genom_event	genom_bayes_opt_best_params_write(genom_context self);
-
-
-
-bayes_opt_best_value_t *	genom_bayes_opt_best_value_data(genom_context self);
-genom_event	genom_bayes_opt_best_value_open(genom_context self);
-genom_event	genom_bayes_opt_best_value_close(genom_context self);
-void		genom_bayes_opt_best_value_delete(genom_context self);
-
-genom_event	genom_bayes_opt_best_value_write(genom_context self);
+genom_event	genom_bayes_opt_best_result_write(genom_context self);
 
 
 
-int8_t *	genom_bayes_opt_status_data(genom_context self);
+bayes_opt_status_struct *	genom_bayes_opt_status_data(genom_context self);
 genom_event	genom_bayes_opt_status_open(genom_context self);
 genom_event	genom_bayes_opt_status_close(genom_context self);
 void		genom_bayes_opt_status_delete(genom_context self);
@@ -198,7 +189,7 @@ struct genom_bayes_opt_result_port {
   struct genom_bayes_opt_result_ph {
     POSTER_ID id;
     STATUS status;
-    bayes_opt_result_t buffer;
+    bayes_opt_score buffer;
   }  h;
 };
 
@@ -211,7 +202,7 @@ genom_tinit_bayes_opt_result_port(
   p->handle.read = genom_bayes_opt_result_read;
   p->h.id = NULL;
   p->h.status = S_posterLib_EMPTY_POSTER;
-  genom_tinit_t_bayes_opt_result_t(
+  genom_tinit_t_bayes_opt_score(
     &(p->h.buffer));
 }
 
@@ -220,7 +211,7 @@ static __inline__ void
 genom_tfini_bayes_opt_result_port(
   struct genom_bayes_opt_result_port *p)
 {
-  genom_tfini_t_bayes_opt_result_t(
+  genom_tfini_t_bayes_opt_score(
     &(p->h.buffer));
 }
 
@@ -233,7 +224,7 @@ struct genom_bayes_opt_allow_port {
   struct genom_bayes_opt_allow_ph {
     POSTER_ID id;
     STATUS status;
-    bayes_opt_allow_t buffer;
+    bayes_opt_control buffer;
   }  h;
 };
 
@@ -246,7 +237,7 @@ genom_tinit_bayes_opt_allow_port(
   p->handle.read = genom_bayes_opt_allow_read;
   p->h.id = NULL;
   p->h.status = S_posterLib_EMPTY_POSTER;
-  genom_tinit_t_bayes_opt_allow_t(
+  genom_tinit_t_bayes_opt_control(
     &(p->h.buffer));
 }
 
@@ -255,7 +246,7 @@ static __inline__ void
 genom_tfini_bayes_opt_allow_port(
   struct genom_bayes_opt_allow_port *p)
 {
-  genom_tfini_t_bayes_opt_allow_t(
+  genom_tfini_t_bayes_opt_control(
     &(p->h.buffer));
 }
 
@@ -269,7 +260,7 @@ struct genom_bayes_opt_params_port {
     POSTER_ID id;
     size_t size;
     STATUS status;
-    bayes_opt_param_array buffer;
+    bayes_opt_suggestion buffer;
   }  h;
 };
 
@@ -283,8 +274,8 @@ genom_tinit_bayes_opt_params_port(
   p->h.id = NULL;
   p->h.status = 0;
   p->h.size = 0;
-  genom_tinit_t_bayes_opt_param_array(
-    p->h.buffer);
+  genom_tinit_t_bayes_opt_suggestion(
+    &(p->h.buffer));
 }
 
 /* finalizer */
@@ -292,81 +283,44 @@ static __inline__ void
 genom_tfini_bayes_opt_params_port(
   struct genom_bayes_opt_params_port *p)
 {
-  genom_tfini_t_bayes_opt_param_array(
-    p->h.buffer);
+  genom_tfini_t_bayes_opt_suggestion(
+    &(p->h.buffer));
 }
 
 
-/* --- best_params ------------------------------------------------------ */
+/* --- best_result ------------------------------------------------------ */
 
-struct genom_bayes_opt_best_params_port {
-  bayes_opt_best_params handle;
+struct genom_bayes_opt_best_result_port {
+  bayes_opt_best_result handle;
 
-  struct genom_bayes_opt_best_params_ph {
+  struct genom_bayes_opt_best_result_ph {
     POSTER_ID id;
     size_t size;
     STATUS status;
-    bayes_opt_best_param_array buffer;
+    bayes_opt_best buffer;
   }  h;
 };
 
 /* initializer */
 static __inline__ void
-genom_tinit_bayes_opt_best_params_port(
-  struct genom_bayes_opt_best_params_port *p)
+genom_tinit_bayes_opt_best_result_port(
+  struct genom_bayes_opt_best_result_port *p)
 {
-  p->handle.data = genom_bayes_opt_best_params_data;
-  p->handle.write = genom_bayes_opt_best_params_write;
+  p->handle.data = genom_bayes_opt_best_result_data;
+  p->handle.write = genom_bayes_opt_best_result_write;
   p->h.id = NULL;
   p->h.status = 0;
   p->h.size = 0;
-  genom_tinit_t_bayes_opt_best_param_array(
-    p->h.buffer);
-}
-
-/* finalizer */
-static __inline__ void
-genom_tfini_bayes_opt_best_params_port(
-  struct genom_bayes_opt_best_params_port *p)
-{
-  genom_tfini_t_bayes_opt_best_param_array(
-    p->h.buffer);
-}
-
-
-/* --- best_value ------------------------------------------------------- */
-
-struct genom_bayes_opt_best_value_port {
-  bayes_opt_best_value handle;
-
-  struct genom_bayes_opt_best_value_ph {
-    POSTER_ID id;
-    size_t size;
-    STATUS status;
-    bayes_opt_best_value_t buffer;
-  }  h;
-};
-
-/* initializer */
-static __inline__ void
-genom_tinit_bayes_opt_best_value_port(
-  struct genom_bayes_opt_best_value_port *p)
-{
-  p->handle.data = genom_bayes_opt_best_value_data;
-  p->handle.write = genom_bayes_opt_best_value_write;
-  p->h.id = NULL;
-  p->h.status = 0;
-  p->h.size = 0;
-  genom_tinit_t_bayes_opt_best_value_t(
+  genom_tinit_t_bayes_opt_best(
     &(p->h.buffer));
 }
 
 /* finalizer */
 static __inline__ void
-genom_tfini_bayes_opt_best_value_port(
-  struct genom_bayes_opt_best_value_port *p)
+genom_tfini_bayes_opt_best_result_port(
+  struct genom_bayes_opt_best_result_port *p)
 {
-  genom_tfini_t_bayes_opt_best_value_t(
+  genom_tfini_t_bayes_opt_best(
     &(p->h.buffer));
 }
 
@@ -380,7 +334,7 @@ struct genom_bayes_opt_status_port {
     POSTER_ID id;
     size_t size;
     STATUS status;
-    bayes_opt_status_array buffer;
+    bayes_opt_status_struct buffer;
   }  h;
 };
 
@@ -394,8 +348,8 @@ genom_tinit_bayes_opt_status_port(
   p->h.id = NULL;
   p->h.status = 0;
   p->h.size = 0;
-  genom_tinit_t_bayes_opt_status_array(
-    p->h.buffer);
+  genom_tinit_t_bayes_opt_status_struct(
+    &(p->h.buffer));
 }
 
 /* finalizer */
@@ -403,8 +357,8 @@ static __inline__ void
 genom_tfini_bayes_opt_status_port(
   struct genom_bayes_opt_status_port *p)
 {
-  genom_tfini_t_bayes_opt_status_array(
-    p->h.buffer);
+  genom_tfini_t_bayes_opt_status_struct(
+    &(p->h.buffer));
 }
 
 

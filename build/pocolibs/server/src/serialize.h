@@ -162,20 +162,6 @@ static __inline__ void		genom_serialize_double(char **,
 					double);
 static __inline__ int		genom_deserialize_double(char **,
 					ssize_t *, double *);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_result_t(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_result_t(
-					bayes_opt_result_t);
-static __inline__ void		genom_serialize_t_bayes_opt_result_t(char **,
-					bayes_opt_result_t);
-static __inline__ int		genom_deserialize_t_bayes_opt_result_t(char **,
-					ssize_t *, bayes_opt_result_t *);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_result(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_result(
-					const bayes_opt_result *);
-static __inline__ void		genom_serialize_t_bayes_opt_result(char **,
-					const bayes_opt_result *);
-static __inline__ int		genom_deserialize_t_bayes_opt_result(char **,
-					ssize_t *, bayes_opt_result *);
 static __inline__ size_t	genom_maxserialen_boolean(void);
 static __inline__ size_t	genom_serialen_boolean(
 					bool);
@@ -183,13 +169,27 @@ static __inline__ void		genom_serialize_boolean(char **,
 					bool);
 static __inline__ int		genom_deserialize_boolean(char **,
 					ssize_t *, bool *);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_allow_t(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_allow_t(
-					bayes_opt_allow_t);
-static __inline__ void		genom_serialize_t_bayes_opt_allow_t(char **,
-					bayes_opt_allow_t);
-static __inline__ int		genom_deserialize_t_bayes_opt_allow_t(char **,
-					ssize_t *, bayes_opt_allow_t *);
+static __inline__ size_t	genom_maxserialen_t_bayes_opt_score(void);
+static __inline__ size_t	genom_serialen_t_bayes_opt_score(
+					const bayes_opt_score *);
+static __inline__ void		genom_serialize_t_bayes_opt_score(char **,
+					const bayes_opt_score *);
+static __inline__ int		genom_deserialize_t_bayes_opt_score(char **,
+					ssize_t *, bayes_opt_score *);
+static __inline__ size_t	genom_maxserialen_t_bayes_opt_result(void);
+static __inline__ size_t	genom_serialen_t_bayes_opt_result(
+					const bayes_opt_result *);
+static __inline__ void		genom_serialize_t_bayes_opt_result(char **,
+					const bayes_opt_result *);
+static __inline__ int		genom_deserialize_t_bayes_opt_result(char **,
+					ssize_t *, bayes_opt_result *);
+static __inline__ size_t	genom_maxserialen_t_bayes_opt_control(void);
+static __inline__ size_t	genom_serialen_t_bayes_opt_control(
+					const bayes_opt_control *);
+static __inline__ void		genom_serialize_t_bayes_opt_control(char **,
+					const bayes_opt_control *);
+static __inline__ int		genom_deserialize_t_bayes_opt_control(char **,
+					ssize_t *, bayes_opt_control *);
 static __inline__ size_t	genom_maxserialen_t_bayes_opt_allow(void);
 static __inline__ size_t	genom_serialen_t_bayes_opt_allow(
 					const bayes_opt_allow *);
@@ -204,13 +204,13 @@ static __inline__ void		genom_serialize_array32_double(char **,
 					const double [32]);
 static __inline__ int		genom_deserialize_array32_double(char **,
 					ssize_t *, double [32]);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_param_array(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_param_array(
-					const bayes_opt_param_array);
-static __inline__ void		genom_serialize_t_bayes_opt_param_array(char **,
-					const bayes_opt_param_array);
-static __inline__ int		genom_deserialize_t_bayes_opt_param_array(char **,
-					ssize_t *, bayes_opt_param_array);
+static __inline__ size_t	genom_maxserialen_t_bayes_opt_suggestion(void);
+static __inline__ size_t	genom_serialen_t_bayes_opt_suggestion(
+					const bayes_opt_suggestion *);
+static __inline__ void		genom_serialize_t_bayes_opt_suggestion(char **,
+					const bayes_opt_suggestion *);
+static __inline__ int		genom_deserialize_t_bayes_opt_suggestion(char **,
+					ssize_t *, bayes_opt_suggestion *);
 static __inline__ size_t	genom_maxserialen_t_bayes_opt_params(void);
 static __inline__ size_t	genom_serialen_t_bayes_opt_params(
 					const bayes_opt_params *);
@@ -218,34 +218,20 @@ static __inline__ void		genom_serialize_t_bayes_opt_params(char **,
 					const bayes_opt_params *);
 static __inline__ int		genom_deserialize_t_bayes_opt_params(char **,
 					ssize_t *, bayes_opt_params *);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_best_param_array(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_best_param_array(
-					const bayes_opt_best_param_array);
-static __inline__ void		genom_serialize_t_bayes_opt_best_param_array(char **,
-					const bayes_opt_best_param_array);
-static __inline__ int		genom_deserialize_t_bayes_opt_best_param_array(char **,
-					ssize_t *, bayes_opt_best_param_array);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_best_params(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_best_params(
-					const bayes_opt_best_params *);
-static __inline__ void		genom_serialize_t_bayes_opt_best_params(char **,
-					const bayes_opt_best_params *);
-static __inline__ int		genom_deserialize_t_bayes_opt_best_params(char **,
-					ssize_t *, bayes_opt_best_params *);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_best_value_t(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_best_value_t(
-					bayes_opt_best_value_t);
-static __inline__ void		genom_serialize_t_bayes_opt_best_value_t(char **,
-					bayes_opt_best_value_t);
-static __inline__ int		genom_deserialize_t_bayes_opt_best_value_t(char **,
-					ssize_t *, bayes_opt_best_value_t *);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_best_value(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_best_value(
-					const bayes_opt_best_value *);
-static __inline__ void		genom_serialize_t_bayes_opt_best_value(char **,
-					const bayes_opt_best_value *);
-static __inline__ int		genom_deserialize_t_bayes_opt_best_value(char **,
-					ssize_t *, bayes_opt_best_value *);
+static __inline__ size_t	genom_maxserialen_t_bayes_opt_best(void);
+static __inline__ size_t	genom_serialen_t_bayes_opt_best(
+					const bayes_opt_best *);
+static __inline__ void		genom_serialize_t_bayes_opt_best(char **,
+					const bayes_opt_best *);
+static __inline__ int		genom_deserialize_t_bayes_opt_best(char **,
+					ssize_t *, bayes_opt_best *);
+static __inline__ size_t	genom_maxserialen_t_bayes_opt_best_result(void);
+static __inline__ size_t	genom_serialen_t_bayes_opt_best_result(
+					const bayes_opt_best_result *);
+static __inline__ void		genom_serialize_t_bayes_opt_best_result(char **,
+					const bayes_opt_best_result *);
+static __inline__ int		genom_deserialize_t_bayes_opt_best_result(char **,
+					ssize_t *, bayes_opt_best_result *);
 static __inline__ size_t	genom_maxserialen_char(void);
 static __inline__ size_t	genom_serialen_char(
 					int8_t);
@@ -260,13 +246,13 @@ static __inline__ void		genom_serialize_array128_char(char **,
 					const int8_t [128]);
 static __inline__ int		genom_deserialize_array128_char(char **,
 					ssize_t *, int8_t [128]);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_status_array(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_status_array(
-					const bayes_opt_status_array);
-static __inline__ void		genom_serialize_t_bayes_opt_status_array(char **,
-					const bayes_opt_status_array);
-static __inline__ int		genom_deserialize_t_bayes_opt_status_array(char **,
-					ssize_t *, bayes_opt_status_array);
+static __inline__ size_t	genom_maxserialen_t_bayes_opt_status_struct(void);
+static __inline__ size_t	genom_serialen_t_bayes_opt_status_struct(
+					const bayes_opt_status_struct *);
+static __inline__ void		genom_serialize_t_bayes_opt_status_struct(char **,
+					const bayes_opt_status_struct *);
+static __inline__ int		genom_deserialize_t_bayes_opt_status_struct(char **,
+					ssize_t *, bayes_opt_status_struct *);
 static __inline__ size_t	genom_maxserialen_t_bayes_opt_status(void);
 static __inline__ size_t	genom_serialen_t_bayes_opt_status(
 					const bayes_opt_status *);
@@ -407,6 +393,13 @@ static __inline__ void		genom_serialize_array5_double(char **,
 					const double [5]);
 static __inline__ int		genom_deserialize_array5_double(char **,
 					ssize_t *, double [5]);
+static __inline__ size_t	genom_maxserialen_t_bayes_opt_INVALID_BOUNDS(void);
+static __inline__ size_t	genom_serialen_t_bayes_opt_INVALID_BOUNDS(
+					const bayes_opt_INVALID_BOUNDS_detail *);
+static __inline__ void		genom_serialize_t_bayes_opt_INVALID_BOUNDS(char **,
+					const bayes_opt_INVALID_BOUNDS_detail *);
+static __inline__ int		genom_deserialize_t_bayes_opt_INVALID_BOUNDS(char **,
+					ssize_t *, bayes_opt_INVALID_BOUNDS_detail *);
 static __inline__ size_t	genom_maxserialen_short(void);
 static __inline__ size_t	genom_serialen_short(
 					int16_t);
@@ -442,6 +435,13 @@ static __inline__ void		genom_serialize_t_bayes_opt_EVALUATION_FAILED(char **,
 					const bayes_opt_EVALUATION_FAILED_detail *);
 static __inline__ int		genom_deserialize_t_bayes_opt_EVALUATION_FAILED(char **,
 					ssize_t *, bayes_opt_EVALUATION_FAILED_detail *);
+static __inline__ size_t	genom_maxserialen_t_bayes_opt_NO_SCORE_AVAILABLE(void);
+static __inline__ size_t	genom_serialen_t_bayes_opt_NO_SCORE_AVAILABLE(
+					const bayes_opt_NO_SCORE_AVAILABLE_detail *);
+static __inline__ void		genom_serialize_t_bayes_opt_NO_SCORE_AVAILABLE(char **,
+					const bayes_opt_NO_SCORE_AVAILABLE_detail *);
+static __inline__ int		genom_deserialize_t_bayes_opt_NO_SCORE_AVAILABLE(char **,
+					ssize_t *, bayes_opt_NO_SCORE_AVAILABLE_detail *);
 static __inline__ size_t	genom_maxserialen_t_bayes_opt_ether(void);
 static __inline__ size_t	genom_serialen_t_bayes_opt_ether(
 					genom_event);
@@ -462,41 +462,6 @@ static __inline__ size_t	genom_serialen_t_bayes_opt_stop(
 static __inline__ void		genom_serialize_t_bayes_opt_stop(char **,
 					genom_event);
 static __inline__ int		genom_deserialize_t_bayes_opt_stop(char **,
-					ssize_t *, genom_event *);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_wait_result(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_wait_result(
-					genom_event);
-static __inline__ void		genom_serialize_t_bayes_opt_wait_result(char **,
-					genom_event);
-static __inline__ int		genom_deserialize_t_bayes_opt_wait_result(char **,
-					ssize_t *, genom_event *);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_compute(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_compute(
-					genom_event);
-static __inline__ void		genom_serialize_t_bayes_opt_compute(char **,
-					genom_event);
-static __inline__ int		genom_deserialize_t_bayes_opt_compute(char **,
-					ssize_t *, genom_event *);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_failed(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_failed(
-					genom_event);
-static __inline__ void		genom_serialize_t_bayes_opt_failed(char **,
-					genom_event);
-static __inline__ int		genom_deserialize_t_bayes_opt_failed(char **,
-					ssize_t *, genom_event *);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_publish(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_publish(
-					genom_event);
-static __inline__ void		genom_serialize_t_bayes_opt_publish(char **,
-					genom_event);
-static __inline__ int		genom_deserialize_t_bayes_opt_publish(char **,
-					ssize_t *, genom_event *);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_end(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_end(
-					genom_event);
-static __inline__ void		genom_serialize_t_bayes_opt_end(char **,
-					genom_event);
-static __inline__ int		genom_deserialize_t_bayes_opt_end(char **,
 					ssize_t *, genom_event *);
 static __inline__ size_t	genom_maxserialen_t_bayes_opt_state(void);
 static __inline__ size_t	genom_serialen_t_bayes_opt_state(
@@ -1355,31 +1320,75 @@ genom_deserialize_double(char **buffer, ssize_t *size,
   return 0;
 }
 
-/* === t_bayes_opt_result_t ============================================= */
+/* === boolean ========================================================== */
 
 static __inline__ size_t
-genom_maxserialen_t_bayes_opt_result_t(void)
+genom_maxserialen_boolean(void)
 {
-  return genom_maxserialen_double();
+  return sizeof(bool);
 }
 
 static __inline__ size_t
-genom_serialen_t_bayes_opt_result_t(bayes_opt_result_t data)
+genom_serialen_boolean(bool data)
 {
-  return genom_serialen_double(data);
+  return sizeof(data);
 }
 
 static __inline__ void
-genom_serialize_t_bayes_opt_result_t(char **buffer, bayes_opt_result_t data)
+genom_serialize_boolean(char **buffer, bool data)
 {
-  return genom_serialize_double(buffer, data);
+  memcpy(*buffer, &(data),
+         sizeof(data));
+  *buffer += sizeof(data);
 }
 
 static __inline__ int
-genom_deserialize_t_bayes_opt_result_t(char **buffer, ssize_t *size,
-  bayes_opt_result_t *data)
+genom_deserialize_boolean(char **buffer, ssize_t *size,
+  bool *data)
 {
-  return genom_deserialize_double(buffer, size, data);
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === t_bayes_opt_score ================================================ */
+
+static __inline__ size_t
+genom_maxserialen_t_bayes_opt_score(void)
+{
+  return sizeof(bayes_opt_score);
+}
+
+static __inline__ size_t
+genom_serialen_t_bayes_opt_score(const bayes_opt_score *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_bayes_opt_score(char **buffer, const bayes_opt_score *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_bayes_opt_score(char **buffer, ssize_t *size,
+  bayes_opt_score *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
   return 0;
 }
 
@@ -1419,31 +1428,31 @@ genom_deserialize_t_bayes_opt_result(char **buffer, ssize_t *size,
   return 0;
 }
 
-/* === boolean ========================================================== */
+/* === t_bayes_opt_control ============================================== */
 
 static __inline__ size_t
-genom_maxserialen_boolean(void)
+genom_maxserialen_t_bayes_opt_control(void)
 {
-  return sizeof(bool);
+  return sizeof(bayes_opt_control);
 }
 
 static __inline__ size_t
-genom_serialen_boolean(bool data)
+genom_serialen_t_bayes_opt_control(const bayes_opt_control *data)
 {
-  return sizeof(data);
+  return sizeof(*(data));
 }
 
 static __inline__ void
-genom_serialize_boolean(char **buffer, bool data)
+genom_serialize_t_bayes_opt_control(char **buffer, const bayes_opt_control *data)
 {
-  memcpy(*buffer, &(data),
-         sizeof(data));
-  *buffer += sizeof(data);
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
 }
 
 static __inline__ int
-genom_deserialize_boolean(char **buffer, ssize_t *size,
-  bool *data)
+genom_deserialize_t_bayes_opt_control(char **buffer, ssize_t *size,
+  bayes_opt_control *data)
 {
   if (*size != -1) {
     *size -= sizeof(*(data));
@@ -1452,34 +1461,6 @@ genom_deserialize_boolean(char **buffer, ssize_t *size,
   memcpy(&(*(data)), *buffer,
          sizeof(*(data)));
   *buffer += sizeof(*(data));
-  return 0;
-}
-
-/* === t_bayes_opt_allow_t ============================================== */
-
-static __inline__ size_t
-genom_maxserialen_t_bayes_opt_allow_t(void)
-{
-  return genom_maxserialen_boolean();
-}
-
-static __inline__ size_t
-genom_serialen_t_bayes_opt_allow_t(bayes_opt_allow_t data)
-{
-  return genom_serialen_boolean(data);
-}
-
-static __inline__ void
-genom_serialize_t_bayes_opt_allow_t(char **buffer, bayes_opt_allow_t data)
-{
-  return genom_serialize_boolean(buffer, data);
-}
-
-static __inline__ int
-genom_deserialize_t_bayes_opt_allow_t(char **buffer, ssize_t *size,
-  bayes_opt_allow_t *data)
-{
-  return genom_deserialize_boolean(buffer, size, data);
   return 0;
 }
 
@@ -1553,31 +1534,39 @@ genom_deserialize_array32_double(char **buffer, ssize_t *size,
   return 0;
 }
 
-/* === t_bayes_opt_param_array ========================================== */
+/* === t_bayes_opt_suggestion =========================================== */
 
 static __inline__ size_t
-genom_maxserialen_t_bayes_opt_param_array(void)
+genom_maxserialen_t_bayes_opt_suggestion(void)
 {
-  return genom_maxserialen_array32_double();
+  return sizeof(bayes_opt_suggestion);
 }
 
 static __inline__ size_t
-genom_serialen_t_bayes_opt_param_array(const bayes_opt_param_array data)
+genom_serialen_t_bayes_opt_suggestion(const bayes_opt_suggestion *data)
 {
-  return genom_serialen_array32_double(data);
+  return sizeof(*(data));
 }
 
 static __inline__ void
-genom_serialize_t_bayes_opt_param_array(char **buffer, const bayes_opt_param_array data)
+genom_serialize_t_bayes_opt_suggestion(char **buffer, const bayes_opt_suggestion *data)
 {
-  return genom_serialize_array32_double(buffer, data);
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
 }
 
 static __inline__ int
-genom_deserialize_t_bayes_opt_param_array(char **buffer, ssize_t *size,
-  bayes_opt_param_array data)
+genom_deserialize_t_bayes_opt_suggestion(char **buffer, ssize_t *size,
+  bayes_opt_suggestion *data)
 {
-  return genom_deserialize_array32_double(buffer, size, data);
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
   return 0;
 }
 
@@ -1617,50 +1606,22 @@ genom_deserialize_t_bayes_opt_params(char **buffer, ssize_t *size,
   return 0;
 }
 
-/* === t_bayes_opt_best_param_array ===================================== */
+/* === t_bayes_opt_best ================================================= */
 
 static __inline__ size_t
-genom_maxserialen_t_bayes_opt_best_param_array(void)
+genom_maxserialen_t_bayes_opt_best(void)
 {
-  return genom_maxserialen_array32_double();
-}
-
-static __inline__ size_t
-genom_serialen_t_bayes_opt_best_param_array(const bayes_opt_best_param_array data)
-{
-  return genom_serialen_array32_double(data);
-}
-
-static __inline__ void
-genom_serialize_t_bayes_opt_best_param_array(char **buffer, const bayes_opt_best_param_array data)
-{
-  return genom_serialize_array32_double(buffer, data);
-}
-
-static __inline__ int
-genom_deserialize_t_bayes_opt_best_param_array(char **buffer, ssize_t *size,
-  bayes_opt_best_param_array data)
-{
-  return genom_deserialize_array32_double(buffer, size, data);
-  return 0;
-}
-
-/* === t_bayes_opt_best_params ========================================== */
-
-static __inline__ size_t
-genom_maxserialen_t_bayes_opt_best_params(void)
-{
-  return sizeof(bayes_opt_best_params);
+  return sizeof(bayes_opt_best);
 }
 
 static __inline__ size_t
-genom_serialen_t_bayes_opt_best_params(const bayes_opt_best_params *data)
+genom_serialen_t_bayes_opt_best(const bayes_opt_best *data)
 {
   return sizeof(*(data));
 }
 
 static __inline__ void
-genom_serialize_t_bayes_opt_best_params(char **buffer, const bayes_opt_best_params *data)
+genom_serialize_t_bayes_opt_best(char **buffer, const bayes_opt_best *data)
 {
   memcpy(*buffer, &(*(data)),
          sizeof(*(data)));
@@ -1668,8 +1629,8 @@ genom_serialize_t_bayes_opt_best_params(char **buffer, const bayes_opt_best_para
 }
 
 static __inline__ int
-genom_deserialize_t_bayes_opt_best_params(char **buffer, ssize_t *size,
-  bayes_opt_best_params *data)
+genom_deserialize_t_bayes_opt_best(char **buffer, ssize_t *size,
+  bayes_opt_best *data)
 {
   if (*size != -1) {
     *size -= sizeof(*(data));
@@ -1681,50 +1642,22 @@ genom_deserialize_t_bayes_opt_best_params(char **buffer, ssize_t *size,
   return 0;
 }
 
-/* === t_bayes_opt_best_value_t ========================================= */
+/* === t_bayes_opt_best_result ========================================== */
 
 static __inline__ size_t
-genom_maxserialen_t_bayes_opt_best_value_t(void)
+genom_maxserialen_t_bayes_opt_best_result(void)
 {
-  return genom_maxserialen_double();
-}
-
-static __inline__ size_t
-genom_serialen_t_bayes_opt_best_value_t(bayes_opt_best_value_t data)
-{
-  return genom_serialen_double(data);
-}
-
-static __inline__ void
-genom_serialize_t_bayes_opt_best_value_t(char **buffer, bayes_opt_best_value_t data)
-{
-  return genom_serialize_double(buffer, data);
-}
-
-static __inline__ int
-genom_deserialize_t_bayes_opt_best_value_t(char **buffer, ssize_t *size,
-  bayes_opt_best_value_t *data)
-{
-  return genom_deserialize_double(buffer, size, data);
-  return 0;
-}
-
-/* === t_bayes_opt_best_value =========================================== */
-
-static __inline__ size_t
-genom_maxserialen_t_bayes_opt_best_value(void)
-{
-  return sizeof(bayes_opt_best_value);
+  return sizeof(bayes_opt_best_result);
 }
 
 static __inline__ size_t
-genom_serialen_t_bayes_opt_best_value(const bayes_opt_best_value *data)
+genom_serialen_t_bayes_opt_best_result(const bayes_opt_best_result *data)
 {
   return sizeof(*(data));
 }
 
 static __inline__ void
-genom_serialize_t_bayes_opt_best_value(char **buffer, const bayes_opt_best_value *data)
+genom_serialize_t_bayes_opt_best_result(char **buffer, const bayes_opt_best_result *data)
 {
   memcpy(*buffer, &(*(data)),
          sizeof(*(data)));
@@ -1732,8 +1665,8 @@ genom_serialize_t_bayes_opt_best_value(char **buffer, const bayes_opt_best_value
 }
 
 static __inline__ int
-genom_deserialize_t_bayes_opt_best_value(char **buffer, ssize_t *size,
-  bayes_opt_best_value *data)
+genom_deserialize_t_bayes_opt_best_result(char **buffer, ssize_t *size,
+  bayes_opt_best_result *data)
 {
   if (*size != -1) {
     *size -= sizeof(*(data));
@@ -1815,31 +1748,39 @@ genom_deserialize_array128_char(char **buffer, ssize_t *size,
   return 0;
 }
 
-/* === t_bayes_opt_status_array ========================================= */
+/* === t_bayes_opt_status_struct ======================================== */
 
 static __inline__ size_t
-genom_maxserialen_t_bayes_opt_status_array(void)
+genom_maxserialen_t_bayes_opt_status_struct(void)
 {
-  return genom_maxserialen_array128_char();
+  return sizeof(bayes_opt_status_struct);
 }
 
 static __inline__ size_t
-genom_serialen_t_bayes_opt_status_array(const bayes_opt_status_array data)
+genom_serialen_t_bayes_opt_status_struct(const bayes_opt_status_struct *data)
 {
-  return genom_serialen_array128_char(data);
+  return sizeof(*(data));
 }
 
 static __inline__ void
-genom_serialize_t_bayes_opt_status_array(char **buffer, const bayes_opt_status_array data)
+genom_serialize_t_bayes_opt_status_struct(char **buffer, const bayes_opt_status_struct *data)
 {
-  return genom_serialize_array128_char(buffer, data);
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
 }
 
 static __inline__ int
-genom_deserialize_t_bayes_opt_status_array(char **buffer, ssize_t *size,
-  bayes_opt_status_array data)
+genom_deserialize_t_bayes_opt_status_struct(char **buffer, ssize_t *size,
+  bayes_opt_status_struct *data)
 {
-  return genom_deserialize_array128_char(buffer, size, data);
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
   return 0;
 }
 
@@ -2481,6 +2422,35 @@ genom_deserialize_array5_double(char **buffer, ssize_t *size,
   return 0;
 }
 
+/* === t_bayes_opt_INVALID_BOUNDS ======================================= */
+
+static __inline__ size_t
+genom_maxserialen_t_bayes_opt_INVALID_BOUNDS(void)
+{
+  return 0;
+}
+
+static __inline__ size_t
+genom_serialen_t_bayes_opt_INVALID_BOUNDS(const bayes_opt_INVALID_BOUNDS_detail *data)
+{
+  (void)data; /* fix -Wunused-parameter */
+  return 0;
+}
+
+static __inline__ void
+genom_serialize_t_bayes_opt_INVALID_BOUNDS(char **buffer, const bayes_opt_INVALID_BOUNDS_detail *data)
+{
+  (void)buffer; (void)data; /* fix -Wunused-parameter */
+}
+
+static __inline__ int
+genom_deserialize_t_bayes_opt_INVALID_BOUNDS(char **buffer, ssize_t *size,
+  bayes_opt_INVALID_BOUNDS_detail *data)
+{
+  (void)buffer; (void)size; (void)data; /* fix -Wunused-parameter */
+  return 0;
+}
+
 /* === short ============================================================ */
 
 static __inline__ size_t
@@ -2638,6 +2608,35 @@ genom_deserialize_t_bayes_opt_EVALUATION_FAILED(char **buffer, ssize_t *size,
   return 0;
 }
 
+/* === t_bayes_opt_NO_SCORE_AVAILABLE =================================== */
+
+static __inline__ size_t
+genom_maxserialen_t_bayes_opt_NO_SCORE_AVAILABLE(void)
+{
+  return 0;
+}
+
+static __inline__ size_t
+genom_serialen_t_bayes_opt_NO_SCORE_AVAILABLE(const bayes_opt_NO_SCORE_AVAILABLE_detail *data)
+{
+  (void)data; /* fix -Wunused-parameter */
+  return 0;
+}
+
+static __inline__ void
+genom_serialize_t_bayes_opt_NO_SCORE_AVAILABLE(char **buffer, const bayes_opt_NO_SCORE_AVAILABLE_detail *data)
+{
+  (void)buffer; (void)data; /* fix -Wunused-parameter */
+}
+
+static __inline__ int
+genom_deserialize_t_bayes_opt_NO_SCORE_AVAILABLE(char **buffer, ssize_t *size,
+  bayes_opt_NO_SCORE_AVAILABLE_detail *data)
+{
+  (void)buffer; (void)size; (void)data; /* fix -Wunused-parameter */
+  return 0;
+}
+
 /* === t_bayes_opt_ether ================================================ */
 
 static __inline__ size_t
@@ -2734,186 +2733,6 @@ genom_serialize_t_bayes_opt_stop(char **buffer, genom_event data)
 
 static __inline__ int
 genom_deserialize_t_bayes_opt_stop(char **buffer, ssize_t *size,
-  genom_event *data)
-{
-  if (*size != -1) {
-    *size -= sizeof(*(data));
-    if (*size < 0) return ENOMSG;
-  }
-  memcpy(&(*(data)), *buffer,
-         sizeof(*(data)));
-  *buffer += sizeof(*(data));
-  return 0;
-}
-
-/* === t_bayes_opt_wait_result ========================================== */
-
-static __inline__ size_t
-genom_maxserialen_t_bayes_opt_wait_result(void)
-{
-  return sizeof(genom_event);
-}
-
-static __inline__ size_t
-genom_serialen_t_bayes_opt_wait_result(genom_event data)
-{
-  return sizeof(data);
-}
-
-static __inline__ void
-genom_serialize_t_bayes_opt_wait_result(char **buffer, genom_event data)
-{
-  memcpy(*buffer, &(data),
-         sizeof(data));
-  *buffer += sizeof(data);
-}
-
-static __inline__ int
-genom_deserialize_t_bayes_opt_wait_result(char **buffer, ssize_t *size,
-  genom_event *data)
-{
-  if (*size != -1) {
-    *size -= sizeof(*(data));
-    if (*size < 0) return ENOMSG;
-  }
-  memcpy(&(*(data)), *buffer,
-         sizeof(*(data)));
-  *buffer += sizeof(*(data));
-  return 0;
-}
-
-/* === t_bayes_opt_compute ============================================== */
-
-static __inline__ size_t
-genom_maxserialen_t_bayes_opt_compute(void)
-{
-  return sizeof(genom_event);
-}
-
-static __inline__ size_t
-genom_serialen_t_bayes_opt_compute(genom_event data)
-{
-  return sizeof(data);
-}
-
-static __inline__ void
-genom_serialize_t_bayes_opt_compute(char **buffer, genom_event data)
-{
-  memcpy(*buffer, &(data),
-         sizeof(data));
-  *buffer += sizeof(data);
-}
-
-static __inline__ int
-genom_deserialize_t_bayes_opt_compute(char **buffer, ssize_t *size,
-  genom_event *data)
-{
-  if (*size != -1) {
-    *size -= sizeof(*(data));
-    if (*size < 0) return ENOMSG;
-  }
-  memcpy(&(*(data)), *buffer,
-         sizeof(*(data)));
-  *buffer += sizeof(*(data));
-  return 0;
-}
-
-/* === t_bayes_opt_failed =============================================== */
-
-static __inline__ size_t
-genom_maxserialen_t_bayes_opt_failed(void)
-{
-  return sizeof(genom_event);
-}
-
-static __inline__ size_t
-genom_serialen_t_bayes_opt_failed(genom_event data)
-{
-  return sizeof(data);
-}
-
-static __inline__ void
-genom_serialize_t_bayes_opt_failed(char **buffer, genom_event data)
-{
-  memcpy(*buffer, &(data),
-         sizeof(data));
-  *buffer += sizeof(data);
-}
-
-static __inline__ int
-genom_deserialize_t_bayes_opt_failed(char **buffer, ssize_t *size,
-  genom_event *data)
-{
-  if (*size != -1) {
-    *size -= sizeof(*(data));
-    if (*size < 0) return ENOMSG;
-  }
-  memcpy(&(*(data)), *buffer,
-         sizeof(*(data)));
-  *buffer += sizeof(*(data));
-  return 0;
-}
-
-/* === t_bayes_opt_publish ============================================== */
-
-static __inline__ size_t
-genom_maxserialen_t_bayes_opt_publish(void)
-{
-  return sizeof(genom_event);
-}
-
-static __inline__ size_t
-genom_serialen_t_bayes_opt_publish(genom_event data)
-{
-  return sizeof(data);
-}
-
-static __inline__ void
-genom_serialize_t_bayes_opt_publish(char **buffer, genom_event data)
-{
-  memcpy(*buffer, &(data),
-         sizeof(data));
-  *buffer += sizeof(data);
-}
-
-static __inline__ int
-genom_deserialize_t_bayes_opt_publish(char **buffer, ssize_t *size,
-  genom_event *data)
-{
-  if (*size != -1) {
-    *size -= sizeof(*(data));
-    if (*size < 0) return ENOMSG;
-  }
-  memcpy(&(*(data)), *buffer,
-         sizeof(*(data)));
-  *buffer += sizeof(*(data));
-  return 0;
-}
-
-/* === t_bayes_opt_end ================================================== */
-
-static __inline__ size_t
-genom_maxserialen_t_bayes_opt_end(void)
-{
-  return sizeof(genom_event);
-}
-
-static __inline__ size_t
-genom_serialen_t_bayes_opt_end(genom_event data)
-{
-  return sizeof(data);
-}
-
-static __inline__ void
-genom_serialize_t_bayes_opt_end(char **buffer, genom_event data)
-{
-  memcpy(*buffer, &(data),
-         sizeof(data));
-  *buffer += sizeof(data);
-}
-
-static __inline__ int
-genom_deserialize_t_bayes_opt_end(char **buffer, ssize_t *size,
   genom_event *data)
 {
   if (*size != -1) {

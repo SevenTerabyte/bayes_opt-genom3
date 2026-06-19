@@ -214,13 +214,13 @@ genom_bayes_opt_propose_parameters_encode(
   (void)size; /* fix -Wunused-parameter */
 
   s = 1;
-  s += genom_serialen_t_bayes_opt_param_array(
-    out->params);
+  s += genom_serialen_t_bayes_opt_suggestion(
+    &(out->params));
   if (s > maxsize) return ERROR;
 
   *p++ = *"";
-  genom_serialize_t_bayes_opt_param_array(
-    &p, out->params);
+  genom_serialize_t_bayes_opt_suggestion(
+    &p, &(out->params));
 
   return s;
 }
@@ -290,13 +290,13 @@ genom_bayes_opt_get_best_parameters_encode(
   (void)size; /* fix -Wunused-parameter */
 
   s = 1;
-  s += genom_serialen_t_bayes_opt_best_param_array(
-    out->best);
+  s += genom_serialen_t_bayes_opt_best(
+    &(out->best_result));
   if (s > maxsize) return ERROR;
 
   *p++ = *"";
-  genom_serialize_t_bayes_opt_best_param_array(
-    &p, out->best);
+  genom_serialize_t_bayes_opt_best(
+    &p, &(out->best_result));
 
   return s;
 }
@@ -407,13 +407,13 @@ genom_bayes_opt_AskNext_encode(
   (void)size; /* fix -Wunused-parameter */
 
   s = 1;
-  s += genom_serialen_t_bayes_opt_param_array(
-    out->params_out);
+  s += genom_serialen_t_bayes_opt_suggestion(
+    &(out->params_out));
   if (s > maxsize) return ERROR;
 
   *p++ = *"";
-  genom_serialize_t_bayes_opt_param_array(
-    &p, out->params_out);
+  genom_serialize_t_bayes_opt_suggestion(
+    &p, &(out->params_out));
 
   return s;
 }
@@ -483,13 +483,13 @@ genom_bayes_opt_GetBest_encode(
   (void)size; /* fix -Wunused-parameter */
 
   s = 1;
-  s += genom_serialen_t_bayes_opt_best_param_array(
-    out->best);
+  s += genom_serialen_t_bayes_opt_best(
+    &(out->best_result_out));
   if (s > maxsize) return ERROR;
 
   *p++ = *"";
-  genom_serialize_t_bayes_opt_best_param_array(
-    &p, out->best);
+  genom_serialize_t_bayes_opt_best(
+    &p, &(out->best_result_out));
 
   return s;
 }
@@ -659,28 +659,6 @@ genom_bayes_opt_genom_mwerr_encodex(
 }
 
 
-/* --- Exception e_sys encoding ----------------------------------------- */
-
-int
-genom_bayes_opt_bayes_opt_e_sys_encodex(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  bayes_opt_e_sys_detail *out = (bayes_opt_e_sys_detail *)buffer;
-  char *p = dst;
-  ssize_t s;
-  (void)size; /* fix -Wunused-parameters */
-
-  s = sizeof(bayes_opt_e_sys_id);
-  s += genom_serialen_t_bayes_opt_e_sys(out);
-  if (s > maxsize) return ERROR;
-
-  memcpy(p, bayes_opt_e_sys_id, sizeof(bayes_opt_e_sys_id));
-  p += sizeof(bayes_opt_e_sys_id);
-  genom_serialize_t_bayes_opt_e_sys(&p, out);
-  return s;
-}
-
-
 /* --- Exception no_such_activity encoding ------------------------------ */
 
 int
@@ -835,6 +813,50 @@ genom_bayes_opt_genom_remote_io_encodex(
 }
 
 
+/* --- Exception INVALID_BOUNDS encoding -------------------------------- */
+
+int
+genom_bayes_opt_bayes_opt_INVALID_BOUNDS_encodex(
+  char *buffer, int size, char *dst, int maxsize)
+{
+  bayes_opt_INVALID_BOUNDS_detail *out = (bayes_opt_INVALID_BOUNDS_detail *)buffer;
+  char *p = dst;
+  ssize_t s;
+  (void)size; /* fix -Wunused-parameters */
+
+  s = sizeof(bayes_opt_INVALID_BOUNDS_id);
+  s += genom_serialen_t_bayes_opt_INVALID_BOUNDS(out);
+  if (s > maxsize) return ERROR;
+
+  memcpy(p, bayes_opt_INVALID_BOUNDS_id, sizeof(bayes_opt_INVALID_BOUNDS_id));
+  p += sizeof(bayes_opt_INVALID_BOUNDS_id);
+  genom_serialize_t_bayes_opt_INVALID_BOUNDS(&p, out);
+  return s;
+}
+
+
+/* --- Exception e_sys encoding ----------------------------------------- */
+
+int
+genom_bayes_opt_bayes_opt_e_sys_encodex(
+  char *buffer, int size, char *dst, int maxsize)
+{
+  bayes_opt_e_sys_detail *out = (bayes_opt_e_sys_detail *)buffer;
+  char *p = dst;
+  ssize_t s;
+  (void)size; /* fix -Wunused-parameters */
+
+  s = sizeof(bayes_opt_e_sys_id);
+  s += genom_serialen_t_bayes_opt_e_sys(out);
+  if (s > maxsize) return ERROR;
+
+  memcpy(p, bayes_opt_e_sys_id, sizeof(bayes_opt_e_sys_id));
+  p += sizeof(bayes_opt_e_sys_id);
+  genom_serialize_t_bayes_opt_e_sys(&p, out);
+  return s;
+}
+
+
 /* --- Exception OPTIMIZATION_FAILED encoding --------------------------- */
 
 int
@@ -897,6 +919,28 @@ genom_bayes_opt_bayes_opt_EVALUATION_FAILED_encodex(
   memcpy(p, bayes_opt_EVALUATION_FAILED_id, sizeof(bayes_opt_EVALUATION_FAILED_id));
   p += sizeof(bayes_opt_EVALUATION_FAILED_id);
   genom_serialize_t_bayes_opt_EVALUATION_FAILED(&p, out);
+  return s;
+}
+
+
+/* --- Exception NO_SCORE_AVAILABLE encoding ---------------------------- */
+
+int
+genom_bayes_opt_bayes_opt_NO_SCORE_AVAILABLE_encodex(
+  char *buffer, int size, char *dst, int maxsize)
+{
+  bayes_opt_NO_SCORE_AVAILABLE_detail *out = (bayes_opt_NO_SCORE_AVAILABLE_detail *)buffer;
+  char *p = dst;
+  ssize_t s;
+  (void)size; /* fix -Wunused-parameters */
+
+  s = sizeof(bayes_opt_NO_SCORE_AVAILABLE_id);
+  s += genom_serialen_t_bayes_opt_NO_SCORE_AVAILABLE(out);
+  if (s > maxsize) return ERROR;
+
+  memcpy(p, bayes_opt_NO_SCORE_AVAILABLE_id, sizeof(bayes_opt_NO_SCORE_AVAILABLE_id));
+  p += sizeof(bayes_opt_NO_SCORE_AVAILABLE_id);
+  genom_serialize_t_bayes_opt_NO_SCORE_AVAILABLE(&p, out);
   return s;
 }
 

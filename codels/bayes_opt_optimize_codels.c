@@ -1,174 +1,61 @@
 #include "acbayes_opt.h"
 
 #include "bayes_opt_c_types.h"
-#include <stdio.h>
-#include <stdlib.h>
 
-#define MAX_PARAMS 32
+#include <stdlib.h>
+#include <string.h>
+#include <float.h>
+#include <time.h>
+#include <math.h>
+#include <stdio.h>
+
+
 
 /* --- Task optimize ---------------------------------------------------- */
 
 
-/** Codel init of task optimize.
- *
- * Triggered by bayes_opt_start.
- * Yields to bayes_opt_wait_result.
- * Throws bayes_opt_e_sys.
- */
-genom_event
-init(bayes_opt_state *state, const genom_context self)
-{
-  state->running = true;
-  state->initialized = true;
-
-  state->current_iteration = 0;
-  state->current_score = 0.0;
-  state->best_value = -1e100;
-
-  return bayes_opt_wait_result;
-}
-
-
-/** Codel wait_result of task optimize.
- *
- * Triggered by bayes_opt_wait_result.
- * Yields to bayes_opt_compute, bayes_opt_wait_result,
- *           bayes_opt_failed.
- * Throws bayes_opt_e_sys.
- */
-genom_event
-wait_result(const bayes_opt_result *result,
-            const bayes_opt_allow *allow,
-            bayes_opt_state *state,
-            const genom_context self)
-{
-  /* no result yet */
-  if (result == NULL) {
-    return bayes_opt_wait_result;
-  }
-
-  /* wait for explicit allow flag */
-  if (!(*(allow->data(self)))) {
-    return bayes_opt_wait_result;
-  }
-
-  /* store incoming score */
-  state->current_score = *(result->data(self));
-
-  return bayes_opt_compute;
-}
-
-
-/** Codel compute of task optimize.
- *
- * Triggered by bayes_opt_compute.
- * Yields to bayes_opt_publish, bayes_opt_wait_result.
- * Throws bayes_opt_e_sys.
- */
-genom_event
-compute(const bayes_opt_result *result,
-        const bayes_opt_allow *allow,
-        bayes_opt_state *state,
-        const bayes_opt_params *params,
-        const genom_context self)
-{
-  long i;
-
-  /* copy current params */
-  for (i = 0; i < MAX_PARAMS; i++) {
-    state->current_params[i] = *(params->data(self) + i);
-  }
-
-  /* update iteration */
-  state->current_iteration++;
-
-  /* update best */
-  if (state->current_score > state->best_value) {
-    state->best_value = state->current_score;
-
-    for (i = 0; i < MAX_PARAMS; i++) {
-      state->best_params[i] = state->current_params[i];
-    }
-  }
-
-  return bayes_opt_publish;
-}
-
-
-/** Codel publish of task optimize.
- *
- * Triggered by bayes_opt_publish.
- * Yields to bayes_opt_wait_result.
- * Throws bayes_opt_e_sys.
- */
-genom_event
-publish(bayes_opt_state *state,
-        const bayes_opt_params *params,
-        const bayes_opt_best_value *best_value,
-        const bayes_opt_best_params *best_params,
-        const bayes_opt_status *status,
-        const genom_context self)
-{
-  long i;
-
-  /* best value output */
-  *(best_value->data(self)) = state->best_value;
-
-  /* best params output */
-  for (i = 0; i < MAX_PARAMS; i++) {
-    *(best_params->data(self) + i) = state->best_params[i];
-  }
-
-  /* status string */
-  snprintf(*(status->data(self)), 128,
-          "iter=%ld best=%.6f",
-          state->current_iteration,
-          state->best_value);
-
-  return bayes_opt_wait_result;
-}
-
-
-/** Codel failed of task optimize.
- *
- * Triggered by bayes_opt_failed.
- * Yields to bayes_opt_ether.
- * Throws bayes_opt_e_sys.
- */
-genom_event
-failed(bayes_opt_state *state, const genom_context self)
-{
-  state->running = false;
-  return bayes_opt_ether;
-}
-
-
 /* --- Activity Init ---------------------------------------------------- */
 
-/** Codel fake_start of activity Init.
+/** Codel boInit of activity Init.
  *
  * Triggered by bayes_opt_start.
  * Yields to bayes_opt_ether.
- * Throws bayes_opt_e_sys.
+ * Throws bayes_opt_INVALID_BOUNDS, bayes_opt_e_sys.
  */
 genom_event
-fake_start(const genom_context self)
+boInit(const double lower_bounds[5], const double upper_bounds[5],
+       int32_t max_iterations, bayes_opt_state *state,
+       const genom_context self)
 {
-  /* skeleton sample: insert your code */
-  /* skeleton sample */ return bayes_opt_ether;
-}
+  for (int i = 0; i < 5; i++) {
+    if (lower_bounds[i] >= upper_bounds[i])
+    {
+      fprintf(stderr, ">>> Lower bounds can't be higher than upper bounds!\n");
+      fflush(stderr);
+      return bayes_opt_INVALID_BOUNDS(self);
+    }
+      
 
-/** Codel fake_stop of activity Init.
- *
- * Triggered by bayes_opt_stop.
- * Yields to bayes_opt_ether.
- * Throws bayes_opt_e_sys.
- */
-genom_event
-fake_stop(const genom_context self)
-{
-  /* skeleton sample: insert your code */
-  /* skeleton sample */ return bayes_opt_ether;
+    state->lower_bounds[i] = lower_bounds[i];
+    state->upper_bounds[i] = upper_bounds[i];
+  }
+
+  state->running = false;
+  state->initialized = true;
+  state->current_iteration = 0;
+  state->max_iterations = max_iterations;
+  state->current_score = DBL_MAX;
+  state->best_value = DBL_MAX;
+
+  memset(&state->current_params, 0, sizeof(state->current_params));
+  memset(&state->best_params, 0, sizeof(state->best_params));
+
+  srand((unsigned int)time(NULL));
+
+  fprintf(stderr, "boInit called\n"); 
+  fflush(stderr);
+
+  return bayes_opt_ether;
 }
 
 
@@ -177,43 +64,44 @@ fake_stop(const genom_context self)
 /** Codel boProposeParams of activity AskNext.
  *
  * Triggered by bayes_opt_start.
- * Yields to bayes_opt_end, bayes_opt_ether.
- * Throws bayes_opt_e_sys, bayes_opt_OPTIMIZATION_FAILED.
+ * Yields to bayes_opt_ether.
+ * Throws bayes_opt_OPTIMIZATION_FAILED.
  */
 genom_event
 boProposeParams(bayes_opt_state *state,
-                const bayes_opt_params *params,
+                bayes_opt_suggestion *params_out,
                 const genom_context self)
 {
-  long i;
+  if (!state->initialized)
+  {
+    fprintf(stderr, ">>> Optimization has failed\n");
+    fflush(stderr);   
+    return bayes_opt_OPTIMIZATION_FAILED(self); 
+  }
+    
 
-  /* simple exploration strategy (placeholder BO) */
-  for (i = 0; i < MAX_PARAMS; i++) {
-
-    double low = state->lower_bounds[i % 5];
-    double high = state->upper_bounds[i % 5];
-
-    /* pseudo-random / exploration step */
-    double r = ((double) rand() / RAND_MAX);
-
-    state->current_params[i] = low + r * (high - low);
-    *(params->data(self) + i) = state->current_params[i];
+  if (state->current_iteration >= state->max_iterations)
+  {
+    fprintf(stderr, ">>> Optimization has failed\n");
+    fflush(stderr);
+    return bayes_opt_OPTIMIZATION_FAILED(self);
   }
 
-  return bayes_opt_end;
-}
+  for (int i = 0; i < 5; i++) {
+    double r = (double)rand() / (double)RAND_MAX;
+    params_out->params[i] =
+      state->lower_bounds[i] +
+      r * (state->upper_bounds[i] - state->lower_bounds[i]);
+  }
 
-/** Codel fake_end of activity AskNext.
- *
- * Triggered by bayes_opt_end.
- * Yields to bayes_opt_ether.
- * Throws bayes_opt_e_sys, bayes_opt_OPTIMIZATION_FAILED.
- */
-genom_event
-fake_end(const genom_context self)
-{
-  /* skeleton sample: insert your code */
-  /* skeleton sample */ return bayes_opt_ether;
+  params_out->iteration = state->current_iteration;
+
+  state->current_params = *params_out;
+  state->running = true;
+
+  fprintf(stderr, "boProposeParams called\n");
+  fflush(stderr);
+  return bayes_opt_ether;
 }
 
 
@@ -222,51 +110,74 @@ fake_end(const genom_context self)
 /** Codel boUpdateOptimizer of activity SubmitResult.
  *
  * Triggered by bayes_opt_start.
- * Yields to bayes_opt_end, bayes_opt_ether.
- * Throws bayes_opt_e_sys, bayes_opt_INVALID_PARAMETER,
- *        bayes_opt_EVALUATION_FAILED.
+ * Yields to bayes_opt_ether.
+ * Throws bayes_opt_INVALID_PARAMETER, bayes_opt_EVALUATION_FAILED,
+ *        bayes_opt_NO_SCORE_AVAILABLE.
  */
 genom_event
-boUpdateOptimizer(double score,
-                  bayes_opt_state *state,
+boUpdateOptimizer(double score, bayes_opt_state *state,
                   const genom_context self)
 {
-  state->current_score = score;
+  if (!state->initialized)
+  {
+    fprintf(stderr, ">>> Evaluation has failed\n");
+    fflush(stderr);
+    return bayes_opt_EVALUATION_FAILED(self);
+  }
+    
 
-  if (score > state->best_value) {
-    state->best_value = score;
+  if (!isfinite(score))
+  {
+    fprintf(stderr, ">>> Evaluation has failed\n");
+    fflush(stderr);
+    return bayes_opt_INVALID_PARAMETER(self);
   }
 
-  return bayes_opt_end;
+  state->current_score = score;
+
+  /* Assumption: lower score is better */
+  if (score < state->best_value) {
+    state->best_value = score;
+
+    for (int i = 0; i < 5; i++)
+      state->best_params.params[i] = state->current_params.params[i];
+
+    state->best_params.value = score;
+  }
+
+  state->current_iteration++;
+  state->running = false;
+
+  fprintf(stderr, ">>> boUpdateOptimizer called, score=%f\n", score);
+  fflush(stderr);
+  return bayes_opt_ether;
 }
-
-/** Codel fake_end of activity SubmitResult.
- *
- * Triggered by bayes_opt_end.
- * Yields to bayes_opt_ether.
- * Throws bayes_opt_e_sys, bayes_opt_INVALID_PARAMETER,
- *        bayes_opt_EVALUATION_FAILED.
- */
-/* already defined in service AskNext */
-
 
 
 /* --- Activity GetBest ------------------------------------------------- */
 
-/** Codel fake_start of activity GetBest.
+/** Codel boGetBest of activity GetBest.
  *
  * Triggered by bayes_opt_start.
  * Yields to bayes_opt_ether.
- * Throws bayes_opt_e_sys.
+ * Throws bayes_opt_NO_SCORE_AVAILABLE.
  */
-/* already defined in service Init */
+genom_event
+boGetBest(const bayes_opt_state *state,
+          bayes_opt_best *best_result_out,
+          const genom_context self)
+{
+  if (!state->initialized || state->best_value == DBL_MAX)
+  {
+    fprintf(stderr, ">>> No avaliable score yet\n");
+    fflush(stderr);    
+    return bayes_opt_NO_SCORE_AVAILABLE(self);
+  }
+    
 
+  *best_result_out = state->best_params;
 
-/** Codel fake_stop of activity GetBest.
- *
- * Triggered by bayes_opt_stop.
- * Yields to bayes_opt_ether.
- * Throws bayes_opt_e_sys.
- */
-/* already defined in service Init */
-
+  fprintf(stderr, ">>> boGetBest called\n");
+  fflush(stderr);
+  return bayes_opt_ether;
+}

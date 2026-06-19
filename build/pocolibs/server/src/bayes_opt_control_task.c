@@ -68,8 +68,7 @@ genom_bayes_opt_init(void)
   genom_tinit_bayes_opt_result_port(&self->ports.result);
   genom_tinit_bayes_opt_allow_port(&self->ports.allow);
   genom_tinit_bayes_opt_params_port(&self->ports.params);
-  genom_tinit_bayes_opt_best_params_port(&self->ports.best_params);
-  genom_tinit_bayes_opt_best_value_port(&self->ports.best_value);
+  genom_tinit_bayes_opt_best_result_port(&self->ports.best_result);
   genom_tinit_bayes_opt_status_port(&self->ports.status);
 
   self->tasks.optimize.context.raise = genom_pocolibs_raise;
@@ -149,8 +148,7 @@ genom_bayes_opt_init(void)
   if (genom_bayes_opt_result_open(&self->control.context)) goto error;
   if (genom_bayes_opt_allow_open(&self->control.context)) goto error;
   if (genom_bayes_opt_params_open(&self->control.context)) goto error;
-  if (genom_bayes_opt_best_params_open(&self->control.context)) goto error;
-  if (genom_bayes_opt_best_value_open(&self->control.context)) goto error;
+  if (genom_bayes_opt_best_result_open(&self->control.context)) goto error;
   if (genom_bayes_opt_status_open(&self->control.context)) goto error;
   if (genom_bayes_opt_genom_metadata_write(&self->control.context)) goto error;
   if (genom_bayes_opt_genom_state_write(&self->control.context)) goto error;
@@ -317,8 +315,7 @@ genom_bayes_opt_fini(void *data)
   genom_bayes_opt_result_delete(&self->control.context);
   genom_bayes_opt_allow_delete(&self->control.context);
   genom_bayes_opt_params_delete(&self->control.context);
-  genom_bayes_opt_best_params_delete(&self->control.context);
-  genom_bayes_opt_best_value_delete(&self->control.context);
+  genom_bayes_opt_best_result_delete(&self->control.context);
   genom_bayes_opt_status_delete(&self->control.context);
 
   genom_tfini_bayes_opt_genom_state_port(&self->ports.genom_state);
@@ -326,8 +323,7 @@ genom_bayes_opt_fini(void *data)
   genom_tfini_bayes_opt_result_port(&self->ports.result);
   genom_tfini_bayes_opt_allow_port(&self->ports.allow);
   genom_tfini_bayes_opt_params_port(&self->ports.params);
-  genom_tfini_bayes_opt_best_params_port(&self->ports.best_params);
-  genom_tfini_bayes_opt_best_value_port(&self->ports.best_value);
+  genom_tfini_bayes_opt_best_result_port(&self->ports.best_result);
   genom_tfini_bayes_opt_status_port(&self->ports.status);
   genom_tfini_t_bayes_opt_ids(&self->ids);
   free(self);

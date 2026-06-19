@@ -287,7 +287,7 @@ genom_bayes_opt_max_reply_size()
 
   /* output of propose_parameters */
   s = 1; /* ok flag */
-  s += genom_maxserialen_t_bayes_opt_param_array();
+  s += genom_maxserialen_t_bayes_opt_suggestion();
   if (m < s) m = s;
 
   /* throws of propose_parameters */
@@ -342,7 +342,7 @@ genom_bayes_opt_max_reply_size()
 
   /* output of get_best_parameters */
   s = 1; /* ok flag */
-  s += genom_maxserialen_t_bayes_opt_best_param_array();
+  s += genom_maxserialen_t_bayes_opt_best();
   if (m < s) m = s;
 
   /* throws of get_best_parameters */
@@ -421,13 +421,16 @@ genom_bayes_opt_max_reply_size()
   s = sizeof(genom_mwerr_id);
   s += genom_maxserialen_t_genom_mwerr();
   if (m < s) m = s;
+  s = sizeof(bayes_opt_INVALID_BOUNDS_id);
+  s += genom_maxserialen_t_bayes_opt_INVALID_BOUNDS();
+  if (m < s) m = s;
   s = sizeof(bayes_opt_e_sys_id);
   s += genom_maxserialen_t_bayes_opt_e_sys();
   if (m < s) m = s;
 
   /* output of AskNext */
   s = 1; /* ok flag */
-  s += genom_maxserialen_t_bayes_opt_param_array();
+  s += genom_maxserialen_t_bayes_opt_suggestion();
   if (m < s) m = s;
 
   /* throws of AskNext */
@@ -451,9 +454,6 @@ genom_bayes_opt_max_reply_size()
   if (m < s) m = s;
   s = sizeof(genom_mwerr_id);
   s += genom_maxserialen_t_genom_mwerr();
-  if (m < s) m = s;
-  s = sizeof(bayes_opt_e_sys_id);
-  s += genom_maxserialen_t_bayes_opt_e_sys();
   if (m < s) m = s;
   s = sizeof(bayes_opt_OPTIMIZATION_FAILED_id);
   s += genom_maxserialen_t_bayes_opt_OPTIMIZATION_FAILED();
@@ -485,19 +485,19 @@ genom_bayes_opt_max_reply_size()
   s = sizeof(genom_mwerr_id);
   s += genom_maxserialen_t_genom_mwerr();
   if (m < s) m = s;
-  s = sizeof(bayes_opt_e_sys_id);
-  s += genom_maxserialen_t_bayes_opt_e_sys();
-  if (m < s) m = s;
   s = sizeof(bayes_opt_INVALID_PARAMETER_id);
   s += genom_maxserialen_t_bayes_opt_INVALID_PARAMETER();
   if (m < s) m = s;
   s = sizeof(bayes_opt_EVALUATION_FAILED_id);
   s += genom_maxserialen_t_bayes_opt_EVALUATION_FAILED();
   if (m < s) m = s;
+  s = sizeof(bayes_opt_NO_SCORE_AVAILABLE_id);
+  s += genom_maxserialen_t_bayes_opt_NO_SCORE_AVAILABLE();
+  if (m < s) m = s;
 
   /* output of GetBest */
   s = 1; /* ok flag */
-  s += genom_maxserialen_t_bayes_opt_best_param_array();
+  s += genom_maxserialen_t_bayes_opt_best();
   if (m < s) m = s;
 
   /* throws of GetBest */
@@ -522,8 +522,8 @@ genom_bayes_opt_max_reply_size()
   s = sizeof(genom_mwerr_id);
   s += genom_maxserialen_t_genom_mwerr();
   if (m < s) m = s;
-  s = sizeof(bayes_opt_e_sys_id);
-  s += genom_maxserialen_t_bayes_opt_e_sys();
+  s = sizeof(bayes_opt_NO_SCORE_AVAILABLE_id);
+  s += genom_maxserialen_t_bayes_opt_NO_SCORE_AVAILABLE();
   if (m < s) m = s;
 
 

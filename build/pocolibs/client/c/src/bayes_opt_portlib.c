@@ -35,13 +35,13 @@ genom_bayes_opt_genom_state_decode(
 
 int
 genom_bayes_opt_params_decode(
-  char *buffer, bayes_opt_param_array dst)
+  char *buffer, bayes_opt_suggestion *dst)
 {
   ssize_t len = -1 /* do not check buffer size */;
   char *p = buffer;
   int s;
 
-  s = genom_deserialize_t_bayes_opt_param_array(&p, &len, dst);
+  s = genom_deserialize_t_bayes_opt_suggestion(&p, &len, dst);
   if (s) {
     switch(s) {
       case ENOMSG: return S_posterLib_BAD_FORMAT;
@@ -53,39 +53,17 @@ genom_bayes_opt_params_decode(
 }
 
 
-/* --- Port best_params decoding ---------------------------------------- */
+/* --- Port best_result decoding ---------------------------------------- */
 
 int
-genom_bayes_opt_best_params_decode(
-  char *buffer, bayes_opt_best_param_array dst)
+genom_bayes_opt_best_result_decode(
+  char *buffer, bayes_opt_best *dst)
 {
   ssize_t len = -1 /* do not check buffer size */;
   char *p = buffer;
   int s;
 
-  s = genom_deserialize_t_bayes_opt_best_param_array(&p, &len, dst);
-  if (s) {
-    switch(s) {
-      case ENOMSG: return S_posterLib_BAD_FORMAT;
-      case ENOMEM: return S_posterLib_MALLOC_ERROR;
-    }
-    return s;
-  }
-  return 0;
-}
-
-
-/* --- Port best_value decoding ----------------------------------------- */
-
-int
-genom_bayes_opt_best_value_decode(
-  char *buffer, bayes_opt_best_value_t *dst)
-{
-  ssize_t len = -1 /* do not check buffer size */;
-  char *p = buffer;
-  int s;
-
-  s = genom_deserialize_t_bayes_opt_best_value_t(&p, &len, dst);
+  s = genom_deserialize_t_bayes_opt_best(&p, &len, dst);
   if (s) {
     switch(s) {
       case ENOMSG: return S_posterLib_BAD_FORMAT;
@@ -101,13 +79,13 @@ genom_bayes_opt_best_value_decode(
 
 int
 genom_bayes_opt_status_decode(
-  char *buffer, bayes_opt_status_array dst)
+  char *buffer, bayes_opt_status_struct *dst)
 {
   ssize_t len = -1 /* do not check buffer size */;
   char *p = buffer;
   int s;
 
-  s = genom_deserialize_t_bayes_opt_status_array(&p, &len, dst);
+  s = genom_deserialize_t_bayes_opt_status_struct(&p, &len, dst);
   if (s) {
     switch(s) {
       case ENOMSG: return S_posterLib_BAD_FORMAT;
@@ -140,16 +118,16 @@ genom_bayes_opt_client_genom_state_fini_data(
 
 void
 genom_bayes_opt_client_result_init_data(
-  bayes_opt_result_t *data)
+  bayes_opt_score *data)
 {
-  genom_tinit_t_bayes_opt_result_t(data);
+  genom_tinit_t_bayes_opt_score(data);
 }
 
 void
 genom_bayes_opt_client_result_fini_data(
-  bayes_opt_result_t *data)
+  bayes_opt_score *data)
 {
-  genom_tfini_t_bayes_opt_result_t(data);
+  genom_tfini_t_bayes_opt_score(data);
 }
 
 
@@ -157,16 +135,16 @@ genom_bayes_opt_client_result_fini_data(
 
 void
 genom_bayes_opt_client_allow_init_data(
-  bayes_opt_allow_t *data)
+  bayes_opt_control *data)
 {
-  genom_tinit_t_bayes_opt_allow_t(data);
+  genom_tinit_t_bayes_opt_control(data);
 }
 
 void
 genom_bayes_opt_client_allow_fini_data(
-  bayes_opt_allow_t *data)
+  bayes_opt_control *data)
 {
-  genom_tfini_t_bayes_opt_allow_t(data);
+  genom_tfini_t_bayes_opt_control(data);
 }
 
 
@@ -174,50 +152,33 @@ genom_bayes_opt_client_allow_fini_data(
 
 void
 genom_bayes_opt_client_params_init_data(
-  bayes_opt_param_array data)
+  bayes_opt_suggestion *data)
 {
-  genom_tinit_t_bayes_opt_param_array(data);
+  genom_tinit_t_bayes_opt_suggestion(data);
 }
 
 void
 genom_bayes_opt_client_params_fini_data(
-  bayes_opt_param_array data)
+  bayes_opt_suggestion *data)
 {
-  genom_tfini_t_bayes_opt_param_array(data);
+  genom_tfini_t_bayes_opt_suggestion(data);
 }
 
 
-/* --- Port best_params data -------------------------------------------- */
+/* --- Port best_result data -------------------------------------------- */
 
 void
-genom_bayes_opt_client_best_params_init_data(
-  bayes_opt_best_param_array data)
+genom_bayes_opt_client_best_result_init_data(
+  bayes_opt_best *data)
 {
-  genom_tinit_t_bayes_opt_best_param_array(data);
+  genom_tinit_t_bayes_opt_best(data);
 }
 
 void
-genom_bayes_opt_client_best_params_fini_data(
-  bayes_opt_best_param_array data)
+genom_bayes_opt_client_best_result_fini_data(
+  bayes_opt_best *data)
 {
-  genom_tfini_t_bayes_opt_best_param_array(data);
-}
-
-
-/* --- Port best_value data --------------------------------------------- */
-
-void
-genom_bayes_opt_client_best_value_init_data(
-  bayes_opt_best_value_t *data)
-{
-  genom_tinit_t_bayes_opt_best_value_t(data);
-}
-
-void
-genom_bayes_opt_client_best_value_fini_data(
-  bayes_opt_best_value_t *data)
-{
-  genom_tfini_t_bayes_opt_best_value_t(data);
+  genom_tfini_t_bayes_opt_best(data);
 }
 
 
@@ -225,14 +186,14 @@ genom_bayes_opt_client_best_value_fini_data(
 
 void
 genom_bayes_opt_client_status_init_data(
-  bayes_opt_status_array data)
+  bayes_opt_status_struct *data)
 {
-  genom_tinit_t_bayes_opt_status_array(data);
+  genom_tinit_t_bayes_opt_status_struct(data);
 }
 
 void
 genom_bayes_opt_client_status_fini_data(
-  bayes_opt_status_array data)
+  bayes_opt_status_struct *data)
 {
-  genom_tfini_t_bayes_opt_status_array(data);
+  genom_tfini_t_bayes_opt_status_struct(data);
 }
