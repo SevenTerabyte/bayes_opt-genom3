@@ -114,20 +114,20 @@ genom_bayes_opt_client_genom_state_fini_data(
 }
 
 
-/* --- Port result data ------------------------------------------------- */
+/* --- Port measure data ------------------------------------------------ */
 
 void
-genom_bayes_opt_client_result_init_data(
-  bayes_opt_score *data)
+genom_bayes_opt_client_measure_init_data(
+  bayes_opt_pose_sample *data)
 {
-  genom_tinit_t_bayes_opt_score(data);
+  genom_tinit_t_bayes_opt_pose_sample(data);
 }
 
 void
-genom_bayes_opt_client_result_fini_data(
-  bayes_opt_score *data)
+genom_bayes_opt_client_measure_fini_data(
+  bayes_opt_pose_sample *data)
 {
-  genom_tfini_t_bayes_opt_score(data);
+  genom_tfini_t_bayes_opt_pose_sample(data);
 }
 
 

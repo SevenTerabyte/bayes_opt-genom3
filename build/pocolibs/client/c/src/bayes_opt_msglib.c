@@ -810,739 +810,6 @@ genom_bayes_opt_client_kill_fini_output(
 }
 
 
-/* --- Service initialize_optimizer encoding/decoding ------------------- */
-
-int
-genom_bayes_opt_initialize_optimizer_encode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  (void)buffer; (void)size;
-  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
-  return 0;
-}
-
-int
-genom_bayes_opt_initialize_optimizer_decode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  struct genom_client_request *a = (struct genom_client_request *)dst;
-  ssize_t len = size;
-  char *p = buffer;
-  int s;
-  (void)maxsize; /* fix -Wunused-parameter */
-  if (size == 0) return 0;
-
-  s = 0;
-  if (*p == *"") {
-    p++; len--;
-    a->report = genom_ok;
-
-  } else if (!strcmp(p, genom_incompatible_digest_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_incompatible_digest_id);
-    a->report = genom_incompatible_digest_id;
-    p += sizeof(genom_incompatible_digest_id);
-    a->exdetail = malloc(sizeof(genom_incompatible_digest_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_incompatible_digest(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_incompatible_digest;
-    s = genom_deserialize_t_genom_incompatible_digest(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_bad_transition_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_bad_transition_id);
-    a->report = genom_bad_transition_id;
-    p += sizeof(genom_bad_transition_id);
-    a->exdetail = malloc(sizeof(genom_bad_transition_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_bad_transition(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_bad_transition;
-    s = genom_deserialize_t_genom_bad_transition(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_interrupted_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_interrupted_id);
-    a->report = genom_interrupted_id;
-    p += sizeof(genom_interrupted_id);
-    a->exdetail = malloc(sizeof(genom_interrupted_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_interrupted(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_interrupted;
-    s = genom_deserialize_t_genom_interrupted(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_serialization_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_serialization_id);
-    a->report = genom_serialization_id;
-  } else if (!strcmp(p, genom_too_many_activities_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_too_many_activities_id);
-    a->report = genom_too_many_activities_id;
-  } else if (!strcmp(p, genom_disallowed_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_disallowed_id);
-    a->report = genom_disallowed_id;
-  } else if (!strcmp(p, genom_mwerr_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_mwerr_id);
-    a->report = genom_mwerr_id;
-    p += sizeof(genom_mwerr_id);
-    a->exdetail = malloc(sizeof(genom_mwerr_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_mwerr(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_mwerr;
-    s = genom_deserialize_t_genom_mwerr(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_syserr_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    a->exdetail = malloc(sizeof(genom_syserr_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    p += sizeof(genom_syserr_id);
-    len -= sizeof(genom_syserr_id) + sizeof(genom_syserr_detail);
-    a->report = genom_syserr_id;
-    memcpy(a->exdetail, p, sizeof(genom_syserr_detail));
-  } else if (!strcmp(p, genom_unkex_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    a->exdetail = malloc(sizeof(genom_unkex_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    p += sizeof(genom_unkex_id);
-    len -= sizeof(genom_unkex_id) + sizeof(genom_unkex_detail);
-    a->report = genom_unkex_id;
-    memcpy(a->exdetail, p, sizeof(genom_unkex_detail));
-  } else {
-    genom_unkex_detail *d;
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    d = a->exdetail = malloc(sizeof(genom_unkex_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    a->report = genom_unkex_id;
-    strncpy(d->what, p, sizeof(d->what));
-    d->what[sizeof(d->what)-1] = *"";
-  }
-
-  if (s) {
-    a->report = genom_ok;
-    switch(s) {
-      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
-      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
-      default: errnoSet(S_gcomLib_NOT_A_LETTER);
-      }
-    return ERROR;
-  }
-
-  if (len != 0) {
-    a->report = genom_ok;
-    errnoSet(S_gcomLib_SMALL_LETTER);
-    return ERROR;
-  }
-  return size;
-}
-
-void
-genom_bayes_opt_client_initialize_optimizer_init_input(
-  struct genom_bayes_opt_initialize_optimizer_input *in)
-{
-
-  /* set default value */
-  genom_bayes_opt_client_initialize_optimizer_json_scan(in,
-                  "{ }",
-                  NULL);
-}
-
-void
-genom_bayes_opt_client_initialize_optimizer_init_output(
-  struct genom_bayes_opt_initialize_optimizer_output *out)
-{
-  (void)out; /* fix -Wunused-parameter */
-}
-
-void
-genom_bayes_opt_client_initialize_optimizer_fini_input(
-  struct genom_bayes_opt_initialize_optimizer_input *in)
-{
-  (void)in; /* fix -Wunused-parameter */
-}
-
-void
-genom_bayes_opt_client_initialize_optimizer_fini_output(
-  struct genom_bayes_opt_initialize_optimizer_output *out)
-{
-  (void)out; /* fix -Wunused-parameter */
-}
-
-
-/* --- Service propose_parameters encoding/decoding --------------------- */
-
-int
-genom_bayes_opt_propose_parameters_encode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  (void)buffer; (void)size;
-  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
-  return 0;
-}
-
-int
-genom_bayes_opt_propose_parameters_decode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  struct genom_client_request *a = (struct genom_client_request *)dst;
-  struct genom_bayes_opt_propose_parameters_output *out = a->output;
-  ssize_t len = size;
-  char *p = buffer;
-  int s;
-  (void)maxsize; /* fix -Wunused-parameter */
-  if (size == 0) return 0;
-
-  s = 0;
-  if (*p == *"") {
-    p++; len--;
-    a->report = genom_ok;
-    s = genom_deserialize_t_bayes_opt_suggestion(
-      &p, &len, &(out->params));
-
-  } else if (!strcmp(p, genom_incompatible_digest_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_incompatible_digest_id);
-    a->report = genom_incompatible_digest_id;
-    p += sizeof(genom_incompatible_digest_id);
-    a->exdetail = malloc(sizeof(genom_incompatible_digest_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_incompatible_digest(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_incompatible_digest;
-    s = genom_deserialize_t_genom_incompatible_digest(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_bad_transition_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_bad_transition_id);
-    a->report = genom_bad_transition_id;
-    p += sizeof(genom_bad_transition_id);
-    a->exdetail = malloc(sizeof(genom_bad_transition_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_bad_transition(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_bad_transition;
-    s = genom_deserialize_t_genom_bad_transition(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_interrupted_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_interrupted_id);
-    a->report = genom_interrupted_id;
-    p += sizeof(genom_interrupted_id);
-    a->exdetail = malloc(sizeof(genom_interrupted_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_interrupted(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_interrupted;
-    s = genom_deserialize_t_genom_interrupted(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_serialization_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_serialization_id);
-    a->report = genom_serialization_id;
-  } else if (!strcmp(p, genom_too_many_activities_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_too_many_activities_id);
-    a->report = genom_too_many_activities_id;
-  } else if (!strcmp(p, genom_disallowed_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_disallowed_id);
-    a->report = genom_disallowed_id;
-  } else if (!strcmp(p, genom_mwerr_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_mwerr_id);
-    a->report = genom_mwerr_id;
-    p += sizeof(genom_mwerr_id);
-    a->exdetail = malloc(sizeof(genom_mwerr_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_mwerr(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_mwerr;
-    s = genom_deserialize_t_genom_mwerr(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_syserr_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    a->exdetail = malloc(sizeof(genom_syserr_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    p += sizeof(genom_syserr_id);
-    len -= sizeof(genom_syserr_id) + sizeof(genom_syserr_detail);
-    a->report = genom_syserr_id;
-    memcpy(a->exdetail, p, sizeof(genom_syserr_detail));
-  } else if (!strcmp(p, genom_unkex_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    a->exdetail = malloc(sizeof(genom_unkex_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    p += sizeof(genom_unkex_id);
-    len -= sizeof(genom_unkex_id) + sizeof(genom_unkex_detail);
-    a->report = genom_unkex_id;
-    memcpy(a->exdetail, p, sizeof(genom_unkex_detail));
-  } else {
-    genom_unkex_detail *d;
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    d = a->exdetail = malloc(sizeof(genom_unkex_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    a->report = genom_unkex_id;
-    strncpy(d->what, p, sizeof(d->what));
-    d->what[sizeof(d->what)-1] = *"";
-  }
-
-  if (s) {
-    a->report = genom_ok;
-    switch(s) {
-      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
-      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
-      default: errnoSet(S_gcomLib_NOT_A_LETTER);
-      }
-    return ERROR;
-  }
-
-  if (len != 0) {
-    a->report = genom_ok;
-    errnoSet(S_gcomLib_SMALL_LETTER);
-    return ERROR;
-  }
-  return size;
-}
-
-void
-genom_bayes_opt_client_propose_parameters_init_input(
-  struct genom_bayes_opt_propose_parameters_input *in)
-{
-
-  /* set default value */
-  genom_bayes_opt_client_propose_parameters_json_scan(in,
-                  "{ }",
-                  NULL);
-}
-
-void
-genom_bayes_opt_client_propose_parameters_init_output(
-  struct genom_bayes_opt_propose_parameters_output *out)
-{
-  genom_tinit_t_bayes_opt_suggestion(
-    &(out->params));
-}
-
-void
-genom_bayes_opt_client_propose_parameters_fini_input(
-  struct genom_bayes_opt_propose_parameters_input *in)
-{
-  (void)in; /* fix -Wunused-parameter */
-}
-
-void
-genom_bayes_opt_client_propose_parameters_fini_output(
-  struct genom_bayes_opt_propose_parameters_output *out)
-{
-  genom_tfini_t_bayes_opt_suggestion(
-    &(out->params));
-}
-
-
-/* --- Service submit_result encoding/decoding -------------------------- */
-
-int
-genom_bayes_opt_submit_result_encode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  char *p = dst;
-  struct genom_bayes_opt_submit_result_input *in =
-    (struct genom_bayes_opt_submit_result_input *)buffer;
-  ssize_t s;
-  (void)size; /* fix -Wunused-parameter */
-
-  s = 0;
-  s += genom_serialen_double(
-    in->score);
-  if (s > maxsize) return ERROR;
-
-  genom_serialize_double(
-    &p, in->score);
-
-  return s;
-}
-
-int
-genom_bayes_opt_submit_result_decode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  struct genom_client_request *a = (struct genom_client_request *)dst;
-  ssize_t len = size;
-  char *p = buffer;
-  int s;
-  (void)maxsize; /* fix -Wunused-parameter */
-  if (size == 0) return 0;
-
-  s = 0;
-  if (*p == *"") {
-    p++; len--;
-    a->report = genom_ok;
-
-  } else if (!strcmp(p, genom_incompatible_digest_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_incompatible_digest_id);
-    a->report = genom_incompatible_digest_id;
-    p += sizeof(genom_incompatible_digest_id);
-    a->exdetail = malloc(sizeof(genom_incompatible_digest_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_incompatible_digest(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_incompatible_digest;
-    s = genom_deserialize_t_genom_incompatible_digest(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_bad_transition_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_bad_transition_id);
-    a->report = genom_bad_transition_id;
-    p += sizeof(genom_bad_transition_id);
-    a->exdetail = malloc(sizeof(genom_bad_transition_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_bad_transition(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_bad_transition;
-    s = genom_deserialize_t_genom_bad_transition(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_interrupted_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_interrupted_id);
-    a->report = genom_interrupted_id;
-    p += sizeof(genom_interrupted_id);
-    a->exdetail = malloc(sizeof(genom_interrupted_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_interrupted(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_interrupted;
-    s = genom_deserialize_t_genom_interrupted(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_serialization_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_serialization_id);
-    a->report = genom_serialization_id;
-  } else if (!strcmp(p, genom_too_many_activities_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_too_many_activities_id);
-    a->report = genom_too_many_activities_id;
-  } else if (!strcmp(p, genom_disallowed_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_disallowed_id);
-    a->report = genom_disallowed_id;
-  } else if (!strcmp(p, genom_mwerr_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_mwerr_id);
-    a->report = genom_mwerr_id;
-    p += sizeof(genom_mwerr_id);
-    a->exdetail = malloc(sizeof(genom_mwerr_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_mwerr(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_mwerr;
-    s = genom_deserialize_t_genom_mwerr(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_syserr_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    a->exdetail = malloc(sizeof(genom_syserr_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    p += sizeof(genom_syserr_id);
-    len -= sizeof(genom_syserr_id) + sizeof(genom_syserr_detail);
-    a->report = genom_syserr_id;
-    memcpy(a->exdetail, p, sizeof(genom_syserr_detail));
-  } else if (!strcmp(p, genom_unkex_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    a->exdetail = malloc(sizeof(genom_unkex_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    p += sizeof(genom_unkex_id);
-    len -= sizeof(genom_unkex_id) + sizeof(genom_unkex_detail);
-    a->report = genom_unkex_id;
-    memcpy(a->exdetail, p, sizeof(genom_unkex_detail));
-  } else {
-    genom_unkex_detail *d;
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    d = a->exdetail = malloc(sizeof(genom_unkex_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    a->report = genom_unkex_id;
-    strncpy(d->what, p, sizeof(d->what));
-    d->what[sizeof(d->what)-1] = *"";
-  }
-
-  if (s) {
-    a->report = genom_ok;
-    switch(s) {
-      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
-      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
-      default: errnoSet(S_gcomLib_NOT_A_LETTER);
-      }
-    return ERROR;
-  }
-
-  if (len != 0) {
-    a->report = genom_ok;
-    errnoSet(S_gcomLib_SMALL_LETTER);
-    return ERROR;
-  }
-  return size;
-}
-
-void
-genom_bayes_opt_client_submit_result_init_input(
-  struct genom_bayes_opt_submit_result_input *in)
-{
-  genom_tinit_double(
-    &(in->score));
-
-  /* set default value */
-  genom_bayes_opt_client_submit_result_json_scan(in,
-                  "{ }",
-                  NULL);
-}
-
-void
-genom_bayes_opt_client_submit_result_init_output(
-  struct genom_bayes_opt_submit_result_output *out)
-{
-  (void)out; /* fix -Wunused-parameter */
-}
-
-void
-genom_bayes_opt_client_submit_result_fini_input(
-  struct genom_bayes_opt_submit_result_input *in)
-{
-  genom_tfini_double(
-    &(in->score));
-}
-
-void
-genom_bayes_opt_client_submit_result_fini_output(
-  struct genom_bayes_opt_submit_result_output *out)
-{
-  (void)out; /* fix -Wunused-parameter */
-}
-
-
-/* --- Service get_best_parameters encoding/decoding -------------------- */
-
-int
-genom_bayes_opt_get_best_parameters_encode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  (void)buffer; (void)size;
-  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
-  return 0;
-}
-
-int
-genom_bayes_opt_get_best_parameters_decode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  struct genom_client_request *a = (struct genom_client_request *)dst;
-  struct genom_bayes_opt_get_best_parameters_output *out = a->output;
-  ssize_t len = size;
-  char *p = buffer;
-  int s;
-  (void)maxsize; /* fix -Wunused-parameter */
-  if (size == 0) return 0;
-
-  s = 0;
-  if (*p == *"") {
-    p++; len--;
-    a->report = genom_ok;
-    s = genom_deserialize_t_bayes_opt_best(
-      &p, &len, &(out->best_result));
-
-  } else if (!strcmp(p, genom_incompatible_digest_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_incompatible_digest_id);
-    a->report = genom_incompatible_digest_id;
-    p += sizeof(genom_incompatible_digest_id);
-    a->exdetail = malloc(sizeof(genom_incompatible_digest_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_incompatible_digest(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_incompatible_digest;
-    s = genom_deserialize_t_genom_incompatible_digest(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_bad_transition_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_bad_transition_id);
-    a->report = genom_bad_transition_id;
-    p += sizeof(genom_bad_transition_id);
-    a->exdetail = malloc(sizeof(genom_bad_transition_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_bad_transition(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_bad_transition;
-    s = genom_deserialize_t_genom_bad_transition(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_interrupted_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_interrupted_id);
-    a->report = genom_interrupted_id;
-    p += sizeof(genom_interrupted_id);
-    a->exdetail = malloc(sizeof(genom_interrupted_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_interrupted(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_interrupted;
-    s = genom_deserialize_t_genom_interrupted(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_serialization_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_serialization_id);
-    a->report = genom_serialization_id;
-  } else if (!strcmp(p, genom_too_many_activities_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_too_many_activities_id);
-    a->report = genom_too_many_activities_id;
-  } else if (!strcmp(p, genom_disallowed_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_disallowed_id);
-    a->report = genom_disallowed_id;
-  } else if (!strcmp(p, genom_mwerr_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(genom_mwerr_id);
-    a->report = genom_mwerr_id;
-    p += sizeof(genom_mwerr_id);
-    a->exdetail = malloc(sizeof(genom_mwerr_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    genom_tinit_t_genom_mwerr(a->exdetail);
-    a->exfini = (void (*)(void *))genom_tfini_t_genom_mwerr;
-    s = genom_deserialize_t_genom_mwerr(&p, &len, a->exdetail);
-  } else if (!strcmp(p, genom_syserr_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    a->exdetail = malloc(sizeof(genom_syserr_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    p += sizeof(genom_syserr_id);
-    len -= sizeof(genom_syserr_id) + sizeof(genom_syserr_detail);
-    a->report = genom_syserr_id;
-    memcpy(a->exdetail, p, sizeof(genom_syserr_detail));
-  } else if (!strcmp(p, genom_unkex_id)) {
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    a->exdetail = malloc(sizeof(genom_unkex_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    p += sizeof(genom_unkex_id);
-    len -= sizeof(genom_unkex_id) + sizeof(genom_unkex_detail);
-    a->report = genom_unkex_id;
-    memcpy(a->exdetail, p, sizeof(genom_unkex_detail));
-  } else {
-    genom_unkex_detail *d;
-    assert(a->exdetail == NULL && a->exfini == NULL);
-    d = a->exdetail = malloc(sizeof(genom_unkex_detail));
-    if (!a->exdetail) {
-      errnoSet(S_gcomLib_MALLOC_FAILED);
-      return ERROR;
-    }
-    a->report = genom_unkex_id;
-    strncpy(d->what, p, sizeof(d->what));
-    d->what[sizeof(d->what)-1] = *"";
-  }
-
-  if (s) {
-    a->report = genom_ok;
-    switch(s) {
-      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
-      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
-      default: errnoSet(S_gcomLib_NOT_A_LETTER);
-      }
-    return ERROR;
-  }
-
-  if (len != 0) {
-    a->report = genom_ok;
-    errnoSet(S_gcomLib_SMALL_LETTER);
-    return ERROR;
-  }
-  return size;
-}
-
-void
-genom_bayes_opt_client_get_best_parameters_init_input(
-  struct genom_bayes_opt_get_best_parameters_input *in)
-{
-
-  /* set default value */
-  genom_bayes_opt_client_get_best_parameters_json_scan(in,
-                  "{ }",
-                  NULL);
-}
-
-void
-genom_bayes_opt_client_get_best_parameters_init_output(
-  struct genom_bayes_opt_get_best_parameters_output *out)
-{
-  genom_tinit_t_bayes_opt_best(
-    &(out->best_result));
-}
-
-void
-genom_bayes_opt_client_get_best_parameters_fini_input(
-  struct genom_bayes_opt_get_best_parameters_input *in)
-{
-  (void)in; /* fix -Wunused-parameter */
-}
-
-void
-genom_bayes_opt_client_get_best_parameters_fini_output(
-  struct genom_bayes_opt_get_best_parameters_output *out)
-{
-  genom_tfini_t_bayes_opt_best(
-    &(out->best_result));
-}
-
-
 /* --- Service reset_optimizer encoding/decoding ------------------------ */
 
 int
@@ -1739,6 +1006,12 @@ genom_bayes_opt_Init_encode(
     in->upper_bounds);
   s += genom_serialen_long(
     in->max_iterations);
+  s += genom_serialen_double(
+    in->reference_x);
+  s += genom_serialen_double(
+    in->reference_y);
+  s += genom_serialen_double(
+    in->reference_z);
   if (s > maxsize) return ERROR;
 
   genom_serialize_array5_double(
@@ -1747,6 +1020,12 @@ genom_bayes_opt_Init_encode(
     &p, in->upper_bounds);
   genom_serialize_long(
     &p, in->max_iterations);
+  genom_serialize_double(
+    &p, in->reference_x);
+  genom_serialize_double(
+    &p, in->reference_y);
+  genom_serialize_double(
+    &p, in->reference_z);
 
   return s;
 }
@@ -1911,10 +1190,16 @@ genom_bayes_opt_client_Init_init_input(
     in->upper_bounds);
   genom_tinit_long(
     &(in->max_iterations));
+  genom_tinit_double(
+    &(in->reference_x));
+  genom_tinit_double(
+    &(in->reference_y));
+  genom_tinit_double(
+    &(in->reference_z));
 
   /* set default value */
   genom_bayes_opt_client_Init_json_scan(in,
-                  "{ }",
+                  "{ \"reference_x\":0,\"reference_y\":0,\"reference_z\":1 }",
                   NULL);
 }
 
@@ -1935,6 +1220,12 @@ genom_bayes_opt_client_Init_fini_input(
     in->upper_bounds);
   genom_tfini_long(
     &(in->max_iterations));
+  genom_tfini_double(
+    &(in->reference_x));
+  genom_tfini_double(
+    &(in->reference_y));
+  genom_tfini_double(
+    &(in->reference_z));
 }
 
 void
@@ -2039,6 +1330,10 @@ genom_bayes_opt_AskNext_decode(
     genom_tinit_t_genom_mwerr(a->exdetail);
     a->exfini = (void (*)(void *))genom_tfini_t_genom_mwerr;
     s = genom_deserialize_t_genom_mwerr(&p, &len, a->exdetail);
+  } else if (!strcmp(p, bayes_opt_NOT_INITIALIZED_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    len -= sizeof(bayes_opt_NOT_INITIALIZED_id);
+    a->report = bayes_opt_NOT_INITIALIZED_id;
   } else if (!strcmp(p, bayes_opt_OPTIMIZATION_FAILED_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
     len -= sizeof(bayes_opt_OPTIMIZATION_FAILED_id);
@@ -2131,31 +1426,19 @@ genom_bayes_opt_client_AskNext_fini_output(
 }
 
 
-/* --- Service SubmitResult encoding/decoding --------------------------- */
+/* --- Service UpdateFromMeasure encoding/decoding ---------------------- */
 
 int
-genom_bayes_opt_SubmitResult_encode(
+genom_bayes_opt_UpdateFromMeasure_encode(
   char *buffer, int size, char *dst, int maxsize)
 {
-  char *p = dst;
-  struct genom_bayes_opt_SubmitResult_input *in =
-    (struct genom_bayes_opt_SubmitResult_input *)buffer;
-  ssize_t s;
-  (void)size; /* fix -Wunused-parameter */
-
-  s = 0;
-  s += genom_serialen_double(
-    in->score);
-  if (s > maxsize) return ERROR;
-
-  genom_serialize_double(
-    &p, in->score);
-
-  return s;
+  (void)buffer; (void)size;
+  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
+  return 0;
 }
 
 int
-genom_bayes_opt_SubmitResult_decode(
+genom_bayes_opt_UpdateFromMeasure_decode(
   char *buffer, int size, char *dst, int maxsize)
 {
   struct genom_client_request *a = (struct genom_client_request *)dst;
@@ -2234,18 +1517,18 @@ genom_bayes_opt_SubmitResult_decode(
     genom_tinit_t_genom_mwerr(a->exdetail);
     a->exfini = (void (*)(void *))genom_tfini_t_genom_mwerr;
     s = genom_deserialize_t_genom_mwerr(&p, &len, a->exdetail);
-  } else if (!strcmp(p, bayes_opt_INVALID_PARAMETER_id)) {
+  } else if (!strcmp(p, bayes_opt_NOT_INITIALIZED_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(bayes_opt_INVALID_PARAMETER_id);
-    a->report = bayes_opt_INVALID_PARAMETER_id;
-  } else if (!strcmp(p, bayes_opt_EVALUATION_FAILED_id)) {
+    len -= sizeof(bayes_opt_NOT_INITIALIZED_id);
+    a->report = bayes_opt_NOT_INITIALIZED_id;
+  } else if (!strcmp(p, bayes_opt_NO_MEASUREMENT_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(bayes_opt_EVALUATION_FAILED_id);
-    a->report = bayes_opt_EVALUATION_FAILED_id;
-  } else if (!strcmp(p, bayes_opt_NO_SCORE_AVAILABLE_id)) {
+    len -= sizeof(bayes_opt_NO_MEASUREMENT_id);
+    a->report = bayes_opt_NO_MEASUREMENT_id;
+  } else if (!strcmp(p, bayes_opt_OPTIMIZATION_FAILED_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(bayes_opt_NO_SCORE_AVAILABLE_id);
-    a->report = bayes_opt_NO_SCORE_AVAILABLE_id;
+    len -= sizeof(bayes_opt_OPTIMIZATION_FAILED_id);
+    a->report = bayes_opt_OPTIMIZATION_FAILED_id;
   } else if (!strcmp(p, genom_syserr_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
     a->exdetail = malloc(sizeof(genom_syserr_detail));
@@ -2300,36 +1583,33 @@ genom_bayes_opt_SubmitResult_decode(
 }
 
 void
-genom_bayes_opt_client_SubmitResult_init_input(
-  struct genom_bayes_opt_SubmitResult_input *in)
+genom_bayes_opt_client_UpdateFromMeasure_init_input(
+  struct genom_bayes_opt_UpdateFromMeasure_input *in)
 {
-  genom_tinit_double(
-    &(in->score));
 
   /* set default value */
-  genom_bayes_opt_client_SubmitResult_json_scan(in,
+  genom_bayes_opt_client_UpdateFromMeasure_json_scan(in,
                   "{ }",
                   NULL);
 }
 
 void
-genom_bayes_opt_client_SubmitResult_init_output(
-  struct genom_bayes_opt_SubmitResult_output *out)
+genom_bayes_opt_client_UpdateFromMeasure_init_output(
+  struct genom_bayes_opt_UpdateFromMeasure_output *out)
 {
   (void)out; /* fix -Wunused-parameter */
 }
 
 void
-genom_bayes_opt_client_SubmitResult_fini_input(
-  struct genom_bayes_opt_SubmitResult_input *in)
+genom_bayes_opt_client_UpdateFromMeasure_fini_input(
+  struct genom_bayes_opt_UpdateFromMeasure_input *in)
 {
-  genom_tfini_double(
-    &(in->score));
+  (void)in; /* fix -Wunused-parameter */
 }
 
 void
-genom_bayes_opt_client_SubmitResult_fini_output(
-  struct genom_bayes_opt_SubmitResult_output *out)
+genom_bayes_opt_client_UpdateFromMeasure_fini_output(
+  struct genom_bayes_opt_UpdateFromMeasure_output *out)
 {
   (void)out; /* fix -Wunused-parameter */
 }
@@ -2429,10 +1709,14 @@ genom_bayes_opt_GetBest_decode(
     genom_tinit_t_genom_mwerr(a->exdetail);
     a->exfini = (void (*)(void *))genom_tfini_t_genom_mwerr;
     s = genom_deserialize_t_genom_mwerr(&p, &len, a->exdetail);
-  } else if (!strcmp(p, bayes_opt_NO_SCORE_AVAILABLE_id)) {
+  } else if (!strcmp(p, bayes_opt_NOT_INITIALIZED_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
-    len -= sizeof(bayes_opt_NO_SCORE_AVAILABLE_id);
-    a->report = bayes_opt_NO_SCORE_AVAILABLE_id;
+    len -= sizeof(bayes_opt_NOT_INITIALIZED_id);
+    a->report = bayes_opt_NOT_INITIALIZED_id;
+  } else if (!strcmp(p, bayes_opt_NO_BEST_RESULT_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    len -= sizeof(bayes_opt_NO_BEST_RESULT_id);
+    a->report = bayes_opt_NO_BEST_RESULT_id;
   } else if (!strcmp(p, genom_syserr_id)) {
     assert(a->exdetail == NULL && a->exfini == NULL);
     a->exdetail = malloc(sizeof(genom_syserr_detail));
@@ -2518,5 +1802,195 @@ genom_bayes_opt_client_GetBest_fini_output(
 {
   genom_tfini_t_bayes_opt_best(
     &(out->best_result_out));
+}
+
+
+/* --- Service Reset encoding/decoding ---------------------------------- */
+
+int
+genom_bayes_opt_Reset_encode(
+  char *buffer, int size, char *dst, int maxsize)
+{
+  (void)buffer; (void)size;
+  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
+  return 0;
+}
+
+int
+genom_bayes_opt_Reset_decode(
+  char *buffer, int size, char *dst, int maxsize)
+{
+  struct genom_client_request *a = (struct genom_client_request *)dst;
+  ssize_t len = size;
+  char *p = buffer;
+  int s;
+  (void)maxsize; /* fix -Wunused-parameter */
+  if (size == 0) return 0;
+
+  s = 0;
+  if (*p == *"") {
+    p++; len--;
+    a->report = genom_ok;
+
+  } else if (!strcmp(p, genom_incompatible_digest_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    len -= sizeof(genom_incompatible_digest_id);
+    a->report = genom_incompatible_digest_id;
+    p += sizeof(genom_incompatible_digest_id);
+    a->exdetail = malloc(sizeof(genom_incompatible_digest_detail));
+    if (!a->exdetail) {
+      errnoSet(S_gcomLib_MALLOC_FAILED);
+      return ERROR;
+    }
+    genom_tinit_t_genom_incompatible_digest(a->exdetail);
+    a->exfini = (void (*)(void *))genom_tfini_t_genom_incompatible_digest;
+    s = genom_deserialize_t_genom_incompatible_digest(&p, &len, a->exdetail);
+  } else if (!strcmp(p, genom_bad_transition_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    len -= sizeof(genom_bad_transition_id);
+    a->report = genom_bad_transition_id;
+    p += sizeof(genom_bad_transition_id);
+    a->exdetail = malloc(sizeof(genom_bad_transition_detail));
+    if (!a->exdetail) {
+      errnoSet(S_gcomLib_MALLOC_FAILED);
+      return ERROR;
+    }
+    genom_tinit_t_genom_bad_transition(a->exdetail);
+    a->exfini = (void (*)(void *))genom_tfini_t_genom_bad_transition;
+    s = genom_deserialize_t_genom_bad_transition(&p, &len, a->exdetail);
+  } else if (!strcmp(p, genom_interrupted_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    len -= sizeof(genom_interrupted_id);
+    a->report = genom_interrupted_id;
+    p += sizeof(genom_interrupted_id);
+    a->exdetail = malloc(sizeof(genom_interrupted_detail));
+    if (!a->exdetail) {
+      errnoSet(S_gcomLib_MALLOC_FAILED);
+      return ERROR;
+    }
+    genom_tinit_t_genom_interrupted(a->exdetail);
+    a->exfini = (void (*)(void *))genom_tfini_t_genom_interrupted;
+    s = genom_deserialize_t_genom_interrupted(&p, &len, a->exdetail);
+  } else if (!strcmp(p, genom_serialization_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    len -= sizeof(genom_serialization_id);
+    a->report = genom_serialization_id;
+  } else if (!strcmp(p, genom_too_many_activities_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    len -= sizeof(genom_too_many_activities_id);
+    a->report = genom_too_many_activities_id;
+  } else if (!strcmp(p, genom_disallowed_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    len -= sizeof(genom_disallowed_id);
+    a->report = genom_disallowed_id;
+  } else if (!strcmp(p, genom_mwerr_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    len -= sizeof(genom_mwerr_id);
+    a->report = genom_mwerr_id;
+    p += sizeof(genom_mwerr_id);
+    a->exdetail = malloc(sizeof(genom_mwerr_detail));
+    if (!a->exdetail) {
+      errnoSet(S_gcomLib_MALLOC_FAILED);
+      return ERROR;
+    }
+    genom_tinit_t_genom_mwerr(a->exdetail);
+    a->exfini = (void (*)(void *))genom_tfini_t_genom_mwerr;
+    s = genom_deserialize_t_genom_mwerr(&p, &len, a->exdetail);
+  } else if (!strcmp(p, bayes_opt_e_sys_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    len -= sizeof(bayes_opt_e_sys_id);
+    a->report = bayes_opt_e_sys_id;
+    p += sizeof(bayes_opt_e_sys_id);
+    a->exdetail = malloc(sizeof(bayes_opt_e_sys_detail));
+    if (!a->exdetail) {
+      errnoSet(S_gcomLib_MALLOC_FAILED);
+      return ERROR;
+    }
+    genom_tinit_t_bayes_opt_e_sys(a->exdetail);
+    a->exfini = (void (*)(void *))genom_tfini_t_bayes_opt_e_sys;
+    s = genom_deserialize_t_bayes_opt_e_sys(&p, &len, a->exdetail);
+  } else if (!strcmp(p, genom_syserr_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    a->exdetail = malloc(sizeof(genom_syserr_detail));
+    if (!a->exdetail) {
+      errnoSet(S_gcomLib_MALLOC_FAILED);
+      return ERROR;
+    }
+    p += sizeof(genom_syserr_id);
+    len -= sizeof(genom_syserr_id) + sizeof(genom_syserr_detail);
+    a->report = genom_syserr_id;
+    memcpy(a->exdetail, p, sizeof(genom_syserr_detail));
+  } else if (!strcmp(p, genom_unkex_id)) {
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    a->exdetail = malloc(sizeof(genom_unkex_detail));
+    if (!a->exdetail) {
+      errnoSet(S_gcomLib_MALLOC_FAILED);
+      return ERROR;
+    }
+    p += sizeof(genom_unkex_id);
+    len -= sizeof(genom_unkex_id) + sizeof(genom_unkex_detail);
+    a->report = genom_unkex_id;
+    memcpy(a->exdetail, p, sizeof(genom_unkex_detail));
+  } else {
+    genom_unkex_detail *d;
+    assert(a->exdetail == NULL && a->exfini == NULL);
+    d = a->exdetail = malloc(sizeof(genom_unkex_detail));
+    if (!a->exdetail) {
+      errnoSet(S_gcomLib_MALLOC_FAILED);
+      return ERROR;
+    }
+    a->report = genom_unkex_id;
+    strncpy(d->what, p, sizeof(d->what));
+    d->what[sizeof(d->what)-1] = *"";
+  }
+
+  if (s) {
+    a->report = genom_ok;
+    switch(s) {
+      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
+      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
+      default: errnoSet(S_gcomLib_NOT_A_LETTER);
+      }
+    return ERROR;
+  }
+
+  if (len != 0) {
+    a->report = genom_ok;
+    errnoSet(S_gcomLib_SMALL_LETTER);
+    return ERROR;
+  }
+  return size;
+}
+
+void
+genom_bayes_opt_client_Reset_init_input(
+  struct genom_bayes_opt_Reset_input *in)
+{
+
+  /* set default value */
+  genom_bayes_opt_client_Reset_json_scan(in,
+                  "{ }",
+                  NULL);
+}
+
+void
+genom_bayes_opt_client_Reset_init_output(
+  struct genom_bayes_opt_Reset_output *out)
+{
+  (void)out; /* fix -Wunused-parameter */
+}
+
+void
+genom_bayes_opt_client_Reset_fini_input(
+  struct genom_bayes_opt_Reset_input *in)
+{
+  (void)in; /* fix -Wunused-parameter */
+}
+
+void
+genom_bayes_opt_client_Reset_fini_output(
+  struct genom_bayes_opt_Reset_output *out)
+{
+  (void)out; /* fix -Wunused-parameter */
 }
 

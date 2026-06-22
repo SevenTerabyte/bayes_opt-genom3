@@ -55,14 +55,14 @@ genom_event	genom_bayes_opt_genom_metadata_write(genom_context self);
 
 
 
-bayes_opt_score *	genom_bayes_opt_result_data(genom_context self);
-genom_event	genom_bayes_opt_result_open(genom_context self);
-genom_event	genom_bayes_opt_result_close(genom_context self);
-void		genom_bayes_opt_result_delete(genom_context self);
+bayes_opt_pose_sample *	genom_bayes_opt_measure_data(genom_context self);
+genom_event	genom_bayes_opt_measure_open(genom_context self);
+genom_event	genom_bayes_opt_measure_close(genom_context self);
+void		genom_bayes_opt_measure_delete(genom_context self);
 
-genom_event	genom_bayes_opt_result_connect(
+genom_event	genom_bayes_opt_measure_connect(
                   const char *name, genom_context self);
-genom_event	genom_bayes_opt_result_read(genom_context self);
+genom_event	genom_bayes_opt_measure_read(genom_context self);
 
 
 
@@ -181,37 +181,37 @@ genom_tfini_bayes_opt_genom_metadata_port(
 }
 
 
-/* --- result ----------------------------------------------------------- */
+/* --- measure ---------------------------------------------------------- */
 
-struct genom_bayes_opt_result_port {
-  bayes_opt_result handle;
+struct genom_bayes_opt_measure_port {
+  bayes_opt_measure handle;
 
-  struct genom_bayes_opt_result_ph {
+  struct genom_bayes_opt_measure_ph {
     POSTER_ID id;
     STATUS status;
-    bayes_opt_score buffer;
+    bayes_opt_pose_sample buffer;
   }  h;
 };
 
 /* initializer */
 static __inline__ void
-genom_tinit_bayes_opt_result_port(
-  struct genom_bayes_opt_result_port *p)
+genom_tinit_bayes_opt_measure_port(
+  struct genom_bayes_opt_measure_port *p)
 {
-  p->handle.data = genom_bayes_opt_result_data;
-  p->handle.read = genom_bayes_opt_result_read;
+  p->handle.data = genom_bayes_opt_measure_data;
+  p->handle.read = genom_bayes_opt_measure_read;
   p->h.id = NULL;
   p->h.status = S_posterLib_EMPTY_POSTER;
-  genom_tinit_t_bayes_opt_score(
+  genom_tinit_t_bayes_opt_pose_sample(
     &(p->h.buffer));
 }
 
 /* finalizer */
 static __inline__ void
-genom_tfini_bayes_opt_result_port(
-  struct genom_bayes_opt_result_port *p)
+genom_tfini_bayes_opt_measure_port(
+  struct genom_bayes_opt_measure_port *p)
 {
-  genom_tfini_t_bayes_opt_score(
+  genom_tfini_t_bayes_opt_pose_sample(
     &(p->h.buffer));
 }
 

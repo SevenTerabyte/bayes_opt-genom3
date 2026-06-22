@@ -2,45 +2,41 @@
 
 #include "bayes_opt_c_types.h"
 
-#include <stdlib.h>
-#include <string.h>
-#include <float.h>
-#include <time.h>
-#include <math.h>
 #include <stdio.h>
-
 
 /* --- Activity AskNext ------------------------------------------------- */
 
 /** Validation codel checkInitialized of activity AskNext.
  *
  * Returns genom_ok.
- * Throws bayes_opt_OPTIMIZATION_FAILED.
+ * Throws bayes_opt_NOT_INITIALIZED, bayes_opt_OPTIMIZATION_FAILED.
  */
 genom_event
 checkInitialized(const bayes_opt_state *state,
                  const genom_context self)
 {
-  if (!state->initialized)
-  {
-    fprintf(stderr, ">>> Optimization has failed\n");
+  fprintf(stderr, ">>> checkInitialized called\n");
+  fflush(stderr);
+
+  if (!state->initialized) {
+    fprintf(stderr, ">>> checkInitialized failed: not initialized\n");
     fflush(stderr);
-    return bayes_opt_OPTIMIZATION_FAILED(self);
+    return bayes_opt_NOT_INITIALIZED(self);
   }
 
-  fprintf(stderr, ">>> checkInitialized called\n");
+  fprintf(stderr, ">>> checkInitialized OK\n");
   fflush(stderr);
   return genom_ok;
 }
 
 
-/* --- Activity SubmitResult -------------------------------------------- */
+/* --- Activity UpdateFromMeasure --------------------------------------- */
 
-/** Validation codel checkInitialized of activity SubmitResult.
+/** Validation codel checkInitialized of activity UpdateFromMeasure.
  *
  * Returns genom_ok.
- * Throws bayes_opt_INVALID_PARAMETER, bayes_opt_EVALUATION_FAILED,
- * bayes_opt_NO_SCORE_AVAILABLE.
+ * Throws bayes_opt_NOT_INITIALIZED, bayes_opt_NO_MEASUREMENT,
+ * bayes_opt_OPTIMIZATION_FAILED.
  */
 /* already defined in service AskNext validation */
 
@@ -51,7 +47,7 @@ checkInitialized(const bayes_opt_state *state,
 /** Validation codel checkInitialized of activity GetBest.
  *
  * Returns genom_ok.
- * Throws bayes_opt_NO_SCORE_AVAILABLE.
+ * Throws bayes_opt_NOT_INITIALIZED, bayes_opt_NO_BEST_RESULT.
  */
 /* already defined in service AskNext validation */
 

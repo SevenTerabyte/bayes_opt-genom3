@@ -5,10 +5,10 @@
 # It is necessary for linking the library.
 
 # The name that we can dlopen(3).
-dlname='bayes_opt-0.8.so'
+dlname='bayes_opt-0.9.so'
 
 # Names of this library.
-library_names='bayes_opt-0.8.so bayes_opt-0.8.so bayes_opt.so'
+library_names='bayes_opt-0.9.so bayes_opt-0.9.so bayes_opt.so'
 
 # The name of the static archive.
 old_library=''

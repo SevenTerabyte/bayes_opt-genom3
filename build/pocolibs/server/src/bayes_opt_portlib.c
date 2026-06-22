@@ -19,7 +19,7 @@ enum {
   bayes_opt_PORTLIB_MIN_INDEX = 0,
   bayes_opt_genom_state_INDEX,
   bayes_opt_genom_metadata_INDEX,
-  bayes_opt_result_INDEX,
+  bayes_opt_measure_INDEX,
   bayes_opt_allow_INDEX,
   bayes_opt_params_INDEX,
   bayes_opt_best_result_INDEX,
@@ -56,11 +56,11 @@ genom_state_bayes_opt_init(struct genom_component_data *self)
   data->task._length = 1;
 
   /* automatic versioning - nice idea borrowed from ROS */
-  strncpy(data->digest, "8f667e32dcd0697174470755cacd7c", sizeof(data->digest));
+  strncpy(data->digest, "2b2e2ac50ff7e4b859cb72b47f36c42", sizeof(data->digest));
   snprintf(data->date, sizeof(data->date), "%s",
-           "Fri Jun 19 16:13:26 BST 2026");
+           "Mon Jun 22 14:35:12 BST 2026");
   snprintf(data->version, sizeof(data->version), "%s",
-           "bayes_opt-0.8");
+           "bayes_opt-0.9");
 
   genom_log_debug("initialized genom_state port");
   return 0;
@@ -85,8 +85,9 @@ genom_state_bayes_opt_update(struct genom_component_data *self,
       case -1: s = "<task>"; break;
       case BAYES_OPT_Init_RQSTID: s = "Init"; break;
       case BAYES_OPT_AskNext_RQSTID: s = "AskNext"; break;
-      case BAYES_OPT_SubmitResult_RQSTID: s = "SubmitResult"; break;
+      case BAYES_OPT_UpdateFromMeasure_RQSTID: s = "UpdateFromMeasure"; break;
       case BAYES_OPT_GetBest_RQSTID: s = "GetBest"; break;
+      case BAYES_OPT_Reset_RQSTID: s = "Reset"; break;
       default: assert(!"unknown service id"); s = "<unknown>"; break;
     }
     snprintf(t->activity._buffer[j].name,
@@ -125,7 +126,7 @@ genom_metadata_bayes_opt_init(struct genom_component_data *self)
   pocolibs_metadata_component *meta = &self->ports.genom_metadata.h.buffer;
   size_t l, m;
 
-  genom_sequence_reserve(&meta->services, 13);
+  genom_sequence_reserve(&meta->services, 10);
   l = sizeof(meta->services._buffer->name);
   m = sizeof(meta->services._buffer->digest);
   meta->services._buffer[0].rqstid = BAYES_OPT_abort_activity_RQSTID;
@@ -148,52 +149,37 @@ genom_metadata_bayes_opt_init(struct genom_component_data *self)
   meta->services._buffer[3].name[l-1] = 0;
   strncpy(meta->services._buffer[3].digest, "6c479c5ee8b266bc89c7c98130e3d7", m);
   meta->services._buffer[3].digest[m-1] = 0;
-  meta->services._buffer[4].rqstid = BAYES_OPT_initialize_optimizer_RQSTID;
-  strncpy(meta->services._buffer[4].name, "initialize_optimizer", l);
+  meta->services._buffer[4].rqstid = BAYES_OPT_reset_optimizer_RQSTID;
+  strncpy(meta->services._buffer[4].name, "reset_optimizer", l);
   meta->services._buffer[4].name[l-1] = 0;
   strncpy(meta->services._buffer[4].digest, "6c479c5ee8b266bc89c7c98130e3d7", m);
   meta->services._buffer[4].digest[m-1] = 0;
-  meta->services._buffer[5].rqstid = BAYES_OPT_propose_parameters_RQSTID;
-  strncpy(meta->services._buffer[5].name, "propose_parameters", l);
+  meta->services._buffer[5].rqstid = BAYES_OPT_Init_RQSTID;
+  strncpy(meta->services._buffer[5].name, "Init", l);
   meta->services._buffer[5].name[l-1] = 0;
-  strncpy(meta->services._buffer[5].digest, "7c73e9d84a88e981bcc5d7ed98e3807e", m);
+  strncpy(meta->services._buffer[5].digest, "c42f8b57a47c3b30d2b75cd0e6b397f9", m);
   meta->services._buffer[5].digest[m-1] = 0;
-  meta->services._buffer[6].rqstid = BAYES_OPT_submit_result_RQSTID;
-  strncpy(meta->services._buffer[6].name, "submit_result", l);
+  meta->services._buffer[6].rqstid = BAYES_OPT_AskNext_RQSTID;
+  strncpy(meta->services._buffer[6].name, "AskNext", l);
   meta->services._buffer[6].name[l-1] = 0;
-  strncpy(meta->services._buffer[6].digest, "d541dd7768fa7e86275d85ef32ef589", m);
+  strncpy(meta->services._buffer[6].digest, "7cb813ffb0d0e77252d014a0718b2fcc", m);
   meta->services._buffer[6].digest[m-1] = 0;
-  meta->services._buffer[7].rqstid = BAYES_OPT_get_best_parameters_RQSTID;
-  strncpy(meta->services._buffer[7].name, "get_best_parameters", l);
+  meta->services._buffer[7].rqstid = BAYES_OPT_UpdateFromMeasure_RQSTID;
+  strncpy(meta->services._buffer[7].name, "UpdateFromMeasure", l);
   meta->services._buffer[7].name[l-1] = 0;
-  strncpy(meta->services._buffer[7].digest, "6e443421cee171572a63c8962da51d5a", m);
+  strncpy(meta->services._buffer[7].digest, "da95bf4437fec34e1fa6d0a2bba0857", m);
   meta->services._buffer[7].digest[m-1] = 0;
-  meta->services._buffer[8].rqstid = BAYES_OPT_reset_optimizer_RQSTID;
-  strncpy(meta->services._buffer[8].name, "reset_optimizer", l);
+  meta->services._buffer[8].rqstid = BAYES_OPT_GetBest_RQSTID;
+  strncpy(meta->services._buffer[8].name, "GetBest", l);
   meta->services._buffer[8].name[l-1] = 0;
-  strncpy(meta->services._buffer[8].digest, "6c479c5ee8b266bc89c7c98130e3d7", m);
+  strncpy(meta->services._buffer[8].digest, "c7b12223ab4a2bf57f1be81b2ce8a067", m);
   meta->services._buffer[8].digest[m-1] = 0;
-  meta->services._buffer[9].rqstid = BAYES_OPT_Init_RQSTID;
-  strncpy(meta->services._buffer[9].name, "Init", l);
+  meta->services._buffer[9].rqstid = BAYES_OPT_Reset_RQSTID;
+  strncpy(meta->services._buffer[9].name, "Reset", l);
   meta->services._buffer[9].name[l-1] = 0;
-  strncpy(meta->services._buffer[9].digest, "5db3e46c118222f88e8d92629a07b5f", m);
+  strncpy(meta->services._buffer[9].digest, "1d66d62fbe5a833f9f6b41dd94d22b4a", m);
   meta->services._buffer[9].digest[m-1] = 0;
-  meta->services._buffer[10].rqstid = BAYES_OPT_AskNext_RQSTID;
-  strncpy(meta->services._buffer[10].name, "AskNext", l);
-  meta->services._buffer[10].name[l-1] = 0;
-  strncpy(meta->services._buffer[10].digest, "99ac464bd9127a80c56b5ad85f9caf5", m);
-  meta->services._buffer[10].digest[m-1] = 0;
-  meta->services._buffer[11].rqstid = BAYES_OPT_SubmitResult_RQSTID;
-  strncpy(meta->services._buffer[11].name, "SubmitResult", l);
-  meta->services._buffer[11].name[l-1] = 0;
-  strncpy(meta->services._buffer[11].digest, "6f6f51833f75f2d2ac7d87cc92f3f36a", m);
-  meta->services._buffer[11].digest[m-1] = 0;
-  meta->services._buffer[12].rqstid = BAYES_OPT_GetBest_RQSTID;
-  strncpy(meta->services._buffer[12].name, "GetBest", l);
-  meta->services._buffer[12].name[l-1] = 0;
-  strncpy(meta->services._buffer[12].digest, "b763c0179f4b3485bd42ae25df94761e", m);
-  meta->services._buffer[12].digest[m-1] = 0;
-  meta->services._length = 13;
+  meta->services._length = 10;
 
   genom_log_debug("initialized metadata port");
   return 0;
@@ -448,50 +434,50 @@ genom_bayes_opt_genom_metadata_delete(genom_context self)
 }
 
 
-/* --- genom_bayes_opt_result_get_ph ------------------------------------ */
+/* --- genom_bayes_opt_measure_get_ph ----------------------------------- */
 
-static __inline__ struct genom_bayes_opt_result_ph *
-genom_bayes_opt_result_get_ph(
-  struct genom_bayes_opt_result_port *p)
+static __inline__ struct genom_bayes_opt_measure_ph *
+genom_bayes_opt_measure_get_ph(
+  struct genom_bayes_opt_measure_port *p)
 {
   return &p->h;
 }
 
 
-/* --- genom_bayes_opt_result_data -------------------------------------- */
+/* --- genom_bayes_opt_measure_data ------------------------------------- */
 
-bayes_opt_score *
-genom_bayes_opt_result_data(
+bayes_opt_pose_sample *
+genom_bayes_opt_measure_data(
   genom_context self)
 {
-  struct genom_bayes_opt_result_port *p;
-  struct genom_bayes_opt_result_ph *ph;
+  struct genom_bayes_opt_measure_port *p;
+  struct genom_bayes_opt_measure_ph *ph;
 
-  p = &self->data->self->ports.result;
+  p = &self->data->self->ports.measure;
 
-  ph = genom_bayes_opt_result_get_ph(p);
+  ph = genom_bayes_opt_measure_get_ph(p);
   if (!ph || !ph->id) return NULL;
   if (ph->status) return NULL;
   return &(ph->buffer);
 }
 
 
-/* --- genom_bayes_opt_result_open -------------------------------------- */
+/* --- genom_bayes_opt_measure_open ------------------------------------- */
 
 genom_event
-genom_bayes_opt_result_open(
+genom_bayes_opt_measure_open(
   genom_context self)
 {
-  struct genom_bayes_opt_result_port *p;
-  struct genom_bayes_opt_result_ph *ph;
+  struct genom_bayes_opt_measure_port *p;
+  struct genom_bayes_opt_measure_ph *ph;
   char name[H2_DEV_MAX_NAME];
   int n;
 
-  p = &self->data->self->ports.result;
+  p = &self->data->self->ports.measure;
 
-  n = snprintf(name, sizeof(name), "%s/result", genom_instance);
+  n = snprintf(name, sizeof(name), "%s/measure", genom_instance);
   if (n <= 0 || n >= (signed)sizeof(name)) {
-    genom_log_warn(0, "port result name too long");
+    genom_log_warn(0, "port measure name too long");
     genom_log_warn(0, "port name length limited to %zu characters",
                    H2_DEV_MAX_NAME - strlen(genom_instance) - 2);
     return genom_syserr(&(genom_syserr_detail){ .code = ENAMETOOLONG }, self);
@@ -506,34 +492,34 @@ genom_bayes_opt_result_open(
 }
 
 
-/* --- genom_bayes_opt_result_close ------------------------------------- */
+/* --- genom_bayes_opt_measure_close ------------------------------------ */
 
 genom_event
-genom_bayes_opt_result_close(
+genom_bayes_opt_measure_close(
   genom_context self)
 {
-  struct genom_bayes_opt_result_port *p;
-  struct genom_bayes_opt_result_ph *ph;
+  struct genom_bayes_opt_measure_port *p;
+  struct genom_bayes_opt_measure_ph *ph;
 
-  p = &self->data->self->ports.result;
+  p = &self->data->self->ports.measure;
 
   ph = &p->h;
   if (!ph || !ph->id)
     return genom_syserr(&(genom_syserr_detail){ .code = ENOENT }, self);
   ph->id = NULL;
 
-  genom_log_info("destroyed inport result");
+  genom_log_info("destroyed inport measure");
 
   return genom_ok;
 }
 
 
-/* --- genom_bayes_opt_result_delete ------------------------------------ */
+/* --- genom_bayes_opt_measure_delete ----------------------------------- */
 
 void
-genom_bayes_opt_result_delete(genom_context self)
+genom_bayes_opt_measure_delete(genom_context self)
 {
-  genom_bayes_opt_result_close(self);
+  genom_bayes_opt_measure_close(self);
 }
 
 
@@ -930,18 +916,18 @@ genom_bayes_opt_status_delete(genom_context self)
 
 
 
-/* --- genom_bayes_opt_result_connect ----------------------------------- */
+/* --- genom_bayes_opt_measure_connect ---------------------------------- */
 
 genom_event
-genom_bayes_opt_result_connect(
+genom_bayes_opt_measure_connect(
   const char *name, genom_context self)
 {
-  struct genom_bayes_opt_result_port *p =
-    &self->data->self->ports.result;
-  struct genom_bayes_opt_result_ph *ph;
+  struct genom_bayes_opt_measure_port *p =
+    &self->data->self->ports.measure;
+  struct genom_bayes_opt_measure_ph *ph;
   POSTER_ID pid;
 
-  ph = genom_bayes_opt_result_get_ph(p);
+  ph = genom_bayes_opt_measure_get_ph(p);
 
   if (!ph) return genom_no_such_inport(self);
 
@@ -960,21 +946,21 @@ genom_bayes_opt_result_connect(
 }
 
 
-/* --- genom_bayes_opt_result_read -------------------------------------- */
+/* --- genom_bayes_opt_measure_read ------------------------------------- */
 
 genom_event
-genom_bayes_opt_result_read(
+genom_bayes_opt_measure_read(
   genom_context self)
 {
-  struct genom_bayes_opt_result_port *p;
-  struct genom_bayes_opt_result_ph *ph;
+  struct genom_bayes_opt_measure_port *p;
+  struct genom_bayes_opt_measure_ph *ph;
   STATUS s;
   char *b;
   ssize_t max;
 
-  p = &self->data->self->ports.result;
+  p = &self->data->self->ports.measure;
 
-  ph = genom_bayes_opt_result_get_ph(p);
+  ph = genom_bayes_opt_measure_get_ph(p);
   if (!ph || !ph->id) return genom_no_such_inport(self);
 
   s = posterTake(ph->id, POSTER_READ);
@@ -982,9 +968,9 @@ genom_bayes_opt_result_read(
     s = errnoGet();
     /* log error only once except in debug mode */
     if (ph->status != s) {
-      genom_log_warn(1, "cannot access inport result");
+      genom_log_warn(1, "cannot access inport measure");
     } else {
-      genom_log_debug("repeated error for inport result");
+      genom_log_debug("repeated error for inport measure");
     }
     ph->status = s;
 
@@ -998,13 +984,13 @@ genom_bayes_opt_result_read(
   b = posterAddr(ph->id);
   if (b) {
     max = -1;
-    s = genom_deserialize_t_bayes_opt_score(
+    s = genom_deserialize_t_bayes_opt_pose_sample(
       &b, &max, &(ph->buffer));
   } else s = ERROR;
   posterGive(ph->id);
   if (s) {
     ph->status = ERROR;
-    genom_log_warn(0, "cannot read inport result contents");
+    genom_log_warn(0, "cannot read inport measure contents");
     return genom_serialization(self);
   }
 

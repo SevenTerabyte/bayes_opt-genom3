@@ -59,7 +59,7 @@ bayes_opt_codel_service_Init_start(
 
     self->resources.task_optimize = boInit);
   genom_prof_start(&event);
-  s = boInit(a->in.lower_bounds, a->in.upper_bounds, a->in.max_iterations, &(self->ids.state), &self->tasks.optimize.context);
+  s = boInit(a->in.lower_bounds, a->in.upper_bounds, a->in.max_iterations, a->in.reference_x, a->in.reference_y, a->in.reference_z, &(self->ids.state), &(self->ports.status.handle), &self->tasks.optimize.context);
   genom_give_resource(self, self->resources.task_optimize = NULL);
   genom_prof_leave(&event);
 
@@ -171,7 +171,7 @@ bayes_opt_codel_service_AskNext_start(
 
     self->resources.task_optimize = boProposeParams);
   genom_prof_start(&event);
-  s = boProposeParams(&(self->ids.state), &(a->out.params_out), &self->tasks.optimize.context);
+  s = boProposeParams(&(self->ids.state), &(a->out.params_out), &(self->ports.params.handle), &(self->ports.status.handle), &self->tasks.optimize.context);
   genom_give_resource(self, self->resources.task_optimize = NULL);
   genom_prof_leave(&event);
 
@@ -243,6 +243,7 @@ ex:
     s != genom_too_many_activities_id &&
     s != genom_disallowed_id &&
     s != genom_mwerr_id &&
+    s != bayes_opt_NOT_INITIALIZED_id &&
     s != bayes_opt_OPTIMIZATION_FAILED_id &&
     1) {
     genom_bad_transition_detail d;
@@ -259,15 +260,14 @@ ex:
 }
 
 
-/* --- service SubmitResult --------------------------------------------- */
+/* --- service UpdateFromMeasure ---------------------------------------- */
 
 /* state start */
 static __inline__ genom_event
-bayes_opt_codel_service_SubmitResult_start(
+bayes_opt_codel_service_UpdateFromMeasure_start(
   struct genom_component_data *self, struct genom_activity *activity)
 {
-  struct genom_bayes_opt_SubmitResult_activity *a =
-    (struct genom_bayes_opt_SubmitResult_activity *)activity;
+  (void)activity; /* fix -Wunused-parameter */
   genom_event s;
 
   genom_prof_decl(event);
@@ -280,34 +280,34 @@ bayes_opt_codel_service_SubmitResult_start(
     self->resources.control == checkInitialized ||
     self->resources.all,
 
-    self->resources.task_optimize = boUpdateOptimizer);
+    self->resources.task_optimize = boUpdateFromMeasure);
   genom_prof_start(&event);
-  s = boUpdateOptimizer(a->in.score, &(self->ids.state), &self->tasks.optimize.context);
+  s = boUpdateFromMeasure(&(self->ports.measure.handle), &(self->ports.allow.handle), &(self->ids.state), &(self->ports.best_result.handle), &(self->ports.status.handle), &self->tasks.optimize.context);
   genom_give_resource(self, self->resources.task_optimize = NULL);
   genom_prof_leave(&event);
 
   genom_prof_collect(
     &event, genom_instance,
-    "optimize", "SubmitResult", "boUpdateOptimizer",
+    "optimize", "UpdateFromMeasure", "boUpdateFromMeasure",
     activity->state, s);
   return s;
 }
 
-/* invoke codels according to SubmitResult state */
+/* invoke codels according to UpdateFromMeasure state */
 static __inline__ enum genom_activity_status
-bayes_opt_invoke_service_SubmitResult(
+bayes_opt_invoke_service_UpdateFromMeasure(
   struct genom_component_data *self, struct genom_activity *a)
 {
   genom_event s;
 
   genom_log_debug(
-    "task optimize invoking service SubmitResult %s", a->state);
+    "task optimize invoking service UpdateFromMeasure %s", a->state);
 
   if (a->state == bayes_opt_start
       || a->state == bayes_opt_start /* default external event */
     ) {
-    s = bayes_opt_codel_service_SubmitResult_start(self, a);
-    genom_log_debug("service SubmitResult yielded %s", s);
+    s = bayes_opt_codel_service_UpdateFromMeasure_start(self, a);
+    genom_log_debug("service UpdateFromMeasure yielded %s", s);
     if (
       0) {
       a->state = s;
@@ -340,7 +340,7 @@ bayes_opt_invoke_service_SubmitResult(
   }
 
   /* this cannot happen by construction */
-  genom_log_warn(0, "bad state (%s) in service_SubmitResult",
+  genom_log_warn(0, "bad state (%s) in service_UpdateFromMeasure",
                  a->state?a->state : "genom_ok");
   abort();
   /*NOTREACHED*/
@@ -354,15 +354,15 @@ ex:
     s != genom_too_many_activities_id &&
     s != genom_disallowed_id &&
     s != genom_mwerr_id &&
-    s != bayes_opt_INVALID_PARAMETER_id &&
-    s != bayes_opt_EVALUATION_FAILED_id &&
-    s != bayes_opt_NO_SCORE_AVAILABLE_id &&
+    s != bayes_opt_NOT_INITIALIZED_id &&
+    s != bayes_opt_NO_MEASUREMENT_id &&
+    s != bayes_opt_OPTIMIZATION_FAILED_id &&
     1) {
     genom_bad_transition_detail d;
     strncpy(d.from, a->state, sizeof(d.from)); d.from[sizeof(d.from)-1] = *"";
     strncpy(d.to, s, sizeof(d.to)); d.to[sizeof(d.to)-1] = *"";
     genom_log_warn(
-      0, "bad transition from %s to %s in service SubmitResult",
+      0, "bad transition from %s to %s in service UpdateFromMeasure",
       a->state, s?s:"genom_ok");
     genom_bad_transition(&d, &self->tasks.optimize.context);
   }
@@ -392,7 +392,7 @@ bayes_opt_codel_service_GetBest_start(
 
     self->resources.task_optimize = boGetBest);
   genom_prof_start(&event);
-  s = boGetBest(&(self->ids.state), &(a->out.best_result_out), &self->tasks.optimize.context);
+  s = boGetBest(&(self->ids.state), &(a->out.best_result_out), &(self->ports.best_result.handle), &(self->ports.status.handle), &self->tasks.optimize.context);
   genom_give_resource(self, self->resources.task_optimize = NULL);
   genom_prof_leave(&event);
 
@@ -464,13 +464,124 @@ ex:
     s != genom_too_many_activities_id &&
     s != genom_disallowed_id &&
     s != genom_mwerr_id &&
-    s != bayes_opt_NO_SCORE_AVAILABLE_id &&
+    s != bayes_opt_NOT_INITIALIZED_id &&
+    s != bayes_opt_NO_BEST_RESULT_id &&
     1) {
     genom_bad_transition_detail d;
     strncpy(d.from, a->state, sizeof(d.from)); d.from[sizeof(d.from)-1] = *"";
     strncpy(d.to, s, sizeof(d.to)); d.to[sizeof(d.to)-1] = *"";
     genom_log_warn(
       0, "bad transition from %s to %s in service GetBest",
+      a->state, s?s:"genom_ok");
+    genom_bad_transition(&d, &self->tasks.optimize.context);
+  }
+
+  a->state = NULL;
+  return ACT_ETHER;
+}
+
+
+/* --- service Reset ---------------------------------------------------- */
+
+/* state start */
+static __inline__ genom_event
+bayes_opt_codel_service_Reset_start(
+  struct genom_component_data *self, struct genom_activity *activity)
+{
+  (void)activity; /* fix -Wunused-parameter */
+  genom_event s;
+
+  genom_prof_decl(event);
+  genom_prof_enter(&event);
+
+  genom_take_resource(
+    self,
+    self->resources.control == checkInitialized ||
+    self->resources.control == checkInitialized ||
+    self->resources.control == checkInitialized ||
+    self->resources.all,
+
+    self->resources.task_optimize = boReset);
+  genom_prof_start(&event);
+  s = boReset(&(self->ids.state), &(self->ports.status.handle), &self->tasks.optimize.context);
+  genom_give_resource(self, self->resources.task_optimize = NULL);
+  genom_prof_leave(&event);
+
+  genom_prof_collect(
+    &event, genom_instance,
+    "optimize", "Reset", "boReset",
+    activity->state, s);
+  return s;
+}
+
+/* invoke codels according to Reset state */
+static __inline__ enum genom_activity_status
+bayes_opt_invoke_service_Reset(
+  struct genom_component_data *self, struct genom_activity *a)
+{
+  genom_event s;
+
+  genom_log_debug(
+    "task optimize invoking service Reset %s", a->state);
+
+  if (a->state == bayes_opt_start
+      || a->state == bayes_opt_start /* default external event */
+    ) {
+    s = bayes_opt_codel_service_Reset_start(self, a);
+    genom_log_debug("service Reset yielded %s", s);
+    if (
+      0) {
+      a->state = s;
+      return ACT_RUN;
+    }
+    if (
+      0) {
+      a->state = s;
+      a->pause = 1;
+      return ACT_RUN;
+    }
+    if (
+      s == bayes_opt_ether ||
+      0) {
+      a->state = bayes_opt_ether;
+      return ACT_ETHER;
+    }
+    goto ex;
+  }
+
+  /* default activity stop, if not already handled above */
+  if (a->state == bayes_opt_stop) {
+    genom_interrupted_detail d;
+
+    assert(a->interruptedby);
+    strncpy(d.by, a->interruptedby, sizeof(d.by));
+    d.by[sizeof(d.by)-1] = *"";
+    s = genom_interrupted(&d, &self->tasks.optimize.context);
+    goto ex;
+  }
+
+  /* this cannot happen by construction */
+  genom_log_warn(0, "bad state (%s) in service_Reset",
+                 a->state?a->state : "genom_ok");
+  abort();
+  /*NOTREACHED*/
+
+ex:
+  if (
+    s != genom_incompatible_digest_id &&
+    s != genom_bad_transition_id &&
+    s != genom_interrupted_id &&
+    s != genom_serialization_id &&
+    s != genom_too_many_activities_id &&
+    s != genom_disallowed_id &&
+    s != genom_mwerr_id &&
+    s != bayes_opt_e_sys_id &&
+    1) {
+    genom_bad_transition_detail d;
+    strncpy(d.from, a->state, sizeof(d.from)); d.from[sizeof(d.from)-1] = *"";
+    strncpy(d.to, s, sizeof(d.to)); d.to[sizeof(d.to)-1] = *"";
+    genom_log_warn(
+      0, "bad transition from %s to %s in service Reset",
       a->state, s?s:"genom_ok");
     genom_bad_transition(&d, &self->tasks.optimize.context);
   }
@@ -495,10 +606,12 @@ genom_bayes_opt_optimize_invoke(
       return bayes_opt_invoke_service_Init(self, a);
     case BAYES_OPT_AskNext_RQSTID:
       return bayes_opt_invoke_service_AskNext(self, a);
-    case BAYES_OPT_SubmitResult_RQSTID:
-      return bayes_opt_invoke_service_SubmitResult(self, a);
+    case BAYES_OPT_UpdateFromMeasure_RQSTID:
+      return bayes_opt_invoke_service_UpdateFromMeasure(self, a);
     case BAYES_OPT_GetBest_RQSTID:
       return bayes_opt_invoke_service_GetBest(self, a);
+    case BAYES_OPT_Reset_RQSTID:
+      return bayes_opt_invoke_service_Reset(self, a);
   }
 
   /* must not happen */

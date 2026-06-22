@@ -7,7 +7,7 @@ includedir=${prefix}/include/genom/pocolibs
 
 Name: bayes_opt-c-client
 Description: bayes_opt C client (pocolibs)
-Version: 0.8
+Version: 0.9
 Requires: genom3-c-client = 20250116
 Cflags: -I${includedir}
 Libs: -L${libdir} -lbayes_opt-c-client

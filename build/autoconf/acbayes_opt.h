@@ -41,7 +41,7 @@
 #define PACKAGE_NAME "bayes_opt-genom3"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "bayes_opt-genom3 0.8"
+#define PACKAGE_STRING "bayes_opt-genom3 0.9"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "bayes_opt-genom3"
@@ -50,7 +50,7 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "0.8"
+#define PACKAGE_VERSION "0.9"
 
 /* Define to 1 if all of the C90 standard headers exist (not just the ones
    required in a freestanding environment). This macro is provided for

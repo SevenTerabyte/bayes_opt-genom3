@@ -172,146 +172,6 @@ genom_bayes_opt_kill_activity_report(
   genom_tfini_bayes_opt_kill_activity(a);
 }
 
-/* initialize_optimizer */
-static __inline__ void
-genom_bayes_opt_initialize_optimizer_activity_report(
-  struct genom_component_data *self,
-  struct genom_bayes_opt_initialize_optimizer_activity *a)
-{
-  STATUS s;
-
-  /* send final reply */
-  if (a->h.state == bayes_opt_ether) {
-    /* success: update after/before array */
-    self->control.run_map[BAYES_OPT_initialize_optimizer_RQSTID] = 1;
-
-    s = csServReplySend(
-      self->control.csserv, a->h.rid, FINAL_REPLY, OK,
-      (char *)&a->out, 0, genom_bayes_opt_initialize_optimizer_encode);
-  } else
-    s = csServReplySend(
-      self->control.csserv, a->h.rid, FINAL_REPLY, ERROR, (char *)&a->h, 0,
-      genom_bayes_opt_activity_encodex);
-  if (s == ERROR) {
-    genom_log_warn(1, "could not send output for service %s", "initialize_optimizer");
-    s = csServReplySend(
-      self->control.csserv, a->h.rid, FINAL_REPLY, ERROR, NULL, 0,
-      genom_bayes_opt_genom_serialization_encodex);
-    if (s == ERROR) {
-      genom_log_warn(1, "discarding output for service %s", "initialize_optimizer");
-    } else
-      genom_log_warn(0, "invalid output for service %s", "initialize_optimizer");
-  }
-
-  /* cleanup */
-  genom_tfini_bayes_opt_initialize_optimizer_activity(a);
-}
-
-/* propose_parameters */
-static __inline__ void
-genom_bayes_opt_propose_parameters_activity_report(
-  struct genom_component_data *self,
-  struct genom_bayes_opt_propose_parameters_activity *a)
-{
-  STATUS s;
-
-  /* send final reply */
-  if (a->h.state == bayes_opt_ether) {
-    /* success: update after/before array */
-    self->control.run_map[BAYES_OPT_propose_parameters_RQSTID] = 1;
-
-    s = csServReplySend(
-      self->control.csserv, a->h.rid, FINAL_REPLY, OK,
-      (char *)&a->out, 0, genom_bayes_opt_propose_parameters_encode);
-  } else
-    s = csServReplySend(
-      self->control.csserv, a->h.rid, FINAL_REPLY, ERROR, (char *)&a->h, 0,
-      genom_bayes_opt_activity_encodex);
-  if (s == ERROR) {
-    genom_log_warn(1, "could not send output for service %s", "propose_parameters");
-    s = csServReplySend(
-      self->control.csserv, a->h.rid, FINAL_REPLY, ERROR, NULL, 0,
-      genom_bayes_opt_genom_serialization_encodex);
-    if (s == ERROR) {
-      genom_log_warn(1, "discarding output for service %s", "propose_parameters");
-    } else
-      genom_log_warn(0, "invalid output for service %s", "propose_parameters");
-  }
-
-  /* cleanup */
-  genom_tfini_bayes_opt_propose_parameters_activity(a);
-}
-
-/* submit_result */
-static __inline__ void
-genom_bayes_opt_submit_result_activity_report(
-  struct genom_component_data *self,
-  struct genom_bayes_opt_submit_result_activity *a)
-{
-  STATUS s;
-
-  /* send final reply */
-  if (a->h.state == bayes_opt_ether) {
-    /* success: update after/before array */
-    self->control.run_map[BAYES_OPT_submit_result_RQSTID] = 1;
-
-    s = csServReplySend(
-      self->control.csserv, a->h.rid, FINAL_REPLY, OK,
-      (char *)&a->out, 0, genom_bayes_opt_submit_result_encode);
-  } else
-    s = csServReplySend(
-      self->control.csserv, a->h.rid, FINAL_REPLY, ERROR, (char *)&a->h, 0,
-      genom_bayes_opt_activity_encodex);
-  if (s == ERROR) {
-    genom_log_warn(1, "could not send output for service %s", "submit_result");
-    s = csServReplySend(
-      self->control.csserv, a->h.rid, FINAL_REPLY, ERROR, NULL, 0,
-      genom_bayes_opt_genom_serialization_encodex);
-    if (s == ERROR) {
-      genom_log_warn(1, "discarding output for service %s", "submit_result");
-    } else
-      genom_log_warn(0, "invalid output for service %s", "submit_result");
-  }
-
-  /* cleanup */
-  genom_tfini_bayes_opt_submit_result_activity(a);
-}
-
-/* get_best_parameters */
-static __inline__ void
-genom_bayes_opt_get_best_parameters_activity_report(
-  struct genom_component_data *self,
-  struct genom_bayes_opt_get_best_parameters_activity *a)
-{
-  STATUS s;
-
-  /* send final reply */
-  if (a->h.state == bayes_opt_ether) {
-    /* success: update after/before array */
-    self->control.run_map[BAYES_OPT_get_best_parameters_RQSTID] = 1;
-
-    s = csServReplySend(
-      self->control.csserv, a->h.rid, FINAL_REPLY, OK,
-      (char *)&a->out, 0, genom_bayes_opt_get_best_parameters_encode);
-  } else
-    s = csServReplySend(
-      self->control.csserv, a->h.rid, FINAL_REPLY, ERROR, (char *)&a->h, 0,
-      genom_bayes_opt_activity_encodex);
-  if (s == ERROR) {
-    genom_log_warn(1, "could not send output for service %s", "get_best_parameters");
-    s = csServReplySend(
-      self->control.csserv, a->h.rid, FINAL_REPLY, ERROR, NULL, 0,
-      genom_bayes_opt_genom_serialization_encodex);
-    if (s == ERROR) {
-      genom_log_warn(1, "discarding output for service %s", "get_best_parameters");
-    } else
-      genom_log_warn(0, "invalid output for service %s", "get_best_parameters");
-  }
-
-  /* cleanup */
-  genom_tfini_bayes_opt_get_best_parameters_activity(a);
-}
-
 /* reset_optimizer */
 static __inline__ void
 genom_bayes_opt_reset_optimizer_activity_report(
@@ -417,39 +277,39 @@ genom_bayes_opt_AskNext_activity_report(
   genom_tfini_bayes_opt_AskNext_activity(a);
 }
 
-/* SubmitResult */
+/* UpdateFromMeasure */
 static __inline__ void
-genom_bayes_opt_SubmitResult_activity_report(
+genom_bayes_opt_UpdateFromMeasure_activity_report(
   struct genom_component_data *self,
-  struct genom_bayes_opt_SubmitResult_activity *a)
+  struct genom_bayes_opt_UpdateFromMeasure_activity *a)
 {
   STATUS s;
 
   /* send final reply */
   if (a->h.state == bayes_opt_ether) {
     /* success: update after/before array */
-    self->control.run_map[BAYES_OPT_SubmitResult_RQSTID] = 1;
+    self->control.run_map[BAYES_OPT_UpdateFromMeasure_RQSTID] = 1;
 
     s = csServReplySend(
       self->control.csserv, a->h.rid, FINAL_REPLY, OK,
-      (char *)&a->out, 0, genom_bayes_opt_SubmitResult_encode);
+      (char *)&a->out, 0, genom_bayes_opt_UpdateFromMeasure_encode);
   } else
     s = csServReplySend(
       self->control.csserv, a->h.rid, FINAL_REPLY, ERROR, (char *)&a->h, 0,
       genom_bayes_opt_activity_encodex);
   if (s == ERROR) {
-    genom_log_warn(1, "could not send output for service %s", "SubmitResult");
+    genom_log_warn(1, "could not send output for service %s", "UpdateFromMeasure");
     s = csServReplySend(
       self->control.csserv, a->h.rid, FINAL_REPLY, ERROR, NULL, 0,
       genom_bayes_opt_genom_serialization_encodex);
     if (s == ERROR) {
-      genom_log_warn(1, "discarding output for service %s", "SubmitResult");
+      genom_log_warn(1, "discarding output for service %s", "UpdateFromMeasure");
     } else
-      genom_log_warn(0, "invalid output for service %s", "SubmitResult");
+      genom_log_warn(0, "invalid output for service %s", "UpdateFromMeasure");
   }
 
   /* cleanup */
-  genom_tfini_bayes_opt_SubmitResult_activity(a);
+  genom_tfini_bayes_opt_UpdateFromMeasure_activity(a);
 }
 
 /* GetBest */
@@ -487,6 +347,41 @@ genom_bayes_opt_GetBest_activity_report(
   genom_tfini_bayes_opt_GetBest_activity(a);
 }
 
+/* Reset */
+static __inline__ void
+genom_bayes_opt_Reset_activity_report(
+  struct genom_component_data *self,
+  struct genom_bayes_opt_Reset_activity *a)
+{
+  STATUS s;
+
+  /* send final reply */
+  if (a->h.state == bayes_opt_ether) {
+    /* success: update after/before array */
+    self->control.run_map[BAYES_OPT_Reset_RQSTID] = 1;
+
+    s = csServReplySend(
+      self->control.csserv, a->h.rid, FINAL_REPLY, OK,
+      (char *)&a->out, 0, genom_bayes_opt_Reset_encode);
+  } else
+    s = csServReplySend(
+      self->control.csserv, a->h.rid, FINAL_REPLY, ERROR, (char *)&a->h, 0,
+      genom_bayes_opt_activity_encodex);
+  if (s == ERROR) {
+    genom_log_warn(1, "could not send output for service %s", "Reset");
+    s = csServReplySend(
+      self->control.csserv, a->h.rid, FINAL_REPLY, ERROR, NULL, 0,
+      genom_bayes_opt_genom_serialization_encodex);
+    if (s == ERROR) {
+      genom_log_warn(1, "discarding output for service %s", "Reset");
+    } else
+      genom_log_warn(0, "invalid output for service %s", "Reset");
+  }
+
+  /* cleanup */
+  genom_tfini_bayes_opt_Reset_activity(a);
+}
+
 
 /* --- genom_bayes_opt_activity_report ---------------------------------- */
 
@@ -513,22 +408,6 @@ genom_bayes_opt_activity_report(
       genom_bayes_opt_kill_activity_report(
         self, (struct genom_bayes_opt_kill_activity *)a);
       return;
-    case BAYES_OPT_initialize_optimizer_RQSTID:
-      genom_bayes_opt_initialize_optimizer_activity_report(
-        self, (struct genom_bayes_opt_initialize_optimizer_activity *)a);
-      return;
-    case BAYES_OPT_propose_parameters_RQSTID:
-      genom_bayes_opt_propose_parameters_activity_report(
-        self, (struct genom_bayes_opt_propose_parameters_activity *)a);
-      return;
-    case BAYES_OPT_submit_result_RQSTID:
-      genom_bayes_opt_submit_result_activity_report(
-        self, (struct genom_bayes_opt_submit_result_activity *)a);
-      return;
-    case BAYES_OPT_get_best_parameters_RQSTID:
-      genom_bayes_opt_get_best_parameters_activity_report(
-        self, (struct genom_bayes_opt_get_best_parameters_activity *)a);
-      return;
     case BAYES_OPT_reset_optimizer_RQSTID:
       genom_bayes_opt_reset_optimizer_activity_report(
         self, (struct genom_bayes_opt_reset_optimizer_activity *)a);
@@ -541,13 +420,17 @@ genom_bayes_opt_activity_report(
       genom_bayes_opt_AskNext_activity_report(
         self, (struct genom_bayes_opt_AskNext_activity *)a);
       return;
-    case BAYES_OPT_SubmitResult_RQSTID:
-      genom_bayes_opt_SubmitResult_activity_report(
-        self, (struct genom_bayes_opt_SubmitResult_activity *)a);
+    case BAYES_OPT_UpdateFromMeasure_RQSTID:
+      genom_bayes_opt_UpdateFromMeasure_activity_report(
+        self, (struct genom_bayes_opt_UpdateFromMeasure_activity *)a);
       return;
     case BAYES_OPT_GetBest_RQSTID:
       genom_bayes_opt_GetBest_activity_report(
         self, (struct genom_bayes_opt_GetBest_activity *)a);
+      return;
+    case BAYES_OPT_Reset_RQSTID:
+      genom_bayes_opt_Reset_activity_report(
+        self, (struct genom_bayes_opt_Reset_activity *)a);
       return;
   }
 
@@ -614,17 +497,17 @@ genom_bayes_opt_activity_encodex(char *buffer, int size, char *dst, int maxsize)
   else if (a->state == bayes_opt_e_sys_id)
     return genom_bayes_opt_bayes_opt_e_sys_encodex(
       a->exdetail, size, dst, maxsize);
+  else if (a->state == bayes_opt_NOT_INITIALIZED_id)
+    return genom_bayes_opt_bayes_opt_NOT_INITIALIZED_encodex(
+      a->exdetail, size, dst, maxsize);
   else if (a->state == bayes_opt_OPTIMIZATION_FAILED_id)
     return genom_bayes_opt_bayes_opt_OPTIMIZATION_FAILED_encodex(
       a->exdetail, size, dst, maxsize);
-  else if (a->state == bayes_opt_INVALID_PARAMETER_id)
-    return genom_bayes_opt_bayes_opt_INVALID_PARAMETER_encodex(
+  else if (a->state == bayes_opt_NO_MEASUREMENT_id)
+    return genom_bayes_opt_bayes_opt_NO_MEASUREMENT_encodex(
       a->exdetail, size, dst, maxsize);
-  else if (a->state == bayes_opt_EVALUATION_FAILED_id)
-    return genom_bayes_opt_bayes_opt_EVALUATION_FAILED_encodex(
-      a->exdetail, size, dst, maxsize);
-  else if (a->state == bayes_opt_NO_SCORE_AVAILABLE_id)
-    return genom_bayes_opt_bayes_opt_NO_SCORE_AVAILABLE_encodex(
+  else if (a->state == bayes_opt_NO_BEST_RESULT_id)
+    return genom_bayes_opt_bayes_opt_NO_BEST_RESULT_encodex(
       a->exdetail, size, dst, maxsize);
 
   assert(!"unknown genom exception");
@@ -692,8 +575,9 @@ genom_bayes_opt_kill_interrupt_reqd(
       switch(c->sid) {
         case BAYES_OPT_Init_RQSTID:
         case BAYES_OPT_AskNext_RQSTID:
-        case BAYES_OPT_SubmitResult_RQSTID:
+        case BAYES_OPT_UpdateFromMeasure_RQSTID:
         case BAYES_OPT_GetBest_RQSTID:
+        case BAYES_OPT_Reset_RQSTID:
           switch(c->status) {
             case ACT_RUN:
               delay = 1;
@@ -715,54 +599,6 @@ genom_bayes_opt_kill_interrupt_reqd(
     }
   }
   pthread_mutex_unlock(&self->tasks.optimize.lock);
-
-  return delay;
-}
-
-/* initialize_optimizer */
-static __inline__ int
-genom_bayes_opt_initialize_optimizer_interrupt_reqd(
-  struct genom_component_data *self, struct genom_activity *a)
-{
-  int delay = 0;
-  (void)self; (void)a; /* fix -Wunused-parameter */
-
-
-  return delay;
-}
-
-/* propose_parameters */
-static __inline__ int
-genom_bayes_opt_propose_parameters_interrupt_reqd(
-  struct genom_component_data *self, struct genom_activity *a)
-{
-  int delay = 0;
-  (void)self; (void)a; /* fix -Wunused-parameter */
-
-
-  return delay;
-}
-
-/* submit_result */
-static __inline__ int
-genom_bayes_opt_submit_result_interrupt_reqd(
-  struct genom_component_data *self, struct genom_activity *a)
-{
-  int delay = 0;
-  (void)self; (void)a; /* fix -Wunused-parameter */
-
-
-  return delay;
-}
-
-/* get_best_parameters */
-static __inline__ int
-genom_bayes_opt_get_best_parameters_interrupt_reqd(
-  struct genom_component_data *self, struct genom_activity *a)
-{
-  int delay = 0;
-  (void)self; (void)a; /* fix -Wunused-parameter */
-
 
   return delay;
 }
@@ -803,9 +639,9 @@ genom_bayes_opt_AskNext_interrupt_reqd(
   return delay;
 }
 
-/* SubmitResult */
+/* UpdateFromMeasure */
 static __inline__ int
-genom_bayes_opt_SubmitResult_interrupt_reqd(
+genom_bayes_opt_UpdateFromMeasure_interrupt_reqd(
   struct genom_component_data *self, struct genom_activity *a)
 {
   int delay = 0;
@@ -818,6 +654,18 @@ genom_bayes_opt_SubmitResult_interrupt_reqd(
 /* GetBest */
 static __inline__ int
 genom_bayes_opt_GetBest_interrupt_reqd(
+  struct genom_component_data *self, struct genom_activity *a)
+{
+  int delay = 0;
+  (void)self; (void)a; /* fix -Wunused-parameter */
+
+
+  return delay;
+}
+
+/* Reset */
+static __inline__ int
+genom_bayes_opt_Reset_interrupt_reqd(
   struct genom_component_data *self, struct genom_activity *a)
 {
   int delay = 0;
@@ -846,24 +694,18 @@ genom_bayes_opt_interrupt_reqd(
       return genom_bayes_opt_connect_service_interrupt_reqd(self, a);
     case BAYES_OPT_kill_RQSTID:
       return genom_bayes_opt_kill_interrupt_reqd(self, a);
-    case BAYES_OPT_initialize_optimizer_RQSTID:
-      return genom_bayes_opt_initialize_optimizer_interrupt_reqd(self, a);
-    case BAYES_OPT_propose_parameters_RQSTID:
-      return genom_bayes_opt_propose_parameters_interrupt_reqd(self, a);
-    case BAYES_OPT_submit_result_RQSTID:
-      return genom_bayes_opt_submit_result_interrupt_reqd(self, a);
-    case BAYES_OPT_get_best_parameters_RQSTID:
-      return genom_bayes_opt_get_best_parameters_interrupt_reqd(self, a);
     case BAYES_OPT_reset_optimizer_RQSTID:
       return genom_bayes_opt_reset_optimizer_interrupt_reqd(self, a);
     case BAYES_OPT_Init_RQSTID:
       return genom_bayes_opt_Init_interrupt_reqd(self, a);
     case BAYES_OPT_AskNext_RQSTID:
       return genom_bayes_opt_AskNext_interrupt_reqd(self, a);
-    case BAYES_OPT_SubmitResult_RQSTID:
-      return genom_bayes_opt_SubmitResult_interrupt_reqd(self, a);
+    case BAYES_OPT_UpdateFromMeasure_RQSTID:
+      return genom_bayes_opt_UpdateFromMeasure_interrupt_reqd(self, a);
     case BAYES_OPT_GetBest_RQSTID:
       return genom_bayes_opt_GetBest_interrupt_reqd(self, a);
+    case BAYES_OPT_Reset_RQSTID:
+      return genom_bayes_opt_Reset_interrupt_reqd(self, a);
   }
 
   assert(!"code not reached");

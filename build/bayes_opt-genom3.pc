@@ -9,7 +9,7 @@ idldir=${datarootdir}/idl
 
 Name: bayes_opt-genom3
 Description: bayes_opt interface and codels library
-Version: 0.8
+Version: 0.9
 Requires: openrobots2-idl >= 2.0, genom3 >= 2.99.26
 Cflags: -I${includedir} -I${idldir}
 Libs: -L${libdir} -lbayes_opt_codels

@@ -2,7 +2,7 @@ dnl Autoconf file for building bayes_opt codels library.
 
 AC_PREREQ(2.59)
 
-AC_INIT([bayes_opt-genom3],[0.8],[])
+AC_INIT([bayes_opt-genom3],[0.9],[])
 AC_CONFIG_MACRO_DIR([autoconf])
 AC_CONFIG_AUX_DIR([autoconf])
 AC_CONFIG_HEADERS([autoconf/acbayes_opt.h])

@@ -18,15 +18,12 @@ enum {
   BAYES_OPT_connect_port_RQSTID,
   BAYES_OPT_connect_service_RQSTID,
   BAYES_OPT_kill_RQSTID,
-  BAYES_OPT_initialize_optimizer_RQSTID,
-  BAYES_OPT_propose_parameters_RQSTID,
-  BAYES_OPT_submit_result_RQSTID,
-  BAYES_OPT_get_best_parameters_RQSTID,
   BAYES_OPT_reset_optimizer_RQSTID,
   BAYES_OPT_Init_RQSTID,
   BAYES_OPT_AskNext_RQSTID,
-  BAYES_OPT_SubmitResult_RQSTID,
+  BAYES_OPT_UpdateFromMeasure_RQSTID,
   BAYES_OPT_GetBest_RQSTID,
+  BAYES_OPT_Reset_RQSTID,
 
   /* total */
   BAYES_OPT_NRQSTID
@@ -73,23 +70,6 @@ genom_bayes_opt_max_rqst_size(void)
   s = 0;
   if (m < s) m = s;
 
-  /* input of initialize_optimizer */
-  s = 0;
-  if (m < s) m = s;
-
-  /* input of propose_parameters */
-  s = 0;
-  if (m < s) m = s;
-
-  /* input of submit_result */
-  s = 0;
-  s += genom_maxserialen_double();
-  if (m < s) m = s;
-
-  /* input of get_best_parameters */
-  s = 0;
-  if (m < s) m = s;
-
   /* input of reset_optimizer */
   s = 0;
   if (m < s) m = s;
@@ -99,18 +79,24 @@ genom_bayes_opt_max_rqst_size(void)
   s += genom_maxserialen_array5_double();
   s += genom_maxserialen_array5_double();
   s += genom_maxserialen_long();
+  s += genom_maxserialen_double();
+  s += genom_maxserialen_double();
+  s += genom_maxserialen_double();
   if (m < s) m = s;
 
   /* input of AskNext */
   s = 0;
   if (m < s) m = s;
 
-  /* input of SubmitResult */
+  /* input of UpdateFromMeasure */
   s = 0;
-  s += genom_maxserialen_double();
   if (m < s) m = s;
 
   /* input of GetBest */
+  s = 0;
+  if (m < s) m = s;
+
+  /* input of Reset */
   s = 0;
   if (m < s) m = s;
 
@@ -258,116 +244,6 @@ genom_bayes_opt_max_reply_size()
   s += genom_maxserialen_t_genom_mwerr();
   if (m < s) m = s;
 
-  /* output of initialize_optimizer */
-  s = 1; /* ok flag */
-  if (m < s) m = s;
-
-  /* throws of initialize_optimizer */
-  s = sizeof(genom_incompatible_digest_id);
-  s += genom_maxserialen_t_genom_incompatible_digest();
-  if (m < s) m = s;
-  s = sizeof(genom_bad_transition_id);
-  s += genom_maxserialen_t_genom_bad_transition();
-  if (m < s) m = s;
-  s = sizeof(genom_interrupted_id);
-  s += genom_maxserialen_t_genom_interrupted();
-  if (m < s) m = s;
-  s = sizeof(genom_serialization_id);
-  s += genom_maxserialen_t_genom_serialization();
-  if (m < s) m = s;
-  s = sizeof(genom_too_many_activities_id);
-  s += genom_maxserialen_t_genom_too_many_activities();
-  if (m < s) m = s;
-  s = sizeof(genom_disallowed_id);
-  s += genom_maxserialen_t_genom_disallowed();
-  if (m < s) m = s;
-  s = sizeof(genom_mwerr_id);
-  s += genom_maxserialen_t_genom_mwerr();
-  if (m < s) m = s;
-
-  /* output of propose_parameters */
-  s = 1; /* ok flag */
-  s += genom_maxserialen_t_bayes_opt_suggestion();
-  if (m < s) m = s;
-
-  /* throws of propose_parameters */
-  s = sizeof(genom_incompatible_digest_id);
-  s += genom_maxserialen_t_genom_incompatible_digest();
-  if (m < s) m = s;
-  s = sizeof(genom_bad_transition_id);
-  s += genom_maxserialen_t_genom_bad_transition();
-  if (m < s) m = s;
-  s = sizeof(genom_interrupted_id);
-  s += genom_maxserialen_t_genom_interrupted();
-  if (m < s) m = s;
-  s = sizeof(genom_serialization_id);
-  s += genom_maxserialen_t_genom_serialization();
-  if (m < s) m = s;
-  s = sizeof(genom_too_many_activities_id);
-  s += genom_maxserialen_t_genom_too_many_activities();
-  if (m < s) m = s;
-  s = sizeof(genom_disallowed_id);
-  s += genom_maxserialen_t_genom_disallowed();
-  if (m < s) m = s;
-  s = sizeof(genom_mwerr_id);
-  s += genom_maxserialen_t_genom_mwerr();
-  if (m < s) m = s;
-
-  /* output of submit_result */
-  s = 1; /* ok flag */
-  if (m < s) m = s;
-
-  /* throws of submit_result */
-  s = sizeof(genom_incompatible_digest_id);
-  s += genom_maxserialen_t_genom_incompatible_digest();
-  if (m < s) m = s;
-  s = sizeof(genom_bad_transition_id);
-  s += genom_maxserialen_t_genom_bad_transition();
-  if (m < s) m = s;
-  s = sizeof(genom_interrupted_id);
-  s += genom_maxserialen_t_genom_interrupted();
-  if (m < s) m = s;
-  s = sizeof(genom_serialization_id);
-  s += genom_maxserialen_t_genom_serialization();
-  if (m < s) m = s;
-  s = sizeof(genom_too_many_activities_id);
-  s += genom_maxserialen_t_genom_too_many_activities();
-  if (m < s) m = s;
-  s = sizeof(genom_disallowed_id);
-  s += genom_maxserialen_t_genom_disallowed();
-  if (m < s) m = s;
-  s = sizeof(genom_mwerr_id);
-  s += genom_maxserialen_t_genom_mwerr();
-  if (m < s) m = s;
-
-  /* output of get_best_parameters */
-  s = 1; /* ok flag */
-  s += genom_maxserialen_t_bayes_opt_best();
-  if (m < s) m = s;
-
-  /* throws of get_best_parameters */
-  s = sizeof(genom_incompatible_digest_id);
-  s += genom_maxserialen_t_genom_incompatible_digest();
-  if (m < s) m = s;
-  s = sizeof(genom_bad_transition_id);
-  s += genom_maxserialen_t_genom_bad_transition();
-  if (m < s) m = s;
-  s = sizeof(genom_interrupted_id);
-  s += genom_maxserialen_t_genom_interrupted();
-  if (m < s) m = s;
-  s = sizeof(genom_serialization_id);
-  s += genom_maxserialen_t_genom_serialization();
-  if (m < s) m = s;
-  s = sizeof(genom_too_many_activities_id);
-  s += genom_maxserialen_t_genom_too_many_activities();
-  if (m < s) m = s;
-  s = sizeof(genom_disallowed_id);
-  s += genom_maxserialen_t_genom_disallowed();
-  if (m < s) m = s;
-  s = sizeof(genom_mwerr_id);
-  s += genom_maxserialen_t_genom_mwerr();
-  if (m < s) m = s;
-
   /* output of reset_optimizer */
   s = 1; /* ok flag */
   if (m < s) m = s;
@@ -455,15 +331,18 @@ genom_bayes_opt_max_reply_size()
   s = sizeof(genom_mwerr_id);
   s += genom_maxserialen_t_genom_mwerr();
   if (m < s) m = s;
+  s = sizeof(bayes_opt_NOT_INITIALIZED_id);
+  s += genom_maxserialen_t_bayes_opt_NOT_INITIALIZED();
+  if (m < s) m = s;
   s = sizeof(bayes_opt_OPTIMIZATION_FAILED_id);
   s += genom_maxserialen_t_bayes_opt_OPTIMIZATION_FAILED();
   if (m < s) m = s;
 
-  /* output of SubmitResult */
+  /* output of UpdateFromMeasure */
   s = 1; /* ok flag */
   if (m < s) m = s;
 
-  /* throws of SubmitResult */
+  /* throws of UpdateFromMeasure */
   s = sizeof(genom_incompatible_digest_id);
   s += genom_maxserialen_t_genom_incompatible_digest();
   if (m < s) m = s;
@@ -485,14 +364,14 @@ genom_bayes_opt_max_reply_size()
   s = sizeof(genom_mwerr_id);
   s += genom_maxserialen_t_genom_mwerr();
   if (m < s) m = s;
-  s = sizeof(bayes_opt_INVALID_PARAMETER_id);
-  s += genom_maxserialen_t_bayes_opt_INVALID_PARAMETER();
+  s = sizeof(bayes_opt_NOT_INITIALIZED_id);
+  s += genom_maxserialen_t_bayes_opt_NOT_INITIALIZED();
   if (m < s) m = s;
-  s = sizeof(bayes_opt_EVALUATION_FAILED_id);
-  s += genom_maxserialen_t_bayes_opt_EVALUATION_FAILED();
+  s = sizeof(bayes_opt_NO_MEASUREMENT_id);
+  s += genom_maxserialen_t_bayes_opt_NO_MEASUREMENT();
   if (m < s) m = s;
-  s = sizeof(bayes_opt_NO_SCORE_AVAILABLE_id);
-  s += genom_maxserialen_t_bayes_opt_NO_SCORE_AVAILABLE();
+  s = sizeof(bayes_opt_OPTIMIZATION_FAILED_id);
+  s += genom_maxserialen_t_bayes_opt_OPTIMIZATION_FAILED();
   if (m < s) m = s;
 
   /* output of GetBest */
@@ -522,8 +401,41 @@ genom_bayes_opt_max_reply_size()
   s = sizeof(genom_mwerr_id);
   s += genom_maxserialen_t_genom_mwerr();
   if (m < s) m = s;
-  s = sizeof(bayes_opt_NO_SCORE_AVAILABLE_id);
-  s += genom_maxserialen_t_bayes_opt_NO_SCORE_AVAILABLE();
+  s = sizeof(bayes_opt_NOT_INITIALIZED_id);
+  s += genom_maxserialen_t_bayes_opt_NOT_INITIALIZED();
+  if (m < s) m = s;
+  s = sizeof(bayes_opt_NO_BEST_RESULT_id);
+  s += genom_maxserialen_t_bayes_opt_NO_BEST_RESULT();
+  if (m < s) m = s;
+
+  /* output of Reset */
+  s = 1; /* ok flag */
+  if (m < s) m = s;
+
+  /* throws of Reset */
+  s = sizeof(genom_incompatible_digest_id);
+  s += genom_maxserialen_t_genom_incompatible_digest();
+  if (m < s) m = s;
+  s = sizeof(genom_bad_transition_id);
+  s += genom_maxserialen_t_genom_bad_transition();
+  if (m < s) m = s;
+  s = sizeof(genom_interrupted_id);
+  s += genom_maxserialen_t_genom_interrupted();
+  if (m < s) m = s;
+  s = sizeof(genom_serialization_id);
+  s += genom_maxserialen_t_genom_serialization();
+  if (m < s) m = s;
+  s = sizeof(genom_too_many_activities_id);
+  s += genom_maxserialen_t_genom_too_many_activities();
+  if (m < s) m = s;
+  s = sizeof(genom_disallowed_id);
+  s += genom_maxserialen_t_genom_disallowed();
+  if (m < s) m = s;
+  s = sizeof(genom_mwerr_id);
+  s += genom_maxserialen_t_genom_mwerr();
+  if (m < s) m = s;
+  s = sizeof(bayes_opt_e_sys_id);
+  s += genom_maxserialen_t_bayes_opt_e_sys();
   if (m < s) m = s;
 
 

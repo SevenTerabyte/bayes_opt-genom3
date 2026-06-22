@@ -39,7 +39,7 @@ struct genom_component_data {
   struct {
     struct genom_bayes_opt_genom_state_port genom_state;
     struct genom_bayes_opt_genom_metadata_port genom_metadata;
-    struct genom_bayes_opt_result_port result;
+    struct genom_bayes_opt_measure_port measure;
     struct genom_bayes_opt_allow_port allow;
     struct genom_bayes_opt_params_port params;
     struct genom_bayes_opt_best_result_port best_result;
@@ -135,18 +135,6 @@ genom_event genom_bayes_opt_connect_service_controlcb(
 genom_event genom_bayes_opt_kill_controlcb(
    struct genom_component_data *,
    struct genom_bayes_opt_kill_activity *);
-genom_event genom_bayes_opt_initialize_optimizer_controlcb(
-   struct genom_component_data *,
-   struct genom_bayes_opt_initialize_optimizer_activity *);
-genom_event genom_bayes_opt_propose_parameters_controlcb(
-   struct genom_component_data *,
-   struct genom_bayes_opt_propose_parameters_activity *);
-genom_event genom_bayes_opt_submit_result_controlcb(
-   struct genom_component_data *,
-   struct genom_bayes_opt_submit_result_activity *);
-genom_event genom_bayes_opt_get_best_parameters_controlcb(
-   struct genom_component_data *,
-   struct genom_bayes_opt_get_best_parameters_activity *);
 genom_event genom_bayes_opt_reset_optimizer_controlcb(
    struct genom_component_data *,
    struct genom_bayes_opt_reset_optimizer_activity *);
@@ -156,12 +144,15 @@ genom_event genom_bayes_opt_Init_controlcb(
 genom_event genom_bayes_opt_AskNext_controlcb(
    struct genom_component_data *,
    struct genom_bayes_opt_AskNext_activity *);
-genom_event genom_bayes_opt_SubmitResult_controlcb(
+genom_event genom_bayes_opt_UpdateFromMeasure_controlcb(
    struct genom_component_data *,
-   struct genom_bayes_opt_SubmitResult_activity *);
+   struct genom_bayes_opt_UpdateFromMeasure_activity *);
 genom_event genom_bayes_opt_GetBest_controlcb(
    struct genom_component_data *,
    struct genom_bayes_opt_GetBest_activity *);
+genom_event genom_bayes_opt_Reset_controlcb(
+   struct genom_component_data *,
+   struct genom_bayes_opt_Reset_activity *);
 
 
 /* exec tasks */

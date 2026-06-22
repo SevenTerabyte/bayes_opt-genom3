@@ -152,116 +152,6 @@ genom_tfini_bayes_opt_kill_activity(
 }
 
 
-/* --- initialize_optimizer --------------------------------------------- */
-
-/* activity data */
-struct genom_bayes_opt_initialize_optimizer_activity {
-  struct genom_activity h;
-  struct genom_bayes_opt_initialize_optimizer_input in;
-  struct genom_bayes_opt_initialize_optimizer_output out;
-};
-
-/* input/output initializer */
-static __inline__ void
-genom_tinit_bayes_opt_initialize_optimizer_activity(
-  struct genom_bayes_opt_initialize_optimizer_activity *a)
-{
-  (void)a; /* fix -Wunused-parameter */
-}
-
-/* input/output finalizer */
-static __inline__ void
-genom_tfini_bayes_opt_initialize_optimizer_activity(
-  struct genom_bayes_opt_initialize_optimizer_activity *a)
-{
-  (void)a; /* fix -Wunused-parameter */
-}
-
-
-/* --- propose_parameters ----------------------------------------------- */
-
-/* activity data */
-struct genom_bayes_opt_propose_parameters_activity {
-  struct genom_activity h;
-  struct genom_bayes_opt_propose_parameters_input in;
-  struct genom_bayes_opt_propose_parameters_output out;
-};
-
-/* input/output initializer */
-static __inline__ void
-genom_tinit_bayes_opt_propose_parameters_activity(
-  struct genom_bayes_opt_propose_parameters_activity *a)
-{
-  genom_tinit_t_bayes_opt_suggestion(
-    &(a->out.params));
-}
-
-/* input/output finalizer */
-static __inline__ void
-genom_tfini_bayes_opt_propose_parameters_activity(
-  struct genom_bayes_opt_propose_parameters_activity *a)
-{
-  genom_tfini_t_bayes_opt_suggestion(
-    &(a->out.params));
-}
-
-
-/* --- submit_result ---------------------------------------------------- */
-
-/* activity data */
-struct genom_bayes_opt_submit_result_activity {
-  struct genom_activity h;
-  struct genom_bayes_opt_submit_result_input in;
-  struct genom_bayes_opt_submit_result_output out;
-};
-
-/* input/output initializer */
-static __inline__ void
-genom_tinit_bayes_opt_submit_result_activity(
-  struct genom_bayes_opt_submit_result_activity *a)
-{
-  genom_tinit_double(
-    &(a->in.score));
-}
-
-/* input/output finalizer */
-static __inline__ void
-genom_tfini_bayes_opt_submit_result_activity(
-  struct genom_bayes_opt_submit_result_activity *a)
-{
-  genom_tfini_double(
-    &(a->in.score));
-}
-
-
-/* --- get_best_parameters ---------------------------------------------- */
-
-/* activity data */
-struct genom_bayes_opt_get_best_parameters_activity {
-  struct genom_activity h;
-  struct genom_bayes_opt_get_best_parameters_input in;
-  struct genom_bayes_opt_get_best_parameters_output out;
-};
-
-/* input/output initializer */
-static __inline__ void
-genom_tinit_bayes_opt_get_best_parameters_activity(
-  struct genom_bayes_opt_get_best_parameters_activity *a)
-{
-  genom_tinit_t_bayes_opt_best(
-    &(a->out.best_result));
-}
-
-/* input/output finalizer */
-static __inline__ void
-genom_tfini_bayes_opt_get_best_parameters_activity(
-  struct genom_bayes_opt_get_best_parameters_activity *a)
-{
-  genom_tfini_t_bayes_opt_best(
-    &(a->out.best_result));
-}
-
-
 /* --- reset_optimizer -------------------------------------------------- */
 
 /* activity data */
@@ -308,6 +198,12 @@ genom_tinit_bayes_opt_Init_activity(
     a->in.upper_bounds);
   genom_tinit_long(
     &(a->in.max_iterations));
+  genom_tinit_double(
+    &(a->in.reference_x));
+  genom_tinit_double(
+    &(a->in.reference_y));
+  genom_tinit_double(
+    &(a->in.reference_z));
 }
 
 /* input/output finalizer */
@@ -321,6 +217,12 @@ genom_tfini_bayes_opt_Init_activity(
     a->in.upper_bounds);
   genom_tfini_long(
     &(a->in.max_iterations));
+  genom_tfini_double(
+    &(a->in.reference_x));
+  genom_tfini_double(
+    &(a->in.reference_y));
+  genom_tfini_double(
+    &(a->in.reference_z));
 }
 
 
@@ -352,31 +254,29 @@ genom_tfini_bayes_opt_AskNext_activity(
 }
 
 
-/* --- SubmitResult ----------------------------------------------------- */
+/* --- UpdateFromMeasure ------------------------------------------------ */
 
 /* activity data */
-struct genom_bayes_opt_SubmitResult_activity {
+struct genom_bayes_opt_UpdateFromMeasure_activity {
   struct genom_activity h;
-  struct genom_bayes_opt_SubmitResult_input in;
-  struct genom_bayes_opt_SubmitResult_output out;
+  struct genom_bayes_opt_UpdateFromMeasure_input in;
+  struct genom_bayes_opt_UpdateFromMeasure_output out;
 };
 
 /* input/output initializer */
 static __inline__ void
-genom_tinit_bayes_opt_SubmitResult_activity(
-  struct genom_bayes_opt_SubmitResult_activity *a)
+genom_tinit_bayes_opt_UpdateFromMeasure_activity(
+  struct genom_bayes_opt_UpdateFromMeasure_activity *a)
 {
-  genom_tinit_double(
-    &(a->in.score));
+  (void)a; /* fix -Wunused-parameter */
 }
 
 /* input/output finalizer */
 static __inline__ void
-genom_tfini_bayes_opt_SubmitResult_activity(
-  struct genom_bayes_opt_SubmitResult_activity *a)
+genom_tfini_bayes_opt_UpdateFromMeasure_activity(
+  struct genom_bayes_opt_UpdateFromMeasure_activity *a)
 {
-  genom_tfini_double(
-    &(a->in.score));
+  (void)a; /* fix -Wunused-parameter */
 }
 
 
@@ -408,6 +308,32 @@ genom_tfini_bayes_opt_GetBest_activity(
 }
 
 
+/* --- Reset ------------------------------------------------------------ */
+
+/* activity data */
+struct genom_bayes_opt_Reset_activity {
+  struct genom_activity h;
+  struct genom_bayes_opt_Reset_input in;
+  struct genom_bayes_opt_Reset_output out;
+};
+
+/* input/output initializer */
+static __inline__ void
+genom_tinit_bayes_opt_Reset_activity(
+  struct genom_bayes_opt_Reset_activity *a)
+{
+  (void)a; /* fix -Wunused-parameter */
+}
+
+/* input/output finalizer */
+static __inline__ void
+genom_tfini_bayes_opt_Reset_activity(
+  struct genom_bayes_opt_Reset_activity *a)
+{
+  (void)a; /* fix -Wunused-parameter */
+}
+
+
 
 /* === Activities ========================================================== */
 
@@ -417,15 +343,12 @@ union genom_any_activity {
   struct genom_bayes_opt_connect_port_activity s_connect_port;
   struct genom_bayes_opt_connect_service_activity s_connect_service;
   struct genom_bayes_opt_kill_activity s_kill;
-  struct genom_bayes_opt_initialize_optimizer_activity s_initialize_optimizer;
-  struct genom_bayes_opt_propose_parameters_activity s_propose_parameters;
-  struct genom_bayes_opt_submit_result_activity s_submit_result;
-  struct genom_bayes_opt_get_best_parameters_activity s_get_best_parameters;
   struct genom_bayes_opt_reset_optimizer_activity s_reset_optimizer;
   struct genom_bayes_opt_Init_activity s_Init;
   struct genom_bayes_opt_AskNext_activity s_AskNext;
-  struct genom_bayes_opt_SubmitResult_activity s_SubmitResult;
+  struct genom_bayes_opt_UpdateFromMeasure_activity s_UpdateFromMeasure;
   struct genom_bayes_opt_GetBest_activity s_GetBest;
+  struct genom_bayes_opt_Reset_activity s_Reset;
 };
 
 struct genom_activities {

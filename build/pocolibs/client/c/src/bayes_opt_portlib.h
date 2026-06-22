@@ -34,11 +34,11 @@ struct genom_client_ports {
     struct {
       char name[H2_DEV_MAX_NAME];
       size_t size;
-      bayes_opt_score data;
+      bayes_opt_pose_sample data;
       POSTER_ID id;
     } *h;
     unsigned int n;
-  } result;
+  } measure;
 
   struct {
     struct {

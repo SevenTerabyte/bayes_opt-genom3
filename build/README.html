@@ -445,7 +445,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>0.8
+<p>0.9
 :toc: left</p>
 </div>
 <link rel="stylesheet" href="data:text/css,p{font-size: inherit !important}" >
@@ -456,7 +456,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_ports">Ports</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="result">result (in)</h3>
+<h3 id="measure">measure (in)</h3>
 <table class="tableblock frame-all grid-all right small" style="width: 50%;">
 <colgroup>
 <col style="width: 100%;">
@@ -467,11 +467,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Data structure</div>
 <ul class="disc">
 <li>
-<p><code>struct ::bayes_opt::score</code> <code>result</code></p>
+<p><code>struct ::bayes_opt::pose_sample</code> <code>measure</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>double</code> <code>value</code></p>
+<p><code>double</code> <code>x</code></p>
+</li>
+<li>
+<p><code>double</code> <code>y</code></p>
+</li>
+<li>
+<p><code>double</code> <code>z</code></p>
+</li>
+<li>
+<p><code>double</code> <code>vx</code></p>
+</li>
+<li>
+<p><code>double</code> <code>vy</code></p>
+</li>
+<li>
+<p><code>double</code> <code>vz</code></p>
 </li>
 <li>
 <p><code>boolean</code> <code>valid</code></p>
@@ -530,7 +545,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p><code>double</code> <code>params[32]</code></p>
+<p><code>double</code> <code>params[5]</code></p>
 </li>
 <li>
 <p><code>long</code> <code>iteration</code></p>
@@ -561,7 +576,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p><code>double</code> <code>params[32]</code></p>
+<p><code>double</code> <code>params[5]</code></p>
 </li>
 <li>
 <p><code>double</code> <code>value</code></p>
@@ -600,6 +615,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p><code>boolean</code> <code>running</code></p>
 </li>
+<li>
+<p><code>boolean</code> <code>initialized</code></p>
+</li>
 </ul>
 </div>
 </li>
@@ -615,93 +633,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_services">Services</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="initialize_optimizer">initialize_optimizer (function)</h3>
-<hr>
-</div>
-<div class="sect2">
-<h3 id="propose_parameters">propose_parameters (function)</h3>
-<table class="tableblock frame-all grid-all right small" style="width: 50%;">
-<colgroup>
-<col style="width: 100%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist disc">
-<div class="title">Outputs</div>
-<ul class="disc">
-<li>
-<p><code>struct ::bayes_opt::suggestion</code> <code>params</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>double</code> <code>params[32]</code></p>
-</li>
-<li>
-<p><code>long</code> <code>iteration</code></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<hr>
-</div>
-<div class="sect2">
-<h3 id="submit_result">submit_result (function)</h3>
-<table class="tableblock frame-all grid-all right small" style="width: 50%;">
-<colgroup>
-<col style="width: 100%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist disc">
-<div class="title">Inputs</div>
-<ul class="disc">
-<li>
-<p><code>double</code> <code>score</code></p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<hr>
-</div>
-<div class="sect2">
-<h3 id="get_best_parameters">get_best_parameters (function)</h3>
-<table class="tableblock frame-all grid-all right small" style="width: 50%;">
-<colgroup>
-<col style="width: 100%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist disc">
-<div class="title">Outputs</div>
-<ul class="disc">
-<li>
-<p><code>struct ::bayes_opt::best</code> <code>best_result</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>double</code> <code>params[32]</code></p>
-</li>
-<li>
-<p><code>double</code> <code>value</code></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<hr>
-</div>
 <div class="sect2">
 <h3 id="reset_optimizer">reset_optimizer (function)</h3>
 <hr>
@@ -725,6 +656,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li>
 <p><code>long</code> <code>max_iterations</code></p>
+</li>
+<li>
+<p><code>double</code> <code>reference_x</code> (default <code>"0"</code>)</p>
+</li>
+<li>
+<p><code>double</code> <code>reference_y</code> (default <code>"0"</code>)</p>
+</li>
+<li>
+<p><code>double</code> <code>reference_z</code> (default <code>"1"</code>)</p>
 </li>
 </ul>
 </div></div></td>
@@ -759,13 +699,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>In task <code><a href="#optimize">optimize</a></code></p>
 </li>
+<li>
+<p>Updates port <code><a href="#status">status (out)</a></code></p>
+</li>
 </ul>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Initialize Bayesian optimizer bounds and iteration count</p>
+<p>Initialize optimizer bounds, scoring reference position, and iteration count</p>
 </div>
 <hr>
 </div>
@@ -785,7 +728,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p><code>double</code> <code>params[32]</code></p>
+<p><code>double</code> <code>params[5]</code></p>
 </li>
 <li>
 <p><code>long</code> <code>iteration</code></p>
@@ -801,6 +744,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Throws</div>
 <ul class="disc">
 <li>
+<p><code>exception ::bayes_opt::NOT_INITIALIZED</code></p>
+</li>
+<li>
 <p><code>exception ::bayes_opt::OPTIMIZATION_FAILED</code></p>
 </li>
 </ul>
@@ -813,18 +759,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>In task <code><a href="#optimize">optimize</a></code></p>
 </li>
+<li>
+<p>Updates port <code><a href="#params">params (out)</a></code></p>
+</li>
+<li>
+<p>Updates port <code><a href="#status">status (out)</a></code></p>
+</li>
 </ul>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Generate next parameter vector</p>
+<p>Generate next parameter vector and publish it on params port</p>
 </div>
 <hr>
 </div>
 <div class="sect2">
-<h3 id="SubmitResult">SubmitResult (activity)</h3>
+<h3 id="UpdateFromMeasure">UpdateFromMeasure (activity)</h3>
 <table class="tableblock frame-all grid-all right small" style="width: 50%;">
 <colgroup>
 <col style="width: 100%;">
@@ -832,26 +784,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="ulist disc">
-<div class="title">Inputs</div>
-<ul class="disc">
-<li>
-<p><code>double</code> <code>score</code></p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist disc">
 <div class="title">Throws</div>
 <ul class="disc">
 <li>
-<p><code>exception ::bayes_opt::INVALID_PARAMETER</code></p>
+<p><code>exception ::bayes_opt::NOT_INITIALIZED</code></p>
 </li>
 <li>
-<p><code>exception ::bayes_opt::EVALUATION_FAILED</code></p>
+<p><code>exception ::bayes_opt::NO_MEASUREMENT</code></p>
 </li>
 <li>
-<p><code>exception ::bayes_opt::NO_SCORE_AVAILABLE</code></p>
+<p><code>exception ::bayes_opt::OPTIMIZATION_FAILED</code></p>
 </li>
 </ul>
 </div></div></td>
@@ -863,13 +805,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>In task <code><a href="#optimize">optimize</a></code></p>
 </li>
+<li>
+<p>Reads port <code><a href="#measure">measure (in)</a></code></p>
+</li>
+<li>
+<p>Reads port <code><a href="#allow">allow (in)</a></code></p>
+</li>
+<li>
+<p>Updates port <code><a href="#best_result">best_result (out)</a></code></p>
+</li>
+<li>
+<p>Updates port <code><a href="#status">status (out)</a></code></p>
+</li>
 </ul>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Submit experiment score</p>
+<p>Read latest pose measurement, compute objective score, and update optimizer</p>
 </div>
 <hr>
 </div>
@@ -889,7 +843,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p><code>double</code> <code>params[32]</code></p>
+<p><code>double</code> <code>params[5]</code></p>
 </li>
 <li>
 <p><code>double</code> <code>value</code></p>
@@ -905,7 +859,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Throws</div>
 <ul class="disc">
 <li>
-<p><code>exception ::bayes_opt::NO_SCORE_AVAILABLE</code></p>
+<p><code>exception ::bayes_opt::NOT_INITIALIZED</code></p>
+</li>
+<li>
+<p><code>exception ::bayes_opt::NO_BEST_RESULT</code></p>
 </li>
 </ul>
 </div></div></td>
@@ -917,13 +874,66 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>In task <code><a href="#optimize">optimize</a></code></p>
 </li>
+<li>
+<p>Updates port <code><a href="#best_result">best_result (out)</a></code></p>
+</li>
+<li>
+<p>Updates port <code><a href="#status">status (out)</a></code></p>
+</li>
 </ul>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Return best parameters and score found so far</p>
+<p>Return best parameters and best score found so far</p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="Reset">Reset (activity)</h3>
+<table class="tableblock frame-all grid-all right small" style="width: 50%;">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist disc">
+<div class="title">Throws</div>
+<ul class="disc">
+<li>
+<p><code>exception ::bayes_opt::e_sys</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>short</code> <code>code</code></p>
+</li>
+<li>
+<p><code>string&lt;128&gt;</code> <code>what</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist disc">
+<div class="title">Context</div>
+<ul class="disc">
+<li>
+<p>In task <code><a href="#optimize">optimize</a></code></p>
+</li>
+<li>
+<p>Updates port <code><a href="#status">status (out)</a></code></p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Reset optimizer internal state</p>
 </div>
 <hr>
 </div>
@@ -961,7 +971,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 13:51:01 +0100
+Last updated 2026-06-19 17:18:35 +0100
 </div>
 </div>
 </body>

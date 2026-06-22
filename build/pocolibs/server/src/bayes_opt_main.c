@@ -105,7 +105,7 @@ main(int argc, char **argv)
         break;
       }
 
-      case -'v': puts("0.8"); exit(0); break;
+      case -'v': puts("0.9"); exit(0); break;
       case 'h':  usage(stdout, argv[0]);  exit(0); break;
 
       case '?':
@@ -322,7 +322,7 @@ static void
 usage(FILE *channel, char *argv0)
 {
   fprintf(channel,
-	  "bayes_opt 0.8 GenoM component\n\nUsage:\n"
+	  "bayes_opt 0.9 GenoM component\n\nUsage:\n"
 	  "  %1$s [-i name] [--maxmsg size] [-f] [-b] [-p] [-d]\n"
 	  "  %1$s [-h|--version]\n"
 	  "\n%2$s",

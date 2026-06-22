@@ -32,22 +32,6 @@ int	genom_bayes_opt_kill_encode(char *buffer, int size,
 		char *dst, int maxsize);
 int	genom_bayes_opt_kill_decode(char *buffer, int size,
 		char *dst, int maxsize);
-int	genom_bayes_opt_initialize_optimizer_encode(char *buffer, int size,
-		char *dst, int maxsize);
-int	genom_bayes_opt_initialize_optimizer_decode(char *buffer, int size,
-		char *dst, int maxsize);
-int	genom_bayes_opt_propose_parameters_encode(char *buffer, int size,
-		char *dst, int maxsize);
-int	genom_bayes_opt_propose_parameters_decode(char *buffer, int size,
-		char *dst, int maxsize);
-int	genom_bayes_opt_submit_result_encode(char *buffer, int size,
-		char *dst, int maxsize);
-int	genom_bayes_opt_submit_result_decode(char *buffer, int size,
-		char *dst, int maxsize);
-int	genom_bayes_opt_get_best_parameters_encode(char *buffer, int size,
-		char *dst, int maxsize);
-int	genom_bayes_opt_get_best_parameters_decode(char *buffer, int size,
-		char *dst, int maxsize);
 int	genom_bayes_opt_reset_optimizer_encode(char *buffer, int size,
 		char *dst, int maxsize);
 int	genom_bayes_opt_reset_optimizer_decode(char *buffer, int size,
@@ -60,13 +44,17 @@ int	genom_bayes_opt_AskNext_encode(char *buffer, int size,
 		char *dst, int maxsize);
 int	genom_bayes_opt_AskNext_decode(char *buffer, int size,
 		char *dst, int maxsize);
-int	genom_bayes_opt_SubmitResult_encode(char *buffer, int size,
+int	genom_bayes_opt_UpdateFromMeasure_encode(char *buffer, int size,
 		char *dst, int maxsize);
-int	genom_bayes_opt_SubmitResult_decode(char *buffer, int size,
+int	genom_bayes_opt_UpdateFromMeasure_decode(char *buffer, int size,
 		char *dst, int maxsize);
 int	genom_bayes_opt_GetBest_encode(char *buffer, int size,
 		char *dst, int maxsize);
 int	genom_bayes_opt_GetBest_decode(char *buffer, int size,
+		char *dst, int maxsize);
+int	genom_bayes_opt_Reset_encode(char *buffer, int size,
+		char *dst, int maxsize);
+int	genom_bayes_opt_Reset_decode(char *buffer, int size,
 		char *dst, int maxsize);
 int	genom_bayes_opt_genom_state_decode(char *buffer,
 		genom_state_component *dst);
@@ -317,206 +305,6 @@ genom_bayes_opt_client_kill_result(
 }
 
 
-/* --- bayes_opt_initialize_optimizer_rqst ------------------------------ */
-
-genom_event
-genom_bayes_opt_client_initialize_optimizer_rqst(
-  genom_client h,
-  const struct genom_bayes_opt_initialize_optimizer_input *in,
-  bayes_opt_initialize_optimizer_cb sentcb, bayes_opt_initialize_optimizer_cb donecb,
-  void *cb_data,
-  int *rqstid)
-{
-  assert(h);
-
-  return pocolibs_sendrqst(
-    h, BAYES_OPT_initialize_optimizer_RQSTID,
-    genom_bayes_opt_client_initialize_optimizer_info,
-    in, genom_bayes_opt_initialize_optimizer_encode,
-    FALSE,
-    (void (*)(void *))genom_bayes_opt_client_initialize_optimizer_init_output,
-    genom_bayes_opt_initialize_optimizer_decode,
-    sizeof(struct genom_bayes_opt_initialize_optimizer_output),
-    (genom_request_cb)sentcb, (genom_request_cb)donecb, cb_data,
-    rqstid);
-}
-
-
-/* --- bayes_opt_initialize_optimizer_result ---------------------------- */
-
-genom_event
-genom_bayes_opt_client_initialize_optimizer_result(
-  genom_client h, int rqstid, genom_event *report,
-  struct genom_bayes_opt_initialize_optimizer_output **out, void **exdetail)
-{
-  struct genom_client_request *a;
-  genom_event s;
-  void *p;
-
-  if (rqstid < 0 || rqstid >= h->nactive)
-    return genom_syserr(&(genom_syserr_detail){.code = ENOENT}, &h->context);
-
-  a = &h->active_rqst[rqstid];
-  if (a->info != genom_bayes_opt_client_initialize_optimizer_info)
-    return genom_syserr(&(genom_syserr_detail){.code = ENOMSG}, &h->context);
-
-  s = pocolibs_result(h, rqstid, report, &p, exdetail);
-  if (s) return s;
-  if (out) *out = p;
-  return genom_ok;
-}
-
-
-/* --- bayes_opt_propose_parameters_rqst -------------------------------- */
-
-genom_event
-genom_bayes_opt_client_propose_parameters_rqst(
-  genom_client h,
-  const struct genom_bayes_opt_propose_parameters_input *in,
-  bayes_opt_propose_parameters_cb sentcb, bayes_opt_propose_parameters_cb donecb,
-  void *cb_data,
-  int *rqstid)
-{
-  assert(h);
-
-  return pocolibs_sendrqst(
-    h, BAYES_OPT_propose_parameters_RQSTID,
-    genom_bayes_opt_client_propose_parameters_info,
-    in, genom_bayes_opt_propose_parameters_encode,
-    FALSE,
-    (void (*)(void *))genom_bayes_opt_client_propose_parameters_init_output,
-    genom_bayes_opt_propose_parameters_decode,
-    sizeof(struct genom_bayes_opt_propose_parameters_output),
-    (genom_request_cb)sentcb, (genom_request_cb)donecb, cb_data,
-    rqstid);
-}
-
-
-/* --- bayes_opt_propose_parameters_result ------------------------------ */
-
-genom_event
-genom_bayes_opt_client_propose_parameters_result(
-  genom_client h, int rqstid, genom_event *report,
-  struct genom_bayes_opt_propose_parameters_output **out, void **exdetail)
-{
-  struct genom_client_request *a;
-  genom_event s;
-  void *p;
-
-  if (rqstid < 0 || rqstid >= h->nactive)
-    return genom_syserr(&(genom_syserr_detail){.code = ENOENT}, &h->context);
-
-  a = &h->active_rqst[rqstid];
-  if (a->info != genom_bayes_opt_client_propose_parameters_info)
-    return genom_syserr(&(genom_syserr_detail){.code = ENOMSG}, &h->context);
-
-  s = pocolibs_result(h, rqstid, report, &p, exdetail);
-  if (s) return s;
-  if (out) *out = p;
-  return genom_ok;
-}
-
-
-/* --- bayes_opt_submit_result_rqst ------------------------------------- */
-
-genom_event
-genom_bayes_opt_client_submit_result_rqst(
-  genom_client h,
-  const struct genom_bayes_opt_submit_result_input *in,
-  bayes_opt_submit_result_cb sentcb, bayes_opt_submit_result_cb donecb,
-  void *cb_data,
-  int *rqstid)
-{
-  assert(h);
-
-  return pocolibs_sendrqst(
-    h, BAYES_OPT_submit_result_RQSTID,
-    genom_bayes_opt_client_submit_result_info,
-    in, genom_bayes_opt_submit_result_encode,
-    FALSE,
-    (void (*)(void *))genom_bayes_opt_client_submit_result_init_output,
-    genom_bayes_opt_submit_result_decode,
-    sizeof(struct genom_bayes_opt_submit_result_output),
-    (genom_request_cb)sentcb, (genom_request_cb)donecb, cb_data,
-    rqstid);
-}
-
-
-/* --- bayes_opt_submit_result_result ----------------------------------- */
-
-genom_event
-genom_bayes_opt_client_submit_result_result(
-  genom_client h, int rqstid, genom_event *report,
-  struct genom_bayes_opt_submit_result_output **out, void **exdetail)
-{
-  struct genom_client_request *a;
-  genom_event s;
-  void *p;
-
-  if (rqstid < 0 || rqstid >= h->nactive)
-    return genom_syserr(&(genom_syserr_detail){.code = ENOENT}, &h->context);
-
-  a = &h->active_rqst[rqstid];
-  if (a->info != genom_bayes_opt_client_submit_result_info)
-    return genom_syserr(&(genom_syserr_detail){.code = ENOMSG}, &h->context);
-
-  s = pocolibs_result(h, rqstid, report, &p, exdetail);
-  if (s) return s;
-  if (out) *out = p;
-  return genom_ok;
-}
-
-
-/* --- bayes_opt_get_best_parameters_rqst ------------------------------- */
-
-genom_event
-genom_bayes_opt_client_get_best_parameters_rqst(
-  genom_client h,
-  const struct genom_bayes_opt_get_best_parameters_input *in,
-  bayes_opt_get_best_parameters_cb sentcb, bayes_opt_get_best_parameters_cb donecb,
-  void *cb_data,
-  int *rqstid)
-{
-  assert(h);
-
-  return pocolibs_sendrqst(
-    h, BAYES_OPT_get_best_parameters_RQSTID,
-    genom_bayes_opt_client_get_best_parameters_info,
-    in, genom_bayes_opt_get_best_parameters_encode,
-    FALSE,
-    (void (*)(void *))genom_bayes_opt_client_get_best_parameters_init_output,
-    genom_bayes_opt_get_best_parameters_decode,
-    sizeof(struct genom_bayes_opt_get_best_parameters_output),
-    (genom_request_cb)sentcb, (genom_request_cb)donecb, cb_data,
-    rqstid);
-}
-
-
-/* --- bayes_opt_get_best_parameters_result ----------------------------- */
-
-genom_event
-genom_bayes_opt_client_get_best_parameters_result(
-  genom_client h, int rqstid, genom_event *report,
-  struct genom_bayes_opt_get_best_parameters_output **out, void **exdetail)
-{
-  struct genom_client_request *a;
-  genom_event s;
-  void *p;
-
-  if (rqstid < 0 || rqstid >= h->nactive)
-    return genom_syserr(&(genom_syserr_detail){.code = ENOENT}, &h->context);
-
-  a = &h->active_rqst[rqstid];
-  if (a->info != genom_bayes_opt_client_get_best_parameters_info)
-    return genom_syserr(&(genom_syserr_detail){.code = ENOMSG}, &h->context);
-
-  s = pocolibs_result(h, rqstid, report, &p, exdetail);
-  if (s) return s;
-  if (out) *out = p;
-  return genom_ok;
-}
-
-
 /* --- bayes_opt_reset_optimizer_rqst ----------------------------------- */
 
 genom_event
@@ -667,37 +455,37 @@ genom_bayes_opt_client_AskNext_result(
 }
 
 
-/* --- bayes_opt_SubmitResult_rqst -------------------------------------- */
+/* --- bayes_opt_UpdateFromMeasure_rqst --------------------------------- */
 
 genom_event
-genom_bayes_opt_client_SubmitResult_rqst(
+genom_bayes_opt_client_UpdateFromMeasure_rqst(
   genom_client h,
-  const struct genom_bayes_opt_SubmitResult_input *in,
-  bayes_opt_SubmitResult_cb sentcb, bayes_opt_SubmitResult_cb donecb,
+  const struct genom_bayes_opt_UpdateFromMeasure_input *in,
+  bayes_opt_UpdateFromMeasure_cb sentcb, bayes_opt_UpdateFromMeasure_cb donecb,
   void *cb_data,
   int *rqstid)
 {
   assert(h);
 
   return pocolibs_sendrqst(
-    h, BAYES_OPT_SubmitResult_RQSTID,
-    genom_bayes_opt_client_SubmitResult_info,
-    in, genom_bayes_opt_SubmitResult_encode,
+    h, BAYES_OPT_UpdateFromMeasure_RQSTID,
+    genom_bayes_opt_client_UpdateFromMeasure_info,
+    in, genom_bayes_opt_UpdateFromMeasure_encode,
     TRUE,
-    (void (*)(void *))genom_bayes_opt_client_SubmitResult_init_output,
-    genom_bayes_opt_SubmitResult_decode,
-    sizeof(struct genom_bayes_opt_SubmitResult_output),
+    (void (*)(void *))genom_bayes_opt_client_UpdateFromMeasure_init_output,
+    genom_bayes_opt_UpdateFromMeasure_decode,
+    sizeof(struct genom_bayes_opt_UpdateFromMeasure_output),
     (genom_request_cb)sentcb, (genom_request_cb)donecb, cb_data,
     rqstid);
 }
 
 
-/* --- bayes_opt_SubmitResult_result ------------------------------------ */
+/* --- bayes_opt_UpdateFromMeasure_result ------------------------------- */
 
 genom_event
-genom_bayes_opt_client_SubmitResult_result(
+genom_bayes_opt_client_UpdateFromMeasure_result(
   genom_client h, int rqstid, genom_event *report,
-  struct genom_bayes_opt_SubmitResult_output **out, void **exdetail)
+  struct genom_bayes_opt_UpdateFromMeasure_output **out, void **exdetail)
 {
   struct genom_client_request *a;
   genom_event s;
@@ -707,7 +495,7 @@ genom_bayes_opt_client_SubmitResult_result(
     return genom_syserr(&(genom_syserr_detail){.code = ENOENT}, &h->context);
 
   a = &h->active_rqst[rqstid];
-  if (a->info != genom_bayes_opt_client_SubmitResult_info)
+  if (a->info != genom_bayes_opt_client_UpdateFromMeasure_info)
     return genom_syserr(&(genom_syserr_detail){.code = ENOMSG}, &h->context);
 
   s = pocolibs_result(h, rqstid, report, &p, exdetail);
@@ -758,6 +546,56 @@ genom_bayes_opt_client_GetBest_result(
 
   a = &h->active_rqst[rqstid];
   if (a->info != genom_bayes_opt_client_GetBest_info)
+    return genom_syserr(&(genom_syserr_detail){.code = ENOMSG}, &h->context);
+
+  s = pocolibs_result(h, rqstid, report, &p, exdetail);
+  if (s) return s;
+  if (out) *out = p;
+  return genom_ok;
+}
+
+
+/* --- bayes_opt_Reset_rqst --------------------------------------------- */
+
+genom_event
+genom_bayes_opt_client_Reset_rqst(
+  genom_client h,
+  const struct genom_bayes_opt_Reset_input *in,
+  bayes_opt_Reset_cb sentcb, bayes_opt_Reset_cb donecb,
+  void *cb_data,
+  int *rqstid)
+{
+  assert(h);
+
+  return pocolibs_sendrqst(
+    h, BAYES_OPT_Reset_RQSTID,
+    genom_bayes_opt_client_Reset_info,
+    in, genom_bayes_opt_Reset_encode,
+    TRUE,
+    (void (*)(void *))genom_bayes_opt_client_Reset_init_output,
+    genom_bayes_opt_Reset_decode,
+    sizeof(struct genom_bayes_opt_Reset_output),
+    (genom_request_cb)sentcb, (genom_request_cb)donecb, cb_data,
+    rqstid);
+}
+
+
+/* --- bayes_opt_Reset_result ------------------------------------------- */
+
+genom_event
+genom_bayes_opt_client_Reset_result(
+  genom_client h, int rqstid, genom_event *report,
+  struct genom_bayes_opt_Reset_output **out, void **exdetail)
+{
+  struct genom_client_request *a;
+  genom_event s;
+  void *p;
+
+  if (rqstid < 0 || rqstid >= h->nactive)
+    return genom_syserr(&(genom_syserr_detail){.code = ENOENT}, &h->context);
+
+  a = &h->active_rqst[rqstid];
+  if (a->info != genom_bayes_opt_client_Reset_info)
     return genom_syserr(&(genom_syserr_detail){.code = ENOMSG}, &h->context);
 
   s = pocolibs_result(h, rqstid, report, &p, exdetail);
@@ -1089,10 +927,10 @@ genom_bayes_opt_client_status_port(
 
 
 
-/* --- bayes_opt_result publisher --------------------------------------- */
+/* --- bayes_opt_measure publisher -------------------------------------- */
 
 genom_event
-genom_bayes_opt_client_result_open(
+genom_bayes_opt_client_measure_open(
   genom_client h, const char *path, const char **name)
 {
   size_t l;
@@ -1102,58 +940,58 @@ genom_bayes_opt_client_result_open(
   if (!*path)
     return genom_syserr(&(genom_syserr_detail){.code = ENXIO}, &h->context);
 
-  for(i = 0; i < h->ports->result.n; i++) {
-    if (!strcmp(h->ports->result.h[i].name, path)) break;
-    if (h->ports->result.h[i].name[0] == 0)
+  for(i = 0; i < h->ports->measure.n; i++) {
+    if (!strcmp(h->ports->measure.h[i].name, path)) break;
+    if (h->ports->measure.h[i].name[0] == 0)
       /* reuse empty slot */ break;
   }
-  if (i >= h->ports->result.n) {
+  if (i >= h->ports->measure.n) {
     /* create slot */
     void *a = realloc(
-      h->ports->result.h, (i+1) * sizeof(*h->ports->result.h));
+      h->ports->measure.h, (i+1) * sizeof(*h->ports->measure.h));
     if (!a)
       return genom_syserr(&(genom_syserr_detail){.code = errno}, &h->context);
 
-    h->ports->result.h = a;
-    genom_bayes_opt_client_result_init_data(
-      &(h->ports->result.h[i].data));
-    h->ports->result.h[i].id = NULL;
-    h->ports->result.n = i+1;
+    h->ports->measure.h = a;
+    genom_bayes_opt_client_measure_init_data(
+      &(h->ports->measure.h[i].data));
+    h->ports->measure.h[i].id = NULL;
+    h->ports->measure.n = i+1;
   }
-  *name = h->ports->result.h[i].name;
+  *name = h->ports->measure.h[i].name;
 
-  if (h->ports->result.h[i].id)
+  if (h->ports->measure.h[i].id)
     /* already exists locally */ return genom_ok;
 
   /* set name */
-  n = snprintf(h->ports->result.h[i].name,
-               sizeof(h->ports->result.h[i].name), "%s", path);
-  if (n <= 0 || n >= (signed)sizeof(h->ports->result.h[i].name)) {
-    h->ports->result.h[i].name[0] = 0;
+  n = snprintf(h->ports->measure.h[i].name,
+               sizeof(h->ports->measure.h[i].name), "%s", path);
+  if (n <= 0 || n >= (signed)sizeof(h->ports->measure.h[i].name)) {
+    h->ports->measure.h[i].name[0] = 0;
     return genom_syserr(
       &(genom_syserr_detail){.code = ENAMETOOLONG}, &h->context);
   }
 
   /* create */
-  l = genom_maxserialen_t_bayes_opt_score();
-  if (posterCreate(*name, (int)l, &h->ports->result.h[i].id) != OK) {
+  l = genom_maxserialen_t_bayes_opt_pose_sample();
+  if (posterCreate(*name, (int)l, &h->ports->measure.h[i].id) != OK) {
     genom_mwerr_detail d;
     char msg[sizeof(d.what)];
 
     h2getErrMsg(errnoGet(), msg, sizeof(msg));
     if (snprintf(d.what, sizeof(d.what), "%s port: %s", path, msg) < 0)
       strncpy(d.what, "internal error", sizeof(d.what));
-    h->ports->result.h[i].name[0] = 0;
-    h->ports->result.h[i].id = NULL;
+    h->ports->measure.h[i].name[0] = 0;
+    h->ports->measure.h[i].id = NULL;
     return genom_mwerr(&d, &h->context);
   }
-  h->ports->result.h[i].size = l;
+  h->ports->measure.h[i].size = l;
 
   return genom_ok;
 }
 
 genom_event
-genom_bayes_opt_client_result_close(
+genom_bayes_opt_client_measure_close(
   genom_client h, const char *name)
 {
   POSTER_ID p;
@@ -1163,20 +1001,20 @@ genom_bayes_opt_client_result_close(
   if (!*name)
     return genom_syserr(&(genom_syserr_detail){.code = ENXIO}, &h->context);
 
-  for(i = 0; i < h->ports->result.n; i++)
-    if (!strcmp(h->ports->result.h[i].name, name)) break;
-  if (i >= h->ports->result.n)
+  for(i = 0; i < h->ports->measure.n; i++)
+    if (!strcmp(h->ports->measure.h[i].name, name)) break;
+  if (i >= h->ports->measure.n)
     return genom_syserr(&(genom_syserr_detail){.code = ENXIO}, &h->context);
 
-  p = h->ports->result.h[i].id;
+  p = h->ports->measure.h[i].id;
   if (!p)
     return genom_syserr(&(genom_syserr_detail){.code = ENOENT}, &h->context);
 
-  h->ports->result.h[i].name[0] = 0;
-  h->ports->result.h[i].size = 0;
-  h->ports->result.h[i].id = NULL;
-  genom_bayes_opt_client_result_fini_data(
-    &(h->ports->result.h[i].data));
+  h->ports->measure.h[i].name[0] = 0;
+  h->ports->measure.h[i].size = 0;
+  h->ports->measure.h[i].id = NULL;
+  genom_bayes_opt_client_measure_fini_data(
+    &(h->ports->measure.h[i].data));
 
   if (posterDelete(p) != OK) {
     genom_mwerr_detail d;
@@ -1197,8 +1035,8 @@ genom_bayes_opt_client_result_close(
   return genom_ok;
 }
 
-bayes_opt_score *
-genom_bayes_opt_client_result_data(
+bayes_opt_pose_sample *
+genom_bayes_opt_client_measure_data(
   genom_client h, const char *name)
 {
   int i;
@@ -1209,20 +1047,20 @@ genom_bayes_opt_client_result_data(
     return NULL;
   }
 
-  for(i = 0; i < h->ports->result.n; i++)
-    if (!strcmp(h->ports->result.h[i].name, name)) break;
-  if (i >= h->ports->result.n) {
+  for(i = 0; i < h->ports->measure.n; i++)
+    if (!strcmp(h->ports->measure.h[i].name, name)) break;
+  if (i >= h->ports->measure.n) {
     genom_syserr(&(genom_syserr_detail){.code = ENXIO}, &h->context);
     return NULL;
   }
 
-  return &(h->ports->result.h[i].data);
+  return &(h->ports->measure.h[i].data);
 }
 
 genom_event
-genom_bayes_opt_client_result_write(
+genom_bayes_opt_client_measure_write(
   genom_client h, const char *name,
-  const bayes_opt_score *data)
+  const bayes_opt_pose_sample *data)
 {
   POSTER_ID *p;
   char *addr;
@@ -1233,29 +1071,29 @@ genom_bayes_opt_client_result_write(
   if (!*name)
     return genom_syserr(&(genom_syserr_detail){.code = ENXIO}, &h->context);
 
-  for(i = 0; i < h->ports->result.n; i++)
-    if (!strcmp(h->ports->result.h[i].name, name)) break;
-  if (i >= h->ports->result.n)
+  for(i = 0; i < h->ports->measure.n; i++)
+    if (!strcmp(h->ports->measure.h[i].name, name)) break;
+  if (i >= h->ports->measure.n)
     return genom_syserr(&(genom_syserr_detail){.code = ENXIO}, &h->context);
 
-  p = &h->ports->result.h[i].id;
+  p = &h->ports->measure.h[i].id;
   if (!*p)
     return genom_syserr(&(genom_syserr_detail){.code = ENOENT}, &h->context);
 
   /* resize if needed */
-  l = genom_serialen_t_bayes_opt_score(
-    &(h->ports->result.h[i].data));
-  if (l > h->ports->result.h[i].size ||
-      l + (1<<17) < h->ports->result.h[i].size) {
+  l = genom_serialen_t_bayes_opt_pose_sample(
+    &(h->ports->measure.h[i].data));
+  if (l > h->ports->measure.h[i].size ||
+      l + (1<<17) < h->ports->measure.h[i].size) {
     if (posterIoctl(*p, FIO_RESIZE, &l) == OK) {
-      h->ports->result.h[i].size = l;
+      h->ports->measure.h[i].size = l;
       goto lock;
     }
     s = errnoGet();
     if (s == S_posterLib_POSTER_CLOSED && posterFind(name, p) == OK) {
       /* ok, found again */
       if (posterIoctl(*p, FIO_RESIZE, &l) == OK) {
-        h->ports->result.h[i].size = l;
+        h->ports->measure.h[i].size = l;
         goto lock;
       }
       s = errnoGet();
@@ -1279,13 +1117,13 @@ lock:
 locked:
   addr = posterAddr(*p);
   if (data)
-    genom_serialize_t_bayes_opt_score(
+    genom_serialize_t_bayes_opt_pose_sample(
       &addr,
       &(*(data)));
   else
-    genom_serialize_t_bayes_opt_score(
+    genom_serialize_t_bayes_opt_pose_sample(
       &addr,
-      &(h->ports->result.h[i].data));
+      &(h->ports->measure.h[i].data));
   posterGive(*p);
   return genom_ok;
 

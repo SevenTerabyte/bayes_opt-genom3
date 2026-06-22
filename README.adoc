@@ -6,7 +6,7 @@
 
 = bayes_opt component
 
-0.8
+0.9
 :toc: left
 
 // fix default asciidoctor stylesheet issue #2407 and add hr clear rule
@@ -23,16 +23,21 @@ endif::[]
 == Ports
 
 
-[[result]]
-=== result (in)
+[[measure]]
+=== measure (in)
 
 
 [role="small", width="50%", float="right", cols="1"]
 |===
 a|.Data structure
 [disc]
- * `struct ::bayes_opt::score` `result`
- ** `double` `value`
+ * `struct ::bayes_opt::pose_sample` `measure`
+ ** `double` `x`
+ ** `double` `y`
+ ** `double` `z`
+ ** `double` `vx`
+ ** `double` `vy`
+ ** `double` `vz`
  ** `boolean` `valid`
 
 |===
@@ -63,7 +68,7 @@ a|.Data structure
 a|.Data structure
 [disc]
  * `struct ::bayes_opt::suggestion` `params`
- ** `double` `params[32]`
+ ** `double` `params[5]`
  ** `long` `iteration`
 
 |===
@@ -79,7 +84,7 @@ a|.Data structure
 a|.Data structure
 [disc]
  * `struct ::bayes_opt::best` `best_result`
- ** `double` `params[32]`
+ ** `double` `params[5]`
  ** `double` `value`
 
 |===
@@ -98,61 +103,13 @@ a|.Data structure
  ** `char` `text[128]`
  ** `long` `iteration`
  ** `boolean` `running`
+ ** `boolean` `initialized`
 
 |===
 
 '''
 
 == Services
-
-[[initialize_optimizer]]
-=== initialize_optimizer (function)
-
-
-'''
-
-[[propose_parameters]]
-=== propose_parameters (function)
-
-[role="small", width="50%", float="right", cols="1"]
-|===
-a|.Outputs
-[disc]
- * `struct ::bayes_opt::suggestion` `params`
- ** `double` `params[32]`
- ** `long` `iteration`
-
-|===
-
-'''
-
-[[submit_result]]
-=== submit_result (function)
-
-[role="small", width="50%", float="right", cols="1"]
-|===
-a|.Inputs
-[disc]
- * `double` `score`
-
-|===
-
-'''
-
-[[get_best_parameters]]
-=== get_best_parameters (function)
-
-[role="small", width="50%", float="right", cols="1"]
-|===
-a|.Outputs
-[disc]
- * `struct ::bayes_opt::best` `best_result`
- ** `double` `params[32]`
- ** `double` `value`
-
-|===
-
-'''
 
 [[reset_optimizer]]
 === reset_optimizer (function)
@@ -173,6 +130,12 @@ a|.Inputs
 
  * `long` `max_iterations`
 
+ * `double` `reference_x` (default `"0"`)
+
+ * `double` `reference_y` (default `"0"`)
+
+ * `double` `reference_z` (default `"1"`)
+
 a|.Throws
 [disc]
  * `exception ::bayes_opt::INVALID_BOUNDS`
@@ -184,9 +147,10 @@ a|.Throws
 a|.Context
 [disc]
   * In task `<<optimize>>`
+  * Updates port `<<status>>`
 |===
 
-Initialize Bayesian optimizer bounds and iteration count
+Initialize optimizer bounds, scoring reference position, and iteration count
 
 '''
 
@@ -198,45 +162,49 @@ Initialize Bayesian optimizer bounds and iteration count
 a|.Outputs
 [disc]
  * `struct ::bayes_opt::suggestion` `params_out`
- ** `double` `params[32]`
+ ** `double` `params[5]`
  ** `long` `iteration`
 
 a|.Throws
 [disc]
+ * `exception ::bayes_opt::NOT_INITIALIZED`
+
  * `exception ::bayes_opt::OPTIMIZATION_FAILED`
 
 a|.Context
 [disc]
   * In task `<<optimize>>`
+  * Updates port `<<params>>`
+  * Updates port `<<status>>`
 |===
 
-Generate next parameter vector
+Generate next parameter vector and publish it on params port
 
 '''
 
-[[SubmitResult]]
-=== SubmitResult (activity)
+[[UpdateFromMeasure]]
+=== UpdateFromMeasure (activity)
 
 [role="small", width="50%", float="right", cols="1"]
 |===
-a|.Inputs
-[disc]
- * `double` `score`
-
 a|.Throws
 [disc]
- * `exception ::bayes_opt::INVALID_PARAMETER`
+ * `exception ::bayes_opt::NOT_INITIALIZED`
 
- * `exception ::bayes_opt::EVALUATION_FAILED`
+ * `exception ::bayes_opt::NO_MEASUREMENT`
 
- * `exception ::bayes_opt::NO_SCORE_AVAILABLE`
+ * `exception ::bayes_opt::OPTIMIZATION_FAILED`
 
 a|.Context
 [disc]
   * In task `<<optimize>>`
+  * Reads port `<<measure>>`
+  * Reads port `<<allow>>`
+  * Updates port `<<best_result>>`
+  * Updates port `<<status>>`
 |===
 
-Submit experiment score
+Read latest pose measurement, compute objective score, and update optimizer
 
 '''
 
@@ -248,19 +216,44 @@ Submit experiment score
 a|.Outputs
 [disc]
  * `struct ::bayes_opt::best` `best_result_out`
- ** `double` `params[32]`
+ ** `double` `params[5]`
  ** `double` `value`
 
 a|.Throws
 [disc]
- * `exception ::bayes_opt::NO_SCORE_AVAILABLE`
+ * `exception ::bayes_opt::NOT_INITIALIZED`
+
+ * `exception ::bayes_opt::NO_BEST_RESULT`
 
 a|.Context
 [disc]
   * In task `<<optimize>>`
+  * Updates port `<<best_result>>`
+  * Updates port `<<status>>`
 |===
 
-Return best parameters and score found so far
+Return best parameters and best score found so far
+
+'''
+
+[[Reset]]
+=== Reset (activity)
+
+[role="small", width="50%", float="right", cols="1"]
+|===
+a|.Throws
+[disc]
+ * `exception ::bayes_opt::e_sys`
+ ** `short` `code`
+ ** `string<128>` `what`
+
+a|.Context
+[disc]
+  * In task `<<optimize>>`
+  * Updates port `<<status>>`
+|===
+
+Reset optimizer internal state
 
 '''
 

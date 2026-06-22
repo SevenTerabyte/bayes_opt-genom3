@@ -35,15 +35,12 @@ static int	bayes_opt_abort_activity_rqstcb(SERV_ID csserv, int sid);
 static int	bayes_opt_connect_port_rqstcb(SERV_ID csserv, int sid);
 static int	bayes_opt_connect_service_rqstcb(SERV_ID csserv, int sid);
 static int	bayes_opt_kill_rqstcb(SERV_ID csserv, int sid);
-static int	bayes_opt_initialize_optimizer_rqstcb(SERV_ID csserv, int sid);
-static int	bayes_opt_propose_parameters_rqstcb(SERV_ID csserv, int sid);
-static int	bayes_opt_submit_result_rqstcb(SERV_ID csserv, int sid);
-static int	bayes_opt_get_best_parameters_rqstcb(SERV_ID csserv, int sid);
 static int	bayes_opt_reset_optimizer_rqstcb(SERV_ID csserv, int sid);
 static int	bayes_opt_Init_rqstcb(SERV_ID csserv, int sid);
 static int	bayes_opt_AskNext_rqstcb(SERV_ID csserv, int sid);
-static int	bayes_opt_SubmitResult_rqstcb(SERV_ID csserv, int sid);
+static int	bayes_opt_UpdateFromMeasure_rqstcb(SERV_ID csserv, int sid);
 static int	bayes_opt_GetBest_rqstcb(SERV_ID csserv, int sid);
+static int	bayes_opt_Reset_rqstcb(SERV_ID csserv, int sid);
 static void *	bayes_opt_cntrl_task(void *);
 
 
@@ -65,7 +62,7 @@ genom_bayes_opt_init(void)
   genom_tinit_t_bayes_opt_ids(&self->ids);
   genom_tinit_bayes_opt_genom_state_port(&self->ports.genom_state);
   genom_tinit_bayes_opt_genom_metadata_port(&self->ports.genom_metadata);
-  genom_tinit_bayes_opt_result_port(&self->ports.result);
+  genom_tinit_bayes_opt_measure_port(&self->ports.measure);
   genom_tinit_bayes_opt_allow_port(&self->ports.allow);
   genom_tinit_bayes_opt_params_port(&self->ports.params);
   genom_tinit_bayes_opt_best_result_port(&self->ports.best_result);
@@ -145,7 +142,7 @@ genom_bayes_opt_init(void)
   if (genom_state_bayes_opt_init(self)) goto error;
   if (genom_bayes_opt_genom_state_open(&self->control.context)) goto error;
   if (genom_bayes_opt_genom_metadata_open(&self->control.context)) goto error;
-  if (genom_bayes_opt_result_open(&self->control.context)) goto error;
+  if (genom_bayes_opt_measure_open(&self->control.context)) goto error;
   if (genom_bayes_opt_allow_open(&self->control.context)) goto error;
   if (genom_bayes_opt_params_open(&self->control.context)) goto error;
   if (genom_bayes_opt_best_result_open(&self->control.context)) goto error;
@@ -312,7 +309,7 @@ genom_bayes_opt_fini(void *data)
   /* clean up */
   genom_bayes_opt_genom_state_delete(&self->control.context);
   genom_bayes_opt_genom_metadata_delete(&self->control.context);
-  genom_bayes_opt_result_delete(&self->control.context);
+  genom_bayes_opt_measure_delete(&self->control.context);
   genom_bayes_opt_allow_delete(&self->control.context);
   genom_bayes_opt_params_delete(&self->control.context);
   genom_bayes_opt_best_result_delete(&self->control.context);
@@ -320,7 +317,7 @@ genom_bayes_opt_fini(void *data)
 
   genom_tfini_bayes_opt_genom_state_port(&self->ports.genom_state);
   genom_tfini_bayes_opt_genom_metadata_port(&self->ports.genom_metadata);
-  genom_tfini_bayes_opt_result_port(&self->ports.result);
+  genom_tfini_bayes_opt_measure_port(&self->ports.measure);
   genom_tfini_bayes_opt_allow_port(&self->ports.allow);
   genom_tfini_bayes_opt_params_port(&self->ports.params);
   genom_tfini_bayes_opt_best_result_port(&self->ports.best_result);
@@ -395,26 +392,6 @@ bayes_opt_cntrl_task(void *data)
     genom_log_warn(1, "cannot serve service kill");
     goto error;
   }
-  if (csServFuncInstall(self->control.csserv, BAYES_OPT_initialize_optimizer_RQSTID,
-                        (FUNCPTR)bayes_opt_initialize_optimizer_rqstcb) != OK) {
-    genom_log_warn(1, "cannot serve service initialize_optimizer");
-    goto error;
-  }
-  if (csServFuncInstall(self->control.csserv, BAYES_OPT_propose_parameters_RQSTID,
-                        (FUNCPTR)bayes_opt_propose_parameters_rqstcb) != OK) {
-    genom_log_warn(1, "cannot serve service propose_parameters");
-    goto error;
-  }
-  if (csServFuncInstall(self->control.csserv, BAYES_OPT_submit_result_RQSTID,
-                        (FUNCPTR)bayes_opt_submit_result_rqstcb) != OK) {
-    genom_log_warn(1, "cannot serve service submit_result");
-    goto error;
-  }
-  if (csServFuncInstall(self->control.csserv, BAYES_OPT_get_best_parameters_RQSTID,
-                        (FUNCPTR)bayes_opt_get_best_parameters_rqstcb) != OK) {
-    genom_log_warn(1, "cannot serve service get_best_parameters");
-    goto error;
-  }
   if (csServFuncInstall(self->control.csserv, BAYES_OPT_reset_optimizer_RQSTID,
                         (FUNCPTR)bayes_opt_reset_optimizer_rqstcb) != OK) {
     genom_log_warn(1, "cannot serve service reset_optimizer");
@@ -430,14 +407,19 @@ bayes_opt_cntrl_task(void *data)
     genom_log_warn(1, "cannot serve service AskNext");
     goto error;
   }
-  if (csServFuncInstall(self->control.csserv, BAYES_OPT_SubmitResult_RQSTID,
-                        (FUNCPTR)bayes_opt_SubmitResult_rqstcb) != OK) {
-    genom_log_warn(1, "cannot serve service SubmitResult");
+  if (csServFuncInstall(self->control.csserv, BAYES_OPT_UpdateFromMeasure_RQSTID,
+                        (FUNCPTR)bayes_opt_UpdateFromMeasure_rqstcb) != OK) {
+    genom_log_warn(1, "cannot serve service UpdateFromMeasure");
     goto error;
   }
   if (csServFuncInstall(self->control.csserv, BAYES_OPT_GetBest_RQSTID,
                         (FUNCPTR)bayes_opt_GetBest_rqstcb) != OK) {
     genom_log_warn(1, "cannot serve service GetBest");
+    goto error;
+  }
+  if (csServFuncInstall(self->control.csserv, BAYES_OPT_Reset_RQSTID,
+                        (FUNCPTR)bayes_opt_Reset_rqstcb) != OK) {
+    genom_log_warn(1, "cannot serve service Reset");
     goto error;
   }
 
@@ -829,270 +811,6 @@ clean:
 
 
 static int
-bayes_opt_initialize_optimizer_rqstcb(SERV_ID csserv, int rid)
-{
-  struct genom_component_data *self = ((struct CS_SERV_IDS *)csserv)->self;
-  struct genom_bayes_opt_initialize_optimizer_activity *a;
-  STATUS s;
-
-  genom_log_debug("handling request for initialize_optimizer");
-
-  /* get an activity slot */
-  a = &self->control.activity.s_initialize_optimizer;
-  assert(a->h.status == ACT_VOID);
-  a->h.status = ACT_INIT;
-  a->h.sid = BAYES_OPT_initialize_optimizer_RQSTID;
-  a->h.rid = rid;
-  genom_tinit_bayes_opt_initialize_optimizer_activity(a);
-
-  /* decode input */
-  s = csServRqstParamsGet(csserv, rid, (char *)&a->in, 0,
-                          genom_bayes_opt_initialize_optimizer_decode);
-  if (s == ERROR) {
-    genom_log_warn(0, "invalid input for service %s", "initialize_optimizer");
-    a->h.state = genom_serialization_id;
-    a->h.exdetail = NULL;
-    genom_bayes_opt_activity_report(self, &a->h);
-    goto clean;
-  }
-
-  /* run control, validate codel and simple codels */
-  a->h.state = genom_bayes_opt_initialize_optimizer_controlcb(self, a);
-
-  /* wake up sleeping activities */
-  pthread_mutex_lock(&self->tasks.optimize.lock);
-  if (!self->tasks.optimize.runnable) {
-    self->tasks.optimize.runnable = 1;
-    pthread_cond_broadcast(&self->tasks.optimize.sync);
-  }
-  pthread_mutex_unlock(&self->tasks.optimize.lock);
-
-  /* check control codels */
-  if (a->h.state) {
-    a->h.exdetail = (void *)self->control.context.raised(
-      NULL, &self->control.context);
-    genom_bayes_opt_activity_report(self, &a->h);
-    goto clean;
-  }
-
-  /* interrupt incompatible activities */
-  genom_bayes_opt_interrupt_reqd(self, &a->h);
-
-  /* update after/before array */
-  self->control.run_map[BAYES_OPT_initialize_optimizer_RQSTID] = 1;
-
-  /* send final reply */
-  a->h.state = bayes_opt_ether;
-  genom_bayes_opt_activity_report(self, &a->h);
-  goto clean;
-
-
-clean:
-  assert(a->h.status == ACT_INIT);
-  a->h.status = ACT_VOID;
-  return 0;
-}
-
-
-static int
-bayes_opt_propose_parameters_rqstcb(SERV_ID csserv, int rid)
-{
-  struct genom_component_data *self = ((struct CS_SERV_IDS *)csserv)->self;
-  struct genom_bayes_opt_propose_parameters_activity *a;
-  STATUS s;
-
-  genom_log_debug("handling request for propose_parameters");
-
-  /* get an activity slot */
-  a = &self->control.activity.s_propose_parameters;
-  assert(a->h.status == ACT_VOID);
-  a->h.status = ACT_INIT;
-  a->h.sid = BAYES_OPT_propose_parameters_RQSTID;
-  a->h.rid = rid;
-  genom_tinit_bayes_opt_propose_parameters_activity(a);
-
-  /* decode input */
-  s = csServRqstParamsGet(csserv, rid, (char *)&a->in, 0,
-                          genom_bayes_opt_propose_parameters_decode);
-  if (s == ERROR) {
-    genom_log_warn(0, "invalid input for service %s", "propose_parameters");
-    a->h.state = genom_serialization_id;
-    a->h.exdetail = NULL;
-    genom_bayes_opt_activity_report(self, &a->h);
-    goto clean;
-  }
-
-  /* run control, validate codel and simple codels */
-  a->h.state = genom_bayes_opt_propose_parameters_controlcb(self, a);
-
-  /* wake up sleeping activities */
-  pthread_mutex_lock(&self->tasks.optimize.lock);
-  if (!self->tasks.optimize.runnable) {
-    self->tasks.optimize.runnable = 1;
-    pthread_cond_broadcast(&self->tasks.optimize.sync);
-  }
-  pthread_mutex_unlock(&self->tasks.optimize.lock);
-
-  /* check control codels */
-  if (a->h.state) {
-    a->h.exdetail = (void *)self->control.context.raised(
-      NULL, &self->control.context);
-    genom_bayes_opt_activity_report(self, &a->h);
-    goto clean;
-  }
-
-  /* interrupt incompatible activities */
-  genom_bayes_opt_interrupt_reqd(self, &a->h);
-
-  /* update after/before array */
-  self->control.run_map[BAYES_OPT_propose_parameters_RQSTID] = 1;
-
-  /* send final reply */
-  a->h.state = bayes_opt_ether;
-  genom_bayes_opt_activity_report(self, &a->h);
-  goto clean;
-
-
-clean:
-  assert(a->h.status == ACT_INIT);
-  a->h.status = ACT_VOID;
-  return 0;
-}
-
-
-static int
-bayes_opt_submit_result_rqstcb(SERV_ID csserv, int rid)
-{
-  struct genom_component_data *self = ((struct CS_SERV_IDS *)csserv)->self;
-  struct genom_bayes_opt_submit_result_activity *a;
-  STATUS s;
-
-  genom_log_debug("handling request for submit_result");
-
-  /* get an activity slot */
-  a = &self->control.activity.s_submit_result;
-  assert(a->h.status == ACT_VOID);
-  a->h.status = ACT_INIT;
-  a->h.sid = BAYES_OPT_submit_result_RQSTID;
-  a->h.rid = rid;
-  genom_tinit_bayes_opt_submit_result_activity(a);
-
-  /* decode input */
-  s = csServRqstParamsGet(csserv, rid, (char *)&a->in, 0,
-                          genom_bayes_opt_submit_result_decode);
-  if (s == ERROR) {
-    genom_log_warn(0, "invalid input for service %s", "submit_result");
-    a->h.state = genom_serialization_id;
-    a->h.exdetail = NULL;
-    genom_bayes_opt_activity_report(self, &a->h);
-    goto clean;
-  }
-
-  /* run control, validate codel and simple codels */
-  a->h.state = genom_bayes_opt_submit_result_controlcb(self, a);
-
-  /* wake up sleeping activities */
-  pthread_mutex_lock(&self->tasks.optimize.lock);
-  if (!self->tasks.optimize.runnable) {
-    self->tasks.optimize.runnable = 1;
-    pthread_cond_broadcast(&self->tasks.optimize.sync);
-  }
-  pthread_mutex_unlock(&self->tasks.optimize.lock);
-
-  /* check control codels */
-  if (a->h.state) {
-    a->h.exdetail = (void *)self->control.context.raised(
-      NULL, &self->control.context);
-    genom_bayes_opt_activity_report(self, &a->h);
-    goto clean;
-  }
-
-  /* interrupt incompatible activities */
-  genom_bayes_opt_interrupt_reqd(self, &a->h);
-
-  /* update after/before array */
-  self->control.run_map[BAYES_OPT_submit_result_RQSTID] = 1;
-
-  /* send final reply */
-  a->h.state = bayes_opt_ether;
-  genom_bayes_opt_activity_report(self, &a->h);
-  goto clean;
-
-
-clean:
-  assert(a->h.status == ACT_INIT);
-  a->h.status = ACT_VOID;
-  return 0;
-}
-
-
-static int
-bayes_opt_get_best_parameters_rqstcb(SERV_ID csserv, int rid)
-{
-  struct genom_component_data *self = ((struct CS_SERV_IDS *)csserv)->self;
-  struct genom_bayes_opt_get_best_parameters_activity *a;
-  STATUS s;
-
-  genom_log_debug("handling request for get_best_parameters");
-
-  /* get an activity slot */
-  a = &self->control.activity.s_get_best_parameters;
-  assert(a->h.status == ACT_VOID);
-  a->h.status = ACT_INIT;
-  a->h.sid = BAYES_OPT_get_best_parameters_RQSTID;
-  a->h.rid = rid;
-  genom_tinit_bayes_opt_get_best_parameters_activity(a);
-
-  /* decode input */
-  s = csServRqstParamsGet(csserv, rid, (char *)&a->in, 0,
-                          genom_bayes_opt_get_best_parameters_decode);
-  if (s == ERROR) {
-    genom_log_warn(0, "invalid input for service %s", "get_best_parameters");
-    a->h.state = genom_serialization_id;
-    a->h.exdetail = NULL;
-    genom_bayes_opt_activity_report(self, &a->h);
-    goto clean;
-  }
-
-  /* run control, validate codel and simple codels */
-  a->h.state = genom_bayes_opt_get_best_parameters_controlcb(self, a);
-
-  /* wake up sleeping activities */
-  pthread_mutex_lock(&self->tasks.optimize.lock);
-  if (!self->tasks.optimize.runnable) {
-    self->tasks.optimize.runnable = 1;
-    pthread_cond_broadcast(&self->tasks.optimize.sync);
-  }
-  pthread_mutex_unlock(&self->tasks.optimize.lock);
-
-  /* check control codels */
-  if (a->h.state) {
-    a->h.exdetail = (void *)self->control.context.raised(
-      NULL, &self->control.context);
-    genom_bayes_opt_activity_report(self, &a->h);
-    goto clean;
-  }
-
-  /* interrupt incompatible activities */
-  genom_bayes_opt_interrupt_reqd(self, &a->h);
-
-  /* update after/before array */
-  self->control.run_map[BAYES_OPT_get_best_parameters_RQSTID] = 1;
-
-  /* send final reply */
-  a->h.state = bayes_opt_ether;
-  genom_bayes_opt_activity_report(self, &a->h);
-  goto clean;
-
-
-clean:
-  assert(a->h.status == ACT_INIT);
-  a->h.status = ACT_VOID;
-  return 0;
-}
-
-
-static int
 bayes_opt_reset_optimizer_rqstcb(SERV_ID csserv, int rid)
 {
   struct genom_component_data *self = ((struct CS_SERV_IDS *)csserv)->self;
@@ -1321,13 +1039,13 @@ clean:
 
 
 static int
-bayes_opt_SubmitResult_rqstcb(SERV_ID csserv, int rid)
+bayes_opt_UpdateFromMeasure_rqstcb(SERV_ID csserv, int rid)
 {
   struct genom_component_data *self = ((struct CS_SERV_IDS *)csserv)->self;
-  struct genom_bayes_opt_SubmitResult_activity *a;
+  struct genom_bayes_opt_UpdateFromMeasure_activity *a;
   STATUS s;
 
-  genom_log_debug("handling request for SubmitResult");
+  genom_log_debug("handling request for UpdateFromMeasure");
 
   /* get an activity slot */
   pthread_mutex_lock(&self->tasks.optimize.lock);
@@ -1340,17 +1058,17 @@ bayes_opt_SubmitResult_rqstcb(SERV_ID csserv, int rid)
     if (s == ERROR) assert(!"unexpected failure");
     return 0;
   }
-  a = &self->tasks.optimize.activities.a[id].s_SubmitResult;
+  a = &self->tasks.optimize.activities.a[id].s_UpdateFromMeasure;
   pthread_mutex_unlock(&self->tasks.optimize.lock);
-  a->h.sid = BAYES_OPT_SubmitResult_RQSTID;
+  a->h.sid = BAYES_OPT_UpdateFromMeasure_RQSTID;
   a->h.rid = rid;
-  genom_tinit_bayes_opt_SubmitResult_activity(a);
+  genom_tinit_bayes_opt_UpdateFromMeasure_activity(a);
 
   /* decode input */
   s = csServRqstParamsGet(csserv, rid, (char *)&a->in, 0,
-                          genom_bayes_opt_SubmitResult_decode);
+                          genom_bayes_opt_UpdateFromMeasure_decode);
   if (s == ERROR) {
-    genom_log_warn(0, "invalid input for service %s", "SubmitResult");
+    genom_log_warn(0, "invalid input for service %s", "UpdateFromMeasure");
     a->h.state = genom_serialization_id;
     a->h.exdetail = NULL;
     genom_bayes_opt_activity_report(self, &a->h);
@@ -1358,7 +1076,7 @@ bayes_opt_SubmitResult_rqstcb(SERV_ID csserv, int rid)
   }
 
   /* run control, validate codel and simple codels */
-  a->h.state = genom_bayes_opt_SubmitResult_controlcb(self, a);
+  a->h.state = genom_bayes_opt_UpdateFromMeasure_controlcb(self, a);
 
   /* wake up sleeping activities */
   pthread_mutex_lock(&self->tasks.optimize.lock);
@@ -1387,7 +1105,7 @@ bayes_opt_SubmitResult_rqstcb(SERV_ID csserv, int rid)
   s = csServReplySend(csserv, rid, INTERMED_REPLY, OK,
                       (char *)&a->h.aid, sizeof(int), NULL);
   if (s == ERROR) {
-    genom_log_warn(1, "cannot acknowledge service %s", "SubmitResult");
+    genom_log_warn(1, "cannot acknowledge service %s", "UpdateFromMeasure");
   }
 
   return 0;
@@ -1469,6 +1187,87 @@ bayes_opt_GetBest_rqstcb(SERV_ID csserv, int rid)
                       (char *)&a->h.aid, sizeof(int), NULL);
   if (s == ERROR) {
     genom_log_warn(1, "cannot acknowledge service %s", "GetBest");
+  }
+
+  return 0;
+
+clean:
+  assert(a->h.status == ACT_INIT);
+  pthread_mutex_lock(&self->tasks.optimize.lock);
+  a->h.status = ACT_VOID;
+  pthread_mutex_unlock(&self->tasks.optimize.lock);
+  return 0;
+}
+
+
+static int
+bayes_opt_Reset_rqstcb(SERV_ID csserv, int rid)
+{
+  struct genom_component_data *self = ((struct CS_SERV_IDS *)csserv)->self;
+  struct genom_bayes_opt_Reset_activity *a;
+  STATUS s;
+
+  genom_log_debug("handling request for Reset");
+
+  /* get an activity slot */
+  pthread_mutex_lock(&self->tasks.optimize.lock);
+  int id = genom_bayes_opt_activity_alloc(&self->tasks.optimize.activities);
+  if (id < 0) {
+    pthread_mutex_unlock(&self->tasks.optimize.lock);
+    s = csServReplySend(
+      csserv, rid, FINAL_REPLY, ERROR, NULL, 0,
+      genom_bayes_opt_genom_too_many_activities_encodex);
+    if (s == ERROR) assert(!"unexpected failure");
+    return 0;
+  }
+  a = &self->tasks.optimize.activities.a[id].s_Reset;
+  pthread_mutex_unlock(&self->tasks.optimize.lock);
+  a->h.sid = BAYES_OPT_Reset_RQSTID;
+  a->h.rid = rid;
+  genom_tinit_bayes_opt_Reset_activity(a);
+
+  /* decode input */
+  s = csServRqstParamsGet(csserv, rid, (char *)&a->in, 0,
+                          genom_bayes_opt_Reset_decode);
+  if (s == ERROR) {
+    genom_log_warn(0, "invalid input for service %s", "Reset");
+    a->h.state = genom_serialization_id;
+    a->h.exdetail = NULL;
+    genom_bayes_opt_activity_report(self, &a->h);
+    goto clean;
+  }
+
+  /* run control, validate codel and simple codels */
+  a->h.state = genom_bayes_opt_Reset_controlcb(self, a);
+
+  /* wake up sleeping activities */
+  pthread_mutex_lock(&self->tasks.optimize.lock);
+  if (!self->tasks.optimize.runnable) {
+    self->tasks.optimize.runnable = 1;
+    pthread_cond_broadcast(&self->tasks.optimize.sync);
+  }
+  pthread_mutex_unlock(&self->tasks.optimize.lock);
+
+  /* check control codels */
+  if (a->h.state) {
+    a->h.exdetail = (void *)self->control.context.raised(
+      NULL, &self->control.context);
+    genom_bayes_opt_activity_report(self, &a->h);
+    goto clean;
+  }
+
+  /* update state port */
+  pthread_mutex_lock(&self->tasks.optimize.lock);
+  genom_state_bayes_opt_update(
+              self, &self->tasks.optimize.activities,
+              bayes_opt_optimize_TASKID);
+  pthread_mutex_unlock(&self->tasks.optimize.lock);
+
+  /* send intermediate reply */
+  s = csServReplySend(csserv, rid, INTERMED_REPLY, OK,
+                      (char *)&a->h.aid, sizeof(int), NULL);
+  if (s == ERROR) {
+    genom_log_warn(1, "cannot acknowledge service %s", "Reset");
   }
 
   return 0;

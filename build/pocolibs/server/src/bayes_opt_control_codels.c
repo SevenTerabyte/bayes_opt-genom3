@@ -70,8 +70,8 @@ genom_connect_port_codel(const char local[128], const char remote[128],
     self->resources.all = 1);
 
   /* find the inport */
-  if (!strcmp(local, "result")) {
-    s = genom_bayes_opt_result_connect(remote, ctx);
+  if (!strcmp(local, "measure")) {
+    s = genom_bayes_opt_measure_connect(remote, ctx);
     goto done;
   }
   if (!strcmp(local, "allow")) {
@@ -370,102 +370,6 @@ genom_bayes_opt_kill_controlcb(
 }
 
 
-/* --- Service initialize_optimizer control codels ---------------------- */
-
-genom_event
-genom_bayes_opt_initialize_optimizer_controlcb(
-  struct genom_component_data *self,
-  struct genom_bayes_opt_initialize_optimizer_activity *a)
-{
-  genom_event s = genom_ok;
-  (void)self; (void)a; /* fix -Wunused-parameter */
-
-  /* check allowance (before/after statements) */
-
-  /* copy inout parameters to output */
-
-  /* call validate codel */
-
-  /* copy ids parameters to ids (attributes) */
-
-  /* call simple codels */
-
-  return s;
-}
-
-
-/* --- Service propose_parameters control codels ------------------------ */
-
-genom_event
-genom_bayes_opt_propose_parameters_controlcb(
-  struct genom_component_data *self,
-  struct genom_bayes_opt_propose_parameters_activity *a)
-{
-  genom_event s = genom_ok;
-  (void)self; (void)a; /* fix -Wunused-parameter */
-
-  /* check allowance (before/after statements) */
-
-  /* copy inout parameters to output */
-
-  /* call validate codel */
-
-  /* copy ids parameters to ids (attributes) */
-
-  /* call simple codels */
-
-  return s;
-}
-
-
-/* --- Service submit_result control codels ----------------------------- */
-
-genom_event
-genom_bayes_opt_submit_result_controlcb(
-  struct genom_component_data *self,
-  struct genom_bayes_opt_submit_result_activity *a)
-{
-  genom_event s = genom_ok;
-  (void)self; (void)a; /* fix -Wunused-parameter */
-
-  /* check allowance (before/after statements) */
-
-  /* copy inout parameters to output */
-
-  /* call validate codel */
-
-  /* copy ids parameters to ids (attributes) */
-
-  /* call simple codels */
-
-  return s;
-}
-
-
-/* --- Service get_best_parameters control codels ----------------------- */
-
-genom_event
-genom_bayes_opt_get_best_parameters_controlcb(
-  struct genom_component_data *self,
-  struct genom_bayes_opt_get_best_parameters_activity *a)
-{
-  genom_event s = genom_ok;
-  (void)self; (void)a; /* fix -Wunused-parameter */
-
-  /* check allowance (before/after statements) */
-
-  /* copy inout parameters to output */
-
-  /* call validate codel */
-
-  /* copy ids parameters to ids (attributes) */
-
-  /* call simple codels */
-
-  return s;
-}
-
-
 /* --- Service reset_optimizer control codels --------------------------- */
 
 genom_event
@@ -535,7 +439,8 @@ genom_bayes_opt_AskNext_controlcb(
     self,
     self->resources.task_optimize == boInit ||
     self->resources.task_optimize == boProposeParams ||
-    self->resources.task_optimize == boUpdateOptimizer ||
+    self->resources.task_optimize == boUpdateFromMeasure ||
+    self->resources.task_optimize == boReset ||
     self->resources.all,
 
     self->resources.control = checkInitialized);
@@ -558,12 +463,12 @@ genom_bayes_opt_AskNext_controlcb(
 }
 
 
-/* --- Service SubmitResult control codels ------------------------------ */
+/* --- Service UpdateFromMeasure control codels ------------------------- */
 
 genom_event
-genom_bayes_opt_SubmitResult_controlcb(
+genom_bayes_opt_UpdateFromMeasure_controlcb(
   struct genom_component_data *self,
-  struct genom_bayes_opt_SubmitResult_activity *a)
+  struct genom_bayes_opt_UpdateFromMeasure_activity *a)
 {
   genom_event s = genom_ok;
   (void)self; (void)a; /* fix -Wunused-parameter */
@@ -579,7 +484,8 @@ genom_bayes_opt_SubmitResult_controlcb(
     self,
     self->resources.task_optimize == boInit ||
     self->resources.task_optimize == boProposeParams ||
-    self->resources.task_optimize == boUpdateOptimizer ||
+    self->resources.task_optimize == boUpdateFromMeasure ||
+    self->resources.task_optimize == boReset ||
     self->resources.all,
 
     self->resources.control = checkInitialized);
@@ -590,8 +496,8 @@ genom_bayes_opt_SubmitResult_controlcb(
 
   genom_prof_collect(
     &event, genom_instance,
-    "<control>", "SubmitResult", "checkInitialized", "validate", s);
-  genom_log_debug("service SubmitResult validation returned %s", s?s:"ok");
+    "<control>", "UpdateFromMeasure", "checkInitialized", "validate", s);
+  genom_log_debug("service UpdateFromMeasure validation returned %s", s?s:"ok");
   if (s) return s;
 
   /* copy ids parameters to ids (attributes) */
@@ -623,7 +529,8 @@ genom_bayes_opt_GetBest_controlcb(
     self,
     self->resources.task_optimize == boInit ||
     self->resources.task_optimize == boProposeParams ||
-    self->resources.task_optimize == boUpdateOptimizer ||
+    self->resources.task_optimize == boUpdateFromMeasure ||
+    self->resources.task_optimize == boReset ||
     self->resources.all,
 
     self->resources.control = checkInitialized);
@@ -637,6 +544,30 @@ genom_bayes_opt_GetBest_controlcb(
     "<control>", "GetBest", "checkInitialized", "validate", s);
   genom_log_debug("service GetBest validation returned %s", s?s:"ok");
   if (s) return s;
+
+  /* copy ids parameters to ids (attributes) */
+
+  /* call simple codels */
+
+  return s;
+}
+
+
+/* --- Service Reset control codels ------------------------------------- */
+
+genom_event
+genom_bayes_opt_Reset_controlcb(
+  struct genom_component_data *self,
+  struct genom_bayes_opt_Reset_activity *a)
+{
+  genom_event s = genom_ok;
+  (void)self; (void)a; /* fix -Wunused-parameter */
+
+  /* check allowance (before/after statements) */
+
+  /* copy inout parameters to output */
+
+  /* call validate codel */
 
   /* copy ids parameters to ids (attributes) */
 

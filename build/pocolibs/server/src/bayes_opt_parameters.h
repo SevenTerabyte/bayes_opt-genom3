@@ -70,65 +70,6 @@ int	genom_bayes_opt_kill_encode(char *buffer, int size,
 int	genom_bayes_opt_kill_decode(char *buffer, int size,
 		char *dst, int maxsize);
 
-/* input of initialize_optimizer */
-struct genom_bayes_opt_initialize_optimizer_input {
-};
-
-/* output of initialize_optimizer */
-struct genom_bayes_opt_initialize_optimizer_output {
-};
-
-
-int	genom_bayes_opt_initialize_optimizer_encode(char *buffer, int size,
-		char *dst, int maxsize);
-int	genom_bayes_opt_initialize_optimizer_decode(char *buffer, int size,
-		char *dst, int maxsize);
-
-/* input of propose_parameters */
-struct genom_bayes_opt_propose_parameters_input {
-};
-
-/* output of propose_parameters */
-struct genom_bayes_opt_propose_parameters_output {
-  bayes_opt_suggestion params;
-};
-
-
-int	genom_bayes_opt_propose_parameters_encode(char *buffer, int size,
-		char *dst, int maxsize);
-int	genom_bayes_opt_propose_parameters_decode(char *buffer, int size,
-		char *dst, int maxsize);
-
-/* input of submit_result */
-struct genom_bayes_opt_submit_result_input {
-  double score;
-};
-
-/* output of submit_result */
-struct genom_bayes_opt_submit_result_output {
-};
-
-
-int	genom_bayes_opt_submit_result_encode(char *buffer, int size,
-		char *dst, int maxsize);
-int	genom_bayes_opt_submit_result_decode(char *buffer, int size,
-		char *dst, int maxsize);
-
-/* input of get_best_parameters */
-struct genom_bayes_opt_get_best_parameters_input {
-};
-
-/* output of get_best_parameters */
-struct genom_bayes_opt_get_best_parameters_output {
-  bayes_opt_best best_result;
-};
-
-
-int	genom_bayes_opt_get_best_parameters_encode(char *buffer, int size,
-		char *dst, int maxsize);
-int	genom_bayes_opt_get_best_parameters_decode(char *buffer, int size,
-		char *dst, int maxsize);
-
 /* input of reset_optimizer */
 struct genom_bayes_opt_reset_optimizer_input {
 };
@@ -148,6 +89,9 @@ struct genom_bayes_opt_Init_input {
   double lower_bounds[5];
   double upper_bounds[5];
   int32_t max_iterations;
+  double reference_x;
+  double reference_y;
+  double reference_z;
 };
 
 /* output of Init */
@@ -175,19 +119,18 @@ int	genom_bayes_opt_AskNext_encode(char *buffer, int size,
 int	genom_bayes_opt_AskNext_decode(char *buffer, int size,
 		char *dst, int maxsize);
 
-/* input of SubmitResult */
-struct genom_bayes_opt_SubmitResult_input {
-  double score;
+/* input of UpdateFromMeasure */
+struct genom_bayes_opt_UpdateFromMeasure_input {
 };
 
-/* output of SubmitResult */
-struct genom_bayes_opt_SubmitResult_output {
+/* output of UpdateFromMeasure */
+struct genom_bayes_opt_UpdateFromMeasure_output {
 };
 
 
-int	genom_bayes_opt_SubmitResult_encode(char *buffer, int size,
+int	genom_bayes_opt_UpdateFromMeasure_encode(char *buffer, int size,
 		char *dst, int maxsize);
-int	genom_bayes_opt_SubmitResult_decode(char *buffer, int size,
+int	genom_bayes_opt_UpdateFromMeasure_decode(char *buffer, int size,
 		char *dst, int maxsize);
 
 /* input of GetBest */
@@ -203,6 +146,20 @@ struct genom_bayes_opt_GetBest_output {
 int	genom_bayes_opt_GetBest_encode(char *buffer, int size,
 		char *dst, int maxsize);
 int	genom_bayes_opt_GetBest_decode(char *buffer, int size,
+		char *dst, int maxsize);
+
+/* input of Reset */
+struct genom_bayes_opt_Reset_input {
+};
+
+/* output of Reset */
+struct genom_bayes_opt_Reset_output {
+};
+
+
+int	genom_bayes_opt_Reset_encode(char *buffer, int size,
+		char *dst, int maxsize);
+int	genom_bayes_opt_Reset_decode(char *buffer, int size,
 		char *dst, int maxsize);
 
 
@@ -244,13 +201,13 @@ int	genom_bayes_opt_bayes_opt_INVALID_BOUNDS_encodex(char *buffer, int size,
                 char *dst, int maxsize);
 int	genom_bayes_opt_bayes_opt_e_sys_encodex(char *buffer, int size,
                 char *dst, int maxsize);
+int	genom_bayes_opt_bayes_opt_NOT_INITIALIZED_encodex(char *buffer, int size,
+                char *dst, int maxsize);
 int	genom_bayes_opt_bayes_opt_OPTIMIZATION_FAILED_encodex(char *buffer, int size,
                 char *dst, int maxsize);
-int	genom_bayes_opt_bayes_opt_INVALID_PARAMETER_encodex(char *buffer, int size,
+int	genom_bayes_opt_bayes_opt_NO_MEASUREMENT_encodex(char *buffer, int size,
                 char *dst, int maxsize);
-int	genom_bayes_opt_bayes_opt_EVALUATION_FAILED_encodex(char *buffer, int size,
-                char *dst, int maxsize);
-int	genom_bayes_opt_bayes_opt_NO_SCORE_AVAILABLE_encodex(char *buffer, int size,
+int	genom_bayes_opt_bayes_opt_NO_BEST_RESULT_encodex(char *buffer, int size,
                 char *dst, int maxsize);
 int	genom_bayes_opt_genom_unkex_encodex(char *buffer, int size, char *dst,
 		int maxsize);

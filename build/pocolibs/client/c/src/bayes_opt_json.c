@@ -277,241 +277,6 @@ done:
 }
 
 
-/* --- Service initialize_optimizer encoding/decoding ------------------- */
-
-int
-genom_bayes_opt_client_initialize_optimizer_json_scan(
-  struct genom_bayes_opt_initialize_optimizer_input *in, const char *json,
-  char **endptr)
-{
-  int s = 0;
-  (void)in; /* fix -Wunused-parameter */
-  json_skip_whitespace(json);
-  if (*(json++) != '{') { s = EINVAL; goto done; }
-  json_skip_whitespace(json);
-  while(*json != '}') {
-    if (*(json++) != '"') { s = EINVAL; goto done; };
-    { s = EINVAL; goto done; }
-
-    json_skip_whitespace(json);
-    if (*json == ',') {
-      json++;
-      json_skip_whitespace(json);
-    }
-  }
-
-done:
-  if (endptr) *endptr = (char *)json;
-  return s;
-}
-
-int
-genom_bayes_opt_client_initialize_optimizer_json_print(char **json,
-             const struct genom_bayes_opt_initialize_optimizer_output *out)
-{
-  size_t len;
-  char *end;
-  int s;
-  (void)out; /* fix -Wunused-parameter */
-
-  len = JSON_MINBUF;
-  *json = end = malloc(len);
-  if (!*json) return ENOMEM;
-
-  if ((s = bufcat(json, &end, &len, 0, "{"))) goto done;
-
-
-  if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
-
-done:
-  if (s && *json) {
-    free(*json);
-    *json = NULL;
-  }
-  return s;
-}
-
-
-/* --- Service propose_parameters encoding/decoding --------------------- */
-
-int
-genom_bayes_opt_client_propose_parameters_json_scan(
-  struct genom_bayes_opt_propose_parameters_input *in, const char *json,
-  char **endptr)
-{
-  int s = 0;
-  (void)in; /* fix -Wunused-parameter */
-  json_skip_whitespace(json);
-  if (*(json++) != '{') { s = EINVAL; goto done; }
-  json_skip_whitespace(json);
-  while(*json != '}') {
-    if (*(json++) != '"') { s = EINVAL; goto done; };
-    { s = EINVAL; goto done; }
-
-    json_skip_whitespace(json);
-    if (*json == ',') {
-      json++;
-      json_skip_whitespace(json);
-    }
-  }
-
-done:
-  if (endptr) *endptr = (char *)json;
-  return s;
-}
-
-int
-genom_bayes_opt_client_propose_parameters_json_print(char **json,
-             const struct genom_bayes_opt_propose_parameters_output *out)
-{
-  size_t len;
-  char *end;
-  int s;
-
-  len = JSON_MINBUF;
-  *json = end = malloc(len);
-  if (!*json) return ENOMEM;
-
-  if ((s = bufcat(json, &end, &len, 0, "{"))) goto done;
-
-  if ((s = bufcat(json, &end, &len, 0, "\"params\":")))
-    goto done;
-  if ((s = json_print_t_bayes_opt_suggestion(json, &end, &len,
-         &(out->params))))
-    goto done;
-
-  if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
-
-done:
-  if (s && *json) {
-    free(*json);
-    *json = NULL;
-  }
-  return s;
-}
-
-
-/* --- Service submit_result encoding/decoding -------------------------- */
-
-int
-genom_bayes_opt_client_submit_result_json_scan(
-  struct genom_bayes_opt_submit_result_input *in, const char *json,
-  char **endptr)
-{
-  int s = 0;
-  json_skip_whitespace(json);
-  if (*(json++) != '{') { s = EINVAL; goto done; }
-  json_skip_whitespace(json);
-  while(*json != '}') {
-    if (*(json++) != '"') { s = EINVAL; goto done; };
-    if (!strncmp(json, "score\"", 1+5)) {
-      json += 1+5;
-      json_skip_whitespace(json);
-      if (*(json++) != ':') { s = EINVAL; goto done; }
-      if ((s = json_scan_double(
-             &(in->score), &json)))
-        goto done;
-    } else
-    { s = EINVAL; goto done; }
-
-    json_skip_whitespace(json);
-    if (*json == ',') {
-      json++;
-      json_skip_whitespace(json);
-    }
-  }
-
-done:
-  if (endptr) *endptr = (char *)json;
-  return s;
-}
-
-int
-genom_bayes_opt_client_submit_result_json_print(char **json,
-             const struct genom_bayes_opt_submit_result_output *out)
-{
-  size_t len;
-  char *end;
-  int s;
-  (void)out; /* fix -Wunused-parameter */
-
-  len = JSON_MINBUF;
-  *json = end = malloc(len);
-  if (!*json) return ENOMEM;
-
-  if ((s = bufcat(json, &end, &len, 0, "{"))) goto done;
-
-
-  if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
-
-done:
-  if (s && *json) {
-    free(*json);
-    *json = NULL;
-  }
-  return s;
-}
-
-
-/* --- Service get_best_parameters encoding/decoding -------------------- */
-
-int
-genom_bayes_opt_client_get_best_parameters_json_scan(
-  struct genom_bayes_opt_get_best_parameters_input *in, const char *json,
-  char **endptr)
-{
-  int s = 0;
-  (void)in; /* fix -Wunused-parameter */
-  json_skip_whitespace(json);
-  if (*(json++) != '{') { s = EINVAL; goto done; }
-  json_skip_whitespace(json);
-  while(*json != '}') {
-    if (*(json++) != '"') { s = EINVAL; goto done; };
-    { s = EINVAL; goto done; }
-
-    json_skip_whitespace(json);
-    if (*json == ',') {
-      json++;
-      json_skip_whitespace(json);
-    }
-  }
-
-done:
-  if (endptr) *endptr = (char *)json;
-  return s;
-}
-
-int
-genom_bayes_opt_client_get_best_parameters_json_print(char **json,
-             const struct genom_bayes_opt_get_best_parameters_output *out)
-{
-  size_t len;
-  char *end;
-  int s;
-
-  len = JSON_MINBUF;
-  *json = end = malloc(len);
-  if (!*json) return ENOMEM;
-
-  if ((s = bufcat(json, &end, &len, 0, "{"))) goto done;
-
-  if ((s = bufcat(json, &end, &len, 0, "\"best_result\":")))
-    goto done;
-  if ((s = json_print_t_bayes_opt_best(json, &end, &len,
-         &(out->best_result))))
-    goto done;
-
-  if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
-
-done:
-  if (s && *json) {
-    free(*json);
-    *json = NULL;
-  }
-  return s;
-}
-
-
 /* --- Service reset_optimizer encoding/decoding ------------------------ */
 
 int
@@ -602,6 +367,30 @@ genom_bayes_opt_client_Init_json_scan(
       if (*(json++) != ':') { s = EINVAL; goto done; }
       if ((s = json_scan_long(
              &(in->max_iterations), &json)))
+        goto done;
+    } else
+    if (!strncmp(json, "reference_x\"", 1+11)) {
+      json += 1+11;
+      json_skip_whitespace(json);
+      if (*(json++) != ':') { s = EINVAL; goto done; }
+      if ((s = json_scan_double(
+             &(in->reference_x), &json)))
+        goto done;
+    } else
+    if (!strncmp(json, "reference_y\"", 1+11)) {
+      json += 1+11;
+      json_skip_whitespace(json);
+      if (*(json++) != ':') { s = EINVAL; goto done; }
+      if ((s = json_scan_double(
+             &(in->reference_y), &json)))
+        goto done;
+    } else
+    if (!strncmp(json, "reference_z\"", 1+11)) {
+      json += 1+11;
+      json_skip_whitespace(json);
+      if (*(json++) != ':') { s = EINVAL; goto done; }
+      if ((s = json_scan_double(
+             &(in->reference_z), &json)))
         goto done;
     } else
     { s = EINVAL; goto done; }
@@ -704,27 +493,20 @@ done:
 }
 
 
-/* --- Service SubmitResult encoding/decoding --------------------------- */
+/* --- Service UpdateFromMeasure encoding/decoding ---------------------- */
 
 int
-genom_bayes_opt_client_SubmitResult_json_scan(
-  struct genom_bayes_opt_SubmitResult_input *in, const char *json,
+genom_bayes_opt_client_UpdateFromMeasure_json_scan(
+  struct genom_bayes_opt_UpdateFromMeasure_input *in, const char *json,
   char **endptr)
 {
   int s = 0;
+  (void)in; /* fix -Wunused-parameter */
   json_skip_whitespace(json);
   if (*(json++) != '{') { s = EINVAL; goto done; }
   json_skip_whitespace(json);
   while(*json != '}') {
     if (*(json++) != '"') { s = EINVAL; goto done; };
-    if (!strncmp(json, "score\"", 1+5)) {
-      json += 1+5;
-      json_skip_whitespace(json);
-      if (*(json++) != ':') { s = EINVAL; goto done; }
-      if ((s = json_scan_double(
-             &(in->score), &json)))
-        goto done;
-    } else
     { s = EINVAL; goto done; }
 
     json_skip_whitespace(json);
@@ -740,8 +522,8 @@ done:
 }
 
 int
-genom_bayes_opt_client_SubmitResult_json_print(char **json,
-             const struct genom_bayes_opt_SubmitResult_output *out)
+genom_bayes_opt_client_UpdateFromMeasure_json_print(char **json,
+             const struct genom_bayes_opt_UpdateFromMeasure_output *out)
 {
   size_t len;
   char *end;
@@ -825,6 +607,61 @@ done:
 }
 
 
+/* --- Service Reset encoding/decoding ---------------------------------- */
+
+int
+genom_bayes_opt_client_Reset_json_scan(
+  struct genom_bayes_opt_Reset_input *in, const char *json,
+  char **endptr)
+{
+  int s = 0;
+  (void)in; /* fix -Wunused-parameter */
+  json_skip_whitespace(json);
+  if (*(json++) != '{') { s = EINVAL; goto done; }
+  json_skip_whitespace(json);
+  while(*json != '}') {
+    if (*(json++) != '"') { s = EINVAL; goto done; };
+    { s = EINVAL; goto done; }
+
+    json_skip_whitespace(json);
+    if (*json == ',') {
+      json++;
+      json_skip_whitespace(json);
+    }
+  }
+
+done:
+  if (endptr) *endptr = (char *)json;
+  return s;
+}
+
+int
+genom_bayes_opt_client_Reset_json_print(char **json,
+             const struct genom_bayes_opt_Reset_output *out)
+{
+  size_t len;
+  char *end;
+  int s;
+  (void)out; /* fix -Wunused-parameter */
+
+  len = JSON_MINBUF;
+  *json = end = malloc(len);
+  if (!*json) return ENOMEM;
+
+  if ((s = bufcat(json, &end, &len, 0, "{"))) goto done;
+
+
+  if ((s = bufcat(json, &end, &len, 0, "}"))) goto done;
+
+done:
+  if (s && *json) {
+    free(*json);
+    *json = NULL;
+  }
+  return s;
+}
+
+
 
 /* --- Port genom_state encoding ---------------------------------------- */
 
@@ -861,11 +698,11 @@ done:
 }
 
 
-/* --- Port result encoding --------------------------------------------- */
+/* --- Port measure encoding -------------------------------------------- */
 
 int
-genom_bayes_opt_client_result_json_scan(
-  bayes_opt_score *data,
+genom_bayes_opt_client_measure_json_scan(
+  bayes_opt_pose_sample *data,
   const char *json, char **endptr)
 {
   int s = 0;
@@ -876,14 +713,14 @@ genom_bayes_opt_client_result_json_scan(
   while(*json != '}') {
     if (*(json++) != '"') { s = EINVAL; goto done; };
 
-    if (strncmp(json, "result\"", 1+6)) {
+    if (strncmp(json, "measure\"", 1+7)) {
       s = EINVAL; goto done;
     }
 
-    json += 1+6;
+    json += 1+7;
     json_skip_whitespace(json);
     if (*(json++) != ':') { s = EINVAL; goto done; }
-    if ((s = json_scan_t_bayes_opt_score(data, &json)))
+    if ((s = json_scan_t_bayes_opt_pose_sample(data, &json)))
       goto done;
 
     json_skip_whitespace(json);
@@ -899,8 +736,8 @@ done:
 }
 
 int
-genom_bayes_opt_client_result_json_print(char **json,
-  const bayes_opt_score *data)
+genom_bayes_opt_client_measure_json_print(char **json,
+  const bayes_opt_pose_sample *data)
 {
   size_t len;
   char *end;
@@ -912,10 +749,10 @@ genom_bayes_opt_client_result_json_print(char **json,
 
   if ((s = bufcat(json, &end, &len, 0, "{"))) goto done;
 
-  if ((s = bufcat(json, &end, &len, 0, "\"result\":")))
+  if ((s = bufcat(json, &end, &len, 0, "\"measure\":")))
     goto done;
 
-  if ((s = json_print_t_bayes_opt_score(
+  if ((s = json_print_t_bayes_opt_pose_sample(
          json, &end, &len, &(*(data)))))
     goto done;
 
@@ -1259,27 +1096,27 @@ genom_bayes_opt_client_json_error(genom_client h,
     if (bufcat(&s, &end, &len, 0, "}")) return NULL;
     return s;
   }
+  else if (e == bayes_opt_NOT_INITIALIZED_id) {
+    if (bufcat(&s, &end, &len, 0, "{\"ex\":\"")) return NULL;
+    if (bufcat(&s, &end, &len, 0, bayes_opt_NOT_INITIALIZED_id)) return NULL;
+    if (bufcat(&s, &end, &len, 0, "\"}")) return NULL;
+    return s;
+  }
   else if (e == bayes_opt_OPTIMIZATION_FAILED_id) {
     if (bufcat(&s, &end, &len, 0, "{\"ex\":\"")) return NULL;
     if (bufcat(&s, &end, &len, 0, bayes_opt_OPTIMIZATION_FAILED_id)) return NULL;
     if (bufcat(&s, &end, &len, 0, "\"}")) return NULL;
     return s;
   }
-  else if (e == bayes_opt_INVALID_PARAMETER_id) {
+  else if (e == bayes_opt_NO_MEASUREMENT_id) {
     if (bufcat(&s, &end, &len, 0, "{\"ex\":\"")) return NULL;
-    if (bufcat(&s, &end, &len, 0, bayes_opt_INVALID_PARAMETER_id)) return NULL;
+    if (bufcat(&s, &end, &len, 0, bayes_opt_NO_MEASUREMENT_id)) return NULL;
     if (bufcat(&s, &end, &len, 0, "\"}")) return NULL;
     return s;
   }
-  else if (e == bayes_opt_EVALUATION_FAILED_id) {
+  else if (e == bayes_opt_NO_BEST_RESULT_id) {
     if (bufcat(&s, &end, &len, 0, "{\"ex\":\"")) return NULL;
-    if (bufcat(&s, &end, &len, 0, bayes_opt_EVALUATION_FAILED_id)) return NULL;
-    if (bufcat(&s, &end, &len, 0, "\"}")) return NULL;
-    return s;
-  }
-  else if (e == bayes_opt_NO_SCORE_AVAILABLE_id) {
-    if (bufcat(&s, &end, &len, 0, "{\"ex\":\"")) return NULL;
-    if (bufcat(&s, &end, &len, 0, bayes_opt_NO_SCORE_AVAILABLE_id)) return NULL;
+    if (bufcat(&s, &end, &len, 0, bayes_opt_NO_BEST_RESULT_id)) return NULL;
     if (bufcat(&s, &end, &len, 0, "\"}")) return NULL;
     return s;
   }

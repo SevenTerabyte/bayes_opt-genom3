@@ -2,10 +2,8 @@
 
 #include "bayes_struct.idl"
 
-/* ---------- COMPONENT DECLARATIONS ---------- */
-
 component bayes_opt {
-  version "0.8";
+  version "0.9";
   lang "c";
   require "genom3 >= 2.99.26";
 
@@ -13,26 +11,23 @@ component bayes_opt {
 
   exception INVALID_BOUNDS;
   exception INVALID_PARAMETER;
+  exception NOT_INITIALIZED;
   exception OPTIMIZATION_FAILED;
-  exception EVALUATION_FAILED;
-  exception NO_SCORE_AVAILABLE;
-
-  /* ---------------- IDS STATE ---------------- */
+  exception NO_MEASUREMENT;
+  exception NO_BEST_RESULT;
 
   ids {
     bayes_opt::state state;
   };
 
-
   /* ---------------- PORTS ---------------- */
 
-  port in bayes_opt::score result;
+  port in bayes_opt::pose_sample measure;
   port in bayes_opt::control allow;
 
   port out bayes_opt::suggestion params;
   port out bayes_opt::best best_result;
   port out bayes_opt::status_struct status;
-
 
   /* ---------------- TASK ---------------- */
 
@@ -40,84 +35,104 @@ component bayes_opt {
     doc "Execution task for Bayesian optimization services";
   };
 
-  /* ---------- SERVICES DECLARATIONS ---------- */
-  /* --------------- ATTRIBUTES --------------- */
-  // These are get and set functions
-
   /* ---------------- FUNCTIONS ---------------- */
-  function initialize_optimizer();
-
-  function propose_parameters(
-      out bayes_opt::suggestion params
-  );
-
-  function submit_result(
-      in double score
-  );
-
-  function get_best_parameters(
-      out bayes_opt::best best_result
-  );
 
   function reset_optimizer();
 
-  /* ---------------- ACTIVITY ---------------- */
+  /* ---------------- ACTIVITIES ---------------- */
 
-  activity Init(in double lower_bounds[5], in double upper_bounds[5], in long max_iterations)
+  activity Init(
+    in double lower_bounds[5],
+    in double upper_bounds[5],
+    in long max_iterations,
+    in double reference_x = 0.0,
+    in double reference_y = 0.0,
+    in double reference_z = 1.0)
   {
-    doc "Initialize Bayesian optimizer bounds and iteration count";
+    doc "Initialize optimizer bounds, scoring reference position, and iteration count";
 
     codel <start> boInit(
       in lower_bounds,
       in upper_bounds,
       in max_iterations,
-      inout state
+      in reference_x,
+      in reference_y,
+      in reference_z,
+      inout state,
+      port out status
     ) yield ether;
 
     task optimize;
+
     throw INVALID_BOUNDS, e_sys;
   };
 
-
   activity AskNext(out bayes_opt::suggestion params_out)
   {
-    doc "Generate next parameter vector";
+    doc "Generate next parameter vector and publish it on params port";
 
     validate checkInitialized(in state);
 
-    codel <start> boProposeParams(inout state, out params_out)
-      yield ether;
+    codel <start> boProposeParams(
+      inout state,
+      out params_out,
+      port out params,
+      port out status
+    ) yield ether;
 
     task optimize;
-    throw OPTIMIZATION_FAILED;
+
+    throw NOT_INITIALIZED, OPTIMIZATION_FAILED;
   };
 
-  activity SubmitResult(in double score)
+  activity UpdateFromMeasure()
   {
-    doc "Submit experiment score";
+    doc "Read latest pose measurement, compute objective score, and update optimizer";
 
     validate checkInitialized(in state);
 
-    codel <start> boUpdateOptimizer(in score, inout state)
-      yield ether;
+    codel <start> boUpdateFromMeasure(
+      port in measure,
+      port in allow,
+      inout state,
+      port out best_result,
+      port out status
+    ) yield ether;
 
     task optimize;
-    throw INVALID_PARAMETER, EVALUATION_FAILED, NO_SCORE_AVAILABLE;
+
+    throw NOT_INITIALIZED, NO_MEASUREMENT, OPTIMIZATION_FAILED;
   };
 
   activity GetBest(out bayes_opt::best best_result_out)
   {
-    doc "Return best parameters and score found so far";
+    doc "Return best parameters and best score found so far";
 
     validate checkInitialized(in state);
 
-    codel <start> boGetBest(in state, out best_result_out)
-      yield ether;
+    codel <start> boGetBest(
+      in state,
+      out best_result_out,
+      port out best_result,
+      port out status
+    ) yield ether;
 
     task optimize;
-    throw NO_SCORE_AVAILABLE;
+
+    throw NOT_INITIALIZED, NO_BEST_RESULT;
   };
 
+  activity Reset()
+  {
+    doc "Reset optimizer internal state";
 
+    codel <start> boReset(
+      inout state,
+      port out status
+    ) yield ether;
 
+    task optimize;
+
+    throw e_sys;
+  };
 };

@@ -180,137 +180,6 @@ genom_bayes_opt_kill_decode(
 }
 
 
-/* --- Service initialize_optimizer encoding/decoding ------------------- */
-
-int
-genom_bayes_opt_initialize_optimizer_encode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  (void)buffer; (void)size;
-  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
-  return 0;
-}
-
-int
-genom_bayes_opt_initialize_optimizer_decode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  (void)buffer; (void)size;
-  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
-  return 0;
-}
-
-
-/* --- Service propose_parameters encoding/decoding --------------------- */
-
-int
-genom_bayes_opt_propose_parameters_encode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  char *p = dst;
-  struct genom_bayes_opt_propose_parameters_output *out =
-    (struct genom_bayes_opt_propose_parameters_output *)buffer;
-  ssize_t s;
-  (void)size; /* fix -Wunused-parameter */
-
-  s = 1;
-  s += genom_serialen_t_bayes_opt_suggestion(
-    &(out->params));
-  if (s > maxsize) return ERROR;
-
-  *p++ = *"";
-  genom_serialize_t_bayes_opt_suggestion(
-    &p, &(out->params));
-
-  return s;
-}
-
-int
-genom_bayes_opt_propose_parameters_decode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  (void)buffer; (void)size;
-  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
-  return 0;
-}
-
-
-/* --- Service submit_result encoding/decoding -------------------------- */
-
-int
-genom_bayes_opt_submit_result_encode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  (void)buffer; (void)size;
-  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
-  return 0;
-}
-
-int
-genom_bayes_opt_submit_result_decode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  ssize_t len = size;
-  char *p = buffer;
-  struct genom_bayes_opt_submit_result_input *in =
-    (struct genom_bayes_opt_submit_result_input *)dst;
-  int s;
-  (void)maxsize; /* fix -Wunused-parameter */
-  if (size == 0) return 0;
-
-  s = genom_deserialize_double(
-    &p, &len, &(in->score));
-  if (s) {
-    switch(s) {
-      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
-      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
-      default: errnoSet(S_gcomLib_NOT_A_LETTER);
-    }
-    return ERROR;
-  }
-
-  if (len != 0) {
-    errnoSet(S_gcomLib_SMALL_LETTER);
-    return ERROR;
-  }
-  return size;
-}
-
-
-/* --- Service get_best_parameters encoding/decoding -------------------- */
-
-int
-genom_bayes_opt_get_best_parameters_encode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  char *p = dst;
-  struct genom_bayes_opt_get_best_parameters_output *out =
-    (struct genom_bayes_opt_get_best_parameters_output *)buffer;
-  ssize_t s;
-  (void)size; /* fix -Wunused-parameter */
-
-  s = 1;
-  s += genom_serialen_t_bayes_opt_best(
-    &(out->best_result));
-  if (s > maxsize) return ERROR;
-
-  *p++ = *"";
-  genom_serialize_t_bayes_opt_best(
-    &p, &(out->best_result));
-
-  return s;
-}
-
-int
-genom_bayes_opt_get_best_parameters_decode(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  (void)buffer; (void)size;
-  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
-  return 0;
-}
-
-
 /* --- Service reset_optimizer encoding/decoding ------------------------ */
 
 int
@@ -385,6 +254,36 @@ genom_bayes_opt_Init_decode(
     }
     return ERROR;
   }
+  s = genom_deserialize_double(
+    &p, &len, &(in->reference_x));
+  if (s) {
+    switch(s) {
+      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
+      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
+      default: errnoSet(S_gcomLib_NOT_A_LETTER);
+    }
+    return ERROR;
+  }
+  s = genom_deserialize_double(
+    &p, &len, &(in->reference_y));
+  if (s) {
+    switch(s) {
+      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
+      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
+      default: errnoSet(S_gcomLib_NOT_A_LETTER);
+    }
+    return ERROR;
+  }
+  s = genom_deserialize_double(
+    &p, &len, &(in->reference_z));
+  if (s) {
+    switch(s) {
+      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
+      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
+      default: errnoSet(S_gcomLib_NOT_A_LETTER);
+    }
+    return ERROR;
+  }
 
   if (len != 0) {
     errnoSet(S_gcomLib_SMALL_LETTER);
@@ -428,10 +327,10 @@ genom_bayes_opt_AskNext_decode(
 }
 
 
-/* --- Service SubmitResult encoding/decoding --------------------------- */
+/* --- Service UpdateFromMeasure encoding/decoding ---------------------- */
 
 int
-genom_bayes_opt_SubmitResult_encode(
+genom_bayes_opt_UpdateFromMeasure_encode(
   char *buffer, int size, char *dst, int maxsize)
 {
   (void)buffer; (void)size;
@@ -440,33 +339,12 @@ genom_bayes_opt_SubmitResult_encode(
 }
 
 int
-genom_bayes_opt_SubmitResult_decode(
+genom_bayes_opt_UpdateFromMeasure_decode(
   char *buffer, int size, char *dst, int maxsize)
 {
-  ssize_t len = size;
-  char *p = buffer;
-  struct genom_bayes_opt_SubmitResult_input *in =
-    (struct genom_bayes_opt_SubmitResult_input *)dst;
-  int s;
-  (void)maxsize; /* fix -Wunused-parameter */
-  if (size == 0) return 0;
-
-  s = genom_deserialize_double(
-    &p, &len, &(in->score));
-  if (s) {
-    switch(s) {
-      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
-      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
-      default: errnoSet(S_gcomLib_NOT_A_LETTER);
-    }
-    return ERROR;
-  }
-
-  if (len != 0) {
-    errnoSet(S_gcomLib_SMALL_LETTER);
-    return ERROR;
-  }
-  return size;
+  (void)buffer; (void)size;
+  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
+  return 0;
 }
 
 
@@ -496,6 +374,27 @@ genom_bayes_opt_GetBest_encode(
 
 int
 genom_bayes_opt_GetBest_decode(
+  char *buffer, int size, char *dst, int maxsize)
+{
+  (void)buffer; (void)size;
+  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
+  return 0;
+}
+
+
+/* --- Service Reset encoding/decoding ---------------------------------- */
+
+int
+genom_bayes_opt_Reset_encode(
+  char *buffer, int size, char *dst, int maxsize)
+{
+  (void)buffer; (void)size;
+  (void)dst; (void)maxsize; /* fix -Wunused-parameter */
+  return 0;
+}
+
+int
+genom_bayes_opt_Reset_decode(
   char *buffer, int size, char *dst, int maxsize)
 {
   (void)buffer; (void)size;
@@ -857,6 +756,28 @@ genom_bayes_opt_bayes_opt_e_sys_encodex(
 }
 
 
+/* --- Exception NOT_INITIALIZED encoding ------------------------------- */
+
+int
+genom_bayes_opt_bayes_opt_NOT_INITIALIZED_encodex(
+  char *buffer, int size, char *dst, int maxsize)
+{
+  bayes_opt_NOT_INITIALIZED_detail *out = (bayes_opt_NOT_INITIALIZED_detail *)buffer;
+  char *p = dst;
+  ssize_t s;
+  (void)size; /* fix -Wunused-parameters */
+
+  s = sizeof(bayes_opt_NOT_INITIALIZED_id);
+  s += genom_serialen_t_bayes_opt_NOT_INITIALIZED(out);
+  if (s > maxsize) return ERROR;
+
+  memcpy(p, bayes_opt_NOT_INITIALIZED_id, sizeof(bayes_opt_NOT_INITIALIZED_id));
+  p += sizeof(bayes_opt_NOT_INITIALIZED_id);
+  genom_serialize_t_bayes_opt_NOT_INITIALIZED(&p, out);
+  return s;
+}
+
+
 /* --- Exception OPTIMIZATION_FAILED encoding --------------------------- */
 
 int
@@ -879,68 +800,46 @@ genom_bayes_opt_bayes_opt_OPTIMIZATION_FAILED_encodex(
 }
 
 
-/* --- Exception INVALID_PARAMETER encoding ----------------------------- */
+/* --- Exception NO_MEASUREMENT encoding -------------------------------- */
 
 int
-genom_bayes_opt_bayes_opt_INVALID_PARAMETER_encodex(
+genom_bayes_opt_bayes_opt_NO_MEASUREMENT_encodex(
   char *buffer, int size, char *dst, int maxsize)
 {
-  bayes_opt_INVALID_PARAMETER_detail *out = (bayes_opt_INVALID_PARAMETER_detail *)buffer;
+  bayes_opt_NO_MEASUREMENT_detail *out = (bayes_opt_NO_MEASUREMENT_detail *)buffer;
   char *p = dst;
   ssize_t s;
   (void)size; /* fix -Wunused-parameters */
 
-  s = sizeof(bayes_opt_INVALID_PARAMETER_id);
-  s += genom_serialen_t_bayes_opt_INVALID_PARAMETER(out);
+  s = sizeof(bayes_opt_NO_MEASUREMENT_id);
+  s += genom_serialen_t_bayes_opt_NO_MEASUREMENT(out);
   if (s > maxsize) return ERROR;
 
-  memcpy(p, bayes_opt_INVALID_PARAMETER_id, sizeof(bayes_opt_INVALID_PARAMETER_id));
-  p += sizeof(bayes_opt_INVALID_PARAMETER_id);
-  genom_serialize_t_bayes_opt_INVALID_PARAMETER(&p, out);
+  memcpy(p, bayes_opt_NO_MEASUREMENT_id, sizeof(bayes_opt_NO_MEASUREMENT_id));
+  p += sizeof(bayes_opt_NO_MEASUREMENT_id);
+  genom_serialize_t_bayes_opt_NO_MEASUREMENT(&p, out);
   return s;
 }
 
 
-/* --- Exception EVALUATION_FAILED encoding ----------------------------- */
+/* --- Exception NO_BEST_RESULT encoding -------------------------------- */
 
 int
-genom_bayes_opt_bayes_opt_EVALUATION_FAILED_encodex(
+genom_bayes_opt_bayes_opt_NO_BEST_RESULT_encodex(
   char *buffer, int size, char *dst, int maxsize)
 {
-  bayes_opt_EVALUATION_FAILED_detail *out = (bayes_opt_EVALUATION_FAILED_detail *)buffer;
+  bayes_opt_NO_BEST_RESULT_detail *out = (bayes_opt_NO_BEST_RESULT_detail *)buffer;
   char *p = dst;
   ssize_t s;
   (void)size; /* fix -Wunused-parameters */
 
-  s = sizeof(bayes_opt_EVALUATION_FAILED_id);
-  s += genom_serialen_t_bayes_opt_EVALUATION_FAILED(out);
+  s = sizeof(bayes_opt_NO_BEST_RESULT_id);
+  s += genom_serialen_t_bayes_opt_NO_BEST_RESULT(out);
   if (s > maxsize) return ERROR;
 
-  memcpy(p, bayes_opt_EVALUATION_FAILED_id, sizeof(bayes_opt_EVALUATION_FAILED_id));
-  p += sizeof(bayes_opt_EVALUATION_FAILED_id);
-  genom_serialize_t_bayes_opt_EVALUATION_FAILED(&p, out);
-  return s;
-}
-
-
-/* --- Exception NO_SCORE_AVAILABLE encoding ---------------------------- */
-
-int
-genom_bayes_opt_bayes_opt_NO_SCORE_AVAILABLE_encodex(
-  char *buffer, int size, char *dst, int maxsize)
-{
-  bayes_opt_NO_SCORE_AVAILABLE_detail *out = (bayes_opt_NO_SCORE_AVAILABLE_detail *)buffer;
-  char *p = dst;
-  ssize_t s;
-  (void)size; /* fix -Wunused-parameters */
-
-  s = sizeof(bayes_opt_NO_SCORE_AVAILABLE_id);
-  s += genom_serialen_t_bayes_opt_NO_SCORE_AVAILABLE(out);
-  if (s > maxsize) return ERROR;
-
-  memcpy(p, bayes_opt_NO_SCORE_AVAILABLE_id, sizeof(bayes_opt_NO_SCORE_AVAILABLE_id));
-  p += sizeof(bayes_opt_NO_SCORE_AVAILABLE_id);
-  genom_serialize_t_bayes_opt_NO_SCORE_AVAILABLE(&p, out);
+  memcpy(p, bayes_opt_NO_BEST_RESULT_id, sizeof(bayes_opt_NO_BEST_RESULT_id));
+  p += sizeof(bayes_opt_NO_BEST_RESULT_id);
+  genom_serialize_t_bayes_opt_NO_BEST_RESULT(&p, out);
   return s;
 }
 

@@ -201,8 +201,8 @@ am__DIST_COMMON = $(srcdir)/Makefile.in \
 	$(top_srcdir)/autoconf/install-sh \
 	$(top_srcdir)/autoconf/ltmain.sh \
 	$(top_srcdir)/autoconf/missing autoconf/compile \
-	autoconf/config.guess autoconf/config.sub autoconf/depcomp \
-	autoconf/install-sh autoconf/ltmain.sh autoconf/missing
+	autoconf/config.guess autoconf/config.sub autoconf/install-sh \
+	autoconf/ltmain.sh autoconf/missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -305,20 +305,20 @@ OTOOL64 =
 PACKAGE = bayes_opt-genom3
 PACKAGE_BUGREPORT = 
 PACKAGE_NAME = bayes_opt-genom3
-PACKAGE_STRING = bayes_opt-genom3 0.8
+PACKAGE_STRING = bayes_opt-genom3 0.9
 PACKAGE_TARNAME = bayes_opt-genom3
 PACKAGE_URL = 
-PACKAGE_VERSION = 0.8
+PACKAGE_VERSION = 0.9
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PKG_CONFIG_LIBDIR = 
-PKG_CONFIG_PATH = /home/lichenjiang/openrobots/share/pkgconfig:/home/lichenjiang/openrobots/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig:/home/lichenjiang/openrobots/lib/pkgconfig
+PKG_CONFIG_PATH = /home/lichenjiang/openrobots/share/pkgconfig:/home/lichenjiang/openrobots/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig
 RANLIB = ranlib
 SED = /usr/bin/sed
 SET_MAKE = 
 SHELL = /bin/bash
 STRIP = strip
-VERSION = 0.8
+VERSION = 0.9
 abs_builddir = /home/lichenjiang/src/bayes_opt-genom3/build
 abs_srcdir = /home/lichenjiang/src/bayes_opt-genom3/build/..
 abs_top_builddir = /home/lichenjiang/src/bayes_opt-genom3/build
