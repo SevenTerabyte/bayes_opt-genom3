@@ -702,7 +702,7 @@ done:
 
 int
 genom_bayes_opt_client_measure_json_scan(
-  bayes_opt_pose_sample *data,
+  or_pose_estimator_state *data,
   const char *json, char **endptr)
 {
   int s = 0;
@@ -720,7 +720,7 @@ genom_bayes_opt_client_measure_json_scan(
     json += 1+7;
     json_skip_whitespace(json);
     if (*(json++) != ':') { s = EINVAL; goto done; }
-    if ((s = json_scan_t_bayes_opt_pose_sample(data, &json)))
+    if ((s = json_scan_t_or_pose_estimator_state(data, &json)))
       goto done;
 
     json_skip_whitespace(json);
@@ -737,7 +737,7 @@ done:
 
 int
 genom_bayes_opt_client_measure_json_print(char **json,
-  const bayes_opt_pose_sample *data)
+  const or_pose_estimator_state *data)
 {
   size_t len;
   char *end;
@@ -752,7 +752,7 @@ genom_bayes_opt_client_measure_json_print(char **json,
   if ((s = bufcat(json, &end, &len, 0, "\"measure\":")))
     goto done;
 
-  if ((s = json_print_t_bayes_opt_pose_sample(
+  if ((s = json_print_t_or_pose_estimator_state(
          json, &end, &len, &(*(data)))))
     goto done;
 

@@ -7,6 +7,15 @@ $(srcdir)/depend.am: /home/lichenjiang/openrobots/share/genom/site-templates/poc
 $(srcdir)/depend.am: /home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen
 /home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen:
 
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen
+/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/time/time.idl
+/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/time/time.idl:
+
+$(srcdir)/depend.am: /home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl
+/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl:
+
 $(srcdir)/depend.am: /home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl
 /home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl:
 

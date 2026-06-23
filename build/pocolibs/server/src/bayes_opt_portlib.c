@@ -56,9 +56,9 @@ genom_state_bayes_opt_init(struct genom_component_data *self)
   data->task._length = 1;
 
   /* automatic versioning - nice idea borrowed from ROS */
-  strncpy(data->digest, "2b2e2ac50ff7e4b859cb72b47f36c42", sizeof(data->digest));
+  strncpy(data->digest, "50bfad7987fc354e3c9b648567fdf05e", sizeof(data->digest));
   snprintf(data->date, sizeof(data->date), "%s",
-           "Mon Jun 22 14:35:12 BST 2026");
+           "Tue Jun 23 13:58:39 BST 2026");
   snprintf(data->version, sizeof(data->version), "%s",
            "bayes_opt-0.9");
 
@@ -446,7 +446,7 @@ genom_bayes_opt_measure_get_ph(
 
 /* --- genom_bayes_opt_measure_data ------------------------------------- */
 
-bayes_opt_pose_sample *
+or_pose_estimator_state *
 genom_bayes_opt_measure_data(
   genom_context self)
 {
@@ -984,7 +984,7 @@ genom_bayes_opt_measure_read(
   b = posterAddr(ph->id);
   if (b) {
     max = -1;
-    s = genom_deserialize_t_bayes_opt_pose_sample(
+    s = genom_deserialize_t_or_pose_estimator_state(
       &b, &max, &(ph->buffer));
   } else s = ERROR;
   posterGive(ph->id);

@@ -118,16 +118,16 @@ genom_bayes_opt_client_genom_state_fini_data(
 
 void
 genom_bayes_opt_client_measure_init_data(
-  bayes_opt_pose_sample *data)
+  or_pose_estimator_state *data)
 {
-  genom_tinit_t_bayes_opt_pose_sample(data);
+  genom_tinit_t_or_pose_estimator_state(data);
 }
 
 void
 genom_bayes_opt_client_measure_fini_data(
-  bayes_opt_pose_sample *data)
+  or_pose_estimator_state *data)
 {
-  genom_tfini_t_bayes_opt_pose_sample(data);
+  genom_tfini_t_or_pose_estimator_state(data);
 }
 
 

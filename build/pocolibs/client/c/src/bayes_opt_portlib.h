@@ -34,7 +34,7 @@ struct genom_client_ports {
     struct {
       char name[H2_DEV_MAX_NAME];
       size_t size;
-      bayes_opt_pose_sample data;
+      or_pose_estimator_state data;
       POSTER_ID id;
     } *h;
     unsigned int n;

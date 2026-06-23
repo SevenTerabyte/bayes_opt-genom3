@@ -161,9 +161,6 @@ boUpdateFromMeasure(const bayes_opt_measure *measure,
   if (!state->initialized)
     return bayes_opt_NOT_INITIALIZED(self);
 
-  bayes_opt_pose_sample m;
-  memset(&m, 0, sizeof(m));
-
   genom_event ev = measure->read(self);
   if (ev != genom_ok) {
     fprintf(stderr, ">>> measure read failed\n");
@@ -171,35 +168,38 @@ boUpdateFromMeasure(const bayes_opt_measure *measure,
     return bayes_opt_NO_MEASUREMENT(self);
   }
 
-  bayes_opt_pose_sample *mp = measure->data(self);
-  m = *mp;
+  or_pose_estimator_state *m = measure->data(self);
 
-  fprintf(stderr, ">>> measure read OK: x=%f y=%f z=%f valid=%d\n",
-          m.x, m.y, m.z, m.valid);
-  fflush(stderr);
+  if (!m->pos._present) {
+    fprintf(stderr, ">>> measure has no position\n");
+    fflush(stderr);
+    return bayes_opt_NO_MEASUREMENT(self);
+  }
 
-  /* Below: fake measurement. Later replace with measure->read/data. */
-  // m.x = 0.1;
-  // m.y = 0.2;
-  // m.z = 0.8;
-  // m.vx = 0.0;
-  // m.vy = 0.0;
-  // m.vz = 0.0;
-  // m.valid = true;
+  double x = m->pos._value.x;
+  double y = m->pos._value.y;
+  double z = m->pos._value.z;
+
+  double vx = 0.0;
+  double vy = 0.0;
+  double vz = 0.0;
+
+  if (m->vel._present) {
+    vx = m->vel._value.vx;
+    vy = m->vel._value.vy;
+    vz = m->vel._value.vz;
+  }
 
   bool allow_update = true;
 
   ev = allow->read(self);
   if (ev == genom_ok) {
-    bayes_opt_control *ap = allow->data(self);
-    allow_update = ap->allow;
-
+    bayes_opt_control *a = allow->data(self);
+    allow_update = a->allow;
     fprintf(stderr, ">>> allow read OK: allow=%d\n", allow_update);
   } else {
     fprintf(stderr, ">>> allow read failed/empty, defaulting allow=true\n");
   }
-
-  fflush(stderr);
 
   if (!allow_update) {
     fprintf(stderr, ">>> update skipped: allow=false\n");
@@ -207,19 +207,10 @@ boUpdateFromMeasure(const bayes_opt_measure *measure,
     return bayes_opt_ether;
   }
 
-  if (!m.valid) {
-    fprintf(stderr, ">>> invalid measurement\n");
-    fflush(stderr);
-    return bayes_opt_NO_MEASUREMENT(self);
-  }
+  double dz = z - state->reference_z;
+  double vel_penalty = fabs(vz);
 
-  double dx = m.x - state->reference_x;
-  double dy = m.y - state->reference_y;
-  double dz = m.z - state->reference_z;
-
-  double pos_error = sqrt(dx * dx + dy * dy + dz * dz);
-  double vel_penalty = sqrt(m.vx * m.vx + m.vy * m.vy + m.vz * m.vz);
-  double score = pos_error + 0.2 * vel_penalty;
+  double score = fabs(dz) + 0.2 * vel_penalty;
 
   state->current_score = score;
   state->sample_count++;
@@ -254,11 +245,17 @@ boUpdateFromMeasure(const bayes_opt_measure *measure,
   if (ev != genom_ok)
     return ev;
 
-  fprintf(stderr, ">>> score=%f, best=%f, iteration=%d, samples=%d\n",
+  fprintf(stderr,
+          ">>> measure: x=%f y=%f z=%f vx=%f vy=%f vz=%f\n",
+          x, y, z, vx, vy, vz);
+
+  fprintf(stderr,
+          ">>> score=%f, best=%f, iteration=%d, samples=%d\n",
           state->current_score,
           state->best_value,
           state->current_iteration,
           state->sample_count);
+
   fflush(stderr);
 
   return bayes_opt_ether;

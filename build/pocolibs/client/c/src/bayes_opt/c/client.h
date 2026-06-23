@@ -119,23 +119,421 @@ struct genom_state_component {
 };
 #endif /* _genom_state_component_definition_c_type */
 
-#ifndef _bayes_opt_pose_sample_c_type
-# define _bayes_opt_pose_sample_c_type
-typedef struct bayes_opt_pose_sample bayes_opt_pose_sample;
-#endif /* _bayes_opt_pose_sample_c_type */
+#ifndef _or_time_ts_c_type
+# define _or_time_ts_c_type
+typedef struct or_time_ts or_time_ts;
+#endif /* _or_time_ts_c_type */
 
-#ifndef _bayes_opt_pose_sample_definition_c_type
-# define _bayes_opt_pose_sample_definition_c_type
-struct bayes_opt_pose_sample {
+#ifndef _or_time_ts_definition_c_type
+# define _or_time_ts_definition_c_type
+struct or_time_ts {
+ int32_t sec;
+ int32_t nsec;
+};
+#endif /* _or_time_ts_definition_c_type */
+
+#ifndef _or_t3d_pos_c_type
+# define _or_t3d_pos_c_type
+typedef struct or_t3d_pos or_t3d_pos;
+#endif /* _or_t3d_pos_c_type */
+
+#ifndef _or_t3d_pos_definition_c_type
+# define _or_t3d_pos_definition_c_type
+struct or_t3d_pos {
  double x;
  double y;
  double z;
+};
+#endif /* _or_t3d_pos_definition_c_type */
+
+#ifndef _optional_or_t3d_pos_c_type
+# define _optional_or_t3d_pos_c_type
+typedef struct optional_or_t3d_pos {
+  bool _present;
+  or_t3d_pos _value;
+} optional_or_t3d_pos;
+#endif /* _optional_or_t3d_pos_c_type */
+
+#ifndef _or_t3d_att_c_type
+# define _or_t3d_att_c_type
+typedef struct or_t3d_att or_t3d_att;
+#endif /* _or_t3d_att_c_type */
+
+#ifndef _or_t3d_att_definition_c_type
+# define _or_t3d_att_definition_c_type
+struct or_t3d_att {
+ double qw;
+ double qx;
+ double qy;
+ double qz;
+};
+#endif /* _or_t3d_att_definition_c_type */
+
+#ifndef _optional_or_t3d_att_c_type
+# define _optional_or_t3d_att_c_type
+typedef struct optional_or_t3d_att {
+  bool _present;
+  or_t3d_att _value;
+} optional_or_t3d_att;
+#endif /* _optional_or_t3d_att_c_type */
+
+#ifndef _or_t3d_vel_c_type
+# define _or_t3d_vel_c_type
+typedef struct or_t3d_vel or_t3d_vel;
+#endif /* _or_t3d_vel_c_type */
+
+#ifndef _or_t3d_vel_definition_c_type
+# define _or_t3d_vel_definition_c_type
+struct or_t3d_vel {
  double vx;
  double vy;
  double vz;
- bool valid;
 };
-#endif /* _bayes_opt_pose_sample_definition_c_type */
+#endif /* _or_t3d_vel_definition_c_type */
+
+#ifndef _optional_or_t3d_vel_c_type
+# define _optional_or_t3d_vel_c_type
+typedef struct optional_or_t3d_vel {
+  bool _present;
+  or_t3d_vel _value;
+} optional_or_t3d_vel;
+#endif /* _optional_or_t3d_vel_c_type */
+
+#ifndef _or_t3d_avel_c_type
+# define _or_t3d_avel_c_type
+typedef struct or_t3d_avel or_t3d_avel;
+#endif /* _or_t3d_avel_c_type */
+
+#ifndef _or_t3d_avel_definition_c_type
+# define _or_t3d_avel_definition_c_type
+struct or_t3d_avel {
+ double wx;
+ double wy;
+ double wz;
+};
+#endif /* _or_t3d_avel_definition_c_type */
+
+#ifndef _optional_or_t3d_avel_c_type
+# define _optional_or_t3d_avel_c_type
+typedef struct optional_or_t3d_avel {
+  bool _present;
+  or_t3d_avel _value;
+} optional_or_t3d_avel;
+#endif /* _optional_or_t3d_avel_c_type */
+
+#ifndef _or_t3d_acc_c_type
+# define _or_t3d_acc_c_type
+typedef struct or_t3d_acc or_t3d_acc;
+#endif /* _or_t3d_acc_c_type */
+
+#ifndef _or_t3d_acc_definition_c_type
+# define _or_t3d_acc_definition_c_type
+struct or_t3d_acc {
+ double ax;
+ double ay;
+ double az;
+};
+#endif /* _or_t3d_acc_definition_c_type */
+
+#ifndef _optional_or_t3d_acc_c_type
+# define _optional_or_t3d_acc_c_type
+typedef struct optional_or_t3d_acc {
+  bool _present;
+  or_t3d_acc _value;
+} optional_or_t3d_acc;
+#endif /* _optional_or_t3d_acc_c_type */
+
+#ifndef _or_t3d_aacc_c_type
+# define _or_t3d_aacc_c_type
+typedef struct or_t3d_aacc or_t3d_aacc;
+#endif /* _or_t3d_aacc_c_type */
+
+#ifndef _or_t3d_aacc_definition_c_type
+# define _or_t3d_aacc_definition_c_type
+struct or_t3d_aacc {
+ double awx;
+ double awy;
+ double awz;
+};
+#endif /* _or_t3d_aacc_definition_c_type */
+
+#ifndef _optional_or_t3d_aacc_c_type
+# define _optional_or_t3d_aacc_c_type
+typedef struct optional_or_t3d_aacc {
+  bool _present;
+  or_t3d_aacc _value;
+} optional_or_t3d_aacc;
+#endif /* _optional_or_t3d_aacc_c_type */
+
+#ifndef _or_t3d_pos_cov_c_type
+# define _or_t3d_pos_cov_c_type
+typedef struct or_t3d_pos_cov or_t3d_pos_cov;
+#endif /* _or_t3d_pos_cov_c_type */
+
+#ifndef _or_t3d_pos_cov_definition_c_type
+# define _or_t3d_pos_cov_definition_c_type
+struct or_t3d_pos_cov {
+ double cov[6];
+};
+#endif /* _or_t3d_pos_cov_definition_c_type */
+
+#ifndef _optional_or_t3d_pos_cov_c_type
+# define _optional_or_t3d_pos_cov_c_type
+typedef struct optional_or_t3d_pos_cov {
+  bool _present;
+  or_t3d_pos_cov _value;
+} optional_or_t3d_pos_cov;
+#endif /* _optional_or_t3d_pos_cov_c_type */
+
+#ifndef _or_t3d_att_cov_c_type
+# define _or_t3d_att_cov_c_type
+typedef struct or_t3d_att_cov or_t3d_att_cov;
+#endif /* _or_t3d_att_cov_c_type */
+
+#ifndef _or_t3d_att_cov_definition_c_type
+# define _or_t3d_att_cov_definition_c_type
+struct or_t3d_att_cov {
+ double cov[10];
+};
+#endif /* _or_t3d_att_cov_definition_c_type */
+
+#ifndef _optional_or_t3d_att_cov_c_type
+# define _optional_or_t3d_att_cov_c_type
+typedef struct optional_or_t3d_att_cov {
+  bool _present;
+  or_t3d_att_cov _value;
+} optional_or_t3d_att_cov;
+#endif /* _optional_or_t3d_att_cov_c_type */
+
+#ifndef _or_t3d_att_pos_cov_c_type
+# define _or_t3d_att_pos_cov_c_type
+typedef struct or_t3d_att_pos_cov or_t3d_att_pos_cov;
+#endif /* _or_t3d_att_pos_cov_c_type */
+
+#ifndef _or_t3d_att_pos_cov_definition_c_type
+# define _or_t3d_att_pos_cov_definition_c_type
+struct or_t3d_att_pos_cov {
+ double cov[12];
+};
+#endif /* _or_t3d_att_pos_cov_definition_c_type */
+
+#ifndef _optional_or_t3d_att_pos_cov_c_type
+# define _optional_or_t3d_att_pos_cov_c_type
+typedef struct optional_or_t3d_att_pos_cov {
+  bool _present;
+  or_t3d_att_pos_cov _value;
+} optional_or_t3d_att_pos_cov;
+#endif /* _optional_or_t3d_att_pos_cov_c_type */
+
+#ifndef _or_t3d_vel_cov_c_type
+# define _or_t3d_vel_cov_c_type
+typedef struct or_t3d_vel_cov or_t3d_vel_cov;
+#endif /* _or_t3d_vel_cov_c_type */
+
+#ifndef _or_t3d_vel_cov_definition_c_type
+# define _or_t3d_vel_cov_definition_c_type
+struct or_t3d_vel_cov {
+ double cov[6];
+};
+#endif /* _or_t3d_vel_cov_definition_c_type */
+
+#ifndef _optional_or_t3d_vel_cov_c_type
+# define _optional_or_t3d_vel_cov_c_type
+typedef struct optional_or_t3d_vel_cov {
+  bool _present;
+  or_t3d_vel_cov _value;
+} optional_or_t3d_vel_cov;
+#endif /* _optional_or_t3d_vel_cov_c_type */
+
+#ifndef _or_t3d_avel_cov_c_type
+# define _or_t3d_avel_cov_c_type
+typedef struct or_t3d_avel_cov or_t3d_avel_cov;
+#endif /* _or_t3d_avel_cov_c_type */
+
+#ifndef _or_t3d_avel_cov_definition_c_type
+# define _or_t3d_avel_cov_definition_c_type
+struct or_t3d_avel_cov {
+ double cov[6];
+};
+#endif /* _or_t3d_avel_cov_definition_c_type */
+
+#ifndef _optional_or_t3d_avel_cov_c_type
+# define _optional_or_t3d_avel_cov_c_type
+typedef struct optional_or_t3d_avel_cov {
+  bool _present;
+  or_t3d_avel_cov _value;
+} optional_or_t3d_avel_cov;
+#endif /* _optional_or_t3d_avel_cov_c_type */
+
+#ifndef _or_t3d_acc_cov_c_type
+# define _or_t3d_acc_cov_c_type
+typedef struct or_t3d_acc_cov or_t3d_acc_cov;
+#endif /* _or_t3d_acc_cov_c_type */
+
+#ifndef _or_t3d_acc_cov_definition_c_type
+# define _or_t3d_acc_cov_definition_c_type
+struct or_t3d_acc_cov {
+ double cov[6];
+};
+#endif /* _or_t3d_acc_cov_definition_c_type */
+
+#ifndef _optional_or_t3d_acc_cov_c_type
+# define _optional_or_t3d_acc_cov_c_type
+typedef struct optional_or_t3d_acc_cov {
+  bool _present;
+  or_t3d_acc_cov _value;
+} optional_or_t3d_acc_cov;
+#endif /* _optional_or_t3d_acc_cov_c_type */
+
+#ifndef _or_t3d_aacc_cov_c_type
+# define _or_t3d_aacc_cov_c_type
+typedef struct or_t3d_aacc_cov or_t3d_aacc_cov;
+#endif /* _or_t3d_aacc_cov_c_type */
+
+#ifndef _or_t3d_aacc_cov_definition_c_type
+# define _or_t3d_aacc_cov_definition_c_type
+struct or_t3d_aacc_cov {
+ double cov[6];
+};
+#endif /* _or_t3d_aacc_cov_definition_c_type */
+
+#ifndef _optional_or_t3d_aacc_cov_c_type
+# define _optional_or_t3d_aacc_cov_c_type
+typedef struct optional_or_t3d_aacc_cov {
+  bool _present;
+  or_t3d_aacc_cov _value;
+} optional_or_t3d_aacc_cov;
+#endif /* _optional_or_t3d_aacc_cov_c_type */
+
+#ifndef _or_pose_estimator_state_c_type
+# define _or_pose_estimator_state_c_type
+typedef struct or_pose_estimator_state or_pose_estimator_state;
+#endif /* _or_pose_estimator_state_c_type */
+
+#ifndef _optional_or_t3d_pos_c_type
+# define _optional_or_t3d_pos_c_type
+typedef struct optional_or_t3d_pos {
+  bool _present;
+  or_t3d_pos _value;
+} optional_or_t3d_pos;
+#endif /* _optional_or_t3d_pos_c_type */
+
+#ifndef _optional_or_t3d_att_c_type
+# define _optional_or_t3d_att_c_type
+typedef struct optional_or_t3d_att {
+  bool _present;
+  or_t3d_att _value;
+} optional_or_t3d_att;
+#endif /* _optional_or_t3d_att_c_type */
+
+#ifndef _optional_or_t3d_vel_c_type
+# define _optional_or_t3d_vel_c_type
+typedef struct optional_or_t3d_vel {
+  bool _present;
+  or_t3d_vel _value;
+} optional_or_t3d_vel;
+#endif /* _optional_or_t3d_vel_c_type */
+
+#ifndef _optional_or_t3d_avel_c_type
+# define _optional_or_t3d_avel_c_type
+typedef struct optional_or_t3d_avel {
+  bool _present;
+  or_t3d_avel _value;
+} optional_or_t3d_avel;
+#endif /* _optional_or_t3d_avel_c_type */
+
+#ifndef _optional_or_t3d_acc_c_type
+# define _optional_or_t3d_acc_c_type
+typedef struct optional_or_t3d_acc {
+  bool _present;
+  or_t3d_acc _value;
+} optional_or_t3d_acc;
+#endif /* _optional_or_t3d_acc_c_type */
+
+#ifndef _optional_or_t3d_aacc_c_type
+# define _optional_or_t3d_aacc_c_type
+typedef struct optional_or_t3d_aacc {
+  bool _present;
+  or_t3d_aacc _value;
+} optional_or_t3d_aacc;
+#endif /* _optional_or_t3d_aacc_c_type */
+
+#ifndef _optional_or_t3d_pos_cov_c_type
+# define _optional_or_t3d_pos_cov_c_type
+typedef struct optional_or_t3d_pos_cov {
+  bool _present;
+  or_t3d_pos_cov _value;
+} optional_or_t3d_pos_cov;
+#endif /* _optional_or_t3d_pos_cov_c_type */
+
+#ifndef _optional_or_t3d_att_cov_c_type
+# define _optional_or_t3d_att_cov_c_type
+typedef struct optional_or_t3d_att_cov {
+  bool _present;
+  or_t3d_att_cov _value;
+} optional_or_t3d_att_cov;
+#endif /* _optional_or_t3d_att_cov_c_type */
+
+#ifndef _optional_or_t3d_att_pos_cov_c_type
+# define _optional_or_t3d_att_pos_cov_c_type
+typedef struct optional_or_t3d_att_pos_cov {
+  bool _present;
+  or_t3d_att_pos_cov _value;
+} optional_or_t3d_att_pos_cov;
+#endif /* _optional_or_t3d_att_pos_cov_c_type */
+
+#ifndef _optional_or_t3d_vel_cov_c_type
+# define _optional_or_t3d_vel_cov_c_type
+typedef struct optional_or_t3d_vel_cov {
+  bool _present;
+  or_t3d_vel_cov _value;
+} optional_or_t3d_vel_cov;
+#endif /* _optional_or_t3d_vel_cov_c_type */
+
+#ifndef _optional_or_t3d_avel_cov_c_type
+# define _optional_or_t3d_avel_cov_c_type
+typedef struct optional_or_t3d_avel_cov {
+  bool _present;
+  or_t3d_avel_cov _value;
+} optional_or_t3d_avel_cov;
+#endif /* _optional_or_t3d_avel_cov_c_type */
+
+#ifndef _optional_or_t3d_acc_cov_c_type
+# define _optional_or_t3d_acc_cov_c_type
+typedef struct optional_or_t3d_acc_cov {
+  bool _present;
+  or_t3d_acc_cov _value;
+} optional_or_t3d_acc_cov;
+#endif /* _optional_or_t3d_acc_cov_c_type */
+
+#ifndef _optional_or_t3d_aacc_cov_c_type
+# define _optional_or_t3d_aacc_cov_c_type
+typedef struct optional_or_t3d_aacc_cov {
+  bool _present;
+  or_t3d_aacc_cov _value;
+} optional_or_t3d_aacc_cov;
+#endif /* _optional_or_t3d_aacc_cov_c_type */
+
+#ifndef _or_pose_estimator_state_definition_c_type
+# define _or_pose_estimator_state_definition_c_type
+struct or_pose_estimator_state {
+ or_time_ts ts;
+ bool intrinsic;
+ optional_or_t3d_pos pos;
+ optional_or_t3d_att att;
+ optional_or_t3d_vel vel;
+ optional_or_t3d_avel avel;
+ optional_or_t3d_acc acc;
+ optional_or_t3d_aacc aacc;
+ optional_or_t3d_pos_cov pos_cov;
+ optional_or_t3d_att_cov att_cov;
+ optional_or_t3d_att_pos_cov att_pos_cov;
+ optional_or_t3d_vel_cov vel_cov;
+ optional_or_t3d_avel_cov avel_cov;
+ optional_or_t3d_acc_cov acc_cov;
+ optional_or_t3d_aacc_cov aacc_cov;
+};
+#endif /* _or_pose_estimator_state_definition_c_type */
 
 #ifndef _bayes_opt_control_c_type
 # define _bayes_opt_control_c_type
@@ -1053,16 +1451,16 @@ genom_event genom_bayes_opt_client_genom_state_port(
                    "use genom_bayes_opt_client_genom_state_read instead")));
 
 /* params */
-#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 bayes_opt_suggestion *
   genom_bayes_opt_client_params_data(
     genom_client h
   );
-#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_params_read(
   genom_client h,
   bayes_opt_suggestion *data);
-#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_params_port(
   genom_client h,
   bayes_opt_suggestion *data)
@@ -1070,16 +1468,16 @@ genom_event genom_bayes_opt_client_params_port(
                    "use genom_bayes_opt_client_params_read instead")));
 
 /* best_result */
-#line 29 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 31 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 bayes_opt_best *
   genom_bayes_opt_client_best_result_data(
     genom_client h
   );
-#line 29 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 31 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_best_result_read(
   genom_client h,
   bayes_opt_best *data);
-#line 29 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 31 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_best_result_port(
   genom_client h,
   bayes_opt_best *data)
@@ -1087,16 +1485,16 @@ genom_event genom_bayes_opt_client_best_result_port(
                    "use genom_bayes_opt_client_best_result_read instead")));
 
 /* status */
-#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 32 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 bayes_opt_status_struct *
   genom_bayes_opt_client_status_data(
     genom_client h
   );
-#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 32 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_status_read(
   genom_client h,
   bayes_opt_status_struct *data);
-#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 32 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_status_port(
   genom_client h,
   bayes_opt_status_struct *data)
@@ -1105,31 +1503,31 @@ genom_event genom_bayes_opt_client_status_port(
 
 
 /* measure */
-#line 25 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_measure_open(
   genom_client h, const char *path, const char **name);
-#line 25 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_measure_close(
   genom_client h, const char *name);
-#line 25 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
-bayes_opt_pose_sample *
+#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+or_pose_estimator_state *
    genom_bayes_opt_client_measure_data(genom_client h, const char *name);
-#line 25 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_measure_write(
   genom_client h, const char *name,
-  const bayes_opt_pose_sample *data);
+  const or_pose_estimator_state *data);
 
 /* allow */
-#line 26 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_allow_open(
   genom_client h, const char *path, const char **name);
-#line 26 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_allow_close(
   genom_client h, const char *name);
-#line 26 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 bayes_opt_control *
    genom_bayes_opt_client_allow_data(genom_client h, const char *name);
-#line 26 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_allow_write(
   genom_client h, const char *name,
   const bayes_opt_control *data);
@@ -1142,13 +1540,13 @@ void	genom_bayes_opt_client_genom_state_fini_data(
 int	genom_bayes_opt_client_genom_state_json_print(char **json,
   const genom_state_component *data);
 void	genom_bayes_opt_client_measure_init_data(
-  bayes_opt_pose_sample *data);
+  or_pose_estimator_state *data);
 void	genom_bayes_opt_client_measure_fini_data(
-  bayes_opt_pose_sample *data);
+  or_pose_estimator_state *data);
 int	genom_bayes_opt_client_measure_json_print(char **json,
-  const bayes_opt_pose_sample *data);
+  const or_pose_estimator_state *data);
 int	genom_bayes_opt_client_measure_json_scan(
-  bayes_opt_pose_sample *data,
+  or_pose_estimator_state *data,
   const char *json, char **endptr);
 void	genom_bayes_opt_client_allow_init_data(
   bayes_opt_control *data);

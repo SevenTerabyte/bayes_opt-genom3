@@ -55,7 +55,7 @@ genom_event	genom_bayes_opt_genom_metadata_write(genom_context self);
 
 
 
-bayes_opt_pose_sample *	genom_bayes_opt_measure_data(genom_context self);
+or_pose_estimator_state *	genom_bayes_opt_measure_data(genom_context self);
 genom_event	genom_bayes_opt_measure_open(genom_context self);
 genom_event	genom_bayes_opt_measure_close(genom_context self);
 void		genom_bayes_opt_measure_delete(genom_context self);
@@ -189,7 +189,7 @@ struct genom_bayes_opt_measure_port {
   struct genom_bayes_opt_measure_ph {
     POSTER_ID id;
     STATUS status;
-    bayes_opt_pose_sample buffer;
+    or_pose_estimator_state buffer;
   }  h;
 };
 
@@ -202,7 +202,7 @@ genom_tinit_bayes_opt_measure_port(
   p->handle.read = genom_bayes_opt_measure_read;
   p->h.id = NULL;
   p->h.status = S_posterLib_EMPTY_POSTER;
-  genom_tinit_t_bayes_opt_pose_sample(
+  genom_tinit_t_or_pose_estimator_state(
     &(p->h.buffer));
 }
 
@@ -211,7 +211,7 @@ static __inline__ void
 genom_tfini_bayes_opt_measure_port(
   struct genom_bayes_opt_measure_port *p)
 {
-  genom_tfini_t_bayes_opt_pose_sample(
+  genom_tfini_t_or_pose_estimator_state(
     &(p->h.buffer));
 }
 

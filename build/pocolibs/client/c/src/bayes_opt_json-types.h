@@ -79,18 +79,142 @@ static __inline__ int	json_scan_t_genom_state_component(
   genom_state_component *, const char **);
 static __inline__ int	json_print_t_genom_state_component(char **, char **, size_t *,
   const genom_state_component *);
-static __inline__ int	json_scan_double(
-  double *, const char **);
-static __inline__ int	json_print_double(char **, char **, size_t *,
-  double);
+static __inline__ int	json_scan_long(
+  int32_t *, const char **);
+static __inline__ int	json_print_long(char **, char **, size_t *,
+  int32_t);
+static __inline__ int	json_scan_t_or_time_ts(
+  or_time_ts *, const char **);
+static __inline__ int	json_print_t_or_time_ts(char **, char **, size_t *,
+  const or_time_ts *);
 static __inline__ int	json_scan_boolean(
   bool *, const char **);
 static __inline__ int	json_print_boolean(char **, char **, size_t *,
   bool);
-static __inline__ int	json_scan_t_bayes_opt_pose_sample(
-  bayes_opt_pose_sample *, const char **);
-static __inline__ int	json_print_t_bayes_opt_pose_sample(char **, char **, size_t *,
-  const bayes_opt_pose_sample *);
+static __inline__ int	json_scan_double(
+  double *, const char **);
+static __inline__ int	json_print_double(char **, char **, size_t *,
+  double);
+static __inline__ int	json_scan_t_or_t3d_pos(
+  or_t3d_pos *, const char **);
+static __inline__ int	json_print_t_or_t3d_pos(char **, char **, size_t *,
+  const or_t3d_pos *);
+static __inline__ int	json_scan_optional_t_or_t3d_pos(
+  optional_or_t3d_pos *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_pos(char **, char **, size_t *,
+  const optional_or_t3d_pos *);
+static __inline__ int	json_scan_t_or_t3d_att(
+  or_t3d_att *, const char **);
+static __inline__ int	json_print_t_or_t3d_att(char **, char **, size_t *,
+  const or_t3d_att *);
+static __inline__ int	json_scan_optional_t_or_t3d_att(
+  optional_or_t3d_att *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_att(char **, char **, size_t *,
+  const optional_or_t3d_att *);
+static __inline__ int	json_scan_t_or_t3d_vel(
+  or_t3d_vel *, const char **);
+static __inline__ int	json_print_t_or_t3d_vel(char **, char **, size_t *,
+  const or_t3d_vel *);
+static __inline__ int	json_scan_optional_t_or_t3d_vel(
+  optional_or_t3d_vel *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_vel(char **, char **, size_t *,
+  const optional_or_t3d_vel *);
+static __inline__ int	json_scan_t_or_t3d_avel(
+  or_t3d_avel *, const char **);
+static __inline__ int	json_print_t_or_t3d_avel(char **, char **, size_t *,
+  const or_t3d_avel *);
+static __inline__ int	json_scan_optional_t_or_t3d_avel(
+  optional_or_t3d_avel *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_avel(char **, char **, size_t *,
+  const optional_or_t3d_avel *);
+static __inline__ int	json_scan_t_or_t3d_acc(
+  or_t3d_acc *, const char **);
+static __inline__ int	json_print_t_or_t3d_acc(char **, char **, size_t *,
+  const or_t3d_acc *);
+static __inline__ int	json_scan_optional_t_or_t3d_acc(
+  optional_or_t3d_acc *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_acc(char **, char **, size_t *,
+  const optional_or_t3d_acc *);
+static __inline__ int	json_scan_t_or_t3d_aacc(
+  or_t3d_aacc *, const char **);
+static __inline__ int	json_print_t_or_t3d_aacc(char **, char **, size_t *,
+  const or_t3d_aacc *);
+static __inline__ int	json_scan_optional_t_or_t3d_aacc(
+  optional_or_t3d_aacc *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_aacc(char **, char **, size_t *,
+  const optional_or_t3d_aacc *);
+static __inline__ int	json_scan_array6_double(
+  double [6], const char **);
+static __inline__ int	json_print_array6_double(char **, char **, size_t *,
+  const double [6]);
+static __inline__ int	json_scan_t_or_t3d_pos_cov(
+  or_t3d_pos_cov *, const char **);
+static __inline__ int	json_print_t_or_t3d_pos_cov(char **, char **, size_t *,
+  const or_t3d_pos_cov *);
+static __inline__ int	json_scan_optional_t_or_t3d_pos_cov(
+  optional_or_t3d_pos_cov *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_pos_cov(char **, char **, size_t *,
+  const optional_or_t3d_pos_cov *);
+static __inline__ int	json_scan_array10_double(
+  double [10], const char **);
+static __inline__ int	json_print_array10_double(char **, char **, size_t *,
+  const double [10]);
+static __inline__ int	json_scan_t_or_t3d_att_cov(
+  or_t3d_att_cov *, const char **);
+static __inline__ int	json_print_t_or_t3d_att_cov(char **, char **, size_t *,
+  const or_t3d_att_cov *);
+static __inline__ int	json_scan_optional_t_or_t3d_att_cov(
+  optional_or_t3d_att_cov *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_att_cov(char **, char **, size_t *,
+  const optional_or_t3d_att_cov *);
+static __inline__ int	json_scan_array12_double(
+  double [12], const char **);
+static __inline__ int	json_print_array12_double(char **, char **, size_t *,
+  const double [12]);
+static __inline__ int	json_scan_t_or_t3d_att_pos_cov(
+  or_t3d_att_pos_cov *, const char **);
+static __inline__ int	json_print_t_or_t3d_att_pos_cov(char **, char **, size_t *,
+  const or_t3d_att_pos_cov *);
+static __inline__ int	json_scan_optional_t_or_t3d_att_pos_cov(
+  optional_or_t3d_att_pos_cov *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_att_pos_cov(char **, char **, size_t *,
+  const optional_or_t3d_att_pos_cov *);
+static __inline__ int	json_scan_t_or_t3d_vel_cov(
+  or_t3d_vel_cov *, const char **);
+static __inline__ int	json_print_t_or_t3d_vel_cov(char **, char **, size_t *,
+  const or_t3d_vel_cov *);
+static __inline__ int	json_scan_optional_t_or_t3d_vel_cov(
+  optional_or_t3d_vel_cov *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_vel_cov(char **, char **, size_t *,
+  const optional_or_t3d_vel_cov *);
+static __inline__ int	json_scan_t_or_t3d_avel_cov(
+  or_t3d_avel_cov *, const char **);
+static __inline__ int	json_print_t_or_t3d_avel_cov(char **, char **, size_t *,
+  const or_t3d_avel_cov *);
+static __inline__ int	json_scan_optional_t_or_t3d_avel_cov(
+  optional_or_t3d_avel_cov *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_avel_cov(char **, char **, size_t *,
+  const optional_or_t3d_avel_cov *);
+static __inline__ int	json_scan_t_or_t3d_acc_cov(
+  or_t3d_acc_cov *, const char **);
+static __inline__ int	json_print_t_or_t3d_acc_cov(char **, char **, size_t *,
+  const or_t3d_acc_cov *);
+static __inline__ int	json_scan_optional_t_or_t3d_acc_cov(
+  optional_or_t3d_acc_cov *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_acc_cov(char **, char **, size_t *,
+  const optional_or_t3d_acc_cov *);
+static __inline__ int	json_scan_t_or_t3d_aacc_cov(
+  or_t3d_aacc_cov *, const char **);
+static __inline__ int	json_print_t_or_t3d_aacc_cov(char **, char **, size_t *,
+  const or_t3d_aacc_cov *);
+static __inline__ int	json_scan_optional_t_or_t3d_aacc_cov(
+  optional_or_t3d_aacc_cov *, const char **);
+static __inline__ int	json_print_optional_t_or_t3d_aacc_cov(char **, char **, size_t *,
+  const optional_or_t3d_aacc_cov *);
+static __inline__ int	json_scan_t_or_pose_estimator_state(
+  or_pose_estimator_state *, const char **);
+static __inline__ int	json_print_t_or_pose_estimator_state(char **, char **, size_t *,
+  const or_pose_estimator_state *);
 static __inline__ int	json_scan_t_bayes_opt_control(
   bayes_opt_control *, const char **);
 static __inline__ int	json_print_t_bayes_opt_control(char **, char **, size_t *,
@@ -99,10 +223,6 @@ static __inline__ int	json_scan_array5_double(
   double [5], const char **);
 static __inline__ int	json_print_array5_double(char **, char **, size_t *,
   const double [5]);
-static __inline__ int	json_scan_long(
-  int32_t *, const char **);
-static __inline__ int	json_print_long(char **, char **, size_t *,
-  int32_t);
 static __inline__ int	json_scan_t_bayes_opt_suggestion(
   bayes_opt_suggestion *, const char **);
 static __inline__ int	json_print_t_bayes_opt_suggestion(char **, char **, size_t *,
@@ -914,6 +1034,113 @@ json_print_t_genom_state_component(char **json, char **end, size_t *len,
   return 0;
 }
 
+/* === long ============================================================= */
+
+static __inline__ int
+json_scan_long(int32_t *data, const char **json)
+{
+  int s = 0;
+  long long v;
+  char *d;
+
+  v = strtoll(*json, &d, 0);
+  if (d == *json) return EINVAL;
+  *json = d;
+  *(data) = (int32_t)v;
+  return s;
+}
+
+static __inline__ int
+json_print_long(char **json, char **end, size_t *len,
+  int32_t data)
+{
+  int s;
+  int64_t v = data;
+  if ((s = bufcat_uint64_t(json, end, len, v<0, (uint64_t)(v<0?-v:v))))
+    return s;
+  return 0;
+}
+
+/* === t_or_time_ts ===================================================== */
+
+static __inline__ int
+json_scan_t_or_time_ts(or_time_ts *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "sec\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_long(
+             &(data->sec), json))) return s;
+    } else
+    if (!strncmp(*json, "nsec\"", 1+4)) {
+      (*json)+= 1+4;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_long(
+             &(data->nsec), json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_time_ts(char **json, char **end, size_t *len,
+  const or_time_ts *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"sec\":"))) return s;
+  if ((s = json_print_long(json, end, len,
+         data->sec))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"nsec\":"))) return s;
+  if ((s = json_print_long(json, end, len,
+         data->nsec))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === boolean ========================================================== */
+
+static __inline__ int
+json_scan_boolean(bool *data, const char **json)
+{
+  int s = 0;
+  long long v;
+  char *d;
+
+  v = strtoll(*json, &d, 0);
+  if (d == *json) return EINVAL;
+  *json = d;
+  *(data) = (bool)v;
+  return s;
+}
+
+static __inline__ int
+json_print_boolean(char **json, char **end, size_t *len,
+  bool data)
+{
+  int s;
+  int64_t v = data;
+  if ((s = bufcat_uint64_t(json, end, len, v<0, (uint64_t)(v<0?-v:v))))
+    return s;
+  return 0;
+}
+
 /* === double =========================================================== */
 
 static __inline__ int
@@ -950,37 +1177,10 @@ json_print_double(char **json, char **end, size_t *len,
   return 0;
 }
 
-/* === boolean ========================================================== */
+/* === t_or_t3d_pos ===================================================== */
 
 static __inline__ int
-json_scan_boolean(bool *data, const char **json)
-{
-  int s = 0;
-  long long v;
-  char *d;
-
-  v = strtoll(*json, &d, 0);
-  if (d == *json) return EINVAL;
-  *json = d;
-  *(data) = (bool)v;
-  return s;
-}
-
-static __inline__ int
-json_print_boolean(char **json, char **end, size_t *len,
-  bool data)
-{
-  int s;
-  int64_t v = data;
-  if ((s = bufcat_uint64_t(json, end, len, v<0, (uint64_t)(v<0?-v:v))))
-    return s;
-  return 0;
-}
-
-/* === t_bayes_opt_pose_sample ========================================== */
-
-static __inline__ int
-json_scan_t_bayes_opt_pose_sample(bayes_opt_pose_sample *data, const char **json)
+json_scan_t_or_t3d_pos(or_t3d_pos *data, const char **json)
 {
   int s = 0;
   json_skip_whitespace(*json);
@@ -1009,6 +1209,187 @@ json_scan_t_bayes_opt_pose_sample(bayes_opt_pose_sample *data, const char **json
       if ((s = json_scan_double(
              &(data->z), json))) return s;
     } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_t3d_pos(char **json, char **end, size_t *len,
+  const or_t3d_pos *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"x\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->x))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"y\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->y))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"z\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->z))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_pos ============================================ */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_pos(optional_or_t3d_pos *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_pos(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_pos(char **json, char **end, size_t *len,
+  const optional_or_t3d_pos *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_pos(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === t_or_t3d_att ===================================================== */
+
+static __inline__ int
+json_scan_t_or_t3d_att(or_t3d_att *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "qw\"", 1+2)) {
+      (*json)+= 1+2;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->qw), json))) return s;
+    } else
+    if (!strncmp(*json, "qx\"", 1+2)) {
+      (*json)+= 1+2;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->qx), json))) return s;
+    } else
+    if (!strncmp(*json, "qy\"", 1+2)) {
+      (*json)+= 1+2;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->qy), json))) return s;
+    } else
+    if (!strncmp(*json, "qz\"", 1+2)) {
+      (*json)+= 1+2;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->qz), json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_t3d_att(char **json, char **end, size_t *len,
+  const or_t3d_att *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"qw\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->qw))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"qx\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->qx))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"qy\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->qy))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"qz\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->qz))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_att ============================================ */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_att(optional_or_t3d_att *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_att(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_att(char **json, char **end, size_t *len,
+  const optional_or_t3d_att *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_att(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === t_or_t3d_vel ===================================================== */
+
+static __inline__ int
+json_scan_t_or_t3d_vel(or_t3d_vel *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
     if (!strncmp(*json, "vx\"", 1+2)) {
       (*json)+= 1+2;
       json_skip_whitespace(*json);
@@ -1030,12 +1411,101 @@ json_scan_t_bayes_opt_pose_sample(bayes_opt_pose_sample *data, const char **json
       if ((s = json_scan_double(
              &(data->vz), json))) return s;
     } else
-    if (!strncmp(*json, "valid\"", 1+5)) {
-      (*json)+= 1+5;
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_t3d_vel(char **json, char **end, size_t *len,
+  const or_t3d_vel *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"vx\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->vx))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"vy\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->vy))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"vz\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->vz))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_vel ============================================ */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_vel(optional_or_t3d_vel *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_vel(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_vel(char **json, char **end, size_t *len,
+  const optional_or_t3d_vel *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_vel(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === t_or_t3d_avel ==================================================== */
+
+static __inline__ int
+json_scan_t_or_t3d_avel(or_t3d_avel *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "wx\"", 1+2)) {
+      (*json)+= 1+2;
       json_skip_whitespace(*json);
       if (*((*json)++) != ':') return EINVAL;
-      if ((s = json_scan_boolean(
-             &(data->valid), json))) return s;
+      if ((s = json_scan_double(
+             &(data->wx), json))) return s;
+    } else
+    if (!strncmp(*json, "wy\"", 1+2)) {
+      (*json)+= 1+2;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->wy), json))) return s;
+    } else
+    if (!strncmp(*json, "wz\"", 1+2)) {
+      (*json)+= 1+2;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->wz), json))) return s;
     } else
       return EINVAL;
 
@@ -1050,32 +1520,1170 @@ json_scan_t_bayes_opt_pose_sample(bayes_opt_pose_sample *data, const char **json
 }
 
 static __inline__ int
-json_print_t_bayes_opt_pose_sample(char **json, char **end, size_t *len,
-  const bayes_opt_pose_sample *data)
+json_print_t_or_t3d_avel(char **json, char **end, size_t *len,
+  const or_t3d_avel *data)
 {
   int s;
   if ((s = bufcat(json, end, len, 0, "{"))) return s;
-  if ((s = bufcat(json, end, len, 0, "\"x\":"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"wx\":"))) return s;
   if ((s = json_print_double(json, end, len,
-         data->x))) return s;
-  if ((s = bufcat(json, end, len, 0, ",\"y\":"))) return s;
+         data->wx))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"wy\":"))) return s;
   if ((s = json_print_double(json, end, len,
-         data->y))) return s;
-  if ((s = bufcat(json, end, len, 0, ",\"z\":"))) return s;
+         data->wy))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"wz\":"))) return s;
   if ((s = json_print_double(json, end, len,
-         data->z))) return s;
-  if ((s = bufcat(json, end, len, 0, ",\"vx\":"))) return s;
+         data->wz))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_avel =========================================== */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_avel(optional_or_t3d_avel *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_avel(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_avel(char **json, char **end, size_t *len,
+  const optional_or_t3d_avel *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_avel(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === t_or_t3d_acc ===================================================== */
+
+static __inline__ int
+json_scan_t_or_t3d_acc(or_t3d_acc *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "ax\"", 1+2)) {
+      (*json)+= 1+2;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->ax), json))) return s;
+    } else
+    if (!strncmp(*json, "ay\"", 1+2)) {
+      (*json)+= 1+2;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->ay), json))) return s;
+    } else
+    if (!strncmp(*json, "az\"", 1+2)) {
+      (*json)+= 1+2;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->az), json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_t3d_acc(char **json, char **end, size_t *len,
+  const or_t3d_acc *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"ax\":"))) return s;
   if ((s = json_print_double(json, end, len,
-         data->vx))) return s;
-  if ((s = bufcat(json, end, len, 0, ",\"vy\":"))) return s;
+         data->ax))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"ay\":"))) return s;
   if ((s = json_print_double(json, end, len,
-         data->vy))) return s;
-  if ((s = bufcat(json, end, len, 0, ",\"vz\":"))) return s;
+         data->ay))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"az\":"))) return s;
   if ((s = json_print_double(json, end, len,
-         data->vz))) return s;
-  if ((s = bufcat(json, end, len, 0, ",\"valid\":"))) return s;
+         data->az))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_acc ============================================ */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_acc(optional_or_t3d_acc *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_acc(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_acc(char **json, char **end, size_t *len,
+  const optional_or_t3d_acc *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_acc(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === t_or_t3d_aacc ==================================================== */
+
+static __inline__ int
+json_scan_t_or_t3d_aacc(or_t3d_aacc *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "awx\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->awx), json))) return s;
+    } else
+    if (!strncmp(*json, "awy\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->awy), json))) return s;
+    } else
+    if (!strncmp(*json, "awz\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_double(
+             &(data->awz), json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_t3d_aacc(char **json, char **end, size_t *len,
+  const or_t3d_aacc *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"awx\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->awx))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"awy\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->awy))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"awz\":"))) return s;
+  if ((s = json_print_double(json, end, len,
+         data->awz))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_aacc =========================================== */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_aacc(optional_or_t3d_aacc *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_aacc(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_aacc(char **json, char **end, size_t *len,
+  const optional_or_t3d_aacc *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_aacc(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === array6_double ==================================================== */
+
+static __inline__ int
+json_scan_array6_double(double data[6], const char **json)
+{
+  int s = 0;
+  long i;
+
+  json_skip_whitespace(*json);
+  switch (*((*json)++)) {
+    case '[':
+      json_skip_whitespace(*json);
+      i = 0;
+      while(**json != ']') {
+        if (i >= 6) return EINVAL;
+        if ((s = json_scan_double(
+               &(data[i]), json))) return s;
+        json_skip_whitespace(*json);
+        if (**json == ',') {
+          (*json)++;
+          json_skip_whitespace(*json);
+        }
+        i++;
+      }
+      break;
+
+    case '{':
+      json_skip_whitespace(*json);
+      while(**json != '}') {
+        char *d;
+
+        if (*((*json)++) != '"') return EINVAL;
+        i = strtol(*json, &d, 0);
+        if (d == *json || *d != '"' || i<0) return EINVAL;
+        *json = d+1;
+        json_skip_whitespace(*json);
+        if (*((*json)++) != ':') return EINVAL;
+        if (i >= 6) return EINVAL;
+        if ((s = json_scan_double(
+               &(data[i]), json))) return s;
+        json_skip_whitespace(*json);
+        if (**json == ',') {
+          (*json)++;
+          json_skip_whitespace(*json);
+        }
+      }
+      break;
+
+    default: return EINVAL;
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_array6_double(char **json, char **end, size_t *len,
+  const double data[6])
+{
+  int s;
+  size_t i;
+  if ((s = bufcat(json, end, len, 0, "["))) return s;
+  for (i=0; i<6; i++) {
+    if (i && (s = bufcat(json, end, len, 0, ","))) return s;
+    if ((s = json_print_double(json, end, len,
+           data[i]))) return s;
+  }
+  if ((s = bufcat(json, end, len, 0, "]"))) return s;
+  return 0;
+}
+
+/* === t_or_t3d_pos_cov ================================================= */
+
+static __inline__ int
+json_scan_t_or_t3d_pos_cov(or_t3d_pos_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "cov\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_array6_double(
+             data->cov, json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_t3d_pos_cov(char **json, char **end, size_t *len,
+  const or_t3d_pos_cov *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"cov\":"))) return s;
+  if ((s = json_print_array6_double(json, end, len,
+         data->cov))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_pos_cov ======================================== */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_pos_cov(optional_or_t3d_pos_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_pos_cov(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_pos_cov(char **json, char **end, size_t *len,
+  const optional_or_t3d_pos_cov *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_pos_cov(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === array10_double =================================================== */
+
+static __inline__ int
+json_scan_array10_double(double data[10], const char **json)
+{
+  int s = 0;
+  long i;
+
+  json_skip_whitespace(*json);
+  switch (*((*json)++)) {
+    case '[':
+      json_skip_whitespace(*json);
+      i = 0;
+      while(**json != ']') {
+        if (i >= 10) return EINVAL;
+        if ((s = json_scan_double(
+               &(data[i]), json))) return s;
+        json_skip_whitespace(*json);
+        if (**json == ',') {
+          (*json)++;
+          json_skip_whitespace(*json);
+        }
+        i++;
+      }
+      break;
+
+    case '{':
+      json_skip_whitespace(*json);
+      while(**json != '}') {
+        char *d;
+
+        if (*((*json)++) != '"') return EINVAL;
+        i = strtol(*json, &d, 0);
+        if (d == *json || *d != '"' || i<0) return EINVAL;
+        *json = d+1;
+        json_skip_whitespace(*json);
+        if (*((*json)++) != ':') return EINVAL;
+        if (i >= 10) return EINVAL;
+        if ((s = json_scan_double(
+               &(data[i]), json))) return s;
+        json_skip_whitespace(*json);
+        if (**json == ',') {
+          (*json)++;
+          json_skip_whitespace(*json);
+        }
+      }
+      break;
+
+    default: return EINVAL;
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_array10_double(char **json, char **end, size_t *len,
+  const double data[10])
+{
+  int s;
+  size_t i;
+  if ((s = bufcat(json, end, len, 0, "["))) return s;
+  for (i=0; i<10; i++) {
+    if (i && (s = bufcat(json, end, len, 0, ","))) return s;
+    if ((s = json_print_double(json, end, len,
+           data[i]))) return s;
+  }
+  if ((s = bufcat(json, end, len, 0, "]"))) return s;
+  return 0;
+}
+
+/* === t_or_t3d_att_cov ================================================= */
+
+static __inline__ int
+json_scan_t_or_t3d_att_cov(or_t3d_att_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "cov\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_array10_double(
+             data->cov, json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_t3d_att_cov(char **json, char **end, size_t *len,
+  const or_t3d_att_cov *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"cov\":"))) return s;
+  if ((s = json_print_array10_double(json, end, len,
+         data->cov))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_att_cov ======================================== */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_att_cov(optional_or_t3d_att_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_att_cov(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_att_cov(char **json, char **end, size_t *len,
+  const optional_or_t3d_att_cov *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_att_cov(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === array12_double =================================================== */
+
+static __inline__ int
+json_scan_array12_double(double data[12], const char **json)
+{
+  int s = 0;
+  long i;
+
+  json_skip_whitespace(*json);
+  switch (*((*json)++)) {
+    case '[':
+      json_skip_whitespace(*json);
+      i = 0;
+      while(**json != ']') {
+        if (i >= 12) return EINVAL;
+        if ((s = json_scan_double(
+               &(data[i]), json))) return s;
+        json_skip_whitespace(*json);
+        if (**json == ',') {
+          (*json)++;
+          json_skip_whitespace(*json);
+        }
+        i++;
+      }
+      break;
+
+    case '{':
+      json_skip_whitespace(*json);
+      while(**json != '}') {
+        char *d;
+
+        if (*((*json)++) != '"') return EINVAL;
+        i = strtol(*json, &d, 0);
+        if (d == *json || *d != '"' || i<0) return EINVAL;
+        *json = d+1;
+        json_skip_whitespace(*json);
+        if (*((*json)++) != ':') return EINVAL;
+        if (i >= 12) return EINVAL;
+        if ((s = json_scan_double(
+               &(data[i]), json))) return s;
+        json_skip_whitespace(*json);
+        if (**json == ',') {
+          (*json)++;
+          json_skip_whitespace(*json);
+        }
+      }
+      break;
+
+    default: return EINVAL;
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_array12_double(char **json, char **end, size_t *len,
+  const double data[12])
+{
+  int s;
+  size_t i;
+  if ((s = bufcat(json, end, len, 0, "["))) return s;
+  for (i=0; i<12; i++) {
+    if (i && (s = bufcat(json, end, len, 0, ","))) return s;
+    if ((s = json_print_double(json, end, len,
+           data[i]))) return s;
+  }
+  if ((s = bufcat(json, end, len, 0, "]"))) return s;
+  return 0;
+}
+
+/* === t_or_t3d_att_pos_cov ============================================= */
+
+static __inline__ int
+json_scan_t_or_t3d_att_pos_cov(or_t3d_att_pos_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "cov\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_array12_double(
+             data->cov, json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_t3d_att_pos_cov(char **json, char **end, size_t *len,
+  const or_t3d_att_pos_cov *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"cov\":"))) return s;
+  if ((s = json_print_array12_double(json, end, len,
+         data->cov))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_att_pos_cov ==================================== */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_att_pos_cov(optional_or_t3d_att_pos_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_att_pos_cov(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_att_pos_cov(char **json, char **end, size_t *len,
+  const optional_or_t3d_att_pos_cov *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_att_pos_cov(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === t_or_t3d_vel_cov ================================================= */
+
+static __inline__ int
+json_scan_t_or_t3d_vel_cov(or_t3d_vel_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "cov\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_array6_double(
+             data->cov, json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_t3d_vel_cov(char **json, char **end, size_t *len,
+  const or_t3d_vel_cov *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"cov\":"))) return s;
+  if ((s = json_print_array6_double(json, end, len,
+         data->cov))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_vel_cov ======================================== */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_vel_cov(optional_or_t3d_vel_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_vel_cov(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_vel_cov(char **json, char **end, size_t *len,
+  const optional_or_t3d_vel_cov *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_vel_cov(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === t_or_t3d_avel_cov ================================================ */
+
+static __inline__ int
+json_scan_t_or_t3d_avel_cov(or_t3d_avel_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "cov\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_array6_double(
+             data->cov, json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_t3d_avel_cov(char **json, char **end, size_t *len,
+  const or_t3d_avel_cov *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"cov\":"))) return s;
+  if ((s = json_print_array6_double(json, end, len,
+         data->cov))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_avel_cov ======================================= */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_avel_cov(optional_or_t3d_avel_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_avel_cov(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_avel_cov(char **json, char **end, size_t *len,
+  const optional_or_t3d_avel_cov *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_avel_cov(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === t_or_t3d_acc_cov ================================================= */
+
+static __inline__ int
+json_scan_t_or_t3d_acc_cov(or_t3d_acc_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "cov\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_array6_double(
+             data->cov, json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_t3d_acc_cov(char **json, char **end, size_t *len,
+  const or_t3d_acc_cov *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"cov\":"))) return s;
+  if ((s = json_print_array6_double(json, end, len,
+         data->cov))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_acc_cov ======================================== */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_acc_cov(optional_or_t3d_acc_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_acc_cov(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_acc_cov(char **json, char **end, size_t *len,
+  const optional_or_t3d_acc_cov *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_acc_cov(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === t_or_t3d_aacc_cov ================================================ */
+
+static __inline__ int
+json_scan_t_or_t3d_aacc_cov(or_t3d_aacc_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "cov\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_array6_double(
+             data->cov, json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_t3d_aacc_cov(char **json, char **end, size_t *len,
+  const or_t3d_aacc_cov *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"cov\":"))) return s;
+  if ((s = json_print_array6_double(json, end, len,
+         data->cov))) return s;
+  if ((s = bufcat(json, end, len, 0, "}"))) return s;
+  return 0;
+}
+
+/* === optional_t_or_t3d_aacc_cov ======================================= */
+
+static __inline__ int
+json_scan_optional_t_or_t3d_aacc_cov(optional_or_t3d_aacc_cov *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  data->_present = 0;
+  if (!strncmp(*json, "null", 4)) {
+    (*json) += 4;
+    return 0;
+  }
+  if ((s = json_scan_t_or_t3d_aacc_cov(
+         &(data->_value), json)))
+    return s;
+  data->_present = 1;
+  return s;
+}
+
+static __inline__ int
+json_print_optional_t_or_t3d_aacc_cov(char **json, char **end, size_t *len,
+  const optional_or_t3d_aacc_cov *data)
+{
+  int s;
+  if (data->_present) {
+    if ((s = json_print_t_or_t3d_aacc_cov(json, end, len,
+           &(data->_value)))) return s;
+  } else {
+    if ((s = bufcat(json, end, len, 0, "null"))) return s;
+  }
+  return 0;
+}
+
+/* === t_or_pose_estimator_state ======================================== */
+
+static __inline__ int
+json_scan_t_or_pose_estimator_state(or_pose_estimator_state *data, const char **json)
+{
+  int s = 0;
+  json_skip_whitespace(*json);
+  if (*((*json)++) != '{') return EINVAL;
+  json_skip_whitespace(*json);
+  while(**json != '}') {
+    if (*((*json)++) != '"') return EINVAL;
+    if (!strncmp(*json, "ts\"", 1+2)) {
+      (*json)+= 1+2;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_t_or_time_ts(
+             &(data->ts), json))) return s;
+    } else
+    if (!strncmp(*json, "intrinsic\"", 1+9)) {
+      (*json)+= 1+9;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_boolean(
+             &(data->intrinsic), json))) return s;
+    } else
+    if (!strncmp(*json, "pos\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_pos(
+             &(data->pos), json))) return s;
+    } else
+    if (!strncmp(*json, "att\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_att(
+             &(data->att), json))) return s;
+    } else
+    if (!strncmp(*json, "vel\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_vel(
+             &(data->vel), json))) return s;
+    } else
+    if (!strncmp(*json, "avel\"", 1+4)) {
+      (*json)+= 1+4;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_avel(
+             &(data->avel), json))) return s;
+    } else
+    if (!strncmp(*json, "acc\"", 1+3)) {
+      (*json)+= 1+3;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_acc(
+             &(data->acc), json))) return s;
+    } else
+    if (!strncmp(*json, "aacc\"", 1+4)) {
+      (*json)+= 1+4;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_aacc(
+             &(data->aacc), json))) return s;
+    } else
+    if (!strncmp(*json, "pos_cov\"", 1+7)) {
+      (*json)+= 1+7;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_pos_cov(
+             &(data->pos_cov), json))) return s;
+    } else
+    if (!strncmp(*json, "att_cov\"", 1+7)) {
+      (*json)+= 1+7;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_att_cov(
+             &(data->att_cov), json))) return s;
+    } else
+    if (!strncmp(*json, "att_pos_cov\"", 1+11)) {
+      (*json)+= 1+11;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_att_pos_cov(
+             &(data->att_pos_cov), json))) return s;
+    } else
+    if (!strncmp(*json, "vel_cov\"", 1+7)) {
+      (*json)+= 1+7;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_vel_cov(
+             &(data->vel_cov), json))) return s;
+    } else
+    if (!strncmp(*json, "avel_cov\"", 1+8)) {
+      (*json)+= 1+8;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_avel_cov(
+             &(data->avel_cov), json))) return s;
+    } else
+    if (!strncmp(*json, "acc_cov\"", 1+7)) {
+      (*json)+= 1+7;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_acc_cov(
+             &(data->acc_cov), json))) return s;
+    } else
+    if (!strncmp(*json, "aacc_cov\"", 1+8)) {
+      (*json)+= 1+8;
+      json_skip_whitespace(*json);
+      if (*((*json)++) != ':') return EINVAL;
+      if ((s = json_scan_optional_t_or_t3d_aacc_cov(
+             &(data->aacc_cov), json))) return s;
+    } else
+      return EINVAL;
+
+    json_skip_whitespace(*json);
+    if (**json == ',') {
+      (*json)++;
+      json_skip_whitespace(*json);
+    }
+  }
+  (*json)++;
+  return s;
+}
+
+static __inline__ int
+json_print_t_or_pose_estimator_state(char **json, char **end, size_t *len,
+  const or_pose_estimator_state *data)
+{
+  int s;
+  if ((s = bufcat(json, end, len, 0, "{"))) return s;
+  if ((s = bufcat(json, end, len, 0, "\"ts\":"))) return s;
+  if ((s = json_print_t_or_time_ts(json, end, len,
+         &(data->ts)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"intrinsic\":"))) return s;
   if ((s = json_print_boolean(json, end, len,
-         data->valid))) return s;
+         data->intrinsic))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"pos\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_pos(json, end, len,
+         &(data->pos)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"att\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_att(json, end, len,
+         &(data->att)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"vel\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_vel(json, end, len,
+         &(data->vel)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"avel\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_avel(json, end, len,
+         &(data->avel)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"acc\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_acc(json, end, len,
+         &(data->acc)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"aacc\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_aacc(json, end, len,
+         &(data->aacc)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"pos_cov\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_pos_cov(json, end, len,
+         &(data->pos_cov)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"att_cov\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_att_cov(json, end, len,
+         &(data->att_cov)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"att_pos_cov\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_att_pos_cov(json, end, len,
+         &(data->att_pos_cov)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"vel_cov\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_vel_cov(json, end, len,
+         &(data->vel_cov)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"avel_cov\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_avel_cov(json, end, len,
+         &(data->avel_cov)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"acc_cov\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_acc_cov(json, end, len,
+         &(data->acc_cov)))) return s;
+  if ((s = bufcat(json, end, len, 0, ",\"aacc_cov\":"))) return s;
+  if ((s = json_print_optional_t_or_t3d_aacc_cov(json, end, len,
+         &(data->aacc_cov)))) return s;
   if ((s = bufcat(json, end, len, 0, "}"))) return s;
   return 0;
 }
@@ -1190,33 +2798,6 @@ json_print_array5_double(char **json, char **end, size_t *len,
            data[i]))) return s;
   }
   if ((s = bufcat(json, end, len, 0, "]"))) return s;
-  return 0;
-}
-
-/* === long ============================================================= */
-
-static __inline__ int
-json_scan_long(int32_t *data, const char **json)
-{
-  int s = 0;
-  long long v;
-  char *d;
-
-  v = strtoll(*json, &d, 0);
-  if (d == *json) return EINVAL;
-  *json = d;
-  *(data) = (int32_t)v;
-  return s;
-}
-
-static __inline__ int
-json_print_long(char **json, char **end, size_t *len,
-  int32_t data)
-{
-  int s;
-  int64_t v = data;
-  if ((s = bufcat_uint64_t(json, end, len, v<0, (uint64_t)(v<0?-v:v))))
-    return s;
   return 0;
 }
 

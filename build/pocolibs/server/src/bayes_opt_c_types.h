@@ -497,6 +497,612 @@ typedef struct pocolibs_genom_metadata {
 } pocolibs_genom_metadata;
 #endif /* _pocolibs_genom_metadata_c_type */
 
+#ifndef _or_time_ts_c_type
+# define _or_time_ts_c_type
+#line 23 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/time/time.idl"
+typedef struct or_time_ts or_time_ts;
+#endif /* _or_time_ts_c_type */
+
+#ifndef _or_time_ts_definition_c_type
+# define _or_time_ts_definition_c_type
+struct or_time_ts {
+#line 24 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/time/time.idl"
+ int32_t sec;
+#line 25 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/time/time.idl"
+ int32_t nsec;
+};
+#endif /* _or_time_ts_definition_c_type */
+
+#ifndef _or_t3d_X_c_type
+# define _or_t3d_X_c_type
+#line 21 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+static const uint16_t or_t3d_X = 0;
+#endif /* _or_t3d_X_c_type */
+
+#ifndef _or_t3d_Y_c_type
+# define _or_t3d_Y_c_type
+#line 22 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+static const uint16_t or_t3d_Y = 1;
+#endif /* _or_t3d_Y_c_type */
+
+#ifndef _or_t3d_Z_c_type
+# define _or_t3d_Z_c_type
+#line 23 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+static const uint16_t or_t3d_Z = 2;
+#endif /* _or_t3d_Z_c_type */
+
+#ifndef _or_t3d_QW_c_type
+# define _or_t3d_QW_c_type
+#line 25 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+static const uint16_t or_t3d_QW = 0;
+#endif /* _or_t3d_QW_c_type */
+
+#ifndef _or_t3d_QX_c_type
+# define _or_t3d_QX_c_type
+#line 26 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+static const uint16_t or_t3d_QX = 1;
+#endif /* _or_t3d_QX_c_type */
+
+#ifndef _or_t3d_QY_c_type
+# define _or_t3d_QY_c_type
+#line 27 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+static const uint16_t or_t3d_QY = 2;
+#endif /* _or_t3d_QY_c_type */
+
+#ifndef _or_t3d_QZ_c_type
+# define _or_t3d_QZ_c_type
+#line 28 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+static const uint16_t or_t3d_QZ = 3;
+#endif /* _or_t3d_QZ_c_type */
+
+#ifndef _or_t3d_pos_c_type
+# define _or_t3d_pos_c_type
+#line 33 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_pos or_t3d_pos;
+#endif /* _or_t3d_pos_c_type */
+
+#ifndef _or_t3d_pos_definition_c_type
+# define _or_t3d_pos_definition_c_type
+struct or_t3d_pos {
+#line 34 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double x;
+#line 34 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double y;
+#line 34 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double z;
+};
+#endif /* _or_t3d_pos_definition_c_type */
+
+#ifndef _or_t3d_att_c_type
+# define _or_t3d_att_c_type
+#line 37 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_att or_t3d_att;
+#endif /* _or_t3d_att_c_type */
+
+#ifndef _or_t3d_att_definition_c_type
+# define _or_t3d_att_definition_c_type
+struct or_t3d_att {
+#line 38 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double qw;
+#line 38 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double qx;
+#line 38 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double qy;
+#line 38 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double qz;
+};
+#endif /* _or_t3d_att_definition_c_type */
+
+#ifndef _or_t3d_pos_cov_c_type
+# define _or_t3d_pos_cov_c_type
+#line 45 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_pos_cov or_t3d_pos_cov;
+#endif /* _or_t3d_pos_cov_c_type */
+
+#ifndef _or_t3d_pos_cov_definition_c_type
+# define _or_t3d_pos_cov_definition_c_type
+struct or_t3d_pos_cov {
+#line 46 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double cov[6];
+};
+#endif /* _or_t3d_pos_cov_definition_c_type */
+
+#ifndef _or_t3d_att_cov_c_type
+# define _or_t3d_att_cov_c_type
+#line 49 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_att_cov or_t3d_att_cov;
+#endif /* _or_t3d_att_cov_c_type */
+
+#ifndef _or_t3d_att_cov_definition_c_type
+# define _or_t3d_att_cov_definition_c_type
+struct or_t3d_att_cov {
+#line 50 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double cov[10];
+};
+#endif /* _or_t3d_att_cov_definition_c_type */
+
+#ifndef _or_t3d_att_pos_cov_c_type
+# define _or_t3d_att_pos_cov_c_type
+#line 53 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_att_pos_cov or_t3d_att_pos_cov;
+#endif /* _or_t3d_att_pos_cov_c_type */
+
+#ifndef _or_t3d_att_pos_cov_definition_c_type
+# define _or_t3d_att_pos_cov_definition_c_type
+struct or_t3d_att_pos_cov {
+#line 54 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double cov[12];
+};
+#endif /* _or_t3d_att_pos_cov_definition_c_type */
+
+#ifndef _or_t3d_vel_c_type
+# define _or_t3d_vel_c_type
+#line 60 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_vel or_t3d_vel;
+#endif /* _or_t3d_vel_c_type */
+
+#ifndef _or_t3d_vel_definition_c_type
+# define _or_t3d_vel_definition_c_type
+struct or_t3d_vel {
+#line 61 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double vx;
+#line 61 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double vy;
+#line 61 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double vz;
+};
+#endif /* _or_t3d_vel_definition_c_type */
+
+#ifndef _or_t3d_avel_c_type
+# define _or_t3d_avel_c_type
+#line 64 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_avel or_t3d_avel;
+#endif /* _or_t3d_avel_c_type */
+
+#ifndef _or_t3d_avel_definition_c_type
+# define _or_t3d_avel_definition_c_type
+struct or_t3d_avel {
+#line 65 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double wx;
+#line 65 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double wy;
+#line 65 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double wz;
+};
+#endif /* _or_t3d_avel_definition_c_type */
+
+#ifndef _or_t3d_vel_cov_c_type
+# define _or_t3d_vel_cov_c_type
+#line 68 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_vel_cov or_t3d_vel_cov;
+#endif /* _or_t3d_vel_cov_c_type */
+
+#ifndef _or_t3d_vel_cov_definition_c_type
+# define _or_t3d_vel_cov_definition_c_type
+struct or_t3d_vel_cov {
+#line 69 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double cov[6];
+};
+#endif /* _or_t3d_vel_cov_definition_c_type */
+
+#ifndef _or_t3d_avel_cov_c_type
+# define _or_t3d_avel_cov_c_type
+#line 72 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_avel_cov or_t3d_avel_cov;
+#endif /* _or_t3d_avel_cov_c_type */
+
+#ifndef _or_t3d_avel_cov_definition_c_type
+# define _or_t3d_avel_cov_definition_c_type
+struct or_t3d_avel_cov {
+#line 73 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double cov[6];
+};
+#endif /* _or_t3d_avel_cov_definition_c_type */
+
+#ifndef _or_t3d_acc_c_type
+# define _or_t3d_acc_c_type
+#line 80 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_acc or_t3d_acc;
+#endif /* _or_t3d_acc_c_type */
+
+#ifndef _or_t3d_acc_definition_c_type
+# define _or_t3d_acc_definition_c_type
+struct or_t3d_acc {
+#line 81 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double ax;
+#line 81 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double ay;
+#line 81 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double az;
+};
+#endif /* _or_t3d_acc_definition_c_type */
+
+#ifndef _or_t3d_aacc_c_type
+# define _or_t3d_aacc_c_type
+#line 84 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_aacc or_t3d_aacc;
+#endif /* _or_t3d_aacc_c_type */
+
+#ifndef _or_t3d_aacc_definition_c_type
+# define _or_t3d_aacc_definition_c_type
+struct or_t3d_aacc {
+#line 85 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double awx;
+#line 85 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double awy;
+#line 85 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double awz;
+};
+#endif /* _or_t3d_aacc_definition_c_type */
+
+#ifndef _or_t3d_acc_cov_c_type
+# define _or_t3d_acc_cov_c_type
+#line 88 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_acc_cov or_t3d_acc_cov;
+#endif /* _or_t3d_acc_cov_c_type */
+
+#ifndef _or_t3d_acc_cov_definition_c_type
+# define _or_t3d_acc_cov_definition_c_type
+struct or_t3d_acc_cov {
+#line 89 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double cov[6];
+};
+#endif /* _or_t3d_acc_cov_definition_c_type */
+
+#ifndef _or_t3d_aacc_cov_c_type
+# define _or_t3d_aacc_cov_c_type
+#line 92 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_aacc_cov or_t3d_aacc_cov;
+#endif /* _or_t3d_aacc_cov_c_type */
+
+#ifndef _or_t3d_aacc_cov_definition_c_type
+# define _or_t3d_aacc_cov_definition_c_type
+struct or_t3d_aacc_cov {
+#line 93 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double cov[6];
+};
+#endif /* _or_t3d_aacc_cov_definition_c_type */
+
+#ifndef _or_t3d_jerk_c_type
+# define _or_t3d_jerk_c_type
+#line 100 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_jerk or_t3d_jerk;
+#endif /* _or_t3d_jerk_c_type */
+
+#ifndef _or_t3d_jerk_definition_c_type
+# define _or_t3d_jerk_definition_c_type
+struct or_t3d_jerk {
+#line 101 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double jx;
+#line 101 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double jy;
+#line 101 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double jz;
+};
+#endif /* _or_t3d_jerk_definition_c_type */
+
+#ifndef _or_t3d_jerk_cov_c_type
+# define _or_t3d_jerk_cov_c_type
+#line 104 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_jerk_cov or_t3d_jerk_cov;
+#endif /* _or_t3d_jerk_cov_c_type */
+
+#ifndef _or_t3d_jerk_cov_definition_c_type
+# define _or_t3d_jerk_cov_definition_c_type
+struct or_t3d_jerk_cov {
+#line 105 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double cov[6];
+};
+#endif /* _or_t3d_jerk_cov_definition_c_type */
+
+#ifndef _or_t3d_snap_c_type
+# define _or_t3d_snap_c_type
+#line 112 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_snap or_t3d_snap;
+#endif /* _or_t3d_snap_c_type */
+
+#ifndef _or_t3d_snap_definition_c_type
+# define _or_t3d_snap_definition_c_type
+struct or_t3d_snap {
+#line 113 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double sx;
+#line 113 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double sy;
+#line 113 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double sz;
+};
+#endif /* _or_t3d_snap_definition_c_type */
+
+#ifndef _or_t3d_snap_cov_c_type
+# define _or_t3d_snap_cov_c_type
+#line 116 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+typedef struct or_t3d_snap_cov or_t3d_snap_cov;
+#endif /* _or_t3d_snap_cov_c_type */
+
+#ifndef _or_t3d_snap_cov_definition_c_type
+# define _or_t3d_snap_cov_definition_c_type
+struct or_t3d_snap_cov {
+#line 117 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/t3d.idl"
+ double cov[6];
+};
+#endif /* _or_t3d_snap_cov_definition_c_type */
+
+#ifndef _optional_or_t3d_pos_c_type
+# define _optional_or_t3d_pos_c_type
+#line 33 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_pos {
+  bool _present;
+  or_t3d_pos _value;
+} optional_or_t3d_pos;
+#endif /* _optional_or_t3d_pos_c_type */
+
+#ifndef _optional_or_t3d_att_c_type
+# define _optional_or_t3d_att_c_type
+#line 34 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_att {
+  bool _present;
+  or_t3d_att _value;
+} optional_or_t3d_att;
+#endif /* _optional_or_t3d_att_c_type */
+
+#ifndef _optional_or_t3d_vel_c_type
+# define _optional_or_t3d_vel_c_type
+#line 36 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_vel {
+  bool _present;
+  or_t3d_vel _value;
+} optional_or_t3d_vel;
+#endif /* _optional_or_t3d_vel_c_type */
+
+#ifndef _optional_or_t3d_avel_c_type
+# define _optional_or_t3d_avel_c_type
+#line 37 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_avel {
+  bool _present;
+  or_t3d_avel _value;
+} optional_or_t3d_avel;
+#endif /* _optional_or_t3d_avel_c_type */
+
+#ifndef _optional_or_t3d_acc_c_type
+# define _optional_or_t3d_acc_c_type
+#line 39 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_acc {
+  bool _present;
+  or_t3d_acc _value;
+} optional_or_t3d_acc;
+#endif /* _optional_or_t3d_acc_c_type */
+
+#ifndef _optional_or_t3d_aacc_c_type
+# define _optional_or_t3d_aacc_c_type
+#line 40 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_aacc {
+  bool _present;
+  or_t3d_aacc _value;
+} optional_or_t3d_aacc;
+#endif /* _optional_or_t3d_aacc_c_type */
+
+#ifndef _optional_or_t3d_pos_cov_c_type
+# define _optional_or_t3d_pos_cov_c_type
+#line 44 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_pos_cov {
+  bool _present;
+  or_t3d_pos_cov _value;
+} optional_or_t3d_pos_cov;
+#endif /* _optional_or_t3d_pos_cov_c_type */
+
+#ifndef _optional_or_t3d_att_cov_c_type
+# define _optional_or_t3d_att_cov_c_type
+#line 45 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_att_cov {
+  bool _present;
+  or_t3d_att_cov _value;
+} optional_or_t3d_att_cov;
+#endif /* _optional_or_t3d_att_cov_c_type */
+
+#ifndef _optional_or_t3d_att_pos_cov_c_type
+# define _optional_or_t3d_att_pos_cov_c_type
+#line 46 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_att_pos_cov {
+  bool _present;
+  or_t3d_att_pos_cov _value;
+} optional_or_t3d_att_pos_cov;
+#endif /* _optional_or_t3d_att_pos_cov_c_type */
+
+#ifndef _optional_or_t3d_vel_cov_c_type
+# define _optional_or_t3d_vel_cov_c_type
+#line 48 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_vel_cov {
+  bool _present;
+  or_t3d_vel_cov _value;
+} optional_or_t3d_vel_cov;
+#endif /* _optional_or_t3d_vel_cov_c_type */
+
+#ifndef _optional_or_t3d_avel_cov_c_type
+# define _optional_or_t3d_avel_cov_c_type
+#line 49 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_avel_cov {
+  bool _present;
+  or_t3d_avel_cov _value;
+} optional_or_t3d_avel_cov;
+#endif /* _optional_or_t3d_avel_cov_c_type */
+
+#ifndef _optional_or_t3d_acc_cov_c_type
+# define _optional_or_t3d_acc_cov_c_type
+#line 51 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_acc_cov {
+  bool _present;
+  or_t3d_acc_cov _value;
+} optional_or_t3d_acc_cov;
+#endif /* _optional_or_t3d_acc_cov_c_type */
+
+#ifndef _optional_or_t3d_aacc_cov_c_type
+# define _optional_or_t3d_aacc_cov_c_type
+#line 52 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_aacc_cov {
+  bool _present;
+  or_t3d_aacc_cov _value;
+} optional_or_t3d_aacc_cov;
+#endif /* _optional_or_t3d_aacc_cov_c_type */
+
+#ifndef _or_pose_estimator_state_c_type
+# define _or_pose_estimator_state_c_type
+#line 27 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct or_pose_estimator_state or_pose_estimator_state;
+#endif /* _or_pose_estimator_state_c_type */
+
+#ifndef _optional_or_t3d_pos_c_type
+# define _optional_or_t3d_pos_c_type
+#line 33 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_pos {
+  bool _present;
+  or_t3d_pos _value;
+} optional_or_t3d_pos;
+#endif /* _optional_or_t3d_pos_c_type */
+
+#ifndef _optional_or_t3d_att_c_type
+# define _optional_or_t3d_att_c_type
+#line 34 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_att {
+  bool _present;
+  or_t3d_att _value;
+} optional_or_t3d_att;
+#endif /* _optional_or_t3d_att_c_type */
+
+#ifndef _optional_or_t3d_vel_c_type
+# define _optional_or_t3d_vel_c_type
+#line 36 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_vel {
+  bool _present;
+  or_t3d_vel _value;
+} optional_or_t3d_vel;
+#endif /* _optional_or_t3d_vel_c_type */
+
+#ifndef _optional_or_t3d_avel_c_type
+# define _optional_or_t3d_avel_c_type
+#line 37 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_avel {
+  bool _present;
+  or_t3d_avel _value;
+} optional_or_t3d_avel;
+#endif /* _optional_or_t3d_avel_c_type */
+
+#ifndef _optional_or_t3d_acc_c_type
+# define _optional_or_t3d_acc_c_type
+#line 39 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_acc {
+  bool _present;
+  or_t3d_acc _value;
+} optional_or_t3d_acc;
+#endif /* _optional_or_t3d_acc_c_type */
+
+#ifndef _optional_or_t3d_aacc_c_type
+# define _optional_or_t3d_aacc_c_type
+#line 40 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_aacc {
+  bool _present;
+  or_t3d_aacc _value;
+} optional_or_t3d_aacc;
+#endif /* _optional_or_t3d_aacc_c_type */
+
+#ifndef _optional_or_t3d_pos_cov_c_type
+# define _optional_or_t3d_pos_cov_c_type
+#line 44 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_pos_cov {
+  bool _present;
+  or_t3d_pos_cov _value;
+} optional_or_t3d_pos_cov;
+#endif /* _optional_or_t3d_pos_cov_c_type */
+
+#ifndef _optional_or_t3d_att_cov_c_type
+# define _optional_or_t3d_att_cov_c_type
+#line 45 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_att_cov {
+  bool _present;
+  or_t3d_att_cov _value;
+} optional_or_t3d_att_cov;
+#endif /* _optional_or_t3d_att_cov_c_type */
+
+#ifndef _optional_or_t3d_att_pos_cov_c_type
+# define _optional_or_t3d_att_pos_cov_c_type
+#line 46 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_att_pos_cov {
+  bool _present;
+  or_t3d_att_pos_cov _value;
+} optional_or_t3d_att_pos_cov;
+#endif /* _optional_or_t3d_att_pos_cov_c_type */
+
+#ifndef _optional_or_t3d_vel_cov_c_type
+# define _optional_or_t3d_vel_cov_c_type
+#line 48 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_vel_cov {
+  bool _present;
+  or_t3d_vel_cov _value;
+} optional_or_t3d_vel_cov;
+#endif /* _optional_or_t3d_vel_cov_c_type */
+
+#ifndef _optional_or_t3d_avel_cov_c_type
+# define _optional_or_t3d_avel_cov_c_type
+#line 49 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_avel_cov {
+  bool _present;
+  or_t3d_avel_cov _value;
+} optional_or_t3d_avel_cov;
+#endif /* _optional_or_t3d_avel_cov_c_type */
+
+#ifndef _optional_or_t3d_acc_cov_c_type
+# define _optional_or_t3d_acc_cov_c_type
+#line 51 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_acc_cov {
+  bool _present;
+  or_t3d_acc_cov _value;
+} optional_or_t3d_acc_cov;
+#endif /* _optional_or_t3d_acc_cov_c_type */
+
+#ifndef _optional_or_t3d_aacc_cov_c_type
+# define _optional_or_t3d_aacc_cov_c_type
+#line 52 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+typedef struct optional_or_t3d_aacc_cov {
+  bool _present;
+  or_t3d_aacc_cov _value;
+} optional_or_t3d_aacc_cov;
+#endif /* _optional_or_t3d_aacc_cov_c_type */
+
+#ifndef _or_pose_estimator_state_definition_c_type
+# define _or_pose_estimator_state_definition_c_type
+struct or_pose_estimator_state {
+#line 28 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ or_time_ts ts;
+#line 29 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ bool intrinsic;
+#line 33 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_pos pos;
+#line 34 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_att att;
+#line 36 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_vel vel;
+#line 37 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_avel avel;
+#line 39 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_acc acc;
+#line 40 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_aacc aacc;
+#line 44 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_pos_cov pos_cov;
+#line 45 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_att_cov att_cov;
+#line 46 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_att_pos_cov att_pos_cov;
+#line 48 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_vel_cov vel_cov;
+#line 49 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_avel_cov avel_cov;
+#line 51 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_acc_cov acc_cov;
+#line 52 "/home/lichenjiang/openrobots/share/idl/openrobots2-idl/or/pose/pose_estimator.gen"
+ optional_or_t3d_aacc_cov aacc_cov;
+};
+#endif /* _or_pose_estimator_state_definition_c_type */
+
 #ifndef _bayes_opt_MAX_PARAMS_c_type
 # define _bayes_opt_MAX_PARAMS_c_type
 #line 6 "/home/lichenjiang/src/bayes_opt-genom3/bayes_struct.idl"
@@ -644,21 +1250,21 @@ struct bayes_opt_state {
 #ifndef _bayes_opt_ether_c_type
 # define _bayes_opt_ether_c_type
 #include "genom3/c/exception.h"
-#line 5 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 6 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 const char genom_extern_weak bayes_opt_ether[] = "::bayes_opt::ether";
 #endif /* _bayes_opt_ether_c_type */
 
 #ifndef _bayes_opt_start_c_type
 # define _bayes_opt_start_c_type
 #include "genom3/c/exception.h"
-#line 5 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 6 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 const char genom_extern_weak bayes_opt_start[] = "::bayes_opt::start";
 #endif /* _bayes_opt_start_c_type */
 
 #ifndef _bayes_opt_stop_c_type
 # define _bayes_opt_stop_c_type
 #include "genom3/c/exception.h"
-#line 5 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 6 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 const char genom_extern_weak bayes_opt_stop[] = "::bayes_opt::stop";
 #endif /* _bayes_opt_stop_c_type */
 
@@ -677,18 +1283,18 @@ typedef pocolibs_genom_metadata bayes_opt_genom_metadata;
 #ifndef _bayes_opt_e_sys_c_type
 # define _bayes_opt_e_sys_c_type
 #include "genom3/c/exception.h"
-#line 10 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 12 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 const char genom_extern_weak bayes_opt_e_sys_id[] = "::bayes_opt::e_sys";
-#line 10 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 12 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef struct bayes_opt_e_sys_detail bayes_opt_e_sys_detail;
 #endif /* _bayes_opt_e_sys_c_type */
 
 #ifndef _bayes_opt_e_sys_definition_c_type
 # define _bayes_opt_e_sys_definition_c_type
 struct bayes_opt_e_sys_detail {
-#line 10 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 12 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
  int16_t code;
-#line 10 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 12 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
  char what[128];
 };
 static inline genom_event
@@ -700,9 +1306,9 @@ bayes_opt_e_sys(const bayes_opt_e_sys_detail *d, genom_context self) {
 #ifndef _bayes_opt_INVALID_BOUNDS_c_type
 # define _bayes_opt_INVALID_BOUNDS_c_type
 #include "genom3/c/exception.h"
-#line 12 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 14 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 const char genom_extern_weak bayes_opt_INVALID_BOUNDS_id[] = "::bayes_opt::INVALID_BOUNDS";
-#line 12 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 14 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef void bayes_opt_INVALID_BOUNDS_detail;
 #endif /* _bayes_opt_INVALID_BOUNDS_c_type */
 
@@ -717,9 +1323,9 @@ bayes_opt_INVALID_BOUNDS(genom_context self) {
 #ifndef _bayes_opt_INVALID_PARAMETER_c_type
 # define _bayes_opt_INVALID_PARAMETER_c_type
 #include "genom3/c/exception.h"
-#line 13 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 15 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 const char genom_extern_weak bayes_opt_INVALID_PARAMETER_id[] = "::bayes_opt::INVALID_PARAMETER";
-#line 13 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 15 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef void bayes_opt_INVALID_PARAMETER_detail;
 #endif /* _bayes_opt_INVALID_PARAMETER_c_type */
 
@@ -734,9 +1340,9 @@ bayes_opt_INVALID_PARAMETER(genom_context self) {
 #ifndef _bayes_opt_NOT_INITIALIZED_c_type
 # define _bayes_opt_NOT_INITIALIZED_c_type
 #include "genom3/c/exception.h"
-#line 14 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 16 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 const char genom_extern_weak bayes_opt_NOT_INITIALIZED_id[] = "::bayes_opt::NOT_INITIALIZED";
-#line 14 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 16 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef void bayes_opt_NOT_INITIALIZED_detail;
 #endif /* _bayes_opt_NOT_INITIALIZED_c_type */
 
@@ -751,9 +1357,9 @@ bayes_opt_NOT_INITIALIZED(genom_context self) {
 #ifndef _bayes_opt_OPTIMIZATION_FAILED_c_type
 # define _bayes_opt_OPTIMIZATION_FAILED_c_type
 #include "genom3/c/exception.h"
-#line 15 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 17 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 const char genom_extern_weak bayes_opt_OPTIMIZATION_FAILED_id[] = "::bayes_opt::OPTIMIZATION_FAILED";
-#line 15 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 17 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef void bayes_opt_OPTIMIZATION_FAILED_detail;
 #endif /* _bayes_opt_OPTIMIZATION_FAILED_c_type */
 
@@ -768,9 +1374,9 @@ bayes_opt_OPTIMIZATION_FAILED(genom_context self) {
 #ifndef _bayes_opt_NO_MEASUREMENT_c_type
 # define _bayes_opt_NO_MEASUREMENT_c_type
 #include "genom3/c/exception.h"
-#line 16 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 18 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 const char genom_extern_weak bayes_opt_NO_MEASUREMENT_id[] = "::bayes_opt::NO_MEASUREMENT";
-#line 16 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 18 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef void bayes_opt_NO_MEASUREMENT_detail;
 #endif /* _bayes_opt_NO_MEASUREMENT_c_type */
 
@@ -785,9 +1391,9 @@ bayes_opt_NO_MEASUREMENT(genom_context self) {
 #ifndef _bayes_opt_NO_BEST_RESULT_c_type
 # define _bayes_opt_NO_BEST_RESULT_c_type
 #include "genom3/c/exception.h"
-#line 17 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 19 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 const char genom_extern_weak bayes_opt_NO_BEST_RESULT_id[] = "::bayes_opt::NO_BEST_RESULT";
-#line 17 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 19 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef void bayes_opt_NO_BEST_RESULT_detail;
 #endif /* _bayes_opt_NO_BEST_RESULT_c_type */
 
@@ -801,14 +1407,14 @@ bayes_opt_NO_BEST_RESULT(genom_context self) {
 
 #ifndef _bayes_opt_ids_c_type
 # define _bayes_opt_ids_c_type
-#line 19 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 21 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef struct bayes_opt_ids bayes_opt_ids;
 #endif /* _bayes_opt_ids_c_type */
 
 #ifndef _bayes_opt_ids_definition_c_type
 # define _bayes_opt_ids_definition_c_type
 struct bayes_opt_ids {
-#line 20 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 22 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
  bayes_opt_state state;
 };
 #endif /* _bayes_opt_ids_definition_c_type */
@@ -816,9 +1422,9 @@ struct bayes_opt_ids {
 #ifndef _bayes_opt_measure_c_type
 # define _bayes_opt_measure_c_type
 #include "genom3/c/exception.h"
-#line 25 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef struct bayes_opt_measure {
-  bayes_opt_pose_sample * (*data)(genom_context self);
+  or_pose_estimator_state * (*data)(genom_context self);
   genom_event (*read)(genom_context self);
 } bayes_opt_measure;
 #endif /* _bayes_opt_measure_c_type */
@@ -826,7 +1432,7 @@ typedef struct bayes_opt_measure {
 #ifndef _bayes_opt_allow_c_type
 # define _bayes_opt_allow_c_type
 #include "genom3/c/exception.h"
-#line 26 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef struct bayes_opt_allow {
   bayes_opt_control * (*data)(genom_context self);
   genom_event (*read)(genom_context self);
@@ -836,7 +1442,7 @@ typedef struct bayes_opt_allow {
 #ifndef _bayes_opt_params_c_type
 # define _bayes_opt_params_c_type
 #include "genom3/c/exception.h"
-#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef struct bayes_opt_params {
   bayes_opt_suggestion * (*data)(genom_context self);
   genom_event (*write)(genom_context self);
@@ -846,7 +1452,7 @@ typedef struct bayes_opt_params {
 #ifndef _bayes_opt_best_result_c_type
 # define _bayes_opt_best_result_c_type
 #include "genom3/c/exception.h"
-#line 29 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 31 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef struct bayes_opt_best_result {
   bayes_opt_best * (*data)(genom_context self);
   genom_event (*write)(genom_context self);
@@ -856,7 +1462,7 @@ typedef struct bayes_opt_best_result {
 #ifndef _bayes_opt_status_c_type
 # define _bayes_opt_status_c_type
 #include "genom3/c/exception.h"
-#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 32 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 typedef struct bayes_opt_status {
   bayes_opt_status_struct * (*data)(genom_context self);
   genom_event (*write)(genom_context self);
@@ -907,7 +1513,7 @@ genom_event genom_kill_codel(const genom_context self);
 extern "C" {
 #endif
 
-#line 54 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 56 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event boInit(const double lower_bounds[5], const double upper_bounds[5],
        int32_t max_iterations, double reference_x, double reference_y,
        double reference_z, bayes_opt_state *state,
@@ -919,7 +1525,7 @@ genom_event boInit(const double lower_bounds[5], const double upper_bounds[5],
 extern "C" {
 #endif
 
-#line 74 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 76 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event checkInitialized(const bayes_opt_state *state,
                  const genom_context self);
 #ifdef __cplusplus
@@ -929,7 +1535,7 @@ genom_event checkInitialized(const bayes_opt_state *state,
 extern "C" {
 #endif
 
-#line 76 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 78 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event boProposeParams(bayes_opt_state *state,
                 bayes_opt_suggestion *params_out,
                 const bayes_opt_params *params,
@@ -942,7 +1548,7 @@ genom_event boProposeParams(bayes_opt_state *state,
 extern "C" {
 #endif
 
-#line 92 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 94 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event checkInitialized(const bayes_opt_state *state,
                  const genom_context self);
 #ifdef __cplusplus
@@ -952,7 +1558,7 @@ genom_event checkInitialized(const bayes_opt_state *state,
 extern "C" {
 #endif
 
-#line 94 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 96 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event boUpdateFromMeasure(const bayes_opt_measure *measure,
                     const bayes_opt_allow *allow,
                     bayes_opt_state *state,
@@ -966,7 +1572,7 @@ genom_event boUpdateFromMeasure(const bayes_opt_measure *measure,
 extern "C" {
 #endif
 
-#line 111 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 113 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event checkInitialized(const bayes_opt_state *state,
                  const genom_context self);
 #ifdef __cplusplus
@@ -976,7 +1582,7 @@ genom_event checkInitialized(const bayes_opt_state *state,
 extern "C" {
 #endif
 
-#line 113 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 115 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event boGetBest(const bayes_opt_state *state,
           bayes_opt_best *best_result_out,
           const bayes_opt_best_result *best_result,
@@ -988,7 +1594,7 @@ genom_event boGetBest(const bayes_opt_state *state,
 extern "C" {
 #endif
 
-#line 129 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 131 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event boReset(bayes_opt_state *state, const bayes_opt_status *status,
         const genom_context self);
 #ifdef __cplusplus

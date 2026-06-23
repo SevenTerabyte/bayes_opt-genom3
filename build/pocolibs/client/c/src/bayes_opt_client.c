@@ -973,7 +973,7 @@ genom_bayes_opt_client_measure_open(
   }
 
   /* create */
-  l = genom_maxserialen_t_bayes_opt_pose_sample();
+  l = genom_maxserialen_t_or_pose_estimator_state();
   if (posterCreate(*name, (int)l, &h->ports->measure.h[i].id) != OK) {
     genom_mwerr_detail d;
     char msg[sizeof(d.what)];
@@ -1035,7 +1035,7 @@ genom_bayes_opt_client_measure_close(
   return genom_ok;
 }
 
-bayes_opt_pose_sample *
+or_pose_estimator_state *
 genom_bayes_opt_client_measure_data(
   genom_client h, const char *name)
 {
@@ -1060,7 +1060,7 @@ genom_bayes_opt_client_measure_data(
 genom_event
 genom_bayes_opt_client_measure_write(
   genom_client h, const char *name,
-  const bayes_opt_pose_sample *data)
+  const or_pose_estimator_state *data)
 {
   POSTER_ID *p;
   char *addr;
@@ -1081,7 +1081,7 @@ genom_bayes_opt_client_measure_write(
     return genom_syserr(&(genom_syserr_detail){.code = ENOENT}, &h->context);
 
   /* resize if needed */
-  l = genom_serialen_t_bayes_opt_pose_sample(
+  l = genom_serialen_t_or_pose_estimator_state(
     &(h->ports->measure.h[i].data));
   if (l > h->ports->measure.h[i].size ||
       l + (1<<17) < h->ports->measure.h[i].size) {
@@ -1117,11 +1117,11 @@ lock:
 locked:
   addr = posterAddr(*p);
   if (data)
-    genom_serialize_t_bayes_opt_pose_sample(
+    genom_serialize_t_or_pose_estimator_state(
       &addr,
       &(*(data)));
   else
-    genom_serialize_t_bayes_opt_pose_sample(
+    genom_serialize_t_or_pose_estimator_state(
       &addr,
       &(h->ports->measure.h[i].data));
   posterGive(*p);

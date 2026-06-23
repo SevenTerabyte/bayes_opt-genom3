@@ -155,13 +155,13 @@ static __inline__ void		genom_serialize_t_pocolibs_genom_metadata(char **,
 					const pocolibs_genom_metadata *);
 static __inline__ int		genom_deserialize_t_pocolibs_genom_metadata(char **,
 					ssize_t *, pocolibs_genom_metadata *);
-static __inline__ size_t	genom_maxserialen_double(void);
-static __inline__ size_t	genom_serialen_double(
-					double);
-static __inline__ void		genom_serialize_double(char **,
-					double);
-static __inline__ int		genom_deserialize_double(char **,
-					ssize_t *, double *);
+static __inline__ size_t	genom_maxserialen_t_or_time_ts(void);
+static __inline__ size_t	genom_serialen_t_or_time_ts(
+					const or_time_ts *);
+static __inline__ void		genom_serialize_t_or_time_ts(char **,
+					const or_time_ts *);
+static __inline__ int		genom_deserialize_t_or_time_ts(char **,
+					ssize_t *, or_time_ts *);
 static __inline__ size_t	genom_maxserialen_boolean(void);
 static __inline__ size_t	genom_serialen_boolean(
 					bool);
@@ -169,13 +169,223 @@ static __inline__ void		genom_serialize_boolean(char **,
 					bool);
 static __inline__ int		genom_deserialize_boolean(char **,
 					ssize_t *, bool *);
-static __inline__ size_t	genom_maxserialen_t_bayes_opt_pose_sample(void);
-static __inline__ size_t	genom_serialen_t_bayes_opt_pose_sample(
-					const bayes_opt_pose_sample *);
-static __inline__ void		genom_serialize_t_bayes_opt_pose_sample(char **,
-					const bayes_opt_pose_sample *);
-static __inline__ int		genom_deserialize_t_bayes_opt_pose_sample(char **,
-					ssize_t *, bayes_opt_pose_sample *);
+static __inline__ size_t	genom_maxserialen_double(void);
+static __inline__ size_t	genom_serialen_double(
+					double);
+static __inline__ void		genom_serialize_double(char **,
+					double);
+static __inline__ int		genom_deserialize_double(char **,
+					ssize_t *, double *);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_pos(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_pos(
+					const or_t3d_pos *);
+static __inline__ void		genom_serialize_t_or_t3d_pos(char **,
+					const or_t3d_pos *);
+static __inline__ int		genom_deserialize_t_or_t3d_pos(char **,
+					ssize_t *, or_t3d_pos *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_pos(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_pos(
+					const optional_or_t3d_pos *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_pos(char **,
+					const optional_or_t3d_pos *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_pos(char **,
+					ssize_t *, optional_or_t3d_pos *);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_att(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_att(
+					const or_t3d_att *);
+static __inline__ void		genom_serialize_t_or_t3d_att(char **,
+					const or_t3d_att *);
+static __inline__ int		genom_deserialize_t_or_t3d_att(char **,
+					ssize_t *, or_t3d_att *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_att(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_att(
+					const optional_or_t3d_att *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_att(char **,
+					const optional_or_t3d_att *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_att(char **,
+					ssize_t *, optional_or_t3d_att *);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_vel(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_vel(
+					const or_t3d_vel *);
+static __inline__ void		genom_serialize_t_or_t3d_vel(char **,
+					const or_t3d_vel *);
+static __inline__ int		genom_deserialize_t_or_t3d_vel(char **,
+					ssize_t *, or_t3d_vel *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_vel(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_vel(
+					const optional_or_t3d_vel *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_vel(char **,
+					const optional_or_t3d_vel *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_vel(char **,
+					ssize_t *, optional_or_t3d_vel *);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_avel(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_avel(
+					const or_t3d_avel *);
+static __inline__ void		genom_serialize_t_or_t3d_avel(char **,
+					const or_t3d_avel *);
+static __inline__ int		genom_deserialize_t_or_t3d_avel(char **,
+					ssize_t *, or_t3d_avel *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_avel(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_avel(
+					const optional_or_t3d_avel *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_avel(char **,
+					const optional_or_t3d_avel *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_avel(char **,
+					ssize_t *, optional_or_t3d_avel *);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_acc(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_acc(
+					const or_t3d_acc *);
+static __inline__ void		genom_serialize_t_or_t3d_acc(char **,
+					const or_t3d_acc *);
+static __inline__ int		genom_deserialize_t_or_t3d_acc(char **,
+					ssize_t *, or_t3d_acc *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_acc(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_acc(
+					const optional_or_t3d_acc *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_acc(char **,
+					const optional_or_t3d_acc *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_acc(char **,
+					ssize_t *, optional_or_t3d_acc *);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_aacc(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_aacc(
+					const or_t3d_aacc *);
+static __inline__ void		genom_serialize_t_or_t3d_aacc(char **,
+					const or_t3d_aacc *);
+static __inline__ int		genom_deserialize_t_or_t3d_aacc(char **,
+					ssize_t *, or_t3d_aacc *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_aacc(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_aacc(
+					const optional_or_t3d_aacc *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_aacc(char **,
+					const optional_or_t3d_aacc *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_aacc(char **,
+					ssize_t *, optional_or_t3d_aacc *);
+static __inline__ size_t	genom_maxserialen_array6_double(void);
+static __inline__ size_t	genom_serialen_array6_double(
+					const double [6]);
+static __inline__ void		genom_serialize_array6_double(char **,
+					const double [6]);
+static __inline__ int		genom_deserialize_array6_double(char **,
+					ssize_t *, double [6]);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_pos_cov(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_pos_cov(
+					const or_t3d_pos_cov *);
+static __inline__ void		genom_serialize_t_or_t3d_pos_cov(char **,
+					const or_t3d_pos_cov *);
+static __inline__ int		genom_deserialize_t_or_t3d_pos_cov(char **,
+					ssize_t *, or_t3d_pos_cov *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_pos_cov(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_pos_cov(
+					const optional_or_t3d_pos_cov *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_pos_cov(char **,
+					const optional_or_t3d_pos_cov *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_pos_cov(char **,
+					ssize_t *, optional_or_t3d_pos_cov *);
+static __inline__ size_t	genom_maxserialen_array10_double(void);
+static __inline__ size_t	genom_serialen_array10_double(
+					const double [10]);
+static __inline__ void		genom_serialize_array10_double(char **,
+					const double [10]);
+static __inline__ int		genom_deserialize_array10_double(char **,
+					ssize_t *, double [10]);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_att_cov(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_att_cov(
+					const or_t3d_att_cov *);
+static __inline__ void		genom_serialize_t_or_t3d_att_cov(char **,
+					const or_t3d_att_cov *);
+static __inline__ int		genom_deserialize_t_or_t3d_att_cov(char **,
+					ssize_t *, or_t3d_att_cov *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_att_cov(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_att_cov(
+					const optional_or_t3d_att_cov *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_att_cov(char **,
+					const optional_or_t3d_att_cov *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_att_cov(char **,
+					ssize_t *, optional_or_t3d_att_cov *);
+static __inline__ size_t	genom_maxserialen_array12_double(void);
+static __inline__ size_t	genom_serialen_array12_double(
+					const double [12]);
+static __inline__ void		genom_serialize_array12_double(char **,
+					const double [12]);
+static __inline__ int		genom_deserialize_array12_double(char **,
+					ssize_t *, double [12]);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_att_pos_cov(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_att_pos_cov(
+					const or_t3d_att_pos_cov *);
+static __inline__ void		genom_serialize_t_or_t3d_att_pos_cov(char **,
+					const or_t3d_att_pos_cov *);
+static __inline__ int		genom_deserialize_t_or_t3d_att_pos_cov(char **,
+					ssize_t *, or_t3d_att_pos_cov *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_att_pos_cov(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_att_pos_cov(
+					const optional_or_t3d_att_pos_cov *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_att_pos_cov(char **,
+					const optional_or_t3d_att_pos_cov *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_att_pos_cov(char **,
+					ssize_t *, optional_or_t3d_att_pos_cov *);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_vel_cov(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_vel_cov(
+					const or_t3d_vel_cov *);
+static __inline__ void		genom_serialize_t_or_t3d_vel_cov(char **,
+					const or_t3d_vel_cov *);
+static __inline__ int		genom_deserialize_t_or_t3d_vel_cov(char **,
+					ssize_t *, or_t3d_vel_cov *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_vel_cov(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_vel_cov(
+					const optional_or_t3d_vel_cov *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_vel_cov(char **,
+					const optional_or_t3d_vel_cov *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_vel_cov(char **,
+					ssize_t *, optional_or_t3d_vel_cov *);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_avel_cov(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_avel_cov(
+					const or_t3d_avel_cov *);
+static __inline__ void		genom_serialize_t_or_t3d_avel_cov(char **,
+					const or_t3d_avel_cov *);
+static __inline__ int		genom_deserialize_t_or_t3d_avel_cov(char **,
+					ssize_t *, or_t3d_avel_cov *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_avel_cov(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_avel_cov(
+					const optional_or_t3d_avel_cov *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_avel_cov(char **,
+					const optional_or_t3d_avel_cov *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_avel_cov(char **,
+					ssize_t *, optional_or_t3d_avel_cov *);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_acc_cov(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_acc_cov(
+					const or_t3d_acc_cov *);
+static __inline__ void		genom_serialize_t_or_t3d_acc_cov(char **,
+					const or_t3d_acc_cov *);
+static __inline__ int		genom_deserialize_t_or_t3d_acc_cov(char **,
+					ssize_t *, or_t3d_acc_cov *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_acc_cov(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_acc_cov(
+					const optional_or_t3d_acc_cov *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_acc_cov(char **,
+					const optional_or_t3d_acc_cov *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_acc_cov(char **,
+					ssize_t *, optional_or_t3d_acc_cov *);
+static __inline__ size_t	genom_maxserialen_t_or_t3d_aacc_cov(void);
+static __inline__ size_t	genom_serialen_t_or_t3d_aacc_cov(
+					const or_t3d_aacc_cov *);
+static __inline__ void		genom_serialize_t_or_t3d_aacc_cov(char **,
+					const or_t3d_aacc_cov *);
+static __inline__ int		genom_deserialize_t_or_t3d_aacc_cov(char **,
+					ssize_t *, or_t3d_aacc_cov *);
+static __inline__ size_t	genom_maxserialen_optional_t_or_t3d_aacc_cov(void);
+static __inline__ size_t	genom_serialen_optional_t_or_t3d_aacc_cov(
+					const optional_or_t3d_aacc_cov *);
+static __inline__ void		genom_serialize_optional_t_or_t3d_aacc_cov(char **,
+					const optional_or_t3d_aacc_cov *);
+static __inline__ int		genom_deserialize_optional_t_or_t3d_aacc_cov(char **,
+					ssize_t *, optional_or_t3d_aacc_cov *);
+static __inline__ size_t	genom_maxserialen_t_or_pose_estimator_state(void);
+static __inline__ size_t	genom_serialen_t_or_pose_estimator_state(
+					const or_pose_estimator_state *);
+static __inline__ void		genom_serialize_t_or_pose_estimator_state(char **,
+					const or_pose_estimator_state *);
+static __inline__ int		genom_deserialize_t_or_pose_estimator_state(char **,
+					ssize_t *, or_pose_estimator_state *);
 static __inline__ size_t	genom_maxserialen_t_bayes_opt_measure(void);
 static __inline__ size_t	genom_serialen_t_bayes_opt_measure(
 					const bayes_opt_measure *);
@@ -1277,31 +1487,31 @@ genom_deserialize_t_pocolibs_genom_metadata(char **buffer, ssize_t *size,
   return 0;
 }
 
-/* === double =========================================================== */
+/* === t_or_time_ts ===================================================== */
 
 static __inline__ size_t
-genom_maxserialen_double(void)
+genom_maxserialen_t_or_time_ts(void)
 {
-  return sizeof(double);
+  return sizeof(or_time_ts);
 }
 
 static __inline__ size_t
-genom_serialen_double(double data)
+genom_serialen_t_or_time_ts(const or_time_ts *data)
 {
-  return sizeof(data);
+  return sizeof(*(data));
 }
 
 static __inline__ void
-genom_serialize_double(char **buffer, double data)
+genom_serialize_t_or_time_ts(char **buffer, const or_time_ts *data)
 {
-  memcpy(*buffer, &(data),
-         sizeof(data));
-  *buffer += sizeof(data);
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
 }
 
 static __inline__ int
-genom_deserialize_double(char **buffer, ssize_t *size,
-  double *data)
+genom_deserialize_t_or_time_ts(char **buffer, ssize_t *size,
+  or_time_ts *data)
 {
   if (*size != -1) {
     *size -= sizeof(*(data));
@@ -1349,22 +1559,58 @@ genom_deserialize_boolean(char **buffer, ssize_t *size,
   return 0;
 }
 
-/* === t_bayes_opt_pose_sample ========================================== */
+/* === double =========================================================== */
 
 static __inline__ size_t
-genom_maxserialen_t_bayes_opt_pose_sample(void)
+genom_maxserialen_double(void)
 {
-  return sizeof(bayes_opt_pose_sample);
+  return sizeof(double);
 }
 
 static __inline__ size_t
-genom_serialen_t_bayes_opt_pose_sample(const bayes_opt_pose_sample *data)
+genom_serialen_double(double data)
+{
+  return sizeof(data);
+}
+
+static __inline__ void
+genom_serialize_double(char **buffer, double data)
+{
+  memcpy(*buffer, &(data),
+         sizeof(data));
+  *buffer += sizeof(data);
+}
+
+static __inline__ int
+genom_deserialize_double(char **buffer, ssize_t *size,
+  double *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === t_or_t3d_pos ===================================================== */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_pos(void)
+{
+  return sizeof(or_t3d_pos);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_pos(const or_t3d_pos *data)
 {
   return sizeof(*(data));
 }
 
 static __inline__ void
-genom_serialize_t_bayes_opt_pose_sample(char **buffer, const bayes_opt_pose_sample *data)
+genom_serialize_t_or_t3d_pos(char **buffer, const or_t3d_pos *data)
 {
   memcpy(*buffer, &(*(data)),
          sizeof(*(data)));
@@ -1372,8 +1618,1137 @@ genom_serialize_t_bayes_opt_pose_sample(char **buffer, const bayes_opt_pose_samp
 }
 
 static __inline__ int
-genom_deserialize_t_bayes_opt_pose_sample(char **buffer, ssize_t *size,
-  bayes_opt_pose_sample *data)
+genom_deserialize_t_or_t3d_pos(char **buffer, ssize_t *size,
+  or_t3d_pos *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_pos ============================================ */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_pos(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_pos);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_pos(const optional_or_t3d_pos *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_pos(char **buffer, const optional_or_t3d_pos *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_pos(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_pos(char **buffer, ssize_t *size,
+  optional_or_t3d_pos *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_pos(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === t_or_t3d_att ===================================================== */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_att(void)
+{
+  return sizeof(or_t3d_att);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_att(const or_t3d_att *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_t3d_att(char **buffer, const or_t3d_att *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_t3d_att(char **buffer, ssize_t *size,
+  or_t3d_att *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_att ============================================ */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_att(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_att);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_att(const optional_or_t3d_att *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_att(char **buffer, const optional_or_t3d_att *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_att(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_att(char **buffer, ssize_t *size,
+  optional_or_t3d_att *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_att(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === t_or_t3d_vel ===================================================== */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_vel(void)
+{
+  return sizeof(or_t3d_vel);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_vel(const or_t3d_vel *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_t3d_vel(char **buffer, const or_t3d_vel *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_t3d_vel(char **buffer, ssize_t *size,
+  or_t3d_vel *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_vel ============================================ */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_vel(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_vel);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_vel(const optional_or_t3d_vel *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_vel(char **buffer, const optional_or_t3d_vel *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_vel(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_vel(char **buffer, ssize_t *size,
+  optional_or_t3d_vel *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_vel(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === t_or_t3d_avel ==================================================== */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_avel(void)
+{
+  return sizeof(or_t3d_avel);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_avel(const or_t3d_avel *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_t3d_avel(char **buffer, const or_t3d_avel *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_t3d_avel(char **buffer, ssize_t *size,
+  or_t3d_avel *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_avel =========================================== */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_avel(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_avel);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_avel(const optional_or_t3d_avel *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_avel(char **buffer, const optional_or_t3d_avel *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_avel(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_avel(char **buffer, ssize_t *size,
+  optional_or_t3d_avel *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_avel(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === t_or_t3d_acc ===================================================== */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_acc(void)
+{
+  return sizeof(or_t3d_acc);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_acc(const or_t3d_acc *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_t3d_acc(char **buffer, const or_t3d_acc *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_t3d_acc(char **buffer, ssize_t *size,
+  or_t3d_acc *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_acc ============================================ */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_acc(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_acc);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_acc(const optional_or_t3d_acc *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_acc(char **buffer, const optional_or_t3d_acc *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_acc(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_acc(char **buffer, ssize_t *size,
+  optional_or_t3d_acc *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_acc(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === t_or_t3d_aacc ==================================================== */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_aacc(void)
+{
+  return sizeof(or_t3d_aacc);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_aacc(const or_t3d_aacc *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_t3d_aacc(char **buffer, const or_t3d_aacc *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_t3d_aacc(char **buffer, ssize_t *size,
+  or_t3d_aacc *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_aacc =========================================== */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_aacc(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_aacc);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_aacc(const optional_or_t3d_aacc *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_aacc(char **buffer, const optional_or_t3d_aacc *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_aacc(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_aacc(char **buffer, ssize_t *size,
+  optional_or_t3d_aacc *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_aacc(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === array6_double ==================================================== */
+
+static __inline__ size_t
+genom_maxserialen_array6_double(void)
+{
+  return 6 * sizeof(double);
+}
+
+static __inline__ size_t
+genom_serialen_array6_double(const double data[6])
+{
+  return 6 * sizeof(*data);
+}
+
+static __inline__ void
+genom_serialize_array6_double(char **buffer, const double data[6])
+{
+  memcpy(*buffer, data, 6 * sizeof(*data));
+  *buffer += 6 * sizeof(*data);
+}
+
+static __inline__ int
+genom_deserialize_array6_double(char **buffer, ssize_t *size,
+  double data[6])
+{
+  if (*size != -1) {
+    *size -= 6 * sizeof(*data);
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(data, *buffer, 6 * sizeof(*data));
+  *buffer += 6 * sizeof(*data);
+  return 0;
+}
+
+/* === t_or_t3d_pos_cov ================================================= */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_pos_cov(void)
+{
+  return sizeof(or_t3d_pos_cov);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_pos_cov(const or_t3d_pos_cov *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_t3d_pos_cov(char **buffer, const or_t3d_pos_cov *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_t3d_pos_cov(char **buffer, ssize_t *size,
+  or_t3d_pos_cov *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_pos_cov ======================================== */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_pos_cov(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_pos_cov);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_pos_cov(const optional_or_t3d_pos_cov *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_pos_cov(char **buffer, const optional_or_t3d_pos_cov *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_pos_cov(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_pos_cov(char **buffer, ssize_t *size,
+  optional_or_t3d_pos_cov *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_pos_cov(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === array10_double =================================================== */
+
+static __inline__ size_t
+genom_maxserialen_array10_double(void)
+{
+  return 10 * sizeof(double);
+}
+
+static __inline__ size_t
+genom_serialen_array10_double(const double data[10])
+{
+  return 10 * sizeof(*data);
+}
+
+static __inline__ void
+genom_serialize_array10_double(char **buffer, const double data[10])
+{
+  memcpy(*buffer, data, 10 * sizeof(*data));
+  *buffer += 10 * sizeof(*data);
+}
+
+static __inline__ int
+genom_deserialize_array10_double(char **buffer, ssize_t *size,
+  double data[10])
+{
+  if (*size != -1) {
+    *size -= 10 * sizeof(*data);
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(data, *buffer, 10 * sizeof(*data));
+  *buffer += 10 * sizeof(*data);
+  return 0;
+}
+
+/* === t_or_t3d_att_cov ================================================= */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_att_cov(void)
+{
+  return sizeof(or_t3d_att_cov);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_att_cov(const or_t3d_att_cov *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_t3d_att_cov(char **buffer, const or_t3d_att_cov *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_t3d_att_cov(char **buffer, ssize_t *size,
+  or_t3d_att_cov *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_att_cov ======================================== */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_att_cov(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_att_cov);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_att_cov(const optional_or_t3d_att_cov *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_att_cov(char **buffer, const optional_or_t3d_att_cov *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_att_cov(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_att_cov(char **buffer, ssize_t *size,
+  optional_or_t3d_att_cov *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_att_cov(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === array12_double =================================================== */
+
+static __inline__ size_t
+genom_maxserialen_array12_double(void)
+{
+  return 12 * sizeof(double);
+}
+
+static __inline__ size_t
+genom_serialen_array12_double(const double data[12])
+{
+  return 12 * sizeof(*data);
+}
+
+static __inline__ void
+genom_serialize_array12_double(char **buffer, const double data[12])
+{
+  memcpy(*buffer, data, 12 * sizeof(*data));
+  *buffer += 12 * sizeof(*data);
+}
+
+static __inline__ int
+genom_deserialize_array12_double(char **buffer, ssize_t *size,
+  double data[12])
+{
+  if (*size != -1) {
+    *size -= 12 * sizeof(*data);
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(data, *buffer, 12 * sizeof(*data));
+  *buffer += 12 * sizeof(*data);
+  return 0;
+}
+
+/* === t_or_t3d_att_pos_cov ============================================= */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_att_pos_cov(void)
+{
+  return sizeof(or_t3d_att_pos_cov);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_att_pos_cov(const or_t3d_att_pos_cov *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_t3d_att_pos_cov(char **buffer, const or_t3d_att_pos_cov *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_t3d_att_pos_cov(char **buffer, ssize_t *size,
+  or_t3d_att_pos_cov *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_att_pos_cov ==================================== */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_att_pos_cov(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_att_pos_cov);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_att_pos_cov(const optional_or_t3d_att_pos_cov *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_att_pos_cov(char **buffer, const optional_or_t3d_att_pos_cov *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_att_pos_cov(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_att_pos_cov(char **buffer, ssize_t *size,
+  optional_or_t3d_att_pos_cov *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_att_pos_cov(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === t_or_t3d_vel_cov ================================================= */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_vel_cov(void)
+{
+  return sizeof(or_t3d_vel_cov);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_vel_cov(const or_t3d_vel_cov *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_t3d_vel_cov(char **buffer, const or_t3d_vel_cov *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_t3d_vel_cov(char **buffer, ssize_t *size,
+  or_t3d_vel_cov *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_vel_cov ======================================== */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_vel_cov(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_vel_cov);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_vel_cov(const optional_or_t3d_vel_cov *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_vel_cov(char **buffer, const optional_or_t3d_vel_cov *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_vel_cov(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_vel_cov(char **buffer, ssize_t *size,
+  optional_or_t3d_vel_cov *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_vel_cov(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === t_or_t3d_avel_cov ================================================ */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_avel_cov(void)
+{
+  return sizeof(or_t3d_avel_cov);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_avel_cov(const or_t3d_avel_cov *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_t3d_avel_cov(char **buffer, const or_t3d_avel_cov *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_t3d_avel_cov(char **buffer, ssize_t *size,
+  or_t3d_avel_cov *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_avel_cov ======================================= */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_avel_cov(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_avel_cov);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_avel_cov(const optional_or_t3d_avel_cov *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_avel_cov(char **buffer, const optional_or_t3d_avel_cov *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_avel_cov(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_avel_cov(char **buffer, ssize_t *size,
+  optional_or_t3d_avel_cov *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_avel_cov(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === t_or_t3d_acc_cov ================================================= */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_acc_cov(void)
+{
+  return sizeof(or_t3d_acc_cov);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_acc_cov(const or_t3d_acc_cov *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_t3d_acc_cov(char **buffer, const or_t3d_acc_cov *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_t3d_acc_cov(char **buffer, ssize_t *size,
+  or_t3d_acc_cov *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_acc_cov ======================================== */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_acc_cov(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_acc_cov);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_acc_cov(const optional_or_t3d_acc_cov *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_acc_cov(char **buffer, const optional_or_t3d_acc_cov *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_acc_cov(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_acc_cov(char **buffer, ssize_t *size,
+  optional_or_t3d_acc_cov *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_acc_cov(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === t_or_t3d_aacc_cov ================================================ */
+
+static __inline__ size_t
+genom_maxserialen_t_or_t3d_aacc_cov(void)
+{
+  return sizeof(or_t3d_aacc_cov);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_t3d_aacc_cov(const or_t3d_aacc_cov *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_t3d_aacc_cov(char **buffer, const or_t3d_aacc_cov *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_t3d_aacc_cov(char **buffer, ssize_t *size,
+  or_t3d_aacc_cov *data)
+{
+  if (*size != -1) {
+    *size -= sizeof(*(data));
+    if (*size < 0) return ENOMSG;
+  }
+  memcpy(&(*(data)), *buffer,
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+  return 0;
+}
+
+/* === optional_t_or_t3d_aacc_cov ======================================= */
+
+static __inline__ size_t
+genom_maxserialen_optional_t_or_t3d_aacc_cov(void)
+{
+  return sizeof(uint32_t) + sizeof(or_t3d_aacc_cov);
+}
+
+static __inline__ size_t
+genom_serialen_optional_t_or_t3d_aacc_cov(const optional_or_t3d_aacc_cov *data)
+{
+  return sizeof(uint32_t) + (data->_present?1:0) * sizeof(data->_value);
+}
+
+static __inline__ void
+genom_serialize_optional_t_or_t3d_aacc_cov(char **buffer, const optional_or_t3d_aacc_cov *data)
+{
+  uint32_t p = data->_present ? 1 : 0;
+  memcpy(*buffer, &p, sizeof(p));
+  *buffer += sizeof(p);
+  if (p)
+    genom_serialize_t_or_t3d_aacc_cov(
+      buffer, &(data->_value));
+}
+
+static __inline__ int
+genom_deserialize_optional_t_or_t3d_aacc_cov(char **buffer, ssize_t *size,
+  optional_or_t3d_aacc_cov *data)
+{
+  uint32_t p;
+  if (*size != -1) {
+    *size -= sizeof(p);
+    if (*size < 0) return ENOMSG;
+  }
+  p = *(uint32_t *)*buffer;
+  *buffer += sizeof(p);
+  data->_present = p?1:0;
+  if (data->_present)
+    genom_deserialize_t_or_t3d_aacc_cov(
+      buffer, size, &(data->_value));
+  return 0;
+}
+
+/* === t_or_pose_estimator_state ======================================== */
+
+static __inline__ size_t
+genom_maxserialen_t_or_pose_estimator_state(void)
+{
+  return sizeof(or_pose_estimator_state);
+}
+
+static __inline__ size_t
+genom_serialen_t_or_pose_estimator_state(const or_pose_estimator_state *data)
+{
+  return sizeof(*(data));
+}
+
+static __inline__ void
+genom_serialize_t_or_pose_estimator_state(char **buffer, const or_pose_estimator_state *data)
+{
+  memcpy(*buffer, &(*(data)),
+         sizeof(*(data)));
+  *buffer += sizeof(*(data));
+}
+
+static __inline__ int
+genom_deserialize_t_or_pose_estimator_state(char **buffer, ssize_t *size,
+  or_pose_estimator_state *data)
 {
   if (*size != -1) {
     *size -= sizeof(*(data));

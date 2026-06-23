@@ -1,11 +1,13 @@
 #pragma require "openrobots2-idl >= 2.0"
 
+#include "or/pose/pose_estimator.gen"
 #include "bayes_struct.idl"
 
 component bayes_opt {
   version "0.9";
   lang "c";
   require "genom3 >= 2.99.26";
+  uses	or_pose_estimator;
 
   exception e_sys { short code; string<128> what; };
 
@@ -22,7 +24,7 @@ component bayes_opt {
 
   /* ---------------- PORTS ---------------- */
 
-  port in bayes_opt::pose_sample measure;
+  port in or_pose_estimator::state measure;
   port in bayes_opt::control allow;
 
   port out bayes_opt::suggestion params;

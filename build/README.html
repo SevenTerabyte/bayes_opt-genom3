@@ -467,7 +467,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Data structure</div>
 <ul class="disc">
 <li>
-<p><code>struct ::bayes_opt::pose_sample</code> <code>measure</code></p>
+<p><code>struct ::or_pose_estimator::state</code> <code>measure</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>struct ::or::time::ts</code> <code>ts</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>long</code> <code>sec</code></p>
+</li>
+<li>
+<p><code>long</code> <code>nsec</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>boolean</code> <code>intrinsic</code></p>
+</li>
+<li>
+<p><code>optional&lt; struct ::or::t3d::pos &gt;</code> <code>pos</code></p>
 <div class="ulist">
 <ul>
 <li>
@@ -479,6 +499,32 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p><code>double</code> <code>z</code></p>
 </li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>optional&lt; struct ::or::t3d::att &gt;</code> <code>att</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code> <code>qw</code></p>
+</li>
+<li>
+<p><code>double</code> <code>qx</code></p>
+</li>
+<li>
+<p><code>double</code> <code>qy</code></p>
+</li>
+<li>
+<p><code>double</code> <code>qz</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>optional&lt; struct ::or::t3d::vel &gt;</code> <code>vel</code></p>
+<div class="ulist">
+<ul>
 <li>
 <p><code>double</code> <code>vx</code></p>
 </li>
@@ -488,8 +534,126 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p><code>double</code> <code>vz</code></p>
 </li>
+</ul>
+</div>
+</li>
 <li>
-<p><code>boolean</code> <code>valid</code></p>
+<p><code>optional&lt; struct ::or::t3d::avel &gt;</code> <code>avel</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code> <code>wx</code></p>
+</li>
+<li>
+<p><code>double</code> <code>wy</code></p>
+</li>
+<li>
+<p><code>double</code> <code>wz</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>optional&lt; struct ::or::t3d::acc &gt;</code> <code>acc</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code> <code>ax</code></p>
+</li>
+<li>
+<p><code>double</code> <code>ay</code></p>
+</li>
+<li>
+<p><code>double</code> <code>az</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>optional&lt; struct ::or::t3d::aacc &gt;</code> <code>aacc</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code> <code>awx</code></p>
+</li>
+<li>
+<p><code>double</code> <code>awy</code></p>
+</li>
+<li>
+<p><code>double</code> <code>awz</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>optional&lt; struct ::or::t3d::pos_cov &gt;</code> <code>pos_cov</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code> <code>cov[6]</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>optional&lt; struct ::or::t3d::att_cov &gt;</code> <code>att_cov</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code> <code>cov[10]</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>optional&lt; struct ::or::t3d::att_pos_cov &gt;</code> <code>att_pos_cov</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code> <code>cov[12]</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>optional&lt; struct ::or::t3d::vel_cov &gt;</code> <code>vel_cov</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code> <code>cov[6]</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>optional&lt; struct ::or::t3d::avel_cov &gt;</code> <code>avel_cov</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code> <code>cov[6]</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>optional&lt; struct ::or::t3d::acc_cov &gt;</code> <code>acc_cov</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code> <code>cov[6]</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>optional&lt; struct ::or::t3d::aacc_cov &gt;</code> <code>aacc_cov</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code> <code>cov[6]</code></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -971,7 +1135,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-19 17:18:35 +0100
+Last updated 2026-06-23 13:52:16 +0100
 </div>
 </div>
 </body>

@@ -100,14 +100,14 @@ genom_bayes_opt_client_init(int argc, char *argv[],
   state = genom_bayes_opt_client_genom_state_data(h);
   if (!state) goto error;
 
-  if (strcmp(state->digest, "2b2e2ac50ff7e4b859cb72b47f36c42")) {
+  if (strcmp(state->digest, "50bfad7987fc354e3c9b648567fdf05e")) {
     genom_incompatible_digest_detail d;
     strcpy(d.server.version, state->version);
     strcpy(d.server.date, state->date);
     snprintf(d.client.version, sizeof(d.client.version), "%s",
              "bayes_opt-0.9");
     snprintf(d.client.date, sizeof(d.client.date), "%s",
-             "Mon Jun 22 14:35:20 BST 2026");
+             "Tue Jun 23 13:58:48 BST 2026");
     genom_incompatible_digest(&d, &h->context);
     goto error;
   }
@@ -532,7 +532,7 @@ static const struct genom_port_info genom_port_info[] = {
 static const struct genom_pub_info genom_pub_info[] = {
   {
     .name = "measure",
-    .datatype = "{ \"measure\":{ \"kind\":\"struct\",\"type\":{ \"x\":{ \"kind\":\"double\" },\"y\":{ \"kind\":\"double\" },\"z\":{ \"kind\":\"double\" },\"vx\":{ \"kind\":\"double\" },\"vy\":{ \"kind\":\"double\" },\"vz\":{ \"kind\":\"double\" },\"valid\":{ \"kind\":\"boolean\" } } } }",
+    .datatype = "{ \"measure\":{ \"kind\":\"struct\",\"type\":{ \"ts\":{ \"kind\":\"struct\",\"type\":{ \"sec\":{ \"kind\":\"long\" },\"nsec\":{ \"kind\":\"long\" } } },\"intrinsic\":{ \"kind\":\"boolean\" },\"pos\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"x\":{ \"kind\":\"double\" },\"y\":{ \"kind\":\"double\" },\"z\":{ \"kind\":\"double\" } } } },\"att\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"qw\":{ \"kind\":\"double\" },\"qx\":{ \"kind\":\"double\" },\"qy\":{ \"kind\":\"double\" },\"qz\":{ \"kind\":\"double\" } } } },\"vel\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"vx\":{ \"kind\":\"double\" },\"vy\":{ \"kind\":\"double\" },\"vz\":{ \"kind\":\"double\" } } } },\"avel\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"wx\":{ \"kind\":\"double\" },\"wy\":{ \"kind\":\"double\" },\"wz\":{ \"kind\":\"double\" } } } },\"acc\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"ax\":{ \"kind\":\"double\" },\"ay\":{ \"kind\":\"double\" },\"az\":{ \"kind\":\"double\" } } } },\"aacc\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"awx\":{ \"kind\":\"double\" },\"awy\":{ \"kind\":\"double\" },\"awz\":{ \"kind\":\"double\" } } } },\"pos_cov\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"cov\":{ \"kind\":\"array\",\"length\":6,\"type\":{ \"kind\":\"double\" } } } } },\"att_cov\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"cov\":{ \"kind\":\"array\",\"length\":10,\"type\":{ \"kind\":\"double\" } } } } },\"att_pos_cov\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"cov\":{ \"kind\":\"array\",\"length\":12,\"type\":{ \"kind\":\"double\" } } } } },\"vel_cov\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"cov\":{ \"kind\":\"array\",\"length\":6,\"type\":{ \"kind\":\"double\" } } } } },\"avel_cov\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"cov\":{ \"kind\":\"array\",\"length\":6,\"type\":{ \"kind\":\"double\" } } } } },\"acc_cov\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"cov\":{ \"kind\":\"array\",\"length\":6,\"type\":{ \"kind\":\"double\" } } } } },\"aacc_cov\":{ \"kind\":\"optional\",\"type\":{ \"kind\":\"struct\",\"type\":{ \"cov\":{ \"kind\":\"array\",\"length\":6,\"type\":{ \"kind\":\"double\" } } } } } } } }",
     .meta = "{}",
     .init_data =
     (genom_initfn)genom_bayes_opt_client_measure_init_data,
@@ -548,7 +548,7 @@ static const struct genom_pub_info genom_pub_info[] = {
     (genom_port_multiple_datafn)genom_bayes_opt_client_measure_data,
     .write =
     (genom_port_multiple_writefn)genom_bayes_opt_client_measure_write,
-    .data_size = sizeof(bayes_opt_pose_sample)
+    .data_size = sizeof(or_pose_estimator_state)
   },
   {
     .name = "allow",

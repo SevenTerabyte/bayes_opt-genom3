@@ -99,13 +99,20 @@ static __inline__ void	genom_tfini_t_genom_state_component(
 static __inline__ int	genom_tcopy_t_genom_state_component(
 				genom_state_component *,
 				const genom_state_component *);
-static __inline__ void	genom_tinit_double(
-				double *);
-static __inline__ void	genom_tfini_double(
-				double *);
-static __inline__ int	genom_tcopy_double(
-				double *,
-				double);
+static __inline__ void	genom_tinit_long(
+				int32_t *);
+static __inline__ void	genom_tfini_long(
+				int32_t *);
+static __inline__ int	genom_tcopy_long(
+				int32_t *,
+				int32_t);
+static __inline__ void	genom_tinit_t_or_time_ts(
+				or_time_ts *);
+static __inline__ void	genom_tfini_t_or_time_ts(
+				or_time_ts *);
+static __inline__ int	genom_tcopy_t_or_time_ts(
+				or_time_ts *,
+				const or_time_ts *);
 static __inline__ void	genom_tinit_boolean(
 				bool *);
 static __inline__ void	genom_tfini_boolean(
@@ -113,13 +120,223 @@ static __inline__ void	genom_tfini_boolean(
 static __inline__ int	genom_tcopy_boolean(
 				bool *,
 				bool);
-static __inline__ void	genom_tinit_t_bayes_opt_pose_sample(
-				bayes_opt_pose_sample *);
-static __inline__ void	genom_tfini_t_bayes_opt_pose_sample(
-				bayes_opt_pose_sample *);
-static __inline__ int	genom_tcopy_t_bayes_opt_pose_sample(
-				bayes_opt_pose_sample *,
-				const bayes_opt_pose_sample *);
+static __inline__ void	genom_tinit_double(
+				double *);
+static __inline__ void	genom_tfini_double(
+				double *);
+static __inline__ int	genom_tcopy_double(
+				double *,
+				double);
+static __inline__ void	genom_tinit_t_or_t3d_pos(
+				or_t3d_pos *);
+static __inline__ void	genom_tfini_t_or_t3d_pos(
+				or_t3d_pos *);
+static __inline__ int	genom_tcopy_t_or_t3d_pos(
+				or_t3d_pos *,
+				const or_t3d_pos *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_pos(
+				optional_or_t3d_pos *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_pos(
+				optional_or_t3d_pos *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_pos(
+				optional_or_t3d_pos *,
+				const optional_or_t3d_pos *);
+static __inline__ void	genom_tinit_t_or_t3d_att(
+				or_t3d_att *);
+static __inline__ void	genom_tfini_t_or_t3d_att(
+				or_t3d_att *);
+static __inline__ int	genom_tcopy_t_or_t3d_att(
+				or_t3d_att *,
+				const or_t3d_att *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_att(
+				optional_or_t3d_att *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_att(
+				optional_or_t3d_att *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_att(
+				optional_or_t3d_att *,
+				const optional_or_t3d_att *);
+static __inline__ void	genom_tinit_t_or_t3d_vel(
+				or_t3d_vel *);
+static __inline__ void	genom_tfini_t_or_t3d_vel(
+				or_t3d_vel *);
+static __inline__ int	genom_tcopy_t_or_t3d_vel(
+				or_t3d_vel *,
+				const or_t3d_vel *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_vel(
+				optional_or_t3d_vel *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_vel(
+				optional_or_t3d_vel *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_vel(
+				optional_or_t3d_vel *,
+				const optional_or_t3d_vel *);
+static __inline__ void	genom_tinit_t_or_t3d_avel(
+				or_t3d_avel *);
+static __inline__ void	genom_tfini_t_or_t3d_avel(
+				or_t3d_avel *);
+static __inline__ int	genom_tcopy_t_or_t3d_avel(
+				or_t3d_avel *,
+				const or_t3d_avel *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_avel(
+				optional_or_t3d_avel *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_avel(
+				optional_or_t3d_avel *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_avel(
+				optional_or_t3d_avel *,
+				const optional_or_t3d_avel *);
+static __inline__ void	genom_tinit_t_or_t3d_acc(
+				or_t3d_acc *);
+static __inline__ void	genom_tfini_t_or_t3d_acc(
+				or_t3d_acc *);
+static __inline__ int	genom_tcopy_t_or_t3d_acc(
+				or_t3d_acc *,
+				const or_t3d_acc *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_acc(
+				optional_or_t3d_acc *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_acc(
+				optional_or_t3d_acc *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_acc(
+				optional_or_t3d_acc *,
+				const optional_or_t3d_acc *);
+static __inline__ void	genom_tinit_t_or_t3d_aacc(
+				or_t3d_aacc *);
+static __inline__ void	genom_tfini_t_or_t3d_aacc(
+				or_t3d_aacc *);
+static __inline__ int	genom_tcopy_t_or_t3d_aacc(
+				or_t3d_aacc *,
+				const or_t3d_aacc *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_aacc(
+				optional_or_t3d_aacc *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_aacc(
+				optional_or_t3d_aacc *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_aacc(
+				optional_or_t3d_aacc *,
+				const optional_or_t3d_aacc *);
+static __inline__ void	genom_tinit_array6_double(
+				double [6]);
+static __inline__ void	genom_tfini_array6_double(
+				double [6]);
+static __inline__ int	genom_tcopy_array6_double(
+				double [6],
+				const double [6]);
+static __inline__ void	genom_tinit_t_or_t3d_pos_cov(
+				or_t3d_pos_cov *);
+static __inline__ void	genom_tfini_t_or_t3d_pos_cov(
+				or_t3d_pos_cov *);
+static __inline__ int	genom_tcopy_t_or_t3d_pos_cov(
+				or_t3d_pos_cov *,
+				const or_t3d_pos_cov *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_pos_cov(
+				optional_or_t3d_pos_cov *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_pos_cov(
+				optional_or_t3d_pos_cov *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_pos_cov(
+				optional_or_t3d_pos_cov *,
+				const optional_or_t3d_pos_cov *);
+static __inline__ void	genom_tinit_array10_double(
+				double [10]);
+static __inline__ void	genom_tfini_array10_double(
+				double [10]);
+static __inline__ int	genom_tcopy_array10_double(
+				double [10],
+				const double [10]);
+static __inline__ void	genom_tinit_t_or_t3d_att_cov(
+				or_t3d_att_cov *);
+static __inline__ void	genom_tfini_t_or_t3d_att_cov(
+				or_t3d_att_cov *);
+static __inline__ int	genom_tcopy_t_or_t3d_att_cov(
+				or_t3d_att_cov *,
+				const or_t3d_att_cov *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_att_cov(
+				optional_or_t3d_att_cov *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_att_cov(
+				optional_or_t3d_att_cov *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_att_cov(
+				optional_or_t3d_att_cov *,
+				const optional_or_t3d_att_cov *);
+static __inline__ void	genom_tinit_array12_double(
+				double [12]);
+static __inline__ void	genom_tfini_array12_double(
+				double [12]);
+static __inline__ int	genom_tcopy_array12_double(
+				double [12],
+				const double [12]);
+static __inline__ void	genom_tinit_t_or_t3d_att_pos_cov(
+				or_t3d_att_pos_cov *);
+static __inline__ void	genom_tfini_t_or_t3d_att_pos_cov(
+				or_t3d_att_pos_cov *);
+static __inline__ int	genom_tcopy_t_or_t3d_att_pos_cov(
+				or_t3d_att_pos_cov *,
+				const or_t3d_att_pos_cov *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_att_pos_cov(
+				optional_or_t3d_att_pos_cov *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_att_pos_cov(
+				optional_or_t3d_att_pos_cov *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_att_pos_cov(
+				optional_or_t3d_att_pos_cov *,
+				const optional_or_t3d_att_pos_cov *);
+static __inline__ void	genom_tinit_t_or_t3d_vel_cov(
+				or_t3d_vel_cov *);
+static __inline__ void	genom_tfini_t_or_t3d_vel_cov(
+				or_t3d_vel_cov *);
+static __inline__ int	genom_tcopy_t_or_t3d_vel_cov(
+				or_t3d_vel_cov *,
+				const or_t3d_vel_cov *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_vel_cov(
+				optional_or_t3d_vel_cov *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_vel_cov(
+				optional_or_t3d_vel_cov *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_vel_cov(
+				optional_or_t3d_vel_cov *,
+				const optional_or_t3d_vel_cov *);
+static __inline__ void	genom_tinit_t_or_t3d_avel_cov(
+				or_t3d_avel_cov *);
+static __inline__ void	genom_tfini_t_or_t3d_avel_cov(
+				or_t3d_avel_cov *);
+static __inline__ int	genom_tcopy_t_or_t3d_avel_cov(
+				or_t3d_avel_cov *,
+				const or_t3d_avel_cov *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_avel_cov(
+				optional_or_t3d_avel_cov *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_avel_cov(
+				optional_or_t3d_avel_cov *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_avel_cov(
+				optional_or_t3d_avel_cov *,
+				const optional_or_t3d_avel_cov *);
+static __inline__ void	genom_tinit_t_or_t3d_acc_cov(
+				or_t3d_acc_cov *);
+static __inline__ void	genom_tfini_t_or_t3d_acc_cov(
+				or_t3d_acc_cov *);
+static __inline__ int	genom_tcopy_t_or_t3d_acc_cov(
+				or_t3d_acc_cov *,
+				const or_t3d_acc_cov *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_acc_cov(
+				optional_or_t3d_acc_cov *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_acc_cov(
+				optional_or_t3d_acc_cov *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_acc_cov(
+				optional_or_t3d_acc_cov *,
+				const optional_or_t3d_acc_cov *);
+static __inline__ void	genom_tinit_t_or_t3d_aacc_cov(
+				or_t3d_aacc_cov *);
+static __inline__ void	genom_tfini_t_or_t3d_aacc_cov(
+				or_t3d_aacc_cov *);
+static __inline__ int	genom_tcopy_t_or_t3d_aacc_cov(
+				or_t3d_aacc_cov *,
+				const or_t3d_aacc_cov *);
+static __inline__ void	genom_tinit_optional_t_or_t3d_aacc_cov(
+				optional_or_t3d_aacc_cov *);
+static __inline__ void	genom_tfini_optional_t_or_t3d_aacc_cov(
+				optional_or_t3d_aacc_cov *);
+static __inline__ int	genom_tcopy_optional_t_or_t3d_aacc_cov(
+				optional_or_t3d_aacc_cov *,
+				const optional_or_t3d_aacc_cov *);
+static __inline__ void	genom_tinit_t_or_pose_estimator_state(
+				or_pose_estimator_state *);
+static __inline__ void	genom_tfini_t_or_pose_estimator_state(
+				or_pose_estimator_state *);
+static __inline__ int	genom_tcopy_t_or_pose_estimator_state(
+				or_pose_estimator_state *,
+				const or_pose_estimator_state *);
 static __inline__ void	genom_tinit_t_bayes_opt_control(
 				bayes_opt_control *);
 static __inline__ void	genom_tfini_t_bayes_opt_control(
@@ -134,13 +351,6 @@ static __inline__ void	genom_tfini_array5_double(
 static __inline__ int	genom_tcopy_array5_double(
 				double [5],
 				const double [5]);
-static __inline__ void	genom_tinit_long(
-				int32_t *);
-static __inline__ void	genom_tfini_long(
-				int32_t *);
-static __inline__ int	genom_tcopy_long(
-				int32_t *,
-				int32_t);
 static __inline__ void	genom_tinit_t_bayes_opt_suggestion(
 				bayes_opt_suggestion *);
 static __inline__ void	genom_tfini_t_bayes_opt_suggestion(
@@ -737,25 +947,50 @@ genom_tcopy_t_genom_state_component(genom_state_component *dst,
 }
 
 
-/* === double =========================================================== */
+/* === long ============================================================= */
 
 static __inline__ void
-genom_tinit_double(double *data)
+genom_tinit_long(int32_t *data)
 {
   (void)data; /* fix -Wunused-parameter */
 }
 
 static __inline__ void
-genom_tfini_double(double *data)
+genom_tfini_long(int32_t *data)
 {
   (void)data; /* fix -Wunused-parameter */
 }
 
 static __inline__ int
-genom_tcopy_double(double *dst,
-  double src)
+genom_tcopy_long(int32_t *dst,
+  int32_t src)
 {
   *(dst) = src;
+  return 0;
+}
+
+
+/* === t_or_time_ts ===================================================== */
+
+static __inline__ void
+genom_tinit_t_or_time_ts(or_time_ts *data)
+{
+  genom_tinit_long(&(data->sec));
+  genom_tinit_long(&(data->nsec));
+}
+
+static __inline__ void
+genom_tfini_t_or_time_ts(or_time_ts *data)
+{
+  genom_tfini_long(&(data->sec));
+  genom_tfini_long(&(data->nsec));
+}
+
+static __inline__ int
+genom_tcopy_t_or_time_ts(or_time_ts *dst,
+  const or_time_ts *src)
+{
+  memcpy(dst, src, sizeof(or_time_ts));
   return 0;
 }
 
@@ -783,37 +1018,839 @@ genom_tcopy_boolean(bool *dst,
 }
 
 
-/* === t_bayes_opt_pose_sample ========================================== */
+/* === double =========================================================== */
 
 static __inline__ void
-genom_tinit_t_bayes_opt_pose_sample(bayes_opt_pose_sample *data)
+genom_tinit_double(double *data)
+{
+  (void)data; /* fix -Wunused-parameter */
+}
+
+static __inline__ void
+genom_tfini_double(double *data)
+{
+  (void)data; /* fix -Wunused-parameter */
+}
+
+static __inline__ int
+genom_tcopy_double(double *dst,
+  double src)
+{
+  *(dst) = src;
+  return 0;
+}
+
+
+/* === t_or_t3d_pos ===================================================== */
+
+static __inline__ void
+genom_tinit_t_or_t3d_pos(or_t3d_pos *data)
 {
   genom_tinit_double(&(data->x));
   genom_tinit_double(&(data->y));
   genom_tinit_double(&(data->z));
-  genom_tinit_double(&(data->vx));
-  genom_tinit_double(&(data->vy));
-  genom_tinit_double(&(data->vz));
-  genom_tinit_boolean(&(data->valid));
 }
 
 static __inline__ void
-genom_tfini_t_bayes_opt_pose_sample(bayes_opt_pose_sample *data)
+genom_tfini_t_or_t3d_pos(or_t3d_pos *data)
 {
   genom_tfini_double(&(data->x));
   genom_tfini_double(&(data->y));
   genom_tfini_double(&(data->z));
-  genom_tfini_double(&(data->vx));
-  genom_tfini_double(&(data->vy));
-  genom_tfini_double(&(data->vz));
-  genom_tfini_boolean(&(data->valid));
 }
 
 static __inline__ int
-genom_tcopy_t_bayes_opt_pose_sample(bayes_opt_pose_sample *dst,
-  const bayes_opt_pose_sample *src)
+genom_tcopy_t_or_t3d_pos(or_t3d_pos *dst,
+  const or_t3d_pos *src)
 {
-  memcpy(dst, src, sizeof(bayes_opt_pose_sample));
+  memcpy(dst, src, sizeof(or_t3d_pos));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_pos ============================================ */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_pos(optional_or_t3d_pos *data)
+{
+  genom_tinit_t_or_t3d_pos(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_pos(optional_or_t3d_pos *data)
+{
+  genom_tfini_t_or_t3d_pos(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_pos(optional_or_t3d_pos *dst,
+  const optional_or_t3d_pos *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_pos(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === t_or_t3d_att ===================================================== */
+
+static __inline__ void
+genom_tinit_t_or_t3d_att(or_t3d_att *data)
+{
+  genom_tinit_double(&(data->qw));
+  genom_tinit_double(&(data->qx));
+  genom_tinit_double(&(data->qy));
+  genom_tinit_double(&(data->qz));
+}
+
+static __inline__ void
+genom_tfini_t_or_t3d_att(or_t3d_att *data)
+{
+  genom_tfini_double(&(data->qw));
+  genom_tfini_double(&(data->qx));
+  genom_tfini_double(&(data->qy));
+  genom_tfini_double(&(data->qz));
+}
+
+static __inline__ int
+genom_tcopy_t_or_t3d_att(or_t3d_att *dst,
+  const or_t3d_att *src)
+{
+  memcpy(dst, src, sizeof(or_t3d_att));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_att ============================================ */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_att(optional_or_t3d_att *data)
+{
+  genom_tinit_t_or_t3d_att(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_att(optional_or_t3d_att *data)
+{
+  genom_tfini_t_or_t3d_att(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_att(optional_or_t3d_att *dst,
+  const optional_or_t3d_att *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_att(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === t_or_t3d_vel ===================================================== */
+
+static __inline__ void
+genom_tinit_t_or_t3d_vel(or_t3d_vel *data)
+{
+  genom_tinit_double(&(data->vx));
+  genom_tinit_double(&(data->vy));
+  genom_tinit_double(&(data->vz));
+}
+
+static __inline__ void
+genom_tfini_t_or_t3d_vel(or_t3d_vel *data)
+{
+  genom_tfini_double(&(data->vx));
+  genom_tfini_double(&(data->vy));
+  genom_tfini_double(&(data->vz));
+}
+
+static __inline__ int
+genom_tcopy_t_or_t3d_vel(or_t3d_vel *dst,
+  const or_t3d_vel *src)
+{
+  memcpy(dst, src, sizeof(or_t3d_vel));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_vel ============================================ */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_vel(optional_or_t3d_vel *data)
+{
+  genom_tinit_t_or_t3d_vel(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_vel(optional_or_t3d_vel *data)
+{
+  genom_tfini_t_or_t3d_vel(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_vel(optional_or_t3d_vel *dst,
+  const optional_or_t3d_vel *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_vel(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === t_or_t3d_avel ==================================================== */
+
+static __inline__ void
+genom_tinit_t_or_t3d_avel(or_t3d_avel *data)
+{
+  genom_tinit_double(&(data->wx));
+  genom_tinit_double(&(data->wy));
+  genom_tinit_double(&(data->wz));
+}
+
+static __inline__ void
+genom_tfini_t_or_t3d_avel(or_t3d_avel *data)
+{
+  genom_tfini_double(&(data->wx));
+  genom_tfini_double(&(data->wy));
+  genom_tfini_double(&(data->wz));
+}
+
+static __inline__ int
+genom_tcopy_t_or_t3d_avel(or_t3d_avel *dst,
+  const or_t3d_avel *src)
+{
+  memcpy(dst, src, sizeof(or_t3d_avel));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_avel =========================================== */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_avel(optional_or_t3d_avel *data)
+{
+  genom_tinit_t_or_t3d_avel(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_avel(optional_or_t3d_avel *data)
+{
+  genom_tfini_t_or_t3d_avel(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_avel(optional_or_t3d_avel *dst,
+  const optional_or_t3d_avel *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_avel(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === t_or_t3d_acc ===================================================== */
+
+static __inline__ void
+genom_tinit_t_or_t3d_acc(or_t3d_acc *data)
+{
+  genom_tinit_double(&(data->ax));
+  genom_tinit_double(&(data->ay));
+  genom_tinit_double(&(data->az));
+}
+
+static __inline__ void
+genom_tfini_t_or_t3d_acc(or_t3d_acc *data)
+{
+  genom_tfini_double(&(data->ax));
+  genom_tfini_double(&(data->ay));
+  genom_tfini_double(&(data->az));
+}
+
+static __inline__ int
+genom_tcopy_t_or_t3d_acc(or_t3d_acc *dst,
+  const or_t3d_acc *src)
+{
+  memcpy(dst, src, sizeof(or_t3d_acc));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_acc ============================================ */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_acc(optional_or_t3d_acc *data)
+{
+  genom_tinit_t_or_t3d_acc(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_acc(optional_or_t3d_acc *data)
+{
+  genom_tfini_t_or_t3d_acc(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_acc(optional_or_t3d_acc *dst,
+  const optional_or_t3d_acc *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_acc(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === t_or_t3d_aacc ==================================================== */
+
+static __inline__ void
+genom_tinit_t_or_t3d_aacc(or_t3d_aacc *data)
+{
+  genom_tinit_double(&(data->awx));
+  genom_tinit_double(&(data->awy));
+  genom_tinit_double(&(data->awz));
+}
+
+static __inline__ void
+genom_tfini_t_or_t3d_aacc(or_t3d_aacc *data)
+{
+  genom_tfini_double(&(data->awx));
+  genom_tfini_double(&(data->awy));
+  genom_tfini_double(&(data->awz));
+}
+
+static __inline__ int
+genom_tcopy_t_or_t3d_aacc(or_t3d_aacc *dst,
+  const or_t3d_aacc *src)
+{
+  memcpy(dst, src, sizeof(or_t3d_aacc));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_aacc =========================================== */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_aacc(optional_or_t3d_aacc *data)
+{
+  genom_tinit_t_or_t3d_aacc(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_aacc(optional_or_t3d_aacc *data)
+{
+  genom_tfini_t_or_t3d_aacc(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_aacc(optional_or_t3d_aacc *dst,
+  const optional_or_t3d_aacc *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_aacc(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === array6_double ==================================================== */
+
+static __inline__ void
+genom_tinit_array6_double(double data[6])
+{
+  uint32_t i;
+  for (i=0; i<6; i++)
+    genom_tinit_double(
+      &(data[i]));
+}
+
+static __inline__ void
+genom_tfini_array6_double(double data[6])
+{
+  uint32_t i;
+  for (i=0; i<6; i++)
+    genom_tfini_double(
+      &(data[i]));
+}
+
+static __inline__ int
+genom_tcopy_array6_double(double dst[6],
+  const double src[6])
+{
+  memcpy(dst, src, 6 * sizeof(*src));
+  return 0;
+}
+
+
+/* === t_or_t3d_pos_cov ================================================= */
+
+static __inline__ void
+genom_tinit_t_or_t3d_pos_cov(or_t3d_pos_cov *data)
+{
+  genom_tinit_array6_double(data->cov);
+}
+
+static __inline__ void
+genom_tfini_t_or_t3d_pos_cov(or_t3d_pos_cov *data)
+{
+  genom_tfini_array6_double(data->cov);
+}
+
+static __inline__ int
+genom_tcopy_t_or_t3d_pos_cov(or_t3d_pos_cov *dst,
+  const or_t3d_pos_cov *src)
+{
+  memcpy(dst, src, sizeof(or_t3d_pos_cov));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_pos_cov ======================================== */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_pos_cov(optional_or_t3d_pos_cov *data)
+{
+  genom_tinit_t_or_t3d_pos_cov(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_pos_cov(optional_or_t3d_pos_cov *data)
+{
+  genom_tfini_t_or_t3d_pos_cov(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_pos_cov(optional_or_t3d_pos_cov *dst,
+  const optional_or_t3d_pos_cov *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_pos_cov(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === array10_double =================================================== */
+
+static __inline__ void
+genom_tinit_array10_double(double data[10])
+{
+  uint32_t i;
+  for (i=0; i<10; i++)
+    genom_tinit_double(
+      &(data[i]));
+}
+
+static __inline__ void
+genom_tfini_array10_double(double data[10])
+{
+  uint32_t i;
+  for (i=0; i<10; i++)
+    genom_tfini_double(
+      &(data[i]));
+}
+
+static __inline__ int
+genom_tcopy_array10_double(double dst[10],
+  const double src[10])
+{
+  memcpy(dst, src, 10 * sizeof(*src));
+  return 0;
+}
+
+
+/* === t_or_t3d_att_cov ================================================= */
+
+static __inline__ void
+genom_tinit_t_or_t3d_att_cov(or_t3d_att_cov *data)
+{
+  genom_tinit_array10_double(data->cov);
+}
+
+static __inline__ void
+genom_tfini_t_or_t3d_att_cov(or_t3d_att_cov *data)
+{
+  genom_tfini_array10_double(data->cov);
+}
+
+static __inline__ int
+genom_tcopy_t_or_t3d_att_cov(or_t3d_att_cov *dst,
+  const or_t3d_att_cov *src)
+{
+  memcpy(dst, src, sizeof(or_t3d_att_cov));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_att_cov ======================================== */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_att_cov(optional_or_t3d_att_cov *data)
+{
+  genom_tinit_t_or_t3d_att_cov(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_att_cov(optional_or_t3d_att_cov *data)
+{
+  genom_tfini_t_or_t3d_att_cov(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_att_cov(optional_or_t3d_att_cov *dst,
+  const optional_or_t3d_att_cov *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_att_cov(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === array12_double =================================================== */
+
+static __inline__ void
+genom_tinit_array12_double(double data[12])
+{
+  uint32_t i;
+  for (i=0; i<12; i++)
+    genom_tinit_double(
+      &(data[i]));
+}
+
+static __inline__ void
+genom_tfini_array12_double(double data[12])
+{
+  uint32_t i;
+  for (i=0; i<12; i++)
+    genom_tfini_double(
+      &(data[i]));
+}
+
+static __inline__ int
+genom_tcopy_array12_double(double dst[12],
+  const double src[12])
+{
+  memcpy(dst, src, 12 * sizeof(*src));
+  return 0;
+}
+
+
+/* === t_or_t3d_att_pos_cov ============================================= */
+
+static __inline__ void
+genom_tinit_t_or_t3d_att_pos_cov(or_t3d_att_pos_cov *data)
+{
+  genom_tinit_array12_double(data->cov);
+}
+
+static __inline__ void
+genom_tfini_t_or_t3d_att_pos_cov(or_t3d_att_pos_cov *data)
+{
+  genom_tfini_array12_double(data->cov);
+}
+
+static __inline__ int
+genom_tcopy_t_or_t3d_att_pos_cov(or_t3d_att_pos_cov *dst,
+  const or_t3d_att_pos_cov *src)
+{
+  memcpy(dst, src, sizeof(or_t3d_att_pos_cov));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_att_pos_cov ==================================== */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_att_pos_cov(optional_or_t3d_att_pos_cov *data)
+{
+  genom_tinit_t_or_t3d_att_pos_cov(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_att_pos_cov(optional_or_t3d_att_pos_cov *data)
+{
+  genom_tfini_t_or_t3d_att_pos_cov(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_att_pos_cov(optional_or_t3d_att_pos_cov *dst,
+  const optional_or_t3d_att_pos_cov *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_att_pos_cov(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === t_or_t3d_vel_cov ================================================= */
+
+static __inline__ void
+genom_tinit_t_or_t3d_vel_cov(or_t3d_vel_cov *data)
+{
+  genom_tinit_array6_double(data->cov);
+}
+
+static __inline__ void
+genom_tfini_t_or_t3d_vel_cov(or_t3d_vel_cov *data)
+{
+  genom_tfini_array6_double(data->cov);
+}
+
+static __inline__ int
+genom_tcopy_t_or_t3d_vel_cov(or_t3d_vel_cov *dst,
+  const or_t3d_vel_cov *src)
+{
+  memcpy(dst, src, sizeof(or_t3d_vel_cov));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_vel_cov ======================================== */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_vel_cov(optional_or_t3d_vel_cov *data)
+{
+  genom_tinit_t_or_t3d_vel_cov(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_vel_cov(optional_or_t3d_vel_cov *data)
+{
+  genom_tfini_t_or_t3d_vel_cov(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_vel_cov(optional_or_t3d_vel_cov *dst,
+  const optional_or_t3d_vel_cov *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_vel_cov(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === t_or_t3d_avel_cov ================================================ */
+
+static __inline__ void
+genom_tinit_t_or_t3d_avel_cov(or_t3d_avel_cov *data)
+{
+  genom_tinit_array6_double(data->cov);
+}
+
+static __inline__ void
+genom_tfini_t_or_t3d_avel_cov(or_t3d_avel_cov *data)
+{
+  genom_tfini_array6_double(data->cov);
+}
+
+static __inline__ int
+genom_tcopy_t_or_t3d_avel_cov(or_t3d_avel_cov *dst,
+  const or_t3d_avel_cov *src)
+{
+  memcpy(dst, src, sizeof(or_t3d_avel_cov));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_avel_cov ======================================= */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_avel_cov(optional_or_t3d_avel_cov *data)
+{
+  genom_tinit_t_or_t3d_avel_cov(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_avel_cov(optional_or_t3d_avel_cov *data)
+{
+  genom_tfini_t_or_t3d_avel_cov(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_avel_cov(optional_or_t3d_avel_cov *dst,
+  const optional_or_t3d_avel_cov *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_avel_cov(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === t_or_t3d_acc_cov ================================================= */
+
+static __inline__ void
+genom_tinit_t_or_t3d_acc_cov(or_t3d_acc_cov *data)
+{
+  genom_tinit_array6_double(data->cov);
+}
+
+static __inline__ void
+genom_tfini_t_or_t3d_acc_cov(or_t3d_acc_cov *data)
+{
+  genom_tfini_array6_double(data->cov);
+}
+
+static __inline__ int
+genom_tcopy_t_or_t3d_acc_cov(or_t3d_acc_cov *dst,
+  const or_t3d_acc_cov *src)
+{
+  memcpy(dst, src, sizeof(or_t3d_acc_cov));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_acc_cov ======================================== */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_acc_cov(optional_or_t3d_acc_cov *data)
+{
+  genom_tinit_t_or_t3d_acc_cov(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_acc_cov(optional_or_t3d_acc_cov *data)
+{
+  genom_tfini_t_or_t3d_acc_cov(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_acc_cov(optional_or_t3d_acc_cov *dst,
+  const optional_or_t3d_acc_cov *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_acc_cov(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === t_or_t3d_aacc_cov ================================================ */
+
+static __inline__ void
+genom_tinit_t_or_t3d_aacc_cov(or_t3d_aacc_cov *data)
+{
+  genom_tinit_array6_double(data->cov);
+}
+
+static __inline__ void
+genom_tfini_t_or_t3d_aacc_cov(or_t3d_aacc_cov *data)
+{
+  genom_tfini_array6_double(data->cov);
+}
+
+static __inline__ int
+genom_tcopy_t_or_t3d_aacc_cov(or_t3d_aacc_cov *dst,
+  const or_t3d_aacc_cov *src)
+{
+  memcpy(dst, src, sizeof(or_t3d_aacc_cov));
+  return 0;
+}
+
+
+/* === optional_t_or_t3d_aacc_cov ======================================= */
+
+static __inline__ void
+genom_tinit_optional_t_or_t3d_aacc_cov(optional_or_t3d_aacc_cov *data)
+{
+  genom_tinit_t_or_t3d_aacc_cov(&(data->_value));
+}
+
+static __inline__ void
+genom_tfini_optional_t_or_t3d_aacc_cov(optional_or_t3d_aacc_cov *data)
+{
+  genom_tfini_t_or_t3d_aacc_cov(&(data->_value));
+}
+
+static __inline__ int
+genom_tcopy_optional_t_or_t3d_aacc_cov(optional_or_t3d_aacc_cov *dst,
+  const optional_or_t3d_aacc_cov *src)
+{
+  dst->_present = src->_present;
+  if (src->_present)
+    return genom_tcopy_t_or_t3d_aacc_cov(
+      &(dst->_value),
+      &(src->_value));
+  return 0;
+}
+
+
+/* === t_or_pose_estimator_state ======================================== */
+
+static __inline__ void
+genom_tinit_t_or_pose_estimator_state(or_pose_estimator_state *data)
+{
+  genom_tinit_t_or_time_ts(&(data->ts));
+  genom_tinit_boolean(&(data->intrinsic));
+  genom_tinit_optional_t_or_t3d_pos(&(data->pos));
+  genom_tinit_optional_t_or_t3d_att(&(data->att));
+  genom_tinit_optional_t_or_t3d_vel(&(data->vel));
+  genom_tinit_optional_t_or_t3d_avel(&(data->avel));
+  genom_tinit_optional_t_or_t3d_acc(&(data->acc));
+  genom_tinit_optional_t_or_t3d_aacc(&(data->aacc));
+  genom_tinit_optional_t_or_t3d_pos_cov(&(data->pos_cov));
+  genom_tinit_optional_t_or_t3d_att_cov(&(data->att_cov));
+  genom_tinit_optional_t_or_t3d_att_pos_cov(&(data->att_pos_cov));
+  genom_tinit_optional_t_or_t3d_vel_cov(&(data->vel_cov));
+  genom_tinit_optional_t_or_t3d_avel_cov(&(data->avel_cov));
+  genom_tinit_optional_t_or_t3d_acc_cov(&(data->acc_cov));
+  genom_tinit_optional_t_or_t3d_aacc_cov(&(data->aacc_cov));
+}
+
+static __inline__ void
+genom_tfini_t_or_pose_estimator_state(or_pose_estimator_state *data)
+{
+  genom_tfini_t_or_time_ts(&(data->ts));
+  genom_tfini_boolean(&(data->intrinsic));
+  genom_tfini_optional_t_or_t3d_pos(&(data->pos));
+  genom_tfini_optional_t_or_t3d_att(&(data->att));
+  genom_tfini_optional_t_or_t3d_vel(&(data->vel));
+  genom_tfini_optional_t_or_t3d_avel(&(data->avel));
+  genom_tfini_optional_t_or_t3d_acc(&(data->acc));
+  genom_tfini_optional_t_or_t3d_aacc(&(data->aacc));
+  genom_tfini_optional_t_or_t3d_pos_cov(&(data->pos_cov));
+  genom_tfini_optional_t_or_t3d_att_cov(&(data->att_cov));
+  genom_tfini_optional_t_or_t3d_att_pos_cov(&(data->att_pos_cov));
+  genom_tfini_optional_t_or_t3d_vel_cov(&(data->vel_cov));
+  genom_tfini_optional_t_or_t3d_avel_cov(&(data->avel_cov));
+  genom_tfini_optional_t_or_t3d_acc_cov(&(data->acc_cov));
+  genom_tfini_optional_t_or_t3d_aacc_cov(&(data->aacc_cov));
+}
+
+static __inline__ int
+genom_tcopy_t_or_pose_estimator_state(or_pose_estimator_state *dst,
+  const or_pose_estimator_state *src)
+{
+  memcpy(dst, src, sizeof(or_pose_estimator_state));
   return 0;
 }
 
@@ -866,29 +1903,6 @@ genom_tcopy_array5_double(double dst[5],
   const double src[5])
 {
   memcpy(dst, src, 5 * sizeof(*src));
-  return 0;
-}
-
-
-/* === long ============================================================= */
-
-static __inline__ void
-genom_tinit_long(int32_t *data)
-{
-  (void)data; /* fix -Wunused-parameter */
-}
-
-static __inline__ void
-genom_tfini_long(int32_t *data)
-{
-  (void)data; /* fix -Wunused-parameter */
-}
-
-static __inline__ int
-genom_tcopy_long(int32_t *dst,
-  int32_t src)
-{
-  *(dst) = src;
   return 0;
 }
 

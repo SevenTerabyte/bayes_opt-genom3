@@ -50,4 +50,3 @@ checkInitialized(const bayes_opt_state *state,
  * Throws bayes_opt_NOT_INITIALIZED, bayes_opt_NO_BEST_RESULT.
  */
 /* already defined in service AskNext validation */
-
