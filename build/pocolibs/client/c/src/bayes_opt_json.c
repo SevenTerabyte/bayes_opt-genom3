@@ -393,6 +393,38 @@ genom_bayes_opt_client_Init_json_scan(
              &(in->reference_z), &json)))
         goto done;
     } else
+    if (!strncmp(json, "reference_qw\"", 1+12)) {
+      json += 1+12;
+      json_skip_whitespace(json);
+      if (*(json++) != ':') { s = EINVAL; goto done; }
+      if ((s = json_scan_double(
+             &(in->reference_qw), &json)))
+        goto done;
+    } else
+    if (!strncmp(json, "reference_qx\"", 1+12)) {
+      json += 1+12;
+      json_skip_whitespace(json);
+      if (*(json++) != ':') { s = EINVAL; goto done; }
+      if ((s = json_scan_double(
+             &(in->reference_qx), &json)))
+        goto done;
+    } else
+    if (!strncmp(json, "reference_qy\"", 1+12)) {
+      json += 1+12;
+      json_skip_whitespace(json);
+      if (*(json++) != ':') { s = EINVAL; goto done; }
+      if ((s = json_scan_double(
+             &(in->reference_qy), &json)))
+        goto done;
+    } else
+    if (!strncmp(json, "reference_qz\"", 1+12)) {
+      json += 1+12;
+      json_skip_whitespace(json);
+      if (*(json++) != ':') { s = EINVAL; goto done; }
+      if ((s = json_scan_double(
+             &(in->reference_qz), &json)))
+        goto done;
+    } else
     { s = EINVAL; goto done; }
 
     json_skip_whitespace(json);

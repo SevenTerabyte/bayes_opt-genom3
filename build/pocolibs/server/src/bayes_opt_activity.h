@@ -204,6 +204,14 @@ genom_tinit_bayes_opt_Init_activity(
     &(a->in.reference_y));
   genom_tinit_double(
     &(a->in.reference_z));
+  genom_tinit_double(
+    &(a->in.reference_qw));
+  genom_tinit_double(
+    &(a->in.reference_qx));
+  genom_tinit_double(
+    &(a->in.reference_qy));
+  genom_tinit_double(
+    &(a->in.reference_qz));
 }
 
 /* input/output finalizer */
@@ -223,6 +231,14 @@ genom_tfini_bayes_opt_Init_activity(
     &(a->in.reference_y));
   genom_tfini_double(
     &(a->in.reference_z));
+  genom_tfini_double(
+    &(a->in.reference_qw));
+  genom_tfini_double(
+    &(a->in.reference_qx));
+  genom_tfini_double(
+    &(a->in.reference_qy));
+  genom_tfini_double(
+    &(a->in.reference_qz));
 }
 
 

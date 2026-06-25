@@ -56,11 +56,11 @@ genom_state_bayes_opt_init(struct genom_component_data *self)
   data->task._length = 1;
 
   /* automatic versioning - nice idea borrowed from ROS */
-  strncpy(data->digest, "50bfad7987fc354e3c9b648567fdf05e", sizeof(data->digest));
+  strncpy(data->digest, "e55552ec53963d6afe28555b24c0716b", sizeof(data->digest));
   snprintf(data->date, sizeof(data->date), "%s",
-           "Tue Jun 23 13:58:39 BST 2026");
+           "Thu Jun 25 02:39:52 BST 2026");
   snprintf(data->version, sizeof(data->version), "%s",
-           "bayes_opt-0.9");
+           "bayes_opt-0.10");
 
   genom_log_debug("initialized genom_state port");
   return 0;
@@ -157,7 +157,7 @@ genom_metadata_bayes_opt_init(struct genom_component_data *self)
   meta->services._buffer[5].rqstid = BAYES_OPT_Init_RQSTID;
   strncpy(meta->services._buffer[5].name, "Init", l);
   meta->services._buffer[5].name[l-1] = 0;
-  strncpy(meta->services._buffer[5].digest, "c42f8b57a47c3b30d2b75cd0e6b397f9", m);
+  strncpy(meta->services._buffer[5].digest, "c626c4302a9b4148e15c45ca4a45c3", m);
   meta->services._buffer[5].digest[m-1] = 0;
   meta->services._buffer[6].rqstid = BAYES_OPT_AskNext_RQSTID;
   strncpy(meta->services._buffer[6].name, "AskNext", l);

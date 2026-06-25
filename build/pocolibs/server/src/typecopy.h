@@ -3101,6 +3101,10 @@ genom_tinit_t_bayes_opt_state(bayes_opt_state *data)
   genom_tinit_double(&(data->reference_x));
   genom_tinit_double(&(data->reference_y));
   genom_tinit_double(&(data->reference_z));
+  genom_tinit_double(&(data->reference_qw));
+  genom_tinit_double(&(data->reference_qx));
+  genom_tinit_double(&(data->reference_qy));
+  genom_tinit_double(&(data->reference_qz));
   genom_tinit_long(&(data->sample_count));
 }
 
@@ -3120,6 +3124,10 @@ genom_tfini_t_bayes_opt_state(bayes_opt_state *data)
   genom_tfini_double(&(data->reference_x));
   genom_tfini_double(&(data->reference_y));
   genom_tfini_double(&(data->reference_z));
+  genom_tfini_double(&(data->reference_qw));
+  genom_tfini_double(&(data->reference_qx));
+  genom_tfini_double(&(data->reference_qy));
+  genom_tfini_double(&(data->reference_qz));
   genom_tfini_long(&(data->sample_count));
 }
 

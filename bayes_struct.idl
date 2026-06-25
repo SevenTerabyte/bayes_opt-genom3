@@ -6,18 +6,6 @@ module bayes_opt {
   const unsigned long MAX_PARAMS = 5;
   const unsigned long STATUS_LENGTH = 128;
 
-  struct pose_sample {
-    double x;
-    double y;
-    double z;
-
-    double vx;
-    double vy;
-    double vz;
-
-    boolean valid;
-  };
-
   struct control {
     boolean allow;
   };
@@ -58,6 +46,11 @@ module bayes_opt {
     double reference_x;
     double reference_y;
     double reference_z;
+
+    double reference_qw;
+    double reference_qx;
+    double reference_qy;
+    double reference_qz;
 
     long sample_count;
   };

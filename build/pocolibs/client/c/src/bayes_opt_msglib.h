@@ -82,6 +82,10 @@ genom_bayes_opt_max_rqst_size(void)
   s += genom_maxserialen_double();
   s += genom_maxserialen_double();
   s += genom_maxserialen_double();
+  s += genom_maxserialen_double();
+  s += genom_maxserialen_double();
+  s += genom_maxserialen_double();
+  s += genom_maxserialen_double();
   if (m < s) m = s;
 
   /* input of AskNext */

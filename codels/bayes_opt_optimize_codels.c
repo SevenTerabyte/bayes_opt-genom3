@@ -1,14 +1,240 @@
 #include "acbayes_opt.h"
-
 #include "bayes_opt_c_types.h"
 
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
+#include <arpa/inet.h>
+#include <errno.h>
 #include <float.h>
 #include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
 #include <time.h>
+#include <unistd.h>
+
+
+#define DAEMON_HOST "127.0.0.1"
+#define DAEMON_PORT 5055
+
+/*
+ * Default command used by boInit if the daemon is not already running.
+ * Adjust this path if needed.
+ */
+#define DEFAULT_DAEMON_CMD \
+  "/home/lichenjiang/Skygrip_Project/bayes_env/bin/python3 " \
+  "/home/lichenjiang/src/bayes_opt-genom3/python/optimiser_daemon.py " \
+  ">/tmp/bayes_opt_daemon.log 2>&1 &"
+
+
+/*------- Daemon interacting -----------------------------------------*/
+static int
+daemon_send_recv(const char *msg, char *reply, size_t reply_size)
+{
+  int fd = socket(AF_INET, SOCK_STREAM, 0);
+  if (fd < 0) {
+    perror("socket");
+    return -1;
+  }
+
+  struct sockaddr_in addr;
+  memset(&addr, 0, sizeof(addr));
+
+  addr.sin_family = AF_INET;
+  addr.sin_port = htons(DAEMON_PORT);
+
+  if (inet_pton(AF_INET, DAEMON_HOST, &addr.sin_addr) != 1) {
+    close(fd);
+    return -1;
+  }
+
+  if (connect(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+    close(fd);
+    return -1;
+  }
+
+  char line[2048];
+  snprintf(line, sizeof(line), "%s\n", msg);
+
+  ssize_t sent = send(fd, line, strlen(line), 0);
+  if (sent < 0) {
+    perror("send");
+    close(fd);
+    return -1;
+  }
+
+  ssize_t n = recv(fd, reply, reply_size - 1, 0);
+  if (n < 0) {
+    perror("recv");
+    close(fd);
+    return -1;
+  }
+
+  reply[n] = '\0';
+
+  /* strip trailing newline */
+  size_t len = strlen(reply);
+  while (len > 0 && (reply[len - 1] == '\n' || reply[len - 1] == '\r')) {
+    reply[len - 1] = '\0';
+    len--;
+  }
+
+  close(fd);
+  return 0;
+}
+
+static int
+daemon_start_if_needed(void)
+{
+  char reply[512];
+
+  if (daemon_send_recv("PING", reply, sizeof(reply)) == 0) {
+    if (strncmp(reply, "OK", 2) == 0) {
+      fprintf(stderr, ">>> optimizer daemon already running\n");
+      return 0;
+    }
+  }
+
+  const char *cmd = getenv("BAYES_OPT_DAEMON_CMD");
+  if (!cmd || strlen(cmd) == 0)
+    cmd = DEFAULT_DAEMON_CMD;
+
+  fprintf(stderr, ">>> starting optimizer daemon with command:\n%s\n", cmd);
+  fflush(stderr);
+
+  int ret = system(cmd);
+  if (ret == -1) {
+    fprintf(stderr, ">>> failed to launch optimizer daemon\n");
+    return -1;
+  }
+
+  for (int i = 0; i < 20; i++) {
+    usleep(100000);
+
+    if (daemon_send_recv("PING", reply, sizeof(reply)) == 0) {
+      if (strncmp(reply, "OK", 2) == 0) {
+        fprintf(stderr, ">>> optimizer daemon started\n");
+        return 0;
+      }
+    }
+  }
+
+  fprintf(stderr, ">>> optimizer daemon did not respond after launch\n");
+  return -1;
+}
+
+static int
+daemon_init_bounds(const double lower_bounds[5],
+                   const double upper_bounds[5])
+{
+  char cmd[1024];
+  char reply[512];
+
+  snprintf(cmd, sizeof(cmd),
+           "INIT %.17g %.17g %.17g %.17g %.17g %.17g %.17g %.17g %.17g %.17g",
+           lower_bounds[0], upper_bounds[0],
+           lower_bounds[1], upper_bounds[1],
+           lower_bounds[2], upper_bounds[2],
+           lower_bounds[3], upper_bounds[3],
+           lower_bounds[4], upper_bounds[4]);
+
+  fprintf(stderr, ">>> daemon init cmd: %s\n", cmd);
+  fflush(stderr);
+
+  if (daemon_send_recv(cmd, reply, sizeof(reply)) != 0)
+    return -1;
+
+  fprintf(stderr, ">>> daemon init reply: %s\n", reply);
+  fflush(stderr);
+
+  if (strncmp(reply, "OK", 2) != 0)
+    return -1;
+
+  return 0;
+}
+
+
+static int
+daemon_ask(bayes_opt_suggestion *s)
+{
+  char reply[1024];
+
+  if (daemon_send_recv("ASK", reply, sizeof(reply)) != 0)
+    return -1;
+
+  fprintf(stderr, ">>> daemon ask reply: %s\n", reply);
+  fflush(stderr);
+
+  double cf, ct, kpz, kvz, kiz;
+
+  int parsed = sscanf(reply,
+                      "PARAMS %lf %lf %lf %lf %lf",
+                      &cf, &ct, &kpz, &kvz, &kiz);
+
+  if (parsed != 5) {
+    fprintf(stderr, ">>> failed to parse daemon PARAMS reply\n");
+    return -1;
+  }
+
+  s->params[0] = cf;
+  s->params[1] = ct;
+  s->params[2] = kpz;
+  s->params[3] = kvz;
+  s->params[4] = kiz;
+
+  fprintf(stderr,
+          ">>> daemon params parsed: cf=%g ct=%g kpz=%g kvz=%g kiz=%g\n",
+          cf, ct, kpz, kvz, kiz);
+  fflush(stderr);
+
+  return 0;
+}
+
+static int
+daemon_tell(const bayes_opt_suggestion *s, double score)
+{
+  char cmd[1024];
+  char reply[1024];
+
+  snprintf(cmd, sizeof(cmd),
+           "TELL %.17g %.17g %.17g %.17g %.17g %.17g",
+           s->params[0],
+           s->params[1],
+           s->params[2],
+           s->params[3],
+           s->params[4],
+           score);
+
+  fprintf(stderr, ">>> daemon tell cmd: %s\n", cmd);
+  fflush(stderr);
+
+  if (daemon_send_recv(cmd, reply, sizeof(reply)) != 0)
+    return -1;
+
+  fprintf(stderr, ">>> daemon tell reply: %s\n", reply);
+  fflush(stderr);
+
+  if (strncmp(reply, "BEST", 4) != 0 && strncmp(reply, "OK", 2) != 0)
+    return -1;
+
+  return 0;
+}
+
+
+static int
+daemon_reset(void)
+{
+  char reply[512];
+
+  if (daemon_send_recv("RESET", reply, sizeof(reply)) != 0)
+    return -1;
+
+  fprintf(stderr, ">>> daemon reset reply: %s\n", reply);
+  fflush(stderr);
+
+  return strncmp(reply, "OK", 2) == 0 ? 0 : -1;
+}
+
 
 /* --- Task optimize ---------------------------------------------------- */
 
@@ -35,8 +261,11 @@ fill_status(bayes_opt_status_struct *s,
 genom_event
 boInit(const double lower_bounds[5], const double upper_bounds[5],
        int32_t max_iterations, double reference_x, double reference_y,
-       double reference_z, bayes_opt_state *state,
-       const bayes_opt_status *status, const genom_context self)
+       double reference_z, double reference_qw, double reference_qx,
+       double reference_qy, double reference_qz,
+       bayes_opt_state *state,
+       const bayes_opt_status *status,
+       const genom_context self)
 {
   fprintf(stderr, ">>> boInit called\n");
   fflush(stderr);
@@ -65,15 +294,27 @@ boInit(const double lower_bounds[5], const double upper_bounds[5],
   state->reference_x = reference_x;
   state->reference_y = reference_y;
   state->reference_z = reference_z;
+
+  state->reference_qw = reference_qw;
+  state->reference_qx = reference_qx;
+  state->reference_qy = reference_qy;
+  state->reference_qz = reference_qz;
+
   state->sample_count = 0;
 
-  srand((unsigned int)time(NULL));
+  if (daemon_start_if_needed() != 0) {
+    fprintf(stderr, ">>> warning: optimizer daemon not available at Init\n");
+  } else {
+    if (daemon_init_bounds(lower_bounds, upper_bounds) != 0)
+      fprintf(stderr, ">>> warning: daemon INIT failed\n");
+  }
 
-  bayes_opt_status_struct s;
-  fill_status(&s, state, "initialized");
+  bayes_opt_status_struct st;
+  fill_status(&st, state, "initialized");
 
-  /* If this function name differs, grep generated files for status_write */
-  //bayes_opt_status_write(status, &s);
+  bayes_opt_status_struct *sposter = status->data(self);
+  *sposter = st;
+  status->write(self);
 
   fprintf(stderr, ">>> boInit returning\n");
   fflush(stderr);
@@ -109,11 +350,10 @@ boProposeParams(bayes_opt_state *state,
   bayes_opt_suggestion s;
   memset(&s, 0, sizeof(s));
 
-  for (int i = 0; i < 5; i++) {
-    double r = (double)rand() / (double)RAND_MAX;
-    s.params[i] =
-      state->lower_bounds[i] +
-      r * (state->upper_bounds[i] - state->lower_bounds[i]);
+  if (daemon_ask(&s) != 0) {
+    fprintf(stderr, ">>> daemon ASK failed\n");
+    fflush(stderr);
+    return bayes_opt_OPTIMIZATION_FAILED(self);
   }
 
   s.iteration = state->current_iteration;
@@ -127,6 +367,16 @@ boProposeParams(bayes_opt_state *state,
   *poster = s;
 
   genom_event ev = params->write(self);
+  if (ev != genom_ok)
+    return ev;
+
+  bayes_opt_status_struct st;
+  fill_status(&st, state, "new parameters proposed");
+
+  bayes_opt_status_struct *sposter = status->data(self);
+  *sposter = st;
+
+  ev = status->write(self);
   if (ev != genom_ok)
     return ev;
 
@@ -170,8 +420,8 @@ boUpdateFromMeasure(const bayes_opt_measure *measure,
 
   or_pose_estimator_state *m = measure->data(self);
 
-  if (!m->pos._present) {
-    fprintf(stderr, ">>> measure has no position\n");
+  if (!m->pos._present || !m->att._present) {
+    fprintf(stderr, ">>> measure missing pos or att\n");
     fflush(stderr);
     return bayes_opt_NO_MEASUREMENT(self);
   }
@@ -180,15 +430,10 @@ boUpdateFromMeasure(const bayes_opt_measure *measure,
   double y = m->pos._value.y;
   double z = m->pos._value.z;
 
-  double vx = 0.0;
-  double vy = 0.0;
-  double vz = 0.0;
-
-  if (m->vel._present) {
-    vx = m->vel._value.vx;
-    vy = m->vel._value.vy;
-    vz = m->vel._value.vz;
-  }
+  double qw = m->att._value.qw;
+  double qx = m->att._value.qx;
+  double qy = m->att._value.qy;
+  double qz = m->att._value.qz;
 
   bool allow_update = true;
 
@@ -196,9 +441,6 @@ boUpdateFromMeasure(const bayes_opt_measure *measure,
   if (ev == genom_ok) {
     bayes_opt_control *a = allow->data(self);
     allow_update = a->allow;
-    fprintf(stderr, ">>> allow read OK: allow=%d\n", allow_update);
-  } else {
-    fprintf(stderr, ">>> allow read failed/empty, defaulting allow=true\n");
   }
 
   if (!allow_update) {
@@ -207,13 +449,33 @@ boUpdateFromMeasure(const bayes_opt_measure *measure,
     return bayes_opt_ether;
   }
 
+  double dx = x - state->reference_x;
+  double dy = y - state->reference_y;
   double dz = z - state->reference_z;
-  double vel_penalty = fabs(vz);
 
-  double score = fabs(dz) + 0.2 * vel_penalty;
+  double pos_error = sqrt(dx * dx + dy * dy + dz * dz);
+
+  double dot =
+    qw * state->reference_qw +
+    qx * state->reference_qx +
+    qy * state->reference_qy +
+    qz * state->reference_qz;
+
+  dot = fabs(dot);
+
+  if (dot > 1.0)
+    dot = 1.0;
+
+  double att_error = 2.0 * acos(dot);
+
+  double score = pos_error + 0.5 * att_error;
 
   state->current_score = score;
   state->sample_count++;
+
+  if (daemon_tell(&state->current_params, score) != 0) {
+    fprintf(stderr, ">>> warning: daemon TELL failed\n");
+  }
 
   if (score < state->best_value) {
     state->best_value = score;
@@ -246,8 +508,8 @@ boUpdateFromMeasure(const bayes_opt_measure *measure,
     return ev;
 
   fprintf(stderr,
-          ">>> measure: x=%f y=%f z=%f vx=%f vy=%f vz=%f\n",
-          x, y, z, vx, vy, vz);
+          ">>> measure: x=%f y=%f z=%f qw=%f qx=%f qy=%f qz=%f\n",
+          x, y, z, qw, qx, qy, qz);
 
   fprintf(stderr,
           ">>> score=%f, best=%f, iteration=%d, samples=%d\n",
@@ -260,6 +522,7 @@ boUpdateFromMeasure(const bayes_opt_measure *measure,
 
   return bayes_opt_ether;
 }
+
 
 
 /* --- Activity GetBest ------------------------------------------------- */
@@ -327,6 +590,8 @@ boReset(bayes_opt_state *state,
 {
   fprintf(stderr, ">>> boReset called\n");
   fflush(stderr);
+
+  daemon_reset();
 
   memset(state, 0, sizeof(*state));
   state->best_value = DBL_MAX;

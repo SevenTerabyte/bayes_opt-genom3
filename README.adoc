@@ -6,7 +6,7 @@
 
 = bayes_opt component
 
-0.9
+0.10
 :toc: left
 
 // fix default asciidoctor stylesheet issue #2407 and add hr clear rule
@@ -172,6 +172,14 @@ a|.Inputs
 
  * `double` `reference_z` (default `"1"`)
 
+ * `double` `reference_qw` (default `"1"`)
+
+ * `double` `reference_qx` (default `"0"`)
+
+ * `double` `reference_qy` (default `"0"`)
+
+ * `double` `reference_qz` (default `"0"`)
+
 a|.Throws
 [disc]
  * `exception ::bayes_opt::INVALID_BOUNDS`
@@ -186,7 +194,7 @@ a|.Context
   * Updates port `<<status>>`
 |===
 
-Initialize optimizer bounds, scoring reference position, and iteration count
+Initialize optimizer bounds, reference pose, and iteration count
 
 '''
 

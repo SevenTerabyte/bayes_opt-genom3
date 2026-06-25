@@ -284,6 +284,46 @@ genom_bayes_opt_Init_decode(
     }
     return ERROR;
   }
+  s = genom_deserialize_double(
+    &p, &len, &(in->reference_qw));
+  if (s) {
+    switch(s) {
+      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
+      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
+      default: errnoSet(S_gcomLib_NOT_A_LETTER);
+    }
+    return ERROR;
+  }
+  s = genom_deserialize_double(
+    &p, &len, &(in->reference_qx));
+  if (s) {
+    switch(s) {
+      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
+      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
+      default: errnoSet(S_gcomLib_NOT_A_LETTER);
+    }
+    return ERROR;
+  }
+  s = genom_deserialize_double(
+    &p, &len, &(in->reference_qy));
+  if (s) {
+    switch(s) {
+      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
+      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
+      default: errnoSet(S_gcomLib_NOT_A_LETTER);
+    }
+    return ERROR;
+  }
+  s = genom_deserialize_double(
+    &p, &len, &(in->reference_qz));
+  if (s) {
+    switch(s) {
+      case ENOMSG: errnoSet(S_gcomLib_SMALL_DATA_STR); break;
+      case ENOMEM: errnoSet(S_gcomLib_MALLOC_FAILED); break;
+      default: errnoSet(S_gcomLib_NOT_A_LETTER);
+    }
+    return ERROR;
+  }
 
   if (len != 0) {
     errnoSet(S_gcomLib_SMALL_LETTER);

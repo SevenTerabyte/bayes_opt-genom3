@@ -5,10 +5,10 @@
 # It is necessary for linking the library.
 
 # The name that we can dlopen(3).
-dlname='libbayes_opt_codels-0.9.so'
+dlname='libbayes_opt_codels-0.10.so'
 
 # Names of this library.
-library_names='libbayes_opt_codels-0.9.so libbayes_opt_codels-0.9.so libbayes_opt_codels.so'
+library_names='libbayes_opt_codels-0.10.so libbayes_opt_codels-0.10.so libbayes_opt_codels.so'
 
 # The name of the static archive.
 old_library=''

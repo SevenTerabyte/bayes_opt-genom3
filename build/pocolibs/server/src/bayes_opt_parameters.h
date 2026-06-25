@@ -92,6 +92,10 @@ struct genom_bayes_opt_Init_input {
   double reference_x;
   double reference_y;
   double reference_z;
+  double reference_qw;
+  double reference_qx;
+  double reference_qy;
+  double reference_qz;
 };
 
 /* output of Init */

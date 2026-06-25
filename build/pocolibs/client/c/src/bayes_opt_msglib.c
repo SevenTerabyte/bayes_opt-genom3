@@ -1012,6 +1012,14 @@ genom_bayes_opt_Init_encode(
     in->reference_y);
   s += genom_serialen_double(
     in->reference_z);
+  s += genom_serialen_double(
+    in->reference_qw);
+  s += genom_serialen_double(
+    in->reference_qx);
+  s += genom_serialen_double(
+    in->reference_qy);
+  s += genom_serialen_double(
+    in->reference_qz);
   if (s > maxsize) return ERROR;
 
   genom_serialize_array5_double(
@@ -1026,6 +1034,14 @@ genom_bayes_opt_Init_encode(
     &p, in->reference_y);
   genom_serialize_double(
     &p, in->reference_z);
+  genom_serialize_double(
+    &p, in->reference_qw);
+  genom_serialize_double(
+    &p, in->reference_qx);
+  genom_serialize_double(
+    &p, in->reference_qy);
+  genom_serialize_double(
+    &p, in->reference_qz);
 
   return s;
 }
@@ -1196,10 +1212,18 @@ genom_bayes_opt_client_Init_init_input(
     &(in->reference_y));
   genom_tinit_double(
     &(in->reference_z));
+  genom_tinit_double(
+    &(in->reference_qw));
+  genom_tinit_double(
+    &(in->reference_qx));
+  genom_tinit_double(
+    &(in->reference_qy));
+  genom_tinit_double(
+    &(in->reference_qz));
 
   /* set default value */
   genom_bayes_opt_client_Init_json_scan(in,
-                  "{ \"reference_x\":0,\"reference_y\":0,\"reference_z\":1 }",
+                  "{ \"reference_x\":0,\"reference_y\":0,\"reference_z\":1,\"reference_qw\":1,\"reference_qx\":0,\"reference_qy\":0,\"reference_qz\":0 }",
                   NULL);
 }
 
@@ -1226,6 +1250,14 @@ genom_bayes_opt_client_Init_fini_input(
     &(in->reference_y));
   genom_tfini_double(
     &(in->reference_z));
+  genom_tfini_double(
+    &(in->reference_qw));
+  genom_tfini_double(
+    &(in->reference_qx));
+  genom_tfini_double(
+    &(in->reference_qy));
+  genom_tfini_double(
+    &(in->reference_qz));
 }
 
 void

@@ -100,14 +100,14 @@ genom_bayes_opt_client_init(int argc, char *argv[],
   state = genom_bayes_opt_client_genom_state_data(h);
   if (!state) goto error;
 
-  if (strcmp(state->digest, "50bfad7987fc354e3c9b648567fdf05e")) {
+  if (strcmp(state->digest, "e55552ec53963d6afe28555b24c0716b")) {
     genom_incompatible_digest_detail d;
     strcpy(d.server.version, state->version);
     strcpy(d.server.date, state->date);
     snprintf(d.client.version, sizeof(d.client.version), "%s",
-             "bayes_opt-0.9");
+             "bayes_opt-0.10");
     snprintf(d.client.date, sizeof(d.client.date), "%s",
-             "Tue Jun 23 13:58:48 BST 2026");
+             "Thu Jun 25 02:39:59 BST 2026");
     genom_incompatible_digest(&d, &h->context);
     goto error;
   }
@@ -346,9 +346,9 @@ static const struct genom_service_info genom_service_info[] = {
   },
   {
     .name = "Init",
-    .input = "{ \"lower_bounds\":{ \"kind\":\"array\",\"length\":5,\"type\":{ \"kind\":\"double\" } },\"upper_bounds\":{ \"kind\":\"array\",\"length\":5,\"type\":{ \"kind\":\"double\" } },\"max_iterations\":{ \"kind\":\"long\" },\"reference_x\":{ \"kind\":\"double\" },\"reference_y\":{ \"kind\":\"double\" },\"reference_z\":{ \"kind\":\"double\" } }",
+    .input = "{ \"lower_bounds\":{ \"kind\":\"array\",\"length\":5,\"type\":{ \"kind\":\"double\" } },\"upper_bounds\":{ \"kind\":\"array\",\"length\":5,\"type\":{ \"kind\":\"double\" } },\"max_iterations\":{ \"kind\":\"long\" },\"reference_x\":{ \"kind\":\"double\" },\"reference_y\":{ \"kind\":\"double\" },\"reference_z\":{ \"kind\":\"double\" },\"reference_qw\":{ \"kind\":\"double\" },\"reference_qx\":{ \"kind\":\"double\" },\"reference_qy\":{ \"kind\":\"double\" },\"reference_qz\":{ \"kind\":\"double\" } }",
     .output = "{ }",
-    .meta = "{ \"reference_x\":{ \"default\":0 },\"reference_y\":{ \"default\":0 },\"reference_z\":{ \"default\":1 } }",
+    .meta = "{ \"reference_x\":{ \"default\":0 },\"reference_y\":{ \"default\":0 },\"reference_z\":{ \"default\":1 },\"reference_qw\":{ \"default\":1 },\"reference_qx\":{ \"default\":0 },\"reference_qy\":{ \"default\":0 },\"reference_qz\":{ \"default\":0 } }",
     .init_input =
     (genom_initfn)genom_bayes_opt_client_Init_init_input,
     .init_output =

@@ -59,7 +59,7 @@ bayes_opt_codel_service_Init_start(
 
     self->resources.task_optimize = boInit);
   genom_prof_start(&event);
-  s = boInit(a->in.lower_bounds, a->in.upper_bounds, a->in.max_iterations, a->in.reference_x, a->in.reference_y, a->in.reference_z, &(self->ids.state), &(self->ports.status.handle), &self->tasks.optimize.context);
+  s = boInit(a->in.lower_bounds, a->in.upper_bounds, a->in.max_iterations, a->in.reference_x, a->in.reference_y, a->in.reference_z, a->in.reference_qw, a->in.reference_qx, a->in.reference_qy, a->in.reference_qz, &(self->ids.state), &(self->ports.status.handle), &self->tasks.optimize.context);
   genom_give_resource(self, self->resources.task_optimize = NULL);
   genom_prof_leave(&event);
 

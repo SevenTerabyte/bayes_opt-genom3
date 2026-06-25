@@ -995,6 +995,10 @@ struct genom_bayes_opt_Init_input {
   double reference_x;
   double reference_y;
   double reference_z;
+  double reference_qw;
+  double reference_qx;
+  double reference_qy;
+  double reference_qz;
 };
 
 /* output of Init */
@@ -1451,16 +1455,16 @@ genom_event genom_bayes_opt_client_genom_state_port(
                    "use genom_bayes_opt_client_genom_state_read instead")));
 
 /* params */
-#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 29 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 bayes_opt_suggestion *
   genom_bayes_opt_client_params_data(
     genom_client h
   );
-#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 29 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_params_read(
   genom_client h,
   bayes_opt_suggestion *data);
-#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 29 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_params_port(
   genom_client h,
   bayes_opt_suggestion *data)
@@ -1468,16 +1472,16 @@ genom_event genom_bayes_opt_client_params_port(
                    "use genom_bayes_opt_client_params_read instead")));
 
 /* best_result */
-#line 31 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 bayes_opt_best *
   genom_bayes_opt_client_best_result_data(
     genom_client h
   );
-#line 31 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_best_result_read(
   genom_client h,
   bayes_opt_best *data);
-#line 31 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 30 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_best_result_port(
   genom_client h,
   bayes_opt_best *data)
@@ -1485,16 +1489,16 @@ genom_event genom_bayes_opt_client_best_result_port(
                    "use genom_bayes_opt_client_best_result_read instead")));
 
 /* status */
-#line 32 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 31 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 bayes_opt_status_struct *
   genom_bayes_opt_client_status_data(
     genom_client h
   );
-#line 32 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 31 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_status_read(
   genom_client h,
   bayes_opt_status_struct *data);
-#line 32 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 31 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_status_port(
   genom_client h,
   bayes_opt_status_struct *data)
@@ -1503,31 +1507,31 @@ genom_event genom_bayes_opt_client_status_port(
 
 
 /* measure */
-#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 26 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_measure_open(
   genom_client h, const char *path, const char **name);
-#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 26 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_measure_close(
   genom_client h, const char *name);
-#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 26 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 or_pose_estimator_state *
    genom_bayes_opt_client_measure_data(genom_client h, const char *name);
-#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 26 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_measure_write(
   genom_client h, const char *name,
   const or_pose_estimator_state *data);
 
 /* allow */
-#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_allow_open(
   genom_client h, const char *path, const char **name);
-#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_allow_close(
   genom_client h, const char *name);
-#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 bayes_opt_control *
    genom_bayes_opt_client_allow_data(genom_client h, const char *name);
-#line 28 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
+#line 27 "/home/lichenjiang/src/bayes_opt-genom3/bayes_opt.gen"
 genom_event genom_bayes_opt_client_allow_write(
   genom_client h, const char *name,
   const bayes_opt_control *data);

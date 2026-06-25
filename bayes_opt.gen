@@ -4,10 +4,11 @@
 #include "bayes_struct.idl"
 
 component bayes_opt {
-  version "0.9";
+  version "0.10";
   lang "c";
   require "genom3 >= 2.99.26";
-  uses	or_pose_estimator;
+
+  uses or_pose_estimator;
 
   exception e_sys { short code; string<128> what; };
 
@@ -22,8 +23,6 @@ component bayes_opt {
     bayes_opt::state state;
   };
 
-  /* ---------------- PORTS ---------------- */
-
   port in or_pose_estimator::state measure;
   port in bayes_opt::control allow;
 
@@ -31,17 +30,11 @@ component bayes_opt {
   port out bayes_opt::best best_result;
   port out bayes_opt::status_struct status;
 
-  /* ---------------- TASK ---------------- */
-
   task optimize {
     doc "Execution task for Bayesian optimization services";
   };
 
-  /* ---------------- FUNCTIONS ---------------- */
-
   function reset_optimizer();
-
-  /* ---------------- ACTIVITIES ---------------- */
 
   activity Init(
     in double lower_bounds[5],
@@ -49,9 +42,13 @@ component bayes_opt {
     in long max_iterations,
     in double reference_x = 0.0,
     in double reference_y = 0.0,
-    in double reference_z = 1.0)
+    in double reference_z = 1.0,
+    in double reference_qw = 1.0,
+    in double reference_qx = 0.0,
+    in double reference_qy = 0.0,
+    in double reference_qz = 0.0)
   {
-    doc "Initialize optimizer bounds, scoring reference position, and iteration count";
+    doc "Initialize optimizer bounds, reference pose, and iteration count";
 
     codel <start> boInit(
       in lower_bounds,
@@ -60,6 +57,10 @@ component bayes_opt {
       in reference_x,
       in reference_y,
       in reference_z,
+      in reference_qw,
+      in reference_qx,
+      in reference_qy,
+      in reference_qz,
       inout state,
       port out status
     ) yield ether;

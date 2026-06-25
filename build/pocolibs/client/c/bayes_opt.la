@@ -5,10 +5,10 @@
 # It is necessary for linking the library.
 
 # The name that we can dlopen(3).
-dlname='bayes_opt-0.9.so'
+dlname='bayes_opt-0.10.so'
 
 # Names of this library.
-library_names='bayes_opt-0.9.so bayes_opt-0.9.so bayes_opt.so'
+library_names='bayes_opt-0.10.so bayes_opt-0.10.so bayes_opt.so'
 
 # The name of the static archive.
 old_library=''
@@ -39,4 +39,4 @@ dlpreopen=''
 
 # Directory that this library needs to be installed in:
 libdir='/home/lichenjiang/openrobots/lib/genom/pocolibs/plugins'
-relink_command="(cd /home/lichenjiang/src/bayes_opt-genom3/build/pocolibs/client/c; /bin/bash \"/home/lichenjiang/src/bayes_opt-genom3/build/pocolibs/client/c/libtool\"  --tag CC --mode=relink gcc -g -O2 -module -release 0.9 -o bayes_opt.la -rpath /home/lichenjiang/openrobots/lib/genom/pocolibs/plugins src/bayes_opt_la-bayes_opt_plugin.lo libbayes_opt-c-client.la @inst_prefix_dir@)"
+relink_command="(cd /home/lichenjiang/src/bayes_opt-genom3/build/pocolibs/client/c; /bin/bash \"/home/lichenjiang/src/bayes_opt-genom3/build/pocolibs/client/c/libtool\"  --tag CC --mode=relink gcc -g -O2 -module -release 0.10 -o bayes_opt.la -rpath /home/lichenjiang/openrobots/lib/genom/pocolibs/plugins src/bayes_opt_la-bayes_opt_plugin.lo libbayes_opt-c-client.la @inst_prefix_dir@)"
